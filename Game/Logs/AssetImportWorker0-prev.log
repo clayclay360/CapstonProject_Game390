@@ -135,3 +135,4 @@ Received Import Request.
   path: Assets/Scenes/Clay's.unity
   artifactKey: Guid(69a0ad869165ec243b4aa7ca03150649) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Scenes/Clay's.unity using Guid(69a0ad869165ec243b4aa7ca03150649) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec2f92d5aaaa0ec1ad90ba695601bda4') in 0.014902 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
