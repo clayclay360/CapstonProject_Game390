@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Clay's.unity
+- path: Assets/Scenes/Clay's Testing Scene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
