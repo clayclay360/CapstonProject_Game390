@@ -7,52 +7,58 @@ public class PlayerController : MonoBehaviour
 
     public enum Player {PlayerOne,PlayerTwo};
     public Player player;
-    public float speed;
+    public float movingSpeed;
+    public float turningSpeed;
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(player.ToString());
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        Movement();   
+    }
+
+    private void Movement()
+    {
         if (Player.PlayerOne == player)
         {
             if (Input.GetKey(KeyCode.W))
             {
-                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                transform.Translate(Vector3.forward * movingSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.S))
             {
-                transform.Translate(Vector3.back * speed * Time.deltaTime);
+                transform.Translate(Vector3.back * movingSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                transform.Translate(Vector3.left * speed * Time.deltaTime);
+                transform.Rotate(Vector3.down * turningSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.D))
             {
-                transform.Translate(Vector3.right * speed * Time.deltaTime);
+                transform.Rotate(Vector3.up * turningSpeed * Time.deltaTime);
             }
         }
         else
         {
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                transform.Translate(Vector3.forward * movingSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                transform.Translate(Vector3.back * speed * Time.deltaTime);
+                transform.Translate(Vector3.back * movingSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.Translate(Vector3.left * speed * Time.deltaTime);
+                transform.Translate(Vector3.left * movingSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                transform.Translate(Vector3.right * speed * Time.deltaTime);
+                transform.Translate(Vector3.right * movingSpeed * Time.deltaTime);
             }
         }
     }
