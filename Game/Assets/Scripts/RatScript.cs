@@ -6,6 +6,9 @@ using UnityEngine.ProBuilder;
 
 public class RatScript : MonoBehaviour
 {
+    [Header("Variables")]
+    public GameObject body;
+
     [Header("Target")]
     public float attackRaduis;
     public GameObject Target;
@@ -27,10 +30,16 @@ public class RatScript : MonoBehaviour
     public float platformYOffset;
     public float climbCoolDown;
 
+    [Header("Attack")]
+    public float attackRate;
+    public float attackCoolDown;
+    public new Collider collider;
+
     private float distanceBetweenTarget;
     private float startHeight;
     private bool linkActivated;
     private bool climbing;
+    private bool attackReady;
 
     private NavMeshAgent agent;
     private MeshRenderer climbableTargetMesh;
@@ -40,6 +49,7 @@ public class RatScript : MonoBehaviour
     private void Awake()
     {
         startHeight = transform.position.y;
+        attackReady = true;
 
         Target = GameObject.FindGameObjectWithTag("CookBook");
         agent = GetComponent<NavMeshAgent>();
@@ -54,7 +64,6 @@ public class RatScript : MonoBehaviour
     void Update()
     {
         GetAction();
-        //RayCast();
         DistanceBetweenTarget();
     }
 
@@ -63,10 +72,16 @@ public class RatScript : MonoBehaviour
         if(Target != null)
         {
             distanceBetweenTarget = Vector3.Distance(transform.position, Target.transform.position);
+            agent.stoppingDistance = attackRaduis;
 
             if (distanceBetweenTarget > attackRaduis)
             {
                 MoveToTarget();
+            }
+            else
+            {
+                //LookAt();
+                Attack();
             }
         }
     }
@@ -97,14 +112,18 @@ public class RatScript : MonoBehaviour
 
     private void DistanceBetweenTarget()
     {
-        float distanceBetweenTarget = Vector3.Distance(transform.position, Target.transform.position);
-        
-        if(distanceBetweenTarget < climbRaduis)
+        if (Target != null)
         {
-            if(transform.position.y + platformYOffset < Target.transform.position.y)
+            float distanceBetweenTarget = Vector3.Distance(transform.position, Target.transform.position);
+
+            if (distanceBetweenTarget < climbRaduis && !climbing)
             {
-                Climb();
-                StartCoroutine(ClimbCoolDOwn());
+                if (transform.position.y + platformYOffset < Target.transform.position.y)
+                {
+                    Debug.Log("climb");
+                    Climb();
+                    StartCoroutine(ClimbCoolDOwn());
+                }
             }
         }
     }
@@ -113,14 +132,14 @@ public class RatScript : MonoBehaviour
     {
         Vector3 dir = Target.transform.position - transform.position;
         dir.Normalize();
-        startLink.position = new Vector3(transform.localPosition.x, transform.position.y - startHeight, transform.localPosition.z + startLinkOffset);
+        startLink.position = new Vector3(body.transform.position.x, body.transform.position.y - startHeight, body.transform.position.z + startLinkOffset);
         if (climbableTargetMesh != null)
         {
             endLink.position = new Vector3((dir.x + transform.localPosition.x), climbableTargetMesh.bounds.size.y + transform.position.y, (dir.z + transform.localPosition.z));
         }
         else
         {
-            endLink.position = new Vector3((dir.x + transform.localPosition.x), Target.transform.position.y + transform.position.y, (dir.z + transform.localPosition.z));
+            endLink.position = new Vector3((dir.x + body.transform.position.x), Target.transform.position.y + transform.position.y, (dir.z + body.transform.position.z));
         }
         offMeshLink.activated = true;
         climbing = true;
@@ -131,5 +150,45 @@ public class RatScript : MonoBehaviour
         yield return new WaitForSeconds(climbCoolDown);
         climbing = false;
         offMeshLink.activated = false;
+    }
+
+    private void Attack()
+    {
+        if (attackReady)
+        {
+            attackReady = false;
+            collider.enabled = true;
+            StartCoroutine(AttackRate());
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(Target.tag))
+        {
+            Debug.Log("hit");
+            collider.enabled = false;
+            switch (Target.tag)
+            {
+                case "CookBook":
+                    CookBook cookbook = other.GetComponent<CookBook>();
+                    cookbook.lives--;
+                    break;
+            }
+        }
+    }
+
+    IEnumerator AttackRate()
+    {
+        yield return new WaitForSeconds(attackRate);
+        collider.enabled = false;
+        yield return new WaitForSeconds(attackCoolDown);
+        attackReady = true;
+    }
+
+    private void LookAt()
+    {
+        Vector2 dir = Target.transform.position - transform.position;
+        transform.up = dir;
     }
 }
