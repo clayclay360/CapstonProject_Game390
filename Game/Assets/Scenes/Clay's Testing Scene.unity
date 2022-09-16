@@ -1495,7 +1495,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17520
+  m_Name: pb_Mesh17446
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1686,6 +1686,7 @@ GameObject:
   - component: {fileID: 323418774}
   - component: {fileID: 323418773}
   - component: {fileID: 323418772}
+  - component: {fileID: 323418777}
   m_Layer: 0
   m_Name: CookBook
   m_TagString: CookBook
@@ -1704,7 +1705,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 270840978}
 --- !u!33 &323418773
@@ -2342,12 +2343,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323418771}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0.5, z: 5.2000003}
+  m_LocalPosition: {x: 1.5, y: 0.5, z: 6.7000003}
   m_LocalScale: {x: 0.3, y: 0.1, z: 0.4}
   m_Children: []
   m_Father: {fileID: 1190995154}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &323418777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323418771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d2ceae58640f24c86eb542d55e748b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives: 3
 --- !u!1 &534393603
 GameObject:
   m_ObjectHideFlags: 0
@@ -5156,7 +5170,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17566
+  m_Name: pb_Mesh17492
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5448,7 +5462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001692215}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0, z: 1.5}
+  m_LocalPosition: {x: -2.5, y: 0, z: 2.25}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 812810176}
@@ -5932,7 +5946,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17540
+  m_Name: pb_Mesh17466
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6316,7 +6330,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17674
+  m_Name: pb_Mesh17600
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7041,7 +7055,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17638
+  m_Name: pb_Mesh17564
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7383,10 +7397,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRats: 0
-  maxNumberOfRats: 2
+  maxNumberOfRats: 1
   maxSpawnTime: 3
   minSpawnTime: 1
-  ratPrefab: {fileID: 5782238861253727561, guid: d18e4320281497743a808b3a6947ff72, type: 3}
+  ratPrefab: {fileID: 2429288276935618234, guid: d18e4320281497743a808b3a6947ff72, type: 3}
   ratSpawnTransform:
   - {fileID: 1135700746}
   - {fileID: 1188257144}
@@ -7396,7 +7410,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17500
+  m_Name: pb_Mesh17426
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

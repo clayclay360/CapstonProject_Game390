@@ -59,7 +59,9 @@
     <Compile Include="Assets\Scripts\RatScript.cs" />
     <Compile Include="Assets\Testing\Scripts\CameraScript.cs" />
     <Compile Include="Assets\Scripts\RatSpawnSystem.cs" />
+    <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Testing\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\CookBook.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
