@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637989552900000000
-    m_Hash: 836639542
+      ticks: 637989704100000000
+    m_Hash: 3677041361
   m_LockFileStatus:
     m_FilePath: G:/GitHub/CapstonProject_Game390/Game/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637989552900000000
-    m_Hash: 643129448
+      ticks: 637989704100000000
+    m_Hash: 1592950379
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
