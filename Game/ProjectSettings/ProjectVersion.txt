@@ -1,12 +1,2 @@
-<<<<<<< HEAD
-m_EditorVersion: 2021.3.8f1
-m_EditorVersionWithRevision: 2021.3.8f1 (b30333d56e81)
-=======
-<<<<<<< Updated upstream
-m_EditorVersion: 2020.3.8f1
-m_EditorVersionWithRevision: 2020.3.8f1 (507919d4fff5)
-=======
 m_EditorVersion: 2020.3.38f1
 m_EditorVersionWithRevision: 2020.3.38f1 (8f5fde82e2dc)
->>>>>>> Stashed changes
->>>>>>> Kyle
