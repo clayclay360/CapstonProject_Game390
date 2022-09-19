@@ -58,7 +58,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\RatScript.cs" />
     <Compile Include="Assets\Testing\Scripts\CameraScript.cs" />
+    <Compile Include="Assets\Scripts\Task.cs" />
     <Compile Include="Assets\Scripts\RatSpawnSystem.cs" />
+    <Compile Include="Assets\Scripts\TaskManager.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\CookBook.cs" />
     <Compile Include="Assets\Testing\Scripts\PlayerController.cs" />
