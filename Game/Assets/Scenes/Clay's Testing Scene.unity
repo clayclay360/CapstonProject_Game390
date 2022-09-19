@@ -6330,7 +6330,11 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_Name: pb_Mesh17600
+=======
+  m_Name: pb_Mesh17544
+>>>>>>> Kyle
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7055,7 +7059,11 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_Name: pb_Mesh17564
+=======
+  m_Name: pb_Mesh17508
+>>>>>>> Kyle
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7397,7 +7405,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRats: 0
+<<<<<<< HEAD
   maxNumberOfRats: 1
+=======
+  maxNumberOfRats: 2
+  TargetContainer: {fileID: 1190995153}
+>>>>>>> Kyle
   maxSpawnTime: 3
   minSpawnTime: 1
   ratPrefab: {fileID: 2429288276935618234, guid: d18e4320281497743a808b3a6947ff72, type: 3}
@@ -7410,7 +7423,11 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_Name: pb_Mesh17426
+=======
+  m_Name: pb_Mesh17370
+>>>>>>> Kyle
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
