@@ -12,6 +12,7 @@ public class RatScript : MonoBehaviour
     [Header("Target")]
     public float attackRaduis;
     public GameObject Target;
+    public bool objectiveComplete;
 
     [Header("RayCast")]
     public float rayDistance;
@@ -51,6 +52,7 @@ public class RatScript : MonoBehaviour
         startHeight = transform.position.y;
         attackReady = true;
 
+        //GetTarget();
         Target = GameObject.FindGameObjectWithTag("CookBook");
         agent = GetComponent<NavMeshAgent>();
         offMeshLink.GetComponent<OffMeshLink>();
@@ -64,12 +66,15 @@ public class RatScript : MonoBehaviour
     void Update()
     {
         GetAction();
+        //RayCast();
+        //Climbing
         DistanceBetweenTarget();
     }
 
     private void GetAction()
     {
-        if(Target != null)
+
+        if (Target != null)
         {
             distanceBetweenTarget = Vector3.Distance(transform.position, Target.transform.position);
             agent.stoppingDistance = attackRaduis;
@@ -95,7 +100,7 @@ public class RatScript : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Linecast(starRay.position, endRay.position,out hit))
+        if (Physics.Linecast(starRay.position, endRay.position, out hit))
         {
             if (hit.collider != null)
             {
@@ -190,5 +195,10 @@ public class RatScript : MonoBehaviour
     {
         Vector2 dir = Target.transform.position - transform.position;
         transform.up = dir;
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        Target = target;
     }
 }
