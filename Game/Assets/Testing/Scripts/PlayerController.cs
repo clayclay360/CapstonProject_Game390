@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Player player;
     public float movingSpeed;
     public float turningSpeed;
+    public Vector2 moveVal;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,48 +20,29 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Movement();   
+            transform.Translate(new Vector3(0, 0, moveVal.y) * movingSpeed * Time.deltaTime);
+            transform.Rotate(new Vector3(0, moveVal.x, 0) * turningSpeed * Time.deltaTime);
     }
 
-    private void Movement()
-    {
-        if (Player.PlayerOne == player)
-        {
-            if (Input.GetKey(KeyCode.W))
-            {
-                transform.Translate(Vector3.forward * movingSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                transform.Translate(Vector3.back * movingSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                transform.Rotate(Vector3.down * turningSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                transform.Rotate(Vector3.up * turningSpeed * Time.deltaTime);
-            }
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                transform.Translate(Vector3.forward * movingSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                transform.Translate(Vector3.back * movingSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                transform.Translate(Vector3.left * movingSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                transform.Translate(Vector3.right * movingSpeed * Time.deltaTime);
-            }
-        }
-    }
+    //    private void OnMove(InputValue value)
+    //    {
+    //        moveVal = value.Get<Vector2>();
+
+    //        if (moveVal.x > 0)
+    //        {
+    //            moveVal.x = 1;
+    //        }
+    //        else if (moveVal.x < 0)
+    //        {
+    //            moveVal.x = -1;
+    //        }
+    //        if (moveVal.y > 0)
+    //        {
+    //            moveVal.y = 1;
+    //        }
+    //        else if (moveVal.y < 0)
+    //        {
+    //            moveVal.y = -1;
+    //        }
+    //    }
 }
