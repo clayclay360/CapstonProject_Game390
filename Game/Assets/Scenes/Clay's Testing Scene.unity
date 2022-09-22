@@ -2398,6 +2398,7 @@ MonoBehaviour:
   player: 1
   movingSpeed: 5
   turningSpeed: 250
+  moveVal: {x: 0, y: 0}
 --- !u!54 &534393606
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6320,7 +6321,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh19474
+  m_Name: pb_Mesh20814
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7046,7 +7047,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh19438
+  m_Name: pb_Mesh20778
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7326,6 +7327,7 @@ MonoBehaviour:
   player: 0
   movingSpeed: 5
   turningSpeed: 250
+  moveVal: {x: 0, y: 0}
 --- !u!54 &1686090180
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7389,7 +7391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfRats: 0
   maxNumberOfRats: 2
-  TargetContainer: {fileID: 0}
+  TargetContainer: {fileID: 323418776}
   maxSpawnTime: 3
   minSpawnTime: 1
   ratPrefab: {fileID: 5782238861253727561, guid: c09f61a16260d2e44b7edc9407a3355d, type: 3}
