@@ -73,7 +73,7 @@ public class Inventory : MonoBehaviour
     }
 
     //swaps position of held items
-    void swap_hands()
+    public void swap_hands()
     {
         int temp_id = main_hand_id;
         main_hand_id = off_hand_id;
