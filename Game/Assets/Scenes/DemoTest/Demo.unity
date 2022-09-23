@@ -141,9 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
-  movingSpeed: 0
-  turningSpeed: 0
-  moveVal: {x: 0, y: 0}
+  mousePos: {x: 0, y: 0, z: 0}
 --- !u!114 &640694474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 2949b36676e4d0d4fb8d14d229626b19, type: 3}
-  m_NotificationBehavior: 3
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -171,16 +169,16 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 5e55f992a38d7f246aae3fc76d144283, type: 3}
+      - m_Target: {fileID: 640694471}
         m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: set_name
-        m_Mode: 5
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: OnMove
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: b07f5e8f-2549-4bc4-a18c-d8977be77a26
@@ -202,10 +200,10 @@ MonoBehaviour:
     m_ActionId: 072d0a3f-86b0-431e-b072-96471b77f17d
     m_ActionName: Player Controls/Swap Inventory Slots[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Player Controls
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 1107912587}
+  m_Camera: {fileID: 0}
 --- !u!1001 &758290011
 PrefabInstance:
   m_ObjectHideFlags: 0

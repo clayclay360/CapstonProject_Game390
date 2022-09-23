@@ -8,9 +8,10 @@ public class PlayerController : MonoBehaviour
 
     public enum Player {PlayerOne,PlayerTwo};
     public Player player;
-    public float movingSpeed;
-    public float turningSpeed;
-    public Vector2 moveVal;
+    private float movingSpeed = 3;
+    private float turningSpeed = 300;
+    private Vector2 moveVal;
+    public Vector3 mousePos;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,12 +21,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            transform.Translate(new Vector3(0, 0, moveVal.y) * movingSpeed * Time.deltaTime);
-            transform.Rotate(new Vector3(0, moveVal.x, 0) * turningSpeed * Time.deltaTime);
+        transform.Translate(new Vector3(moveVal.x, 0, moveVal.y) * movingSpeed * Time.deltaTime);
+        //transform.Rotate(new Vector3(0, moveVal.x, 0) * turningSpeed * Time.deltaTime);
+        //mousePos = Display.RelativeMouseAt(Input.mousePosition);
+        //transform.LookAt(mousePos);
     }
 
     public void OnMove(InputValue value)
     {
+        //Debug.Log("OnMove Called!");
         moveVal = value.Get<Vector2>();
 
         if (moveVal.x > 0)
@@ -44,5 +48,12 @@ public class PlayerController : MonoBehaviour
         {
             moveVal.y = -1;
         }
+
+        //Debug.Log(moveVal);
     }
+
+    //public void onlook(inputvalue value)
+    //{
+    //    mousepos = value.get<vector2>();
+    //}
 }
