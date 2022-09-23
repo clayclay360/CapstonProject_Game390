@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
     private float movingSpeed = 3;
     private float turningSpeed = 300;
     private Vector2 moveVal;
-    public Vector3 mousePos;
+    private Vector3 moveVec;
+    private Vector2 mousePos;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,9 +20,12 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.Translate(new Vector3(moveVal.x, 0, moveVal.y) * movingSpeed * Time.deltaTime);
+        //Movement
+        transform.position += moveVec * movingSpeed * Time.deltaTime;
+
+        //Rotation
         //transform.Rotate(new Vector3(0, moveVal.x, 0) * turningSpeed * Time.deltaTime);
         //mousePos = Display.RelativeMouseAt(Input.mousePosition);
         //transform.LookAt(mousePos);
@@ -31,29 +35,28 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("OnMove Called!");
         moveVal = value.Get<Vector2>();
+        moveVec = new Vector3(moveVal.x, 0, moveVal.y);
 
-        if (moveVal.x > 0)
-        {
-            moveVal.x = 1;
-        }
-        else if (moveVal.x < 0)
-        {
-            moveVal.x = -1;
-        }
-        if (moveVal.y > 0)
-        {
-            moveVal.y = 1;
-        }
-        else if (moveVal.y < 0)
-        {
-            moveVal.y = -1;
-        }
-
-        //Debug.Log(moveVal);
     }
 
-    //public void onlook(inputvalue value)
-    //{
-    //    mousepos = value.get<vector2>();
-    //}
+    public void OnLook(InputValue value)
+    {
+        
+        //OnLook is connected to the mouse's delta value
+        mousePos = value.Get<Vector2>();
+        //God help me
+        //Uses a raycast to make the player look towards the mouse
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+
+        if (Physics.Raycast(ray, out RaycastHit raycastHit))
+        {
+            Vector3 lookDir = raycastHit.point;
+            lookDir -= transform.position;
+            //lookDir.y = transform.rotation.y;
+            lookDir.y = 0f;
+            Debug.Log(lookDir);
+            transform.LookAt(lookDir);
+            //transform.rotation.eulerAngles.y = 0f;
+        }
+    }
 }
