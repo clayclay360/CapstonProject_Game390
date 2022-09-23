@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,25 +24,25 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(new Vector3(0, moveVal.x, 0) * turningSpeed * Time.deltaTime);
     }
 
-    //    private void OnMove(InputValue value)
-    //    {
-    //        moveVal = value.Get<Vector2>();
+    public void OnMove(InputValue value)
+    {
+        moveVal = value.Get<Vector2>();
 
-    //        if (moveVal.x > 0)
-    //        {
-    //            moveVal.x = 1;
-    //        }
-    //        else if (moveVal.x < 0)
-    //        {
-    //            moveVal.x = -1;
-    //        }
-    //        if (moveVal.y > 0)
-    //        {
-    //            moveVal.y = 1;
-    //        }
-    //        else if (moveVal.y < 0)
-    //        {
-    //            moveVal.y = -1;
-    //        }
-    //    }
+        if (moveVal.x > 0)
+        {
+            moveVal.x = 1;
+        }
+        else if (moveVal.x < 0)
+        {
+            moveVal.x = -1;
+        }
+        if (moveVal.y > 0)
+        {
+            moveVal.y = 1;
+        }
+        else if (moveVal.y < 0)
+        {
+            moveVal.y = -1;
+        }
+    }
 }
