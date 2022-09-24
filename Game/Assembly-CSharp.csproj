@@ -61,7 +61,7 @@
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Parent.cs" />
     <Compile Include="Assets\Scripts\TaskManager.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Hold.cs" />
-    <Compile Include="Assets\Interactable.cs" />
+    <Compile Include="Assets\Scripts\Interactable.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Trash.cs" />
     <Compile Include="Assets\Testing\Scripts\PlayerController.cs" />

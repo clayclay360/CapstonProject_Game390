@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class InventoryItem : Interactable
 {
-    public ItemSlot[] slot = new ItemSlot[2]; 
+    public ItemSlot[] slot = new ItemSlot[2];
+    [Header("Item ID")]
+    public int itemID;
 
     //public List<ItemSlot> slots = new List<ItemSlot>();
 
-    public void Collider(Collider Interactable)
+    public override int Interact()
     {
-        if(Interactable.gameObject.tag == "Item")
-        {
-            
-        }
+        return itemID;
     }
+
    public class ItemSlot
     {
         //public int ID = -1;

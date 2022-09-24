@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,11 +8,22 @@ public class PlayerController : MonoBehaviour
 
     public enum Player {PlayerOne,PlayerTwo};
     public Player player;
-    private float movingSpeed = 3;
-    private float turningSpeed = 300;
+
+    //Movement
+    private float movingSpeed = 10f;
     private Vector2 moveVal;
     private Vector3 moveVec;
     private Vector2 mousePos;
+
+    //Inventory
+    //Holds item ids for held items
+    private int main_hand_id = 0; //0 for empty
+    private int off_hand_id = 0;
+    private float interactRange = 5f;
+
+    //quickref for whether hands are full
+    private bool hands_full = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,12 +34,10 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         //Movement
-        transform.position += moveVec * movingSpeed * Time.deltaTime;
+        transform.position += movingSpeed * Time.deltaTime * moveVec;
 
         //Rotation
-        //transform.Rotate(new Vector3(0, moveVal.x, 0) * turningSpeed * Time.deltaTime);
-        //mousePos = Display.RelativeMouseAt(Input.mousePosition);
-        //transform.LookAt(mousePos);
+
     }
 
     public void OnMove(InputValue value)
@@ -51,12 +60,78 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit raycastHit))
         {
             Vector3 lookDir = raycastHit.point;
-            lookDir -= transform.position;
-            //lookDir.y = transform.rotation.y;
+            //transform.position = lookDir;
             lookDir.y = 0f;
-            Debug.Log(lookDir);
             transform.LookAt(lookDir);
+            //lookDir -= transform.position;
+            
+
             //transform.rotation.eulerAngles.y = 0f;
         }
+    }
+
+    public void OnInteract()
+    {
+        GameObject[] interactableObjs = GameObject.FindGameObjectsWithTag("Interactable");
+        GameObject closest = null;
+        Interactable interactObj = null;
+
+        //Find which of the gameobjects with interactable tag is the closest
+        foreach (var obj in interactableObjs)
+        {
+            if ((transform.position - obj.transform.position).magnitude < interactRange)
+            {
+                if (closest == null)
+                {
+                    closest = obj;
+                }
+                else if ((transform.position - obj.transform.position).magnitude < (transform.position - closest.transform.position).magnitude)
+                {
+                    closest = obj;
+                }
+            }
+        }
+        if (closest == null) { return; }
+
+        //Get the Interactable component from the gameobject
+        if (closest.GetComponent<Interactable>() != null)
+        {
+            interactObj = closest.GetComponent<Interactable>();
+        }
+
+        //Now find out if it is an inventory item or a utility
+        if (interactObj.TryGetComponent<InventoryItem>(out InventoryItem invItem))
+        {
+            addToInventory(invItem.itemID);
+        }
+        if (interactObj.TryGetComponent<Utility>(out Utility util))
+        {
+            //Do something else
+            //util.Interact()
+        }
+    }
+
+    public void OnSwapInventorySlots()
+    {
+        if (main_hand_id == 0 || off_hand_id == 0) { return; }
+        int temp_id = main_hand_id;
+        main_hand_id = off_hand_id;
+        off_hand_id = temp_id;
+
+        Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+    }
+
+    private void addToInventory(int id)
+    {
+        if (main_hand_id == 0)
+        {
+            main_hand_id = id;
+        }
+        else if (off_hand_id == 0)
+        {
+            off_hand_id = id;
+        }
+        else { Debug.Log("Both Inventory Slots filled"); }
+        Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
     }
 }

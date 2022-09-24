@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Climbable
   - CookBook
+  - Interactable
   layers:
   - Default
   - TransparentFX
