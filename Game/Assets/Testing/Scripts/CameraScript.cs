@@ -5,17 +5,18 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
     public GameObject target;
-    public Vector3 offset;
+    private Vector3 offset = new Vector3(0, 10, -3);
+    private Vector3 rotation = new Vector3(70, 0, 0);
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        offset = transform.position - target.transform.position;
+        transform.position = offset;
+        transform.eulerAngles = rotation;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = offset + target.transform.position;
+        transform.position = target.gameObject.transform.position + offset;
     }
 }

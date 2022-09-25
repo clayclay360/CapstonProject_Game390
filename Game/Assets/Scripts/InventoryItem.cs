@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class InventoryItem : Interactable
 {
-    // Start is called before the first frame update
-    void Start()
+    public ItemSlot[] slot = new ItemSlot[2];
+    [Header("Item ID")]
+    public int itemID;
+
+    //public List<ItemSlot> slots = new List<ItemSlot>();
+
+    public override int Interact()
     {
-        
+        return itemID;
     }
 
-    // Update is called once per frame
-    void Update()
+   public class ItemSlot
     {
-        
+        //public int ID = -1;
+        //public ItemSlot item;
+        public ItemSlot()
+        {
+            //ID = -1;
+            //item = null;
+        }
+
+        public ItemSlot(int _id, ItemSlot _item, int _amount)
+        {
+            //ID = _id;
+            //item = _item;
+        }
+        public void UpdateSlot(int _id, ItemSlot _item, int _amount)
+        {
+            //ID = _id;
+            //item = _item;
+        }
     }
 }
