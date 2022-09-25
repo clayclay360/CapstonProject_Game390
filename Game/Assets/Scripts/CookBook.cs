@@ -10,7 +10,7 @@ public class CookBook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameManager.cookBookActive = true;
     }
 
     // Update is called once per frame
@@ -18,6 +18,7 @@ public class CookBook : MonoBehaviour
     {
         if(lives == 0)
         {
+            GameManager.cookBookActive = false;
             Destroy(gameObject);
         }
     }
