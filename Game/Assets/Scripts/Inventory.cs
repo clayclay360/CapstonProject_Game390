@@ -5,7 +5,6 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     [Header("References")]
-    public Transform cam;
     public Transform attackPoint;
     public GameObject objectToThrow;
 
@@ -48,7 +47,7 @@ public class Inventory : MonoBehaviour
             {
                 swap_hands();
             }
-            else
+            else if (readyToThrow && totalThrows > 0)
             {
                 throw_knife();
             }
@@ -104,17 +103,17 @@ public class Inventory : MonoBehaviour
         readyToThrow = false;
 
         // instantiate object to throw
-        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
+        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, transform.rotation);
 
         // get rigidbody component
         Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
 
         // calculate direction
-        Vector3 forceDirection = cam.transform.forward;
+        Vector3 forceDirection = transform.forward;
 
         RaycastHit hit;
 
-        if (Physics.Raycast(cam.position, cam.forward, out hit, 500f))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
         {
             forceDirection = (hit.point - attackPoint.position).normalized;
         }
