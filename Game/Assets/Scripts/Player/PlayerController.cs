@@ -1,5 +1,5 @@
 using System.Collections;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +8,23 @@ public class PlayerController : MonoBehaviour
 
     public enum Player {PlayerOne,PlayerTwo};
     public Player player;
+
+    [Header("Camera")]
+    public Camera playerCamera;
+    private Vector3 camOffset = new Vector3(0, 10, -3);
+    private Vector3 camRotation = new Vector3(70, 0, 0);
+
+    [Header("Settings")]
+    public int totalThrows;
+    public float throwCooldown;
+
+    [Header("Knife Throw")]
+    private Transform attackPoint;
+    public GameObject objectToThrow;
+    private float throwForce = 15f;
+    private float throwUpwardForce = 5f;
+    private bool readyToThrow = true;
+
 
     //Movement
     private float movingSpeed = 10f;
@@ -24,10 +41,15 @@ public class PlayerController : MonoBehaviour
     //quickref for whether hands are full
     private bool hands_full = false;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        playerCamera.transform.position = gameObject.transform.position + camOffset;
+        playerCamera.transform.eulerAngles = camRotation;
+    }
 
+    private void Start()
+    {
+        attackPoint = transform.Find("Attackpoint");
     }
 
     // Update is called once per frame
@@ -36,7 +58,8 @@ public class PlayerController : MonoBehaviour
         //Movement
         transform.position += movingSpeed * Time.deltaTime * moveVec;
 
-        //Rotation
+        //Camera
+        playerCamera.transform.position = gameObject.transform.position + camOffset;
 
     }
 
@@ -55,7 +78,7 @@ public class PlayerController : MonoBehaviour
         mousePos = value.Get<Vector2>();
         //God help me
         //Uses a raycast to make the player look towards the mouse
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        Ray ray = playerCamera.ScreenPointToRay(mousePos);
 
         if (Physics.Raycast(ray, out RaycastHit raycastHit))
         {
@@ -133,5 +156,42 @@ public class PlayerController : MonoBehaviour
         }
         else { Debug.Log("Both Inventory Slots filled"); }
         Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+    }
+
+    public void OnThrowKnife()
+    {
+        readyToThrow = false;
+
+        // instantiate object to throw
+        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, transform.rotation);
+
+        // get rigidbody component
+        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+
+        // calculate direction
+        Vector3 forceDirection = transform.forward;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
+        {
+            forceDirection = (hit.point - attackPoint.position).normalized;
+        }
+
+        // add force
+        Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+
+        projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
+
+        totalThrows--;
+
+        // implement throwCooldown
+        Invoke(nameof(ResetThrow), throwCooldown);
+    }
+
+
+    private void ResetThrow()
+    {
+        readyToThrow = true;
     }
 }
