@@ -12,6 +12,7 @@ public class RatScript : MonoBehaviour
     public float attackRaduis;
     public GameObject Target;
     public bool objectiveComplete;
+    public GameObject[] ventsTransform;
 
     [Header("RayCast")]
     public float rayDistance;
@@ -43,7 +44,8 @@ public class RatScript : MonoBehaviour
 
     private NavMeshAgent agent;
     private MeshRenderer climbableTargetMesh;
-
+    private Transform escapeVent;
+    private RatSpawnSystem ratSpawnSystem;
 
     // Start is called before the first frame update
     private void Awake()
@@ -53,6 +55,8 @@ public class RatScript : MonoBehaviour
 
         //GetTarget();
         Target = GameObject.FindGameObjectWithTag("CookBook");
+        ventsTransform = GameObject.FindGameObjectsWithTag("RatVent");
+        ratSpawnSystem = FindObjectOfType<RatSpawnSystem>();
         agent = GetComponent<NavMeshAgent>();
         offMeshLink.GetComponent<OffMeshLink>();
         starRay.GetComponent<Transform>();
@@ -68,6 +72,7 @@ public class RatScript : MonoBehaviour
         //RayCast();
         //Climbing
         DistanceBetweenTarget();
+        ReturnToVent();
     }
 
     private void GetAction()
@@ -177,6 +182,10 @@ public class RatScript : MonoBehaviour
                 case "CookBook":
                     CookBook cookbook = other.GetComponent<CookBook>();
                     cookbook.lives--;
+                    if(cookbook.lives == 0)
+                    {
+                        objectiveComplete = true;
+                    }
                     break;
             }
         }
@@ -199,5 +208,30 @@ public class RatScript : MonoBehaviour
     public void SetTarget(GameObject target)
     {
         Target = target;
+    }
+
+    public void ReturnToVent()
+    {
+        if (objectiveComplete || Target == null)
+        {
+            float closestVent = 100;
+
+            for (int i = 0; i < ventsTransform.Length; i++)
+            {
+                if (Vector3.Distance(transform.position, ventsTransform[i].transform.position) < closestVent)
+                {
+                    closestVent = Vector3.Distance(transform.position, ventsTransform[i].transform.position);
+                    escapeVent = ventsTransform[i].transform;
+                }
+            }
+
+            agent.destination = escapeVent.position;
+
+            if(Vector3.Distance(transform.position,escapeVent.transform.position) < attackRaduis)
+            {
+                ratSpawnSystem.numberOfRats--;
+                Destroy(gameObject);
+            }
+        }
     }
 }
