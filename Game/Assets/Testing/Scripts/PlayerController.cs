@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour
             //util.Interact()
         }
     }
+    }
 
     public void OnSwapInventorySlots()
     {
