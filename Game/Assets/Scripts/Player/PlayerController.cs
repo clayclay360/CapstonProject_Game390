@@ -129,9 +129,18 @@ public class PlayerController : MonoBehaviour
         }
         if (interactObj.TryGetComponent<Utility>(out Utility util))
         {
-            //Do something else
-            //util.Interact()
-        }
+            int x = util.interactionType;
+            if (x == 1)
+            {
+                //hold button to pregress interaction
+            }
+            else if (x == 2)
+            {
+                //press button to pregress interaction
+            }
+            else
+            {//trash main hand
+            }
     }
 
     public void OnSwapInventorySlots()
