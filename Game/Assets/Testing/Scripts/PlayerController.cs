@@ -110,6 +110,8 @@ public class PlayerController : MonoBehaviour
             //util.Interact()
         }
     }
+    }
+
     public void OnSwapInventorySlots()
     {
         if (main_hand_id == 0 || off_hand_id == 0) { return; }
@@ -134,4 +136,3 @@ public class PlayerController : MonoBehaviour
         Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
     }
 }
-

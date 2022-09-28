@@ -36,9 +36,6 @@ public class RatScript : MonoBehaviour
     public float attackCoolDown;
     public new Collider collider;
 
-    [Header("Stats")]
-    public int health;  
-
     private float distanceBetweenTarget;
     private float startHeight;
     private bool linkActivated;
@@ -120,16 +117,6 @@ public class RatScript : MonoBehaviour
             }
         }
         Debug.DrawLine(starRay.position, endRay.position);
-    }
-
-	public void TakeDamage(int damage)
-    {
-        health -= damage;
-
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void DistanceBetweenTarget()
