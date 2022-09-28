@@ -29,7 +29,8 @@ public class KnifeAddon : MonoBehaviour
         {
             RatScript enemy = collision.gameObject.GetComponent<RatScript>();
 
-            enemy.TakeDamage(damage);
+            enemy.
+            TakeDamage(damage);
 
             Destroy(gameObject);
         }

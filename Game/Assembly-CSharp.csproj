@@ -39,6 +39,7 @@
      <Compile Include="Assets\Scripts\Task.cs" />
      <Compile Include="Assets\Scripts\InventoryItem.cs" />
      <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Parent.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\TaskManager.cs" />
      <Compile Include="Assets\Scripts\StartMenu.cs" />
      <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Hold.cs" />
@@ -51,10 +52,10 @@
      <Compile Include="Assets\Scripts\RatScript.cs" />
      <Compile Include="Assets\Testing\Scripts\CameraScript.cs" />
      <Compile Include="Assets\Scripts\RatSpawnSystem.cs" />
+     <Compile Include="Assets\Scripts\KnifeAddon.cs" />
      <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Item.cs" />
      <Compile Include="Assets\Scripts\CookBook.cs" />
      <Compile Include="Assets\Scripts\Utility.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.38f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
