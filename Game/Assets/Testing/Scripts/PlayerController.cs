@@ -110,8 +110,7 @@ public class PlayerController : MonoBehaviour
             //util.Interact()
         }
     }
-    }
-
+    
     public void OnSwapInventorySlots()
     {
         if (main_hand_id == 0 || off_hand_id == 0) { return; }

@@ -8,6 +8,9 @@ public class RatScript : MonoBehaviour
     [Header("Variables")]
     public GameObject body;
 
+    [Header("Stats")]
+    public int health;
+
     [Header("Target")]
     public float attackRaduis;
     public GameObject Target;
@@ -73,6 +76,16 @@ public class RatScript : MonoBehaviour
         //Climbing
         DistanceBetweenTarget();
         ReturnToVent();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void GetAction()
