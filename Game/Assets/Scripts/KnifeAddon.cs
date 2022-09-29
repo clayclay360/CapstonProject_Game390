@@ -10,6 +10,7 @@ public class KnifeAddon : MonoBehaviour
     //private Rigidbody rb;
 
     private bool targetHit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +19,14 @@ public class KnifeAddon : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // if (targetHit)
-        // {
-        //     return;
-        // }
-        // else
-        //     targetHit = true;
+        //if (targetHit)
+        //{
+        //return;
+        //}
+        //else
+        //targetHit = true;
+
+        
 
         if(collision.gameObject.GetComponent<RatScript>() != null)
         {
@@ -35,6 +38,14 @@ public class KnifeAddon : MonoBehaviour
             Destroy(enemy.gameObject);
             Destroy(gameObject);
         }
+
+        Invoke(nameof(DestroyKnife), 0.7f);
+
+    }
+
+    private void DestroyKnife()
+    {
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
