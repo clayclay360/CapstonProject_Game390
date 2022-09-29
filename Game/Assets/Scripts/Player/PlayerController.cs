@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     [Header("Knife Throw")]
     private Transform attackPoint;
     public GameObject objectToThrow;
-    private float throwForce = 15f;
-    private float throwUpwardForce = 5f;
+    private float throwForce = 11f;
+    private float throwUpwardForce = 2f;
     private bool readyToThrow = true;
 
 

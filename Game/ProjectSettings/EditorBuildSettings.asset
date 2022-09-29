@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 16692038f8489184e8f9764f3fb327dc
   - enabled: 1
-    path: Assets/Scenes/Clay's Testing Scene.unity
-    guid: 69a0ad869165ec243b4aa7ca03150649
+    path: Assets/Scenes/Don'tMessWithThisFolder/Demo.unity
+    guid: c413dd0fc0ba3d640a174eaf5e8e3c01
   m_configObjects: {}
