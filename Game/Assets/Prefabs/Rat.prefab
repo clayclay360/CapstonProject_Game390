@@ -393,9 +393,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 5782238860536919977}
+  health: 0
   attackRaduis: 0.6
-  Target: {fileID: 0}
+  Target: {fileID: 1484350882870019920, guid: 7728c74f842b41a4481021fd3f7ec695, type: 3}
   objectiveComplete: 0
+  ventsTransform:
+  - {fileID: 0}
   rayDistance: 0.5
   starRay: {fileID: 582792559672763212}
   endRay: {fileID: 542700898202182331}

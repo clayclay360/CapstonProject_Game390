@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3449008763897445041}
   - component: {fileID: 3449008763897445040}
   - component: {fileID: 3449008763897445043}
+  - component: {fileID: 3639230774703657577}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -46,6 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+  playerCamera: {fileID: 0}
+  totalThrows: 0
+  throwCooldown: 0
+  objectToThrow: {fileID: 0}
 --- !u!114 &3449008763897445043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +81,20 @@ MonoBehaviour:
   m_DefaultActionMap: Player Controls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!136 &3639230774703657577
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3449008763897445042}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0.35}
 --- !u!1001 &8101384075405894599
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class RatScript : MonoBehaviour
     public int health;
 
     [Header("Target")]
-    public float attackRaduis;
+    public float attackRadius;
     public GameObject Target;
     public bool objectiveComplete;
     public GameObject[] ventsTransform;
@@ -94,9 +94,9 @@ public class RatScript : MonoBehaviour
         if (Target != null)
         {
             distanceBetweenTarget = Vector3.Distance(transform.position, Target.transform.position);
-            agent.stoppingDistance = attackRaduis;
+            agent.stoppingDistance = attackRadius;
 
-            if (distanceBetweenTarget > attackRaduis)
+            if (distanceBetweenTarget > attackRadius)
             {
                 MoveToTarget();
             }
@@ -202,6 +202,11 @@ public class RatScript : MonoBehaviour
                     break;
             }
         }
+        else if(other.CompareTag("Knife"))
+        {
+            TakeDamage(1);
+            Destroy(other);
+        }
     }
 
     IEnumerator AttackRate()
@@ -240,7 +245,7 @@ public class RatScript : MonoBehaviour
 
             agent.destination = escapeVent.position;
 
-            if(Vector3.Distance(transform.position,escapeVent.transform.position) < attackRaduis)
+            if(Vector3.Distance(transform.position,escapeVent.transform.position) < attackRadius)
             {
                 ratSpawnSystem.numberOfRats--;
                 Destroy(gameObject);

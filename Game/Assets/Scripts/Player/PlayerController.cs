@@ -129,12 +129,22 @@ public class PlayerController : MonoBehaviour
         }
         if (interactObj.TryGetComponent<Utility>(out Utility util))
         {
-            //Do something else
-            //util.Interact()
+            int x = util.interactionType;
+            if (x == 1)
+            {
+                //hold button to pregress interaction
+            }
+            else if (x == 2)
+            {
+                //press button to pregress interaction
+            }
+            else
+            {//trash main hand
+            }
         }
     }
-
-    public void OnSwapInventorySlots()
+    
+    void OnSwapInventorySlots()
     {
         if (main_hand_id == 0 || off_hand_id == 0) { return; }
         int temp_id = main_hand_id;
@@ -144,7 +154,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
     }
 
-    private void addToInventory(int id)
+    void addToInventory(int id)
     {
         if (main_hand_id == 0)
         {
@@ -158,7 +168,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
     }
 
-    public void OnThrowKnife()
+    void OnThrowKnife()
     {
         readyToThrow = false;
 
@@ -183,14 +193,14 @@ public class PlayerController : MonoBehaviour
 
         projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
 
-        totalThrows--;
+        totalThrows++;
 
         // implement throwCooldown
         Invoke(nameof(ResetThrow), throwCooldown);
     }
 
 
-    private void ResetThrow()
+    void ResetThrow()
     {
         readyToThrow = true;
     }
