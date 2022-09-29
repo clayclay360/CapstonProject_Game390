@@ -132,14 +132,25 @@ public class PlayerController : MonoBehaviour
             int x = util.interactionType;
             if (x == 1)
             {
-                //hold button to pregress interaction
+                //hold button to progress interaction
             }
             else if (x == 2)
             {
-                //press button to pregress interaction
+                //press button to progress interaction
             }
             else
-            {//trash main hand
+            {
+                //trash main hand
+                if (main_hand_id != 0)
+                {
+                    main_hand_id = off_hand_id;
+                    off_hand_id = 0;
+                    Debug.Log("mainhand ID: " + main_hand_id + "\noffhand ID:" + off_hand_id);
+                }
+                else
+                {
+                    Debug.Log("Nothing in Main Hand");
+                }
             }
         }
     }
@@ -151,7 +162,7 @@ public class PlayerController : MonoBehaviour
         main_hand_id = off_hand_id;
         off_hand_id = temp_id;
 
-        Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+        Debug.Log("mainhand ID: " + main_hand_id + "\noffhand ID:" + off_hand_id);
     }
 
     void addToInventory(int id)
