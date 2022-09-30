@@ -25,7 +25,7 @@ public class RecipeBook: MonoBehaviour
         currentPage = 1;
         currentStep = 2;
 
-        
+        isTouchingBook = false;
     }
 
     void Update()

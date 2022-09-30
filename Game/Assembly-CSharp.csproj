@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\StartMenu.cs" />
      <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Hold.cs" />
      <Compile Include="Assets\Scripts\ButtonMechanic.cs" />
+     <Compile Include="Assets\Scripts\RecipeBook.cs" />
      <Compile Include="Assets\Scripts\Interactable.cs" />
      <Compile Include="Assets\Scripts\Inventory.cs" />
      <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Trash.cs" />
