@@ -25,12 +25,11 @@ public class PlayerController : MonoBehaviour
     private float throwUpwardForce = 2f;
     private bool readyToThrow = true;
 
-
     //Movement
     private float movingSpeed = 10f;
     private Vector2 moveVal;
     private Vector3 moveVec;
-    private Vector2 mousePos;
+    private Vector3 rotateVec;
 
     //Inventory
     //Holds item ids for held items
@@ -57,7 +56,16 @@ public class PlayerController : MonoBehaviour
     {
         //Movement
         transform.position += movingSpeed * Time.deltaTime * moveVec;
-
+        Debug.Log(rotateVec);
+        if(Mathf.Abs(rotateVec.x ) > 0 || Mathf.Abs(rotateVec.y) > 0)
+        {
+            Vector3 rotateDirection = (Vector3.right * rotateVec.x) + (Vector3.forward * rotateVec.z);
+            if(rotateDirection.sqrMagnitude > 0)
+            {
+                Quaternion newRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, movingSpeed);
+            }
+        }
         //Camera
         playerCamera.transform.position = gameObject.transform.position + camOffset;
 
@@ -65,32 +73,25 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        //Debug.Log("OnMove Called!");
         moveVal = value.Get<Vector2>();
         moveVec = new Vector3(moveVal.x, 0, moveVal.y);
-
     }
 
     public void OnLook(InputValue value)
     {
         
         //OnLook is connected to the mouse's delta value
-        mousePos = value.Get<Vector2>();
+        Vector2 rotateVal = value.Get<Vector2>();
+        rotateVec = new Vector3(rotateVal.x,0,rotateVal.y);
         //God help me
         //Uses a raycast to make the player look towards the mouse
-        Ray ray = playerCamera.ScreenPointToRay(mousePos);
-
-        if (Physics.Raycast(ray, out RaycastHit raycastHit))
-        {
-            Vector3 lookDir = raycastHit.point;
-            //transform.position = lookDir;
-            lookDir.y = 0f;
-            transform.LookAt(lookDir);
-            //lookDir -= transform.position;
-            
-
-            //transform.rotation.eulerAngles.y = 0f;
-        }
+        // Ray ray = playerCamera.ScreenPointToRay(mousePos);
+        // if (Physics.Raycast(ray, out RaycastHit raycastHit))
+        // {
+        //     Vector3 lookDir = raycastHit.point;
+        //     lookDir.y = 0f;
+        //     transform.LookAt(lookDir);
+        // }
     }
 
     public void OnInteract()
