@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
     public enum Player {PlayerOne,PlayerTwo};
     public Player player;
 
+    [Header("Movement")]
+    public float movingSpeed;
+    public float rotatingSpeed;
+
     [Header("Camera")]
     public Camera playerCamera;
     private Vector3 camOffset = new Vector3(0, 10, -3);
@@ -19,16 +23,19 @@ public class PlayerController : MonoBehaviour
     public float throwCooldown;
 
     [Header("Knife Throw")]
-    private Transform attackPoint;
     public GameObject objectToThrow;
+    private Transform attackPoint;
     private float throwForce = 11f;
     private float throwUpwardForce = 2f;
     private bool readyToThrow = true;
 
+    //Animator
+    [Header("Animator")]
+    public Animator animator;
+
     //Movement
-    private float movingSpeed = 10f;
-    private Vector2 moveVal;
     private Vector3 moveVec;
+    //Rotation
     private Vector3 rotateVec;
 
     //Inventory
@@ -49,23 +56,36 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         attackPoint = transform.Find("Attackpoint");
+        animator.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         //Movement
-        transform.position += movingSpeed * Time.deltaTime * moveVec;
-        Debug.Log(rotateVec);
-        if(Mathf.Abs(rotateVec.x ) > 0 || Mathf.Abs(rotateVec.y) > 0)
+        if(Mathf.Abs(moveVec.x) > 0 || Mathf.Abs(moveVec.z) > 0)
+        {
+            if(moveVec.magnitude > .1f)
+            {
+                transform.position += movingSpeed * Time.deltaTime * moveVec;
+                animator.SetBool("Run",true);
+            }
+        }
+        else
+        {
+            animator.SetBool("Run",false);
+        }
+        //Rotation
+        if(Mathf.Abs(rotateVec.x ) > 0 || Mathf.Abs(rotateVec.z) > 0)
         {
             Vector3 rotateDirection = (Vector3.right * rotateVec.x) + (Vector3.forward * rotateVec.z);
             if(rotateDirection.sqrMagnitude > 0)
             {
                 Quaternion newRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, movingSpeed);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, rotatingSpeed);
             }
         }
+
         //Camera
         playerCamera.transform.position = gameObject.transform.position + camOffset;
 
@@ -73,25 +93,14 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        moveVal = value.Get<Vector2>();
+        Vector2 moveVal = value.Get<Vector2>();
         moveVec = new Vector3(moveVal.x, 0, moveVal.y);
     }
 
     public void OnLook(InputValue value)
     {
-        
-        //OnLook is connected to the mouse's delta value
         Vector2 rotateVal = value.Get<Vector2>();
         rotateVec = new Vector3(rotateVal.x,0,rotateVal.y);
-        //God help me
-        //Uses a raycast to make the player look towards the mouse
-        // Ray ray = playerCamera.ScreenPointToRay(mousePos);
-        // if (Physics.Raycast(ray, out RaycastHit raycastHit))
-        // {
-        //     Vector3 lookDir = raycastHit.point;
-        //     lookDir.y = 0f;
-        //     transform.LookAt(lookDir);
-        // }
     }
 
     public void OnInteract()
