@@ -130,16 +130,32 @@ public class PlayerController : MonoBehaviour
         if (interactObj.TryGetComponent<Utility>(out Utility util))
         {
             int x = util.interactionType;
-            if (x == 1)
+            if (x == 1 && util.itemNeed == main_hand_id)
             {
-                //hold button to pregress interaction
+                Debug.Log("making progress");
+                if (util.makeProgress(2))
+                {
+                    main_hand_id = util.itemGive;
+                    Debug.Log("progress complete");
+                    Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+                }
             }
-            else if (x == 2)
+            else if (x == 2 && util.itemNeed == main_hand_id)
             {
-                //press button to pregress interaction
+                Debug.Log("making progress");
+                if (util.makeProgress(2))
+                {
+                    main_hand_id = util.itemGive;
+                    Debug.Log("progress complete");
+                    Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+                }
             }
-            else
-            {//trash main hand
+            else if (x == 3)
+            {
+                main_hand_id = off_hand_id;
+                off_hand_id = 0;
+                Debug.Log("trashed mainhand item");
+                Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
             }
         }
     }

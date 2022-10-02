@@ -8,6 +8,11 @@ public class Utility : Interactable
     //declares interaction type: 1 for hold button for event, 2 for rapidly press button for event, or 3 for dispose of item
     public int interactionType;
 
+    //checks item needed; checks item returned
+    public int itemNeed;
+    public int itemGive;
+
+    //tracks progress
     private int progress = 0;
     private int complete = 10;
 
@@ -17,13 +22,10 @@ public class Utility : Interactable
     }
 
     //on correct interaction, raise progress
-    public void makeProgress(int x)
+    public bool makeProgress(int x)
     {
         progress += x;
-        if (progress == complete)
-        {
-            //when complete, update event
-        }
+        return progress == complete;
     }
 
     // Start is called before the first frame update
