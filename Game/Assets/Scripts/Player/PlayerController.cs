@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour
     {
         attackPoint = transform.Find("Attackpoint");
         animator.GetComponent<Animator>();
-        PlayerAssignment();
     }
 
     // Update is called once per frame
@@ -102,20 +101,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 rotateVal = value.Get<Vector2>();
         rotateVec = new Vector3(rotateVal.x,0,rotateVal.y);
-    }
-
-    public void PlayerAssignment()
-    {
-        if(GameManager.numberOfPlayers == 1)
-        {
-            player = Player.PlayerOne;
-            transform.position = new Vector3(-5, 0, 0);
-        }
-        else
-        {
-            player = Player.PlayerTwo;
-            transform.position = new Vector3(1, 0, 0);
-        }
     }
 
     public void OnInteract()

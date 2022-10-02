@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class GameManager
 {
-    public static int numberOfPlayers = 0;
     public static bool cookBookActive = true;
 }
