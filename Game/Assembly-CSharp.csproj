@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\TaskManager.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Hold.cs" />
+    <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Testing\Controls.cs" />
     <Compile Include="Assets\Scripts\ButtonMechanic.cs" />
     <Compile Include="Assets\Scripts\RecipeBook.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Item.cs" />
     <Compile Include="Assets\Scripts\CookBook.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
-    <Compile Include="Assets\Scripts\Spawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

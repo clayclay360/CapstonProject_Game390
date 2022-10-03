@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
+    [SerializeField] private LayerMask groundMask;
     public enum Player {PlayerOne,PlayerTwo};
     public Player player;
 
@@ -58,6 +59,13 @@ public class PlayerController : MonoBehaviour
         attackPoint = transform.Find("Attackpoint");
         animator.GetComponent<Animator>();
         PlayerAssignment();
+
+        playerCamera = Camera.main;
+    }
+
+    private void Update()
+    {
+        Aim();
     }
 
     // Update is called once per frame
@@ -89,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
         //Camera
         playerCamera.transform.position = gameObject.transform.position + camOffset;
+
 
     }
 
@@ -207,6 +216,38 @@ public class PlayerController : MonoBehaviour
         }
         else { Debug.Log("Both Inventory Slots filled"); }
         Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+    }
+
+    private void Aim()
+    {
+        var (success, position) = GetMousePosition();
+        if (success)
+        {
+            // Calculate the direction
+            var direction = position - transform.position;
+
+            // Ignore the height difference.
+            direction.y = 0;
+
+            // Make the transform look in the direction.
+            transform.forward = direction;
+        }
+    }
+
+    private (bool success, Vector3 position) GetMousePosition()
+    {
+        var ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask))
+        {
+            // The Raycast hit something, return with the position.
+            return (success: true, position: hitInfo.point);
+        }
+        else
+        {
+            // The Raycast did not hit anything.
+            return (success: false, position: Vector3.zero);
+        }
     }
 
     void OnThrowKnife()
