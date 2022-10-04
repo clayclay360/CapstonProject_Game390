@@ -7,7 +7,7 @@ public class RatSpawnSystem : MonoBehaviour
     [Header("Variables")]
     public int numberOfRats;
     public int maxNumberOfRats;
-    public Transform TargetContainer; //Empty GameObject holding all possible targets the room
+    public Transform[] TargetContainer; //Empty GameObject holding all possible targets the room
     public System.Random random = new System.Random(); //Used to get a random target
 
     [Header("Spawn")]
