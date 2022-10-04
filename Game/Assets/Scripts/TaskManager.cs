@@ -32,7 +32,7 @@ public class TaskManager : MonoBehaviour
     private void ManageTasks()
     {
         totalTasks = tasks.Length;
-        totalCompleted = 0;
+        totalCompleted = 5;
 
         for (int i = 0; i < totalTasks; i++)
         {            
