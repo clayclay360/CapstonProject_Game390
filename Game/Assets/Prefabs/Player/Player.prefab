@@ -113,6 +113,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6666133080602006406}
     m_Modifications:
+    - target: {fileID: 60157738, guid: 56551ed20a593fe4c92f1d76e7534b9d, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: d507961838679e34fbf2b59efa9776d0, type: 3}
     - target: {fileID: 3449008763897445040, guid: 56551ed20a593fe4c92f1d76e7534b9d, type: 3}
       propertyPath: playerCamera
       value: 
@@ -169,6 +173,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 6666133080782141945}
+    - target: {fileID: 3639230774703657577, guid: 56551ed20a593fe4c92f1d76e7534b9d, type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56551ed20a593fe4c92f1d76e7534b9d, type: 3}
 --- !u!4 &8313516844159529846 stripped
