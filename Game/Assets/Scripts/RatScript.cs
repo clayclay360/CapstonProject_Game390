@@ -12,8 +12,8 @@ public class RatScript : MonoBehaviour
     public int health;
 
     [Header("Target")]
-    public float attackRaduis;
-    public GameObject Target;
+    public float attackRadius;
+    public GameObject[] TargetsList;
     public bool objectiveComplete;
     public GameObject[] ventsTransform;
 
@@ -49,6 +49,8 @@ public class RatScript : MonoBehaviour
     private MeshRenderer climbableTargetMesh;
     private Transform escapeVent;
     private RatSpawnSystem ratSpawnSystem;
+    private GameObject targetPrefab;
+    private GameObject target;
 
     // Start is called before the first frame update
     private void Awake()
@@ -57,7 +59,6 @@ public class RatScript : MonoBehaviour
         attackReady = true;
 
         //GetTarget();
-        Target = GameObject.FindGameObjectWithTag("CookBook");
         ventsTransform = GameObject.FindGameObjectsWithTag("RatVent");
         ratSpawnSystem = FindObjectOfType<RatSpawnSystem>();
         agent = GetComponent<NavMeshAgent>();
@@ -66,6 +67,7 @@ public class RatScript : MonoBehaviour
         endRay.GetComponent<Transform>();
         startLink.GetComponent<Transform>();
         endLink.GetComponent<Transform>();
+        SetTarget(TargetsList);
     }
 
     // Update is called once per frame
@@ -84,6 +86,7 @@ public class RatScript : MonoBehaviour
 
         if (health <= 0)
         {
+            ratSpawnSystem.numberOfRats--;
             Destroy(gameObject);
         }
     }
@@ -91,12 +94,12 @@ public class RatScript : MonoBehaviour
     private void GetAction()
     {
 
-        if (Target != null)
+        if (target != null)
         {
-            distanceBetweenTarget = Vector3.Distance(transform.position, Target.transform.position);
-            agent.stoppingDistance = attackRaduis;
+            distanceBetweenTarget = Vector3.Distance(transform.position, target.transform.position);
+            agent.stoppingDistance = attackRadius;
 
-            if (distanceBetweenTarget > attackRaduis)
+            if (distanceBetweenTarget > attackRadius)
             {
                 MoveToTarget();
             }
@@ -110,7 +113,7 @@ public class RatScript : MonoBehaviour
 
     private void MoveToTarget()
     {
-        agent.destination = Target.transform.position;
+        agent.destination = target.transform.position;
     }
 
     private void RayCast()
@@ -134,13 +137,13 @@ public class RatScript : MonoBehaviour
 
     private void DistanceBetweenTarget()
     {
-        if (Target != null)
+        if (target != null)
         {
-            float distanceBetweenTarget = Vector3.Distance(transform.position, Target.transform.position);
+            float distanceBetweenTarget = Vector3.Distance(transform.position, target.transform.position);
 
             if (distanceBetweenTarget < climbRaduis && !climbing)
             {
-                if (transform.position.y + platformYOffset < Target.transform.position.y)
+                if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
                     Debug.Log("climb");
                     Climb();
@@ -152,7 +155,7 @@ public class RatScript : MonoBehaviour
 
     private void Climb()
     {
-        Vector3 dir = Target.transform.position - transform.position;
+        Vector3 dir = target.transform.position - transform.position;
         dir.Normalize();
         startLink.position = new Vector3(body.transform.position.x, body.transform.position.y - startHeight, body.transform.position.z + startLinkOffset);
         if (climbableTargetMesh != null)
@@ -161,7 +164,7 @@ public class RatScript : MonoBehaviour
         }
         else
         {
-            endLink.position = new Vector3((dir.x + body.transform.position.x), Target.transform.position.y + transform.position.y, (dir.z + body.transform.position.z));
+            endLink.position = new Vector3((dir.x + body.transform.position.x), target.transform.position.y + transform.position.y, (dir.z + body.transform.position.z));
         }
         offMeshLink.activated = true;
         climbing = true;
@@ -186,21 +189,31 @@ public class RatScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Target.tag))
+        if (other.CompareTag(target.tag))
         {
             Debug.Log("hit");
             collider.enabled = false;
-            switch (Target.tag)
+            switch (target.tag)
             {
                 case "CookBook":
                     CookBook cookbook = other.GetComponent<CookBook>();
                     cookbook.lives--;
-                    if(cookbook.lives == 0)
+                    if (cookbook.lives == 0)
                     {
                         objectiveComplete = true;
                     }
                     break;
+                case "Interactable":
+                    Debug.Log("Hit Interactable Object");
+                    other.gameObject.SetActive(false);
+                    objectiveComplete = true;
+                    break;
             }
+        }
+        else if (other.CompareTag("Knife"))
+        {
+            TakeDamage(1);
+            Destroy(other);
         }
     }
 
@@ -214,18 +227,22 @@ public class RatScript : MonoBehaviour
 
     private void LookAt()
     {
-        Vector2 dir = Target.transform.position - transform.position;
+        Vector2 dir = target.transform.position - transform.position;
         transform.up = dir;
     }
 
-    public void SetTarget(GameObject target)
+    public void SetTarget(GameObject[] targetList)
     {
-        Target = target;
+        targetPrefab = targetList[Random.Range(0, targetList.Length)];
+        target = GameObject.Find(targetPrefab.name);
+
+        Debug.Log("Rat is targeting: " + target.name);
+        Debug.Log(target.transform.position);
     }
 
     public void ReturnToVent()
     {
-        if (objectiveComplete || Target == null)
+        if (objectiveComplete || target == null)
         {
             float closestVent = 100;
 
@@ -240,7 +257,7 @@ public class RatScript : MonoBehaviour
 
             agent.destination = escapeVent.position;
 
-            if(Vector3.Distance(transform.position,escapeVent.transform.position) < attackRaduis)
+            if (Vector3.Distance(transform.position, escapeVent.transform.position) < attackRadius)
             {
                 ratSpawnSystem.numberOfRats--;
                 Destroy(gameObject);
