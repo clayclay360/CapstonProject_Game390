@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IInteractable<I, T>
+{
+    public bool Interact(T chef);
+    public void CheckHand(I index, T chef);
+}
+
 public class Interactable : MonoBehaviour
 {
     public enum testenum {inv, util};
