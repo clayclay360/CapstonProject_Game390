@@ -31,11 +31,6 @@ public class PlayerController : MonoBehaviour
     private float throwUpwardForce = 2f;
     private bool readyToThrow = true;
 
-    [SerializeField] private float aimLineLength = 5f;
-    public Transform aimLinePoint;
-
-    LineRenderer aimLine;
-
     //Animator
     [Header("Animator")]
     public Animator animator;
@@ -73,39 +68,13 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         attackPoint = transform.Find("Attackpoint");
-        //aimLinePoint = transform.Find("Attackpoint");
         animator.GetComponent<Animator>();
         PlayerAssignment();
-<<<<<<< Updated upstream
-=======
-
-        aimLine = GetComponent<LineRenderer>();
-
-        //playerCamera = Camera.main;
->>>>>>> Stashed changes
     }
 
     public void Update()
     {
-<<<<<<< Updated upstream
         //Interact();
-=======
-        //AimLine
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
-        {
-            if (hit.collider)
-            {
-                aimLine.SetPosition(1, new Vector3(0, 0, hit.distance));
-
-            }
-            else
-            {
-                aimLine.SetPosition(1, new Vector3(0, 0, 5000));
-            }
-
-        }
->>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -150,8 +119,6 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, rotatingSpeed);
             }
         }
-
-        
 
         //Camera
         playerCamera.transform.position = gameObject.transform.position + camOffset;
