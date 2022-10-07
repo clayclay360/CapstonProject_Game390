@@ -10,15 +10,13 @@ public class RecipeBook: MonoBehaviour
     public GameObject recipeTextbox2;
     public GameObject recipeTextbox3;
     public GameObject backgroundImage;
-    public GameObject taskManager;
-    public TaskManager currentStepTaskMang;
+    //public GameObject taskManager;
+    //public TaskManager currentStepTaskMang;
     public bool recipeIsOpenP1;
     public int[] pages;
     public int[] steps;
     public int currentStep;
     public int currentPage;
-    public bool isTouchingBook;
-    public int[] isStepCompleted;
     private bool isTrue;
 
     void Start()
@@ -28,24 +26,24 @@ public class RecipeBook: MonoBehaviour
         steps = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         currentPage = 1;
         currentStep = 2;
-        isStepCompleted = new int[] { 0, 1, 7, 4, 8 };
+        GameManager.isStepCompleted = new int[] { 0, 1, 7, 4, 8 };
 
-        isTouchingBook = true;
+        GameManager.isTouchingBook = true;
 
-        currentStepTaskMang = taskManager.GetComponent<TaskManager>();
+        //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
     }
 
     void Update()
     {
        
 
-        if (Input.GetKeyDown("e") && isTouchingBook)
+        if (Input.GetKeyDown("e") && GameManager.isTouchingBook)
         {
             //variable telling the game that the recipe for player one is open
             recipeIsOpenP1 = true;
             Debug.LogError(recipeIsOpenP1);
 
-            currentStepTaskMang = taskManager.GetComponent<TaskManager>();
+            //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
             //sets the background image to show
             backgroundImage.SetActive(true);
 
@@ -66,7 +64,7 @@ public class RecipeBook: MonoBehaviour
             else { recipeTextbox3.GetComponent<Text>().color = Color.black; }
             
         }
-        else if (Input.GetKeyUp("e") || !isTouchingBook)
+        else if (Input.GetKeyUp("e") || !GameManager.isTouchingBook)
         {
             //variable telling the game that the recipe for player one is closed
             recipeIsOpenP1 = false;
@@ -80,7 +78,7 @@ public class RecipeBook: MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && recipeIsOpenP1)
         {
-            currentStepTaskMang = taskManager.GetComponent<TaskManager>();
+            //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
 
             if (currentPage != pages.Length - 1)
             {
@@ -145,30 +143,14 @@ public class RecipeBook: MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "CookBook")
-        {
-            Debug.Log("Touching cook book");
-            isTouchingBook = true;
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "CookBook")
-        {
-            Debug.Log("Not touching cook book");
-            isTouchingBook = false;
-        }
-    }
+    
 
     public bool checkIfStepCompleted(int step)
     {
 
-        for (int i = 0; i < isStepCompleted.Length; i++)
+        for (int i = 0; i < GameManager.isStepCompleted.Length; i++)
         {
-            if (step == isStepCompleted[i])
+            if (step == GameManager.isStepCompleted[i])
             {
                 return (true);
             }
