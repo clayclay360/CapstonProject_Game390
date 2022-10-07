@@ -18,6 +18,8 @@ public class RecipeBook: MonoBehaviour
     public int currentStep;
     public int currentPage;
     public bool isTouchingBook;
+    public int[] isStepCompleted;
+    private bool isTrue;
 
     void Start()
     {
@@ -26,6 +28,7 @@ public class RecipeBook: MonoBehaviour
         steps = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         currentPage = 1;
         currentStep = 2;
+        isStepCompleted = new int[] { 0, 1, 7, 4, 8 };
 
         isTouchingBook = true;
 
@@ -40,26 +43,28 @@ public class RecipeBook: MonoBehaviour
         {
             //variable telling the game that the recipe for player one is open
             recipeIsOpenP1 = true;
+            Debug.LogError(recipeIsOpenP1);
 
             currentStepTaskMang = taskManager.GetComponent<TaskManager>();
+            //sets the background image to show
+            backgroundImage.SetActive(true);
+
+            currentPage = 1;
 
             //puts in the information for the first page when the book first opens
             recipeTextbox1.GetComponent<Text>().text = "Turn on Stove to medium.";
             recipeTextbox2.GetComponent<Text>().text = "Place Pan on Stove.";
             recipeTextbox3.GetComponent<Text>().text = "Beat the eggs (Bowl on countertop).";
             //is checking the current step to determine if it should gray out the first 3 steps on open or not
-            if (currentStepTaskMang.totalCompleted >= 1) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
+            if (checkIfStepCompleted(1)) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
             else { recipeTextbox1.GetComponent<Text>().color = Color.black; }
 
-            if (currentStepTaskMang.totalCompleted >= 2) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
+            if (checkIfStepCompleted(2)) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
             else { recipeTextbox2.GetComponent<Text>().color = Color.black; }
 
-            if (currentStepTaskMang.totalCompleted >= 3) { recipeTextbox3.GetComponent<Text>().color = Color.gray; }
+            if (checkIfStepCompleted(3)) { recipeTextbox3.GetComponent<Text>().color = Color.gray; }
             else { recipeTextbox3.GetComponent<Text>().color = Color.black; }
-            //sets the background image to show
-            backgroundImage.SetActive(true);
-
-            currentPage = 1;
+            
         }
         else if (Input.GetKeyUp("e") || !isTouchingBook)
         {
@@ -86,13 +91,13 @@ public class RecipeBook: MonoBehaviour
                     recipeTextbox2.GetComponent<Text>().text = "Place pan on stove.";
                     recipeTextbox3.GetComponent<Text>().text = "Beat the eggs (Bowl on countertop).";
                     //is checking the current step to determine if it should gray out the first 3 steps while player 1 is clicking through the pages
-                    if (currentStepTaskMang.totalCompleted >= 1) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
+                    if (checkIfStepCompleted(1)) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
                     else { recipeTextbox1.GetComponent<Text>().color = Color.black; }
 
-                    if (currentStepTaskMang.totalCompleted >= 2) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
+                    if (checkIfStepCompleted(2)) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
                     else { recipeTextbox2.GetComponent<Text>().color = Color.black; }
 
-                    if (currentStepTaskMang.totalCompleted >= 3) { recipeTextbox3.GetComponent<Text>().color = Color.gray; }
+                    if (checkIfStepCompleted(3)) { recipeTextbox3.GetComponent<Text>().color = Color.gray; }
                     else { recipeTextbox3.GetComponent<Text>().color = Color.black; }
 
 
@@ -104,13 +109,13 @@ public class RecipeBook: MonoBehaviour
                     recipeTextbox2.GetComponent<Text>().text = "Add eggs to pan.";
                     recipeTextbox3.GetComponent<Text>().text = "Lift and tilt eggs with spatula.";
                     //is checking the current step to determine if it should gray out the next 3 while player 1 is clicking through the pages
-                    if (currentStepTaskMang.totalCompleted >= 4) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
+                    if (checkIfStepCompleted(4)) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
                     else { recipeTextbox1.GetComponent<Text>().color = Color.black; }
 
-                    if (currentStepTaskMang.totalCompleted >= 5) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
+                    if (checkIfStepCompleted(5)) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
                     else { recipeTextbox2.GetComponent<Text>().color = Color.black; }
 
-                    if (currentStepTaskMang.totalCompleted >= 6) { recipeTextbox3.GetComponent<Text>().color = Color.gray; }
+                    if (checkIfStepCompleted(6)) { recipeTextbox3.GetComponent<Text>().color = Color.gray; }
                     else { recipeTextbox3.GetComponent<Text>().color = Color.black; }
 
                 }
@@ -125,13 +130,13 @@ public class RecipeBook: MonoBehaviour
                     recipeTextbox2.GetComponent<Text>().text = "Fold eggs with spatula";
                     recipeTextbox3.GetComponent<Text>().text = " ";
                     //is checking the current step to determine if it should gray out the last3 3 while player 1 is clicking through the pages
-                    if (currentStepTaskMang.totalCompleted >= 7) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
+                    if (checkIfStepCompleted(7)) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
                     else { recipeTextbox1.GetComponent<Text>().color = Color.black; }
 
-                    if (currentStepTaskMang.totalCompleted >= 8) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
+                    if (checkIfStepCompleted(8)) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
                     else { recipeTextbox2.GetComponent<Text>().color = Color.black; }
 
-                    if (currentStepTaskMang.totalCompleted >= 9) { recipeTextbox3.GetComponent<Text>().color = Color.gray; }
+                    if (checkIfStepCompleted(9)) { recipeTextbox3.GetComponent<Text>().color = Color.gray; }
                     else { recipeTextbox3.GetComponent<Text>().color = Color.black; }
 
                 }
@@ -156,5 +161,22 @@ public class RecipeBook: MonoBehaviour
             Debug.Log("Not touching cook book");
             isTouchingBook = false;
         }
+    }
+
+    public bool checkIfStepCompleted(int step)
+    {
+
+        for (int i = 0; i < isStepCompleted.Length; i++)
+        {
+            if (step == isStepCompleted[i])
+            {
+                return (true);
+            }
+            else
+            {
+                isTrue = false;
+            }
+        }
+        return (isTrue);
     }
 }

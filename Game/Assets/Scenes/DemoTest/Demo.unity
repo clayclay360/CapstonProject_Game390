@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: da8e55367004f2b4581f6203b995a13f, type: 2}
+--- !u!1 &451849318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 451849320}
+  - component: {fileID: 451849319}
+  m_Layer: 0
+  m_Name: TaskManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &451849319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451849318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02aa94a5df0f9834ba9be0d6ca6cd232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalTasks: 0
+  currentTask: 0
+  totalCompleted: 0
+  tasksPanel: {fileID: 0}
+  taskPrefab: {fileID: 0}
+  tasks: []
+--- !u!4 &451849320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451849318}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.676782, y: 0.05, z: 5.0000005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &758290011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -890,12 +939,15 @@ MonoBehaviour:
   recipeTextbox2: {fileID: 787302398}
   recipeTextbox3: {fileID: 1701679011}
   backgroundImage: {fileID: 1648163388}
+  taskManager: {fileID: 451849318}
+  currentStepTaskMang: {fileID: 0}
   recipeIsOpenP1: 0
   pages: 
   steps: 
   currentStep: 0
   currentPage: 0
   isTouchingBook: 0
+  isStepCompleted: 
 --- !u!4 &1249754578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3449008763897445041, guid: 56551ed20a593fe4c92f1d76e7534b9d, type: 3}
