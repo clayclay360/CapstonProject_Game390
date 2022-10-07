@@ -99,18 +99,15 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerMovement() 
     {
+        animator.SetFloat("Blend", moveVec.magnitude);
+
         //Movement
         if (Mathf.Abs(moveVec.x) > 0 || Mathf.Abs(moveVec.z) > 0)
         {
             if (moveVec.magnitude > .1f)
             {
                 transform.position += movingSpeed * Time.deltaTime * moveVec;
-                animator.SetBool("Run", true);
             }
-        }
-        else
-        {
-            animator.SetBool("Run", false);
         }
         //Rotation
         if (Mathf.Abs(rotateVec.x) > 0 || Mathf.Abs(rotateVec.z) > 0)
