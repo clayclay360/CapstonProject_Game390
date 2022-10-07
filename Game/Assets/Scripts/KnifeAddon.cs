@@ -7,6 +7,9 @@ public class KnifeAddon : MonoBehaviour
 
     public int damage;
 
+    public int speed;
+    public Vector3 forward;
+
     private Rigidbody rb;
 
     private bool targetHit;
@@ -15,6 +18,11 @@ public class KnifeAddon : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        rb.velocity = forward * speed;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -46,11 +54,5 @@ public class KnifeAddon : MonoBehaviour
     private void DestroyKnife()
     {
         Destroy(gameObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -229,21 +229,25 @@ public class PlayerController : MonoBehaviour
         Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
 
         // calculate direction
-        Vector3 forceDirection = transform.forward;
+        KnifeAddon kscript = projectile.GetComponent<KnifeAddon>();
 
-        RaycastHit hit;
+        kscript.forward = transform.forward;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
-        {
-            forceDirection = (hit.point - attackPoint.position).normalized;
-        }
+        //OLD
+        //RaycastHit hit;
 
-        // add force
-        Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+        //if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
+        //{
+        //    forceDirection = (hit.point - attackPoint.position).normalized;
+        //}
 
-        projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
+        //// add force
+        //Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
 
-        totalThrows++;
+        //projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
+
+        //totalThrows++;
+        //END OLD
 
         // implement throwCooldown
         Invoke(nameof(ResetThrow), throwCooldown);
