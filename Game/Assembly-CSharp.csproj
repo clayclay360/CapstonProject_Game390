@@ -53,7 +53,7 @@
     <UnityVersion>2020.3.38f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Task.cs" />
@@ -65,7 +65,7 @@
     <Compile Include="Assets\LineRend.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Hold.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
-    <Compile Include="Assets\Testing\Controls.cs" />
+    <Compile Include="Assets\Scripts\Player\Controls.cs" />
     <Compile Include="Assets\Scripts\ButtonMechanic.cs" />
     <Compile Include="Assets\Scripts\RecipeBook.cs" />
     <Compile Include="Assets\Scripts\Interactable.cs" />
@@ -75,11 +75,15 @@
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Press.cs" />
     <Compile Include="Assets\Scripts\RatScript.cs" />
     <Compile Include="Assets\Scripts\Player\CameraScript.cs" />
+    <Compile Include="Assets\Scripts\Container\Pan.cs" />
     <Compile Include="Assets\Scripts\RatSpawnSystem.cs" />
     <Compile Include="Assets\Scripts\KnifeAddon.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Stove.cs" />
+    <Compile Include="Assets\Scripts\Utensils\Spatula.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Item.cs" />
     <Compile Include="Assets\Scripts\CookBook.cs" />
+    <Compile Include="Assets\Scripts\Food\Egg.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
