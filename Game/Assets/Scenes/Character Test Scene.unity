@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &416144380 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8836409279146497292, guid: d507961838679e34fbf2b59efa9776d0, type: 3}
+  m_PrefabInstance: {fileID: 1301368279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &495432289
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +359,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Animated_01
       objectReference: {fileID: 0}
+    - target: {fileID: 8513927763145021941, guid: d507961838679e34fbf2b59efa9776d0, type: 3}
+      propertyPath: m_RootBone
+      value: 
+      objectReference: {fileID: 416144380}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d507961838679e34fbf2b59efa9776d0, type: 3}
 --- !u!1 &1481942533 stripped
@@ -451,11 +460,11 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090621489}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: d507961838679e34fbf2b59efa9776d0, type: 3}
   m_Controller: {fileID: 9100000, guid: 67bce7bd4e7ad6548a133eeb3f173a36, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1

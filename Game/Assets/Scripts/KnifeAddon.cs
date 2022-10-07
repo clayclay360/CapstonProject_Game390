@@ -7,24 +7,24 @@ public class KnifeAddon : MonoBehaviour
 
     public int damage;
 
-    //private Rigidbody rb;
+    private Rigidbody rb;
 
     private bool targetHit;
 
     // Start is called before the first frame update
     void Start()
     {
-        //rb = GetComponent<RigidBody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (targetHit)
-        //{
-        //return;
-        //}
-        //else
-        //targetHit = true;
+        if (targetHit)
+        {
+        return;
+        }
+        else
+        targetHit = true;
 
         
 
