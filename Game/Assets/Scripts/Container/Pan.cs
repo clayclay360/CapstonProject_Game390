@@ -1,14 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Pan : Item
 {
+    public Slider progressSlider;
+    public enum State { cold, hot }
+    public bool cooking;
+    public State state;
+
+    public float cookTime;
+    public float progressMeterMin, progressMeterMax;
+
+    private float progressMeter;
+    private float interactionMeterStart, interactionMeterEnd;
+    private float finishMeterStart, finishMeterEnd;
     public Pan()
     {
         Name = "Pan";
         Type = "Tool";
         Interaction = "";
+        state = State.cold;
+    }
+
+    private void Start()
+    {
+        progressSlider.GetComponent<Slider>();
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -84,5 +101,37 @@ public class Pan : Item
                 }
                 break;
         }
+    }
+
+    private void Update()
+    {
+        StartCooking();
+    }
+
+    public void StartCooking()
+    {
+        if(Occupied && !cooking && state == State.hot)
+        {
+            Debug.Log("Cooking TIme");
+            progressSlider.gameObject.SetActive(true);
+            progressMeter = progressMeterMin;
+            progressSlider.maxValue = progressMeterMax;
+            progressSlider.minValue = progressMeterMin;  
+            progressSlider.value = progressMeter;
+            cooking = true;
+            StartCoroutine(Cooking(cookTime));
+        }
+    }
+
+    IEnumerator Cooking(float time)
+    {
+        while(progressMeter < progressMeterMax)
+        {
+            float reference = 0;
+            progressMeter = Mathf.SmoothDamp(progressMeter, progressMeterMax, ref reference, time);
+            progressSlider.value = progressMeter;
+            yield return null;
+        }
+        progressSlider.gameObject.SetActive(false);
     }
 }

@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void SwapItems()
+    private void OnSwapInventorySlots()
     {
         hand[2] = hand[0];
         hand[0] = hand[1];
