@@ -65,4 +65,10 @@ public class StartMenu : MonoBehaviour
     {
         StartCoroutine(ScreenOverlay(Condition.add,1, overlayDuration, index));
     }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quit Game");
+        Application.Quit();
+    }
 }
