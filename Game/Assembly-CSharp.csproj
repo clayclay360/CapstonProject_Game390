@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Task.cs" />
     <Compile Include="Assets\Scripts\InventoryItem.cs" />
+    <Compile Include="Assets\Scripts\Container\Plate.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Parent.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\TaskManager.cs" />
