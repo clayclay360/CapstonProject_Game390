@@ -16,7 +16,7 @@ public class Spatula : Item
     {
         if (chef.inventoryFull)
         {
-            Interaction = "Inventory Full";
+            Interaction = "Hands Full";
             return;
         }
 

@@ -20,11 +20,13 @@ public class Pan : Item
     public float progressMeterMin, progressMeterMax;
     public float[] interactionMeterStart, interactionMeterEnd;
 
+    private int attempts;
     private float progressMeter;
     private float finishMeterStart, finishMeterEnd;
     int interactionIndex = 0;
-    private bool interactionSuccess;
-    private Item foodInPan;
+    private bool[] interactionAttemptReady;
+    [HideInInspector]
+    public Item foodInPan;
     public Pan()
     {
         Name = "Pan";
@@ -36,6 +38,7 @@ public class Pan : Item
     private void Start()
     {
         progressSlider.GetComponent<Slider>();
+        interactionAttemptReady = new bool[interactionMeterEnd.Length];
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -94,34 +97,44 @@ public class Pan : Item
 
                         for(int i = 0; i < interactionMeterEnd.Length; i++)
                         {
-                            if(interactionMeterEnd[interactionIndex] < progressMeter)
+                            if(interactionMeterEnd[interactionMeterEnd.Length-1] > progressMeter)
                             {
-                                interactionIndex++;
+                                if(interactionMeterEnd[interactionIndex] < progressMeter)
+                                {
+                                    interactionIndex++;
+                                }
                             }
                         }
                         
+                        //Attempts
                         Debug.Log("Index: " + interactionIndex);
 
-                        if(progressMeter > interactionMeterStart[interactionIndex] && progressMeter < interactionMeterEnd[interactionIndex])
+                        if(progressMeter > progressMeterMax / 2)
                         {
-                            Debug.Log("Great Job!");
-                            completeMark[interactionIndex].sprite = checkMark;
-                            completeMark[interactionIndex].gameObject.SetActive(true);
-                            interactionSuccess = true;
+                            foodInPan.GetComponent<Egg>().state = Egg.State.omelet;
                         }
-                        else if(progressMeter < interactionMeterStart[interactionIndex])
+
+                        if(interactionAttemptReady[interactionIndex])
                         {
-                            completeMark[interactionIndex].sprite = xMark;
-                            completeMark[interactionIndex].gameObject.SetActive(true);
-                            interactionSuccess = false;
-                            Debug.Log("Too Early");
-                        }
-                        else if(progressMeter > interactionMeterEnd[interactionIndex])
-                        {
-                            completeMark[interactionIndex].sprite = xMark;
-                            completeMark[interactionIndex].gameObject.SetActive(true);
-                            interactionSuccess = false;
-                            Debug.Log("Too Late");
+                            if(progressMeter > interactionMeterStart[interactionIndex] && progressMeter < interactionMeterEnd[interactionIndex])
+                            {
+                                Debug.Log("Great Job!");
+                                completeMark[interactionIndex].sprite = checkMark;
+                                completeMark[interactionIndex].gameObject.SetActive(true);
+                            }
+                            else if(progressMeter < interactionMeterStart[interactionIndex])
+                            {
+                                completeMark[interactionIndex].sprite = xMark;
+                                completeMark[interactionIndex].gameObject.SetActive(true);
+                                Debug.Log("Too Early");
+                            }
+                            else if(progressMeter > interactionMeterEnd[interactionIndex])
+                            {
+                                completeMark[interactionIndex].sprite = xMark;
+                                completeMark[interactionIndex].gameObject.SetActive(true);
+                                Debug.Log("Too Late");
+                            }
+                            interactionAttemptReady[interactionIndex] = false;
                         }
                     }
                 }
@@ -129,7 +142,7 @@ public class Pan : Item
                 {
                     if(chef.inventoryFull)
                     {
-                        Interaction = "Inventory Full";
+                        Interaction = "Hands Full";
                         return;
                     }
 
@@ -155,6 +168,13 @@ public class Pan : Item
         StartCooking();
     }
 
+    public void ResetAttempts()
+    {
+        for(int i = 0; i < interactionAttemptReady.Length; i++)
+        {
+            interactionAttemptReady[i] = true;
+        }
+    }
     public void StartCooking()
     {
         if(Occupied && !cooking && state == State.hot && foodInPan.status == Status.uncooked)
@@ -165,6 +185,7 @@ public class Pan : Item
             progressSlider.minValue = progressMeterMin;  
             progressSlider.value = progressMeter;
             cooking = true;
+            ResetAttempts();
             StartCoroutine(Cooking(cookTime, cookOffset));
         }
     }

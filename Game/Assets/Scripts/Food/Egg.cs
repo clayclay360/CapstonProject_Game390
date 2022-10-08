@@ -47,7 +47,7 @@ public class Egg : Item
 
         if (chef.inventoryFull)
         {
-            Interaction = "Inventory Full";
+            Interaction = "Hands Full";
             return;
         }
 
@@ -91,6 +91,10 @@ public class Egg : Item
             case State.yoke:
                 Form[0].SetActive(false);
                 Form[1].SetActive(true);
+                break;
+            case State.omelet:
+                Form[1].SetActive(false);
+                Form[2].SetActive(true);
                 break;
         }
     }
