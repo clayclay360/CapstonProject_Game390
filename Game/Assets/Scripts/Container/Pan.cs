@@ -4,17 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Pan : Item
 {
+    [Header("UI")]
     public Slider progressSlider;
+    public Image[] completeMark;
+    public Sprite checkMark;
+    public Sprite xMark;
+
     public enum State { cold, hot }
+
+    [Header("Variables")]
     public bool cooking;
     public State state;
-
     public float cookTime;
+    public float cookOffset;
     public float progressMeterMin, progressMeterMax;
+    public float[] interactionMeterStart, interactionMeterEnd;
 
     private float progressMeter;
-    private float interactionMeterStart, interactionMeterEnd;
     private float finishMeterStart, finishMeterEnd;
+    int interactionIndex = 0;
+    private bool interactionSuccess;
+    private Item foodInPan;
     public Pan()
     {
         Name = "Pan";
@@ -35,16 +45,18 @@ public class Pan : Item
         switch (item)
         {
             case PlayerController.ItemInMainHand.empty:
-                Interaction = "Grab Pan";
-                if (chef.isInteracting)
-                {
-                    if (utilityItemIsOccupying != null)
+                if(!cooking){
+                    Interaction = "Grab Pan";
+                    if (chef.isInteracting)
                     {
-                        utilityItemIsOccupying.Occupied = false;
-                        utilityItemIsOccupying = null;
+                        if (utilityItemIsOccupying != null)
+                        {
+                            utilityItemIsOccupying.Occupied = false;
+                            utilityItemIsOccupying = null;
+                        }
+                        Interaction = "";
+                        gameObject.SetActive(false);
                     }
-                    Interaction = "";
-                    gameObject.SetActive(false);
                 }
                 break;
             case PlayerController.ItemInMainHand.egg:
@@ -61,26 +73,61 @@ public class Pan : Item
                             chef.hand[0].GetComponent<Egg>().gameObject.transform.parent = transform;
                             chef.hand[0].GetComponent<Egg>().gameObject.transform.localPosition = new Vector3(0, .15f, 0);
                             chef.hand[0].GetComponent<Egg>().gameObject.SetActive(true);
+                            foodInPan = chef.hand[0];
                             chef.hand[0] = null;
                             chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                             Occupied = true;
                             Prone = true;
+                            chef.isInteracting = false;
                         }
                         break;
                 }
                 break;
             case PlayerController.ItemInMainHand.spatula:
-                if (Occupied)
+                if (Occupied && state == State.hot && cooking)
                 {
                     Interaction = "Use Spatula";
                     if (chef.isInteracting)
                     {
+                        chef.isInteracting = false;
+                        interactionIndex = 0;
 
+                        for(int i = 0; i < interactionMeterEnd.Length; i++)
+                        {
+                            if(interactionMeterEnd[interactionIndex] < progressMeter)
+                            {
+                                interactionIndex++;
+                            }
+                        }
+                        
+                        Debug.Log("Index: " + interactionIndex);
+
+                        if(progressMeter > interactionMeterStart[interactionIndex] && progressMeter < interactionMeterEnd[interactionIndex])
+                        {
+                            Debug.Log("Great Job!");
+                            completeMark[interactionIndex].sprite = checkMark;
+                            completeMark[interactionIndex].gameObject.SetActive(true);
+                            interactionSuccess = true;
+                        }
+                        else if(progressMeter < interactionMeterStart[interactionIndex])
+                        {
+                            completeMark[interactionIndex].sprite = xMark;
+                            completeMark[interactionIndex].gameObject.SetActive(true);
+                            interactionSuccess = false;
+                            Debug.Log("Too Early");
+                        }
+                        else if(progressMeter > interactionMeterEnd[interactionIndex])
+                        {
+                            completeMark[interactionIndex].sprite = xMark;
+                            completeMark[interactionIndex].gameObject.SetActive(true);
+                            interactionSuccess = false;
+                            Debug.Log("Too Late");
+                        }
                     }
                 }
                 else
                 {
-                    if (chef.inventoryFull)
+                    if(chef.inventoryFull)
                     {
                         Interaction = "Inventory Full";
                         return;
@@ -110,28 +157,28 @@ public class Pan : Item
 
     public void StartCooking()
     {
-        if(Occupied && !cooking && state == State.hot)
+        if(Occupied && !cooking && state == State.hot && foodInPan.status == Status.uncooked)
         {
-            Debug.Log("Cooking TIme");
             progressSlider.gameObject.SetActive(true);
             progressMeter = progressMeterMin;
             progressSlider.maxValue = progressMeterMax;
             progressSlider.minValue = progressMeterMin;  
             progressSlider.value = progressMeter;
             cooking = true;
-            StartCoroutine(Cooking(cookTime));
+            StartCoroutine(Cooking(cookTime, cookOffset));
         }
     }
 
-    IEnumerator Cooking(float time)
+    IEnumerator Cooking(float time, float offset)
     {
-        while(progressMeter < progressMeterMax)
+        while(progressMeter + offset < progressMeterMax)
         {
-            float reference = 0;
-            progressMeter = Mathf.SmoothDamp(progressMeter, progressMeterMax, ref reference, time);
+            progressMeter = Mathf.Lerp(progressMeter, progressMeterMax, time);
             progressSlider.value = progressMeter;
             yield return null;
         }
         progressSlider.gameObject.SetActive(false);
+        cooking = false;
+        foodInPan.status = Status.cooked;
     }
 }

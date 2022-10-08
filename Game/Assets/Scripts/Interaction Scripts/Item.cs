@@ -8,6 +8,10 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     public string Name;
     public string Type;
     public float Height;
+    
+    //I'll definetly have to make a food and tool child
+    public enum Status {uncooked, cooked, burnt}
+    [HideInInspector] public Status status;
     [HideInInspector] public bool Occupied;
     [HideInInspector] public bool Prone;
     [HideInInspector] public string Interaction;

@@ -8,7 +8,7 @@ using UnityEngine.PlayerLoop;
 public class Egg : Item
 {
     public GameObject[] Form;
-    public enum State { shell, yoke, uncooked, cooked, omelet };
+    public enum State { shell, yoke, omelet };
     public State state;
 
     PlayerController player;
@@ -17,6 +17,7 @@ public class Egg : Item
         Name = "Egg";
         Type = "Food";
         Interaction = "";
+        status = Status.uncooked;
         Prone = false;
         state = State.shell;
     }
