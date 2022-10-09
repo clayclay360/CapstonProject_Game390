@@ -207,7 +207,7 @@
                 {
                     "name": "",
                     "id": "ee8e04b0-d45f-46b1-a296-f68becf48c34",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
@@ -255,6 +255,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
+                    "action": "Swap Inventory Slots",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec9d3463-45ed-41b3-8d1e-622448877bc4",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Swap Inventory Slots",
                     "isComposite": false,
                     "isPartOfComposite": false

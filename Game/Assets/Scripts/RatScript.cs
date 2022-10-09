@@ -245,7 +245,6 @@ public class RatScript : MonoBehaviour
         target = GameObject.Find(targetPrefab.name);
 
         Debug.Log("Rat is targeting: " + target.name);
-        Debug.Log(target.transform.position);
     }
 
     public void ReturnToVent()

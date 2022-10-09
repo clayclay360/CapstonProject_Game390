@@ -1,18 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
-public class Spatula : MonoBehaviour
+public class Spatula : Item
 {
-    // Start is called before the first frame update
-    void Start()
+    public Spatula()
     {
-        
+        Name = "Spatula";
+        Type = "Tool";
+        Interaction = "";
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
     {
-        
+        if (chef.inventoryFull)
+        {
+            Interaction = "Hands Full";
+            return;
+        }
+
+        switch (item)
+        {
+            case PlayerController.ItemInMainHand.empty:
+                Interaction = "Grab Spatula";
+                if (chef.isInteracting)
+                {
+                    gameObject.SetActive(false);
+                    Interaction = "";
+                }
+                break;
+            case PlayerController.ItemInMainHand.egg:
+                Interaction = "Grab Spatula";
+                if (chef.isInteracting)
+                {
+                    gameObject.SetActive(false);
+                    Interaction = "";
+                }
+                break;
+            case PlayerController.ItemInMainHand.pan:
+                Interaction = "Grab Spatula";
+                if (chef.isInteracting)
+                {
+                    gameObject.SetActive(false);
+                    Interaction = "";
+                }
+                break;
+        }
     }
 }
