@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     private int main_hand_id = 0; //0 for empty
     private int off_hand_id = 0;
     private float interactRange = 5f;
+    [Header("Inventory")]
+    public Text Inv1;
+    public Text Inv2;
 
     //Interactions
     [Header("Interactions")]
@@ -177,6 +180,9 @@ public class PlayerController : MonoBehaviour
         hand[0] = hand[1];
         hand[1] = hand[2];
 
+        Inv1.text = hand[0].Name;
+        Inv2.text = hand[1].Name;
+
         Debug.LogWarning("Switching Hands: \nHand 1: " + hand[0] + "\nHand 2: " + hand[1]);
     }
 
@@ -216,12 +222,15 @@ public class PlayerController : MonoBehaviour
                     if (hand[0] == null)
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
+                        Inv1.text = hand[0].Name;
                         Debug.Log(hand[0].Name);
                     }
                     else if (hand[1] == null)
                     {
                         hand[1] = hand[0];
                         hand[0] = other.gameObject.GetComponent<Item>();
+                        Inv1.text = hand[0].Name;
+                        Inv2.text = hand[1].Name;
                         Debug.Log(hand[0].Name);
                     }
                 }
@@ -236,6 +245,9 @@ public class PlayerController : MonoBehaviour
             {
                 other.gameObject.GetComponent<Utility>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
+
+                Inv1.text = hand[0].Name;
+                Inv2.text = hand[1].Name;
             }
             isInteracting = false;
         }
