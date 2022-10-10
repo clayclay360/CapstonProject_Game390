@@ -76,7 +76,6 @@ public class Pan : Item
                             chef.hand[0].GetComponent<Egg>().gameObject.transform.parent = transform;
                             chef.hand[0].GetComponent<Egg>().gameObject.transform.localPosition = new Vector3(0, .15f, 0);
                             chef.hand[0].GetComponent<Egg>().gameObject.SetActive(true);
-                            chef.hand[0].gameObject.tag = "Untagged";
                             foodInPan = chef.hand[0];
                             chef.hand[0] = null;
                             chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
