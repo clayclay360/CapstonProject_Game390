@@ -394,11 +394,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 5782238860536919977}
   health: 0
-  attackRadius: 0.6
+  attackRadius: 0.7
   TargetsList:
   - {fileID: 1484350882870019920, guid: 7728c74f842b41a4481021fd3f7ec695, type: 3}
-  - {fileID: 6695557741851495857, guid: 2138e3d89f5ae954fa37267589cc1ff9, type: 3}
-  - {fileID: 6095663638680043377, guid: 7ddf5b8f2f5449242ac30152eb5e3c05, type: 3}
+  - {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
+  - {fileID: 3807997087155036473, guid: 874db3dec4c040d4d8e03708505955b0, type: 3}
   objectiveComplete: 0
   ventsTransform:
   - {fileID: 0}

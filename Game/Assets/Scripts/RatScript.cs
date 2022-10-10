@@ -101,6 +101,7 @@ public class RatScript : MonoBehaviour
 
             if (distanceBetweenTarget > attackRadius)
             {
+                //Debug.Log("Distance to "+target.name+": " + distanceBetweenTarget.ToString());
                 MoveToTarget();
             }
             else
@@ -108,6 +109,10 @@ public class RatScript : MonoBehaviour
                 //LookAt();
                 Attack();
             }
+        }
+        else
+        {
+            ReturnToVent();
         }
     }
 
@@ -214,6 +219,14 @@ public class RatScript : MonoBehaviour
                     else if(other.TryGetComponent<Utility>(out Utility util))
                     {
                         Debug.Log("Hit Utility.");
+                        switch (target.name)
+                        {
+                            case "Stove":
+                                target.GetComponent<Stove>().On = false;
+                                target.GetComponent<Stove>().State(false);
+                                objectiveComplete = true;
+                                break;
+                        }
                     }
                     break;
             }
