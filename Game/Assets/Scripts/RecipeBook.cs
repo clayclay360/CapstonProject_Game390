@@ -125,24 +125,6 @@ public class RecipeBook: MonoBehaviour
         else { recipeTextbox3.GetComponent<Text>().color = Color.black; }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            Debug.LogError("Touching cook book");
-            GameManager.isTouchingBook = true;
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            Debug.LogError("Not touching cook book");
-            GameManager.isTouchingBook = false;
-        }
-    }
-
     public void ClickOnBook()
     {
         if (GameManager.isTouchingBook)
