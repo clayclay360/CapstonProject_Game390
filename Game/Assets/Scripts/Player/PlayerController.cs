@@ -363,7 +363,7 @@ public class PlayerController : MonoBehaviour
     void OnThrowKnife()
     {
         cookBook.ClickThroughBook();// put in by owen for recipe books
-
+    
 
         readyToThrow = false;
 

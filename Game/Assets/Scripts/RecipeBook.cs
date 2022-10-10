@@ -34,6 +34,18 @@ public class RecipeBook: MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.isTouchingBook)
+        {
+            //variable telling the game that the recipe for player one is closed
+            GameManager.recipeIsOpenP1 = false;
+            //empties out any information in the textboxes
+            recipeTextbox1.GetComponent<Text>().text = " ";
+            recipeTextbox2.GetComponent<Text>().text = " ";
+            recipeTextbox3.GetComponent<Text>().text = " ";
+            //hides the background image
+            backgroundImage.SetActive(false);
+        }
+
         /*if (GameManager.isTouchingBook)
         {
             //variable telling the game that the recipe for player one is open
@@ -140,17 +152,6 @@ public class RecipeBook: MonoBehaviour
             currentPage = 1;
 
             printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", "Beat the eggs (Bowl on countertop).", 1, 2, 3);
-        }
-        else if (!GameManager.isTouchingBook)
-        {
-            //variable telling the game that the recipe for player one is closed
-            GameManager.recipeIsOpenP1 = false;
-            //empties out any information in the textboxes
-            recipeTextbox1.GetComponent<Text>().text = " ";
-            recipeTextbox2.GetComponent<Text>().text = " ";
-            recipeTextbox3.GetComponent<Text>().text = " ";
-            //hides the background image
-            backgroundImage.SetActive(false);
         }
     }
 
