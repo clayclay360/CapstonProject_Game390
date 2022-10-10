@@ -2,9 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager
+public class GameManager : MonoBehaviour
 {
+    private static GameManager _instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                //Debug.LogError("GameManager is null!");
+                Debug.LogWarning("Creating GameManager");
+
+                _instance = new GameObject().AddComponent<GameManager>();
+
+                _instance.name = _instance.GetType().ToString();
+
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+            return _instance;
+        }
+    }
+
     //We can't use dictionaries in the GameManager :( Maybe use a Main in the level?
+    public List<string> recipeReq = new List<string>();
     public string[] recipeReqs;
     public Item foodReq;
     public bool reqsClear;
@@ -15,21 +36,25 @@ public class GameManager
     public int playerScore;
     public int scoreMultiplier;
 
-    public void Start()
+    private void Awake()
+    {
+        _instance = this;
+    }
+    private void Start()
     {
         reqsClear = false;
         playerScore = 0;
         scoreMultiplier = 1;
 
-        recipeReqs = new string[0];
-        recipeReqs[0] = "omelet";
+        recipeReq.Add("omelet");
+        Debug.LogWarning("GameManager Ready!");
     }
 
-    public void Update() 
+    private void Update() 
     {
         if (reqsClear)
         {
-            Debug.Log("Omelet Complete!");
+            Debug.LogWarning("Omelet Complete!");
             Time.timeScale = 0;
         }
     }
@@ -42,7 +67,7 @@ public class GameManager
 
     public void CheckLevelCompletion(Item food)
     {
-        foreach(string req in recipeReqs)
+        foreach(string req in recipeReq)
         {
             switch (req)
             {

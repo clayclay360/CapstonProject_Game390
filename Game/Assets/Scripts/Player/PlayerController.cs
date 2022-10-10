@@ -228,6 +228,8 @@ public class PlayerController : MonoBehaviour
                 {
                     other.gameObject.GetComponent<Item>().Prone = false;
                 }
+                //Check completion
+                GameManager.Instance.CheckLevelCompletion(other.gameObject.GetComponent<Item>());
             }
             else if (other.gameObject.GetComponent<Utility>() != null)
             {

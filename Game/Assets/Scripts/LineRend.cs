@@ -24,7 +24,7 @@ public class LineRend : MonoBehaviour
 
         toggleAimPoint = false;
 
-        Debug.Log("AimLine on");
+        //Debug.Log("AimLine on");
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
