@@ -353,6 +353,8 @@ public class PlayerController : MonoBehaviour
 
         kscript.forward = transform.forward;
 
+        
+
         //OLD
         //RaycastHit hit;
 
