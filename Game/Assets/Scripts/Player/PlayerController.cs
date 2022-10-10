@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
         hand[0] = hand[1];
         hand[1] = hand[2];
 
-        Debug.Log("Switching Hands: \nHand 1: " + hand[0] + "\nHand 2: " + hand[1]);
+        Debug.LogWarning("Switching Hands: \nHand 1: " + hand[0] + "\nHand 2: " + hand[1]);
     }
 
     private void CheckInventory()
@@ -198,6 +198,7 @@ public class PlayerController : MonoBehaviour
         {
             isInteracting= true;
         }
+        Debug.LogWarning("OnInteract()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
     }
     private void OnTriggerStay(Collider other)
     {
@@ -242,11 +243,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<Item>() != null || other.GetComponent<Utility>() != null)
+        interactionText.text = "";
+        readyToInteract = false;
+        isInteracting = false;
+        if (other.GetComponent<Item>() != null || other.GetComponent<Utility>() != null || other.gameObject.tag == "Interactable")
         {
-            interactionText.text = "";
-            readyToInteract = false;
+            //Depreciated
         }
+        Debug.LogWarning("OnTriggerExit()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
     }
 
     //public void OnInteract()

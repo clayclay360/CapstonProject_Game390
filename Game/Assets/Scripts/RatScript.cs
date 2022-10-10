@@ -150,7 +150,7 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    Debug.Log("climb");
+                    //Debug.Log("climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
                 }
@@ -196,7 +196,7 @@ public class RatScript : MonoBehaviour
     {
         if (other.CompareTag(target.tag))
         {
-            Debug.Log("hit");
+            //Debug.Log("hit");
             collider.enabled = false;
             switch (target.tag)
             {
@@ -209,16 +209,16 @@ public class RatScript : MonoBehaviour
                     }
                     break;
                 case "Interactable":
-                    Debug.Log("Hit Interactable Object");
+                    //Debug.Log("Hit Interactable Object");
                     if(other.TryGetComponent<InventoryItem>(out InventoryItem invitem))
                     {
-                        Debug.Log("Hit Inventory Item.");
+                        //Debug.Log("Hit Inventory Item.");
                         other.gameObject.SetActive(false);
                         objectiveComplete = true;
                     }
                     else if(other.TryGetComponent<Utility>(out Utility util))
                     {
-                        Debug.Log("Hit Utility.");
+                        //Debug.Log("Hit Utility.");
                         switch (target.name)
                         {
                             case "Stove":
@@ -257,7 +257,7 @@ public class RatScript : MonoBehaviour
         targetPrefab = targetList[Random.Range(0, targetList.Length)];
         target = GameObject.Find(targetPrefab.name);
 
-        Debug.Log("Rat is targeting: " + target.name);
+        //Debug.Log("Rat is targeting: " + target.name);
     }
 
     public void ReturnToVent()
