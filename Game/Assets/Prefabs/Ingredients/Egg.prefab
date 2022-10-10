@@ -351,7 +351,6 @@ GameObject:
   - component: {fileID: 9193496973303149576}
   - component: {fileID: 2560282284853215479}
   - component: {fileID: 4627609362790912808}
-  - component: {fileID: 2557686711836061372}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Interactable
@@ -366,7 +365,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9193496973303149577}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.567569, y: 1.15, z: -6.5326424}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -404,32 +403,6 @@ SphereCollider:
   m_Radius: 0.25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4627609362790912808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9193496973303149577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 469d2c58273fac24bac6ef31c990ad1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Egg
-  Type: Food
-  Height: 0
-  status: 0
-  Occupied: 0
-  Prone: 0
-  Interaction: 
-  utilityItemIsOccupying: {fileID: 0}
-  toolItemIsOccupying: {fileID: 0}
-  Form:
-  - {fileID: 2557686710460750971}
-  - {fileID: 2557686711327224517}
-  - {fileID: 2557686712286819358}
-  state: 0
---- !u!114 &2557686711836061372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
