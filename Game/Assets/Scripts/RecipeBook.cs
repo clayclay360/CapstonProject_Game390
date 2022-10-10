@@ -12,7 +12,6 @@ public class RecipeBook: MonoBehaviour
     public GameObject backgroundImage;
     //public GameObject taskManager;
     //public TaskManager currentStepTaskMang;
-    public bool recipeIsOpenP1;
     public int[] pages;
     public int[] steps;
     public int currentStep;
@@ -28,16 +27,14 @@ public class RecipeBook: MonoBehaviour
         currentStep = 2;
         GameManager.isStepCompleted = new int[] { 0, 1, 7, 4, 8 };
 
-        GameManager.isTouchingBook = true;
+        GameManager.isTouchingBook = false;
 
         //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
     }
 
     void Update()
     {
-       
-
-        if (Input.GetKeyDown("e") && GameManager.isTouchingBook)
+        /*if (GameManager.isTouchingBook)
         {
             //variable telling the game that the recipe for player one is open
             recipeIsOpenP1 = true;
@@ -51,7 +48,7 @@ public class RecipeBook: MonoBehaviour
 
             printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", "Beat the eggs (Bowl on countertop).", 1, 2, 3);
         }
-        else if (Input.GetKeyUp("e") || !GameManager.isTouchingBook)
+        else if (!GameManager.isTouchingBook)
         {
             //variable telling the game that the recipe for player one is closed
             recipeIsOpenP1 = false;
@@ -63,7 +60,7 @@ public class RecipeBook: MonoBehaviour
             backgroundImage.SetActive(false);
         }
 
-        if (Input.GetMouseButtonDown(0) && recipeIsOpenP1)
+        if (recipeIsOpenP1)
         {
             //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
 
@@ -89,7 +86,7 @@ public class RecipeBook: MonoBehaviour
                 }
                 currentPage = 0;
             }
-        }
+        }*/
     }
 
     
@@ -126,5 +123,84 @@ public class RecipeBook: MonoBehaviour
 
         if (checkIfStepCompleted(checkNum3)) { recipeTextbox3.GetComponent<Text>().color = Color.gray; }
         else { recipeTextbox3.GetComponent<Text>().color = Color.black; }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.LogError("Touching cook book");
+            GameManager.isTouchingBook = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.LogError("Not touching cook book");
+            GameManager.isTouchingBook = false;
+        }
+    }
+
+    public void ClickOnBook()
+    {
+        if (GameManager.isTouchingBook)
+        {
+            //variable telling the game that the recipe for player one is open
+            GameManager.recipeIsOpenP1 = true;
+            Debug.LogError(GameManager.recipeIsOpenP1);
+
+            //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
+            //sets the background image to show
+            backgroundImage.SetActive(true);
+
+            currentPage = 1;
+
+            printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", "Beat the eggs (Bowl on countertop).", 1, 2, 3);
+        }
+        else if (!GameManager.isTouchingBook)
+        {
+            //variable telling the game that the recipe for player one is closed
+            GameManager.recipeIsOpenP1 = false;
+            //empties out any information in the textboxes
+            recipeTextbox1.GetComponent<Text>().text = " ";
+            recipeTextbox2.GetComponent<Text>().text = " ";
+            recipeTextbox3.GetComponent<Text>().text = " ";
+            //hides the background image
+            backgroundImage.SetActive(false);
+        }
+    }
+
+    public void ClickThroughBook()
+    {
+        if (GameManager.recipeIsOpenP1)
+        {
+            //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
+
+            if (currentPage != pages.Length - 1)
+            {
+                if (currentPage == 0)
+                {
+                    printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", "Beat the eggs (Bowl on countertop).", 1, 2, 3);
+
+
+                }
+                else if (currentPage == 1)
+                {
+                    printRecipeBookText("Melt Butter in the pan.", "Add eggs to pan.", "Lift and tilt eggs with spatula.", 4, 5, 6);
+                }
+
+                currentPage++;
+            }
+            else
+            {
+                if (currentPage == 2)
+                {
+                    printRecipeBookText("Add cheese to pan.", "Fold eggs with spatula", " ", 7, 8, 9);
+                }
+                currentPage = 0;
+            }
+        }
     }
 }

@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 8192597176945373100}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,8 +88,11 @@ MonoBehaviour:
   totalThrows: 20
   throwCooldown: 0
   objectToThrow: {fileID: 432155490203820227, guid: 1421fc372dd76bb4c9a94f63854079a6, type: 3}
-  aimLineLength: 5
   animator: {fileID: 60157738}
+  interactionText: {fileID: 0}
+  itemInMainHand: 0
+  inventoryFull: 0
+  isInteracting: 0
 --- !u!114 &3449008763897445043
 MonoBehaviour:
   m_ObjectHideFlags: 0

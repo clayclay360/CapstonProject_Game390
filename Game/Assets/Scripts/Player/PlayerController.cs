@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     public Dictionary<int, Item> hand = new Dictionary<int, Item>();
     public enum ItemInMainHand { empty, egg, spatula, pan };
     public ItemInMainHand itemInMainHand;
+    RecipeBook cookBook;
 
     //quickref for whether hands are full
     public bool inventoryFull = false;
@@ -70,11 +71,14 @@ public class PlayerController : MonoBehaviour
         attackPoint = transform.Find("Attackpoint");
         animator.GetComponent<Animator>();
         PlayerAssignment();
+        
+
     }
 
     public void Update()
     {
         //Interact();
+        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
     }
 
     // Update is called once per frame
@@ -198,6 +202,7 @@ public class PlayerController : MonoBehaviour
         {
             isInteracting= true;
         }
+        cookBook.ClickOnBook();
     }
     private void OnTriggerStay(Collider other)
     {
@@ -244,6 +249,23 @@ public class PlayerController : MonoBehaviour
         {
             interactionText.text = "";
             readyToInteract = false;
+        }
+
+        if (other.gameObject.tag == "CookBook")
+        {
+            Debug.LogError("Not touching cook book");
+            GameManager.isTouchingBook = false;
+            cookBook = null;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "CookBook")
+        {
+            Debug.LogError("Touching cook book");
+            GameManager.isTouchingBook = true;
+            cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
         }
     }
 
@@ -340,6 +362,9 @@ public class PlayerController : MonoBehaviour
 
     void OnThrowKnife()
     {
+        cookBook.ClickThroughBook();
+        
+
         readyToThrow = false;
 
         // instantiate object to throw

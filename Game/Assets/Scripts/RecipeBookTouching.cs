@@ -20,8 +20,8 @@ public class RecipeBookTouching : MonoBehaviour
     {
         if (collision.gameObject.tag == "CookBook")
         {
-            Debug.Log("Touching cook book");
-            GameManager.isTouchingBook = true;
+            //Debug.LogError("Touching cook book");
+            //GameManager.isTouchingBook = true;
         }
     }
 
@@ -29,8 +29,8 @@ public class RecipeBookTouching : MonoBehaviour
     {
         if (collision.gameObject.tag == "CookBook")
         {
-            Debug.Log("Not touching cook book");
-            GameManager.isTouchingBook = false;
+            //Debug.LogError("Not touching cook book");
+            //GameManager.isTouchingBook = false;
         }
     }
 }

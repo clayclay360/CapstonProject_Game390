@@ -8,6 +8,9 @@ public class GameManager
     public string[] recipeReqs;
     public Item foodReq;
     public bool reqsClear;
+    public static bool recipeIsOpenP1;
+    public static bool isTouchingBook;
+    public static int[] isStepCompleted;
 
     public static int numberOfPlayers = 0;
     public static bool cookBookActive = true;
