@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour
             readyToInteract = false;
         }
 
-        if (other.gameObject.tag == "CookBook")
+        if (other.gameObject.tag == "CookBook") // put in by owen for recipe books
         {
             Debug.LogError("Not touching cook book");
             GameManager.isTouchingBook = false;
@@ -259,7 +259,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)// put in by owen for recipe books
     {
         if (other.gameObject.tag == "CookBook")
         {
@@ -362,8 +362,8 @@ public class PlayerController : MonoBehaviour
 
     void OnThrowKnife()
     {
-        cookBook.ClickThroughBook();
-        
+        cookBook.ClickThroughBook();// put in by owen for recipe books
+
 
         readyToThrow = false;
 
