@@ -1,45 +1,42 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder;
 
 public class LineRend : MonoBehaviour
 {
-    private float aimLineLength = 1f;
-    private Transform aimLinePoint;
+    //private Controls m_Controls;
+    [SerializeField] private float aimLineLength = 5f;
+    public Transform aimLinePoint;
+
     LineRenderer aimLine;
-    //public Vector3 forward;
-    private bool ToggleAimLine = true;
 
 
     // Start is called before the first frame update
     void Start()
     {
         aimLine = GetComponent<LineRenderer>();
-        //aimLinePoint = transform.Find("Attackpoint");
     }
 
     // Update is called once per frame
     void Update()
     {
-        ToggleAimLine = false;
 
 
-        Debug.Log("AimLine on");
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
             if (hit.collider)
             {
-                aimLine.SetPosition(1, new Vector3(0, 0, hit.distance) * aimLineLength);
+                aimLine.SetPosition(1, new Vector3(0, 0, hit.distance));
 
             }
             else
             {
-                aimLine.SetPosition(1, new Vector3(0, 0, 5));
+                aimLine.SetPosition(1, new Vector3(0, 0, 5000));
             }
 
         }
-        
+        Debug.Log("AimLine on");
     }
-    
+
 }
