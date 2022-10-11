@@ -185,8 +185,24 @@ public class PlayerController : MonoBehaviour
         hand[0] = hand[1];
         hand[1] = hand[2];
 
-        Inv1.text = hand[0].Name;
-        Inv2.text = hand[1].Name;
+        if (hand[0] != null)
+        {
+            Inv1.text = hand[0].Name;
+        }
+        else
+        {
+            Inv1.text = "";
+        }
+
+
+        if (hand[1] != null)
+        {
+            Inv2.text = hand[1].Name;
+        }
+        else
+        {
+            Inv2.text = "";
+        }
 
         Debug.LogWarning("Switching Hands: \nHand 1: " + hand[0] + "\nHand 2: " + hand[1]);
     }
@@ -231,7 +247,7 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.GetComponent<Item>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Item>().Interaction;
 
-                if (isInteracting && !other.gameObject.GetComponent<Item>().Prone) //check isinteracting on the item
+                if (isInteracting && !other.gameObject.GetComponent<Item>().Prone && /* This is temporary just for prototype*/ other.gameObject.GetComponent<Item>().Name != "Plate") //check isinteracting on the item
                 {
                     isInteracting = false; //turn off isinteracting HERE to prevent problems
                     if (hand[0] == null)
@@ -252,15 +268,13 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     other.gameObject.GetComponent<Item>().Prone = false;
+                    isInteracting = false;
                 }
             }
             else if (other.gameObject.GetComponent<Utility>() != null)
             {
                 other.gameObject.GetComponent<Utility>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
-
-                Inv1.text = hand[0].Name;
-                Inv2.text = hand[1].Name;
             }
         }
     }

@@ -2658,7 +2658,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 678285056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.66, y: 0.861, z: 5.676}
+  m_LocalPosition: {x: 1.0100002, y: 0.861, z: 5.676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 603892303}
@@ -4320,7 +4320,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1334
+  m_Name: pb_Mesh-1324
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9438,6 +9438,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RatHoles
       objectReference: {fileID: 0}
+    - target: {fileID: 4422763601645354035, guid: 81fdbf44d58c1164c8235f9959aa278c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4422763601729473632, guid: 81fdbf44d58c1164c8235f9959aa278c, type: 3}
       propertyPath: m_TagString
       value: RatVent
@@ -9721,7 +9725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1204956642116481261, guid: bb1a6c702029d294597173b9f87700b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.8
+      value: 7.2000003
       objectReference: {fileID: 0}
     - target: {fileID: 1204956642116481261, guid: bb1a6c702029d294597173b9f87700b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14018,7 +14022,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1318
+  m_Name: pb_Mesh-1308
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14725,7 +14729,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853298986}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.2000003, y: 1.1310005, z: 5.3}
+  m_LocalPosition: {x: 4.8, y: 1.1310005, z: 5.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1202221823}

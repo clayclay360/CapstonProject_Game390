@@ -18,7 +18,7 @@ public class Plate : Item
         switch(item)
         {
             case PlayerController.ItemInMainHand.pan:
-                if(chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
+                if(chef.hand[0].GetComponent<Pan>() != null && chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
                 {
                     Interaction = "Place food on plate";
                     if(chef.isInteracting)
