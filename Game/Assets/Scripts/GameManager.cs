@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool recipeIsOpenP1;
+    public static bool isTouchingBook;
+    public static int[] isStepCompleted;
     private static GameManager _instance;
     public static GameManager Instance
     {
