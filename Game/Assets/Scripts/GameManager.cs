@@ -55,6 +55,11 @@ public class GameManager : MonoBehaviour
 
     private void Update() 
     {
+
+    }
+
+    private void CheckIfLevelComplete()
+    {
         if (reqsClear)
         {
             Debug.LogWarning("Omelet Complete!");
@@ -66,6 +71,7 @@ public class GameManager : MonoBehaviour
     {
         if (increaseMultiplier) { scoreMultiplier += 1; }
         playerScore += scoreMultiplier * points;
+        Debug.Log("Current score: " + playerScore);
     }
 
     public void CheckLevelCompletion(Item food)
@@ -81,6 +87,7 @@ public class GameManager : MonoBehaviour
             }
 
         }
+        CheckIfLevelComplete();
     }
 
     public bool omeletStatus(Egg egg)

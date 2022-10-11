@@ -23,13 +23,16 @@ public class Plate : Item
                     Interaction = "Place food on plate";
                     if(chef.isInteracting)
                     {
-                    foodOnPlate = chef.hand[0].GetComponent<Pan>().foodInPan;
-                    foodOnPlate.toolItemIsOccupying = this;
-                    foodOnPlate.gameObject.transform.parent = transform;
-                    foodOnPlate.gameObject.transform.localPosition = new Vector3(0, .15f, 0);
-                    chef.hand[0].GetComponent<Pan>().foodInPan = null;
-                    chef.hand[0].GetComponent<Pan>().Occupied = false;
-                    chef.isInteracting = false;
+                        foodOnPlate = chef.hand[0].GetComponent<Pan>().foodInPan;
+                        foodOnPlate.toolItemIsOccupying = this;
+                        foodOnPlate.gameObject.transform.parent = transform;
+                        foodOnPlate.gameObject.transform.localPosition = new Vector3(0, .15f, 0);
+                        chef.hand[0].GetComponent<Pan>().foodInPan = null;
+                        chef.hand[0].GetComponent<Pan>().Occupied = false;
+                        chef.isInteracting = false;
+
+                        //Checkcompletion
+                        GameManager.Instance.CheckLevelCompletion(foodOnPlate);
                     }
                 }
                 else if(chef.inventoryFull)

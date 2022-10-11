@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
+    private GameManager gm;
+
     [SerializeField] private LayerMask groundMask;
     public enum Player {PlayerOne,PlayerTwo};
     public Player player;
@@ -74,6 +76,7 @@ public class PlayerController : MonoBehaviour
         attackPoint = transform.Find("Attackpoint");
         animator.GetComponent<Animator>();
         PlayerAssignment();
+        gm = GameManager.Instance;
     }
 
     public void Update()
@@ -206,22 +209,31 @@ public class PlayerController : MonoBehaviour
         {
             isInteracting= true;
         }
-        Debug.LogWarning("OnInteract()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
+        //Debug.LogWarning("OnInteract()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
         cookBook.ClickOnBook();
     }
+
+    public IEnumerable InteractCD()
+    {
+        readyToInteract = false;
+        yield return new WaitForSeconds(.5f);
+        readyToInteract = true;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Interactable")
         { 
-            readyToInteract = true;
+            readyToInteract = true; //assign ready to interact so that isinteracting can be set from OnInteract()
 
             if (other.gameObject.GetComponent<Item>() != null)
             {
                 other.gameObject.GetComponent<Item>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Item>().Interaction;
 
-                if (isInteracting && !other.gameObject.GetComponent<Item>().Prone)
+                if (isInteracting && !other.gameObject.GetComponent<Item>().Prone) //check isinteracting on the item
                 {
+                    isInteracting = false; //turn off isinteracting HERE to prevent problems
                     if (hand[0] == null)
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
@@ -241,8 +253,6 @@ public class PlayerController : MonoBehaviour
                 {
                     other.gameObject.GetComponent<Item>().Prone = false;
                 }
-                //Check completion
-                GameManager.Instance.CheckLevelCompletion(other.gameObject.GetComponent<Item>());
             }
             else if (other.gameObject.GetComponent<Utility>() != null)
             {
@@ -252,7 +262,6 @@ public class PlayerController : MonoBehaviour
                 Inv1.text = hand[0].Name;
                 Inv2.text = hand[1].Name;
             }
-            isInteracting = false;
         }
     }
 
@@ -265,7 +274,7 @@ public class PlayerController : MonoBehaviour
         {
             //Depreciated
         }
-        Debug.LogWarning("OnTriggerExit()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
+        //Debug.LogWarning("OnTriggerExit()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
 
         if (other.gameObject.tag == "CookBook")
         {
@@ -277,8 +286,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameManager.isTouchingBook = true;
-        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+        if (other.gameObject.tag == "CookBook")
+        {
+            GameManager.isTouchingBook = true;
+            cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+        }
     }
 
     //public void OnInteract()
