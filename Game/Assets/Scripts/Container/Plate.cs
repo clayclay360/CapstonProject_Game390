@@ -18,21 +18,18 @@ public class Plate : Item
         switch(item)
         {
             case PlayerController.ItemInMainHand.pan:
-                if(chef.hand[0].GetComponent<Pan>() != null && chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
+                if(chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
                 {
                     Interaction = "Place food on plate";
                     if(chef.isInteracting)
                     {
-                        foodOnPlate = chef.hand[0].GetComponent<Pan>().foodInPan;
-                        foodOnPlate.toolItemIsOccupying = this;
-                        foodOnPlate.gameObject.transform.parent = transform;
-                        foodOnPlate.gameObject.transform.localPosition = new Vector3(0, .15f, 0);
-                        chef.hand[0].GetComponent<Pan>().foodInPan = null;
-                        chef.hand[0].GetComponent<Pan>().Occupied = false;
-                        chef.isInteracting = false;
-
-                        //Checkcompletion
-                        GameManager.Instance.CheckLevelCompletion(foodOnPlate);
+                    foodOnPlate = chef.hand[0].GetComponent<Pan>().foodInPan;
+                    foodOnPlate.toolItemIsOccupying = this;
+                    foodOnPlate.gameObject.transform.parent = transform;
+                    foodOnPlate.gameObject.transform.localPosition = new Vector3(0, .15f, 0);
+                    chef.hand[0].GetComponent<Pan>().foodInPan = null;
+                    chef.hand[0].GetComponent<Pan>().Occupied = false;
+                    chef.isInteracting = false;
                     }
                 }
                 else if(chef.inventoryFull)

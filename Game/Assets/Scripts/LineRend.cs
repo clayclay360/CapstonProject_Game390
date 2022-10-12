@@ -25,7 +25,6 @@ public class LineRend : MonoBehaviour
 
         //Debug.Log("AimLine on");
 
-
         //To see if we hit any collider in the scene
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit))
