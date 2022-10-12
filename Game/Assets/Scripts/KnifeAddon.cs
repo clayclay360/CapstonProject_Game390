@@ -47,7 +47,7 @@ public class KnifeAddon : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Invoke(nameof(DestroyKnife), 2f);
+        Invoke(nameof(DestroyKnife), 0.7f);
 
     }
 

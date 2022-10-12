@@ -1,20 +1,19 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LineRend : MonoBehaviour
 {
-    
-    private float aimLineLength = 5f;
+    LineRenderer al;
+    private float aimLineLength = 2f;
     private Transform aimLinePoint;
-    private bool toggleAimPoint = true;
-
-    LineRenderer aimLine;
-
+    //private bool toggleAimPoint = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        aimLine = GetComponent<LineRenderer>();
+        //checks if the lineRenderer component is there, then finds the transform of the gameobject "Attackpoint"
+        al = GetComponent<LineRenderer>();
         aimLinePoint = transform.Find("AttackPoint");
     }
 
@@ -22,24 +21,29 @@ public class LineRend : MonoBehaviour
     void Update()
     {
 
-        toggleAimPoint = false;
+        //toggleAimPoint = false;
 
         //Debug.Log("AimLine on");
+
+
+        //To see if we hit any collider in the scene
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
             if (hit.collider)
             {
-                aimLine.SetPosition(1, new Vector3(0, 0, hit.distance) * aimLineLength);
+                al.SetPosition(1, transform.position + transform.forward * aimLineLength);
 
             }
             else
             {
-                aimLine.SetPosition(1, new Vector3(0, 0, 5000));
+                al.SetPosition(1, new Vector3(0, 0, 50));
             }
 
         }
         
     }
+
+   
 
 }
