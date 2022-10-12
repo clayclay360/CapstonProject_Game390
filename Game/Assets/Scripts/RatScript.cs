@@ -101,6 +101,7 @@ public class RatScript : MonoBehaviour
 
             if (distanceBetweenTarget > attackRadius)
             {
+                //Debug.Log("Distance to "+target.name+": " + distanceBetweenTarget.ToString());
                 MoveToTarget();
             }
             else
@@ -108,6 +109,10 @@ public class RatScript : MonoBehaviour
                 //LookAt();
                 Attack();
             }
+        }
+        else
+        {
+            ReturnToVent();
         }
     }
 
@@ -145,7 +150,7 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    Debug.Log("climb");
+                    //Debug.Log("climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
                 }
@@ -191,7 +196,7 @@ public class RatScript : MonoBehaviour
     {
         if (other.CompareTag(target.tag))
         {
-            Debug.Log("hit");
+            //Debug.Log("hit");
             collider.enabled = false;
             switch (target.tag)
             {
@@ -204,9 +209,25 @@ public class RatScript : MonoBehaviour
                     }
                     break;
                 case "Interactable":
-                    Debug.Log("Hit Interactable Object");
-                    other.gameObject.SetActive(false);
-                    objectiveComplete = true;
+                    //Debug.Log("Hit Interactable Object");
+                    if(other.TryGetComponent<InventoryItem>(out InventoryItem invitem))
+                    {
+                        //Debug.Log("Hit Inventory Item.");
+                        other.gameObject.SetActive(false);
+                        objectiveComplete = true;
+                    }
+                    else if(other.TryGetComponent<Utility>(out Utility util))
+                    {
+                        //Debug.Log("Hit Utility.");
+                        switch (target.name)
+                        {
+                            case "Stove":
+                                target.GetComponent<Stove>().On = false;
+                                target.GetComponent<Stove>().State(false);
+                                objectiveComplete = true;
+                                break;
+                        }
+                    }
                     break;
             }
         }
@@ -236,7 +257,7 @@ public class RatScript : MonoBehaviour
         targetPrefab = targetList[Random.Range(0, targetList.Length)];
         target = GameObject.Find(targetPrefab.name);
 
-        Debug.Log("Rat is targeting: " + target.name);
+        //Debug.Log("Rat is targeting: " + target.name);
     }
 
     public void ReturnToVent()

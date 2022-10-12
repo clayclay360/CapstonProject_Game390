@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
+    private GameManager gm;
+
     [SerializeField] private LayerMask groundMask;
     public enum Player {PlayerOne,PlayerTwo};
     public Player player;
@@ -44,6 +46,9 @@ public class PlayerController : MonoBehaviour
     private int main_hand_id = 0; //0 for empty
     private int off_hand_id = 0;
     private float interactRange = 5f;
+    [Header("Inventory")]
+    public Text Inv1;
+    public Text Inv2;
 
     //Interactions
     [Header("Interactions")]
@@ -51,6 +56,7 @@ public class PlayerController : MonoBehaviour
     public Dictionary<int, Item> hand = new Dictionary<int, Item>();
     public enum ItemInMainHand { empty, egg, spatula, pan };
     public ItemInMainHand itemInMainHand;
+    RecipeBook cookBook;
 
     //quickref for whether hands are full
     public bool inventoryFull = false;
@@ -70,11 +76,13 @@ public class PlayerController : MonoBehaviour
         attackPoint = transform.Find("Attackpoint");
         animator.GetComponent<Animator>();
         PlayerAssignment();
+        gm = GameManager.Instance;
     }
 
     public void Update()
     {
         //Interact();
+        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
     }
 
     // Update is called once per frame
@@ -177,7 +185,26 @@ public class PlayerController : MonoBehaviour
         hand[0] = hand[1];
         hand[1] = hand[2];
 
-        Debug.Log("Switching Hands: \nHand 1: " + hand[0] + "\nHand 2: " + hand[1]);
+        if (hand[0] != null)
+        {
+            Inv1.text = hand[0].Name;
+        }
+        else
+        {
+            Inv1.text = "";
+        }
+
+
+        if (hand[1] != null)
+        {
+            Inv2.text = hand[1].Name;
+        }
+        else
+        {
+            Inv2.text = "";
+        }
+
+        Debug.LogWarning("Switching Hands: \nHand 1: " + hand[0] + "\nHand 2: " + hand[1]);
     }
 
     private void CheckInventory()
@@ -198,35 +225,50 @@ public class PlayerController : MonoBehaviour
         {
             isInteracting= true;
         }
+        //Debug.LogWarning("OnInteract()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
+        cookBook.ClickOnBook();
     }
+
+    public IEnumerable InteractCD()
+    {
+        readyToInteract = false;
+        yield return new WaitForSeconds(.5f);
+        readyToInteract = true;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Interactable")
         { 
-            readyToInteract = true;
+            readyToInteract = true; //assign ready to interact so that isinteracting can be set from OnInteract()
 
             if (other.gameObject.GetComponent<Item>() != null)
             {
                 other.gameObject.GetComponent<Item>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Item>().Interaction;
 
-                if (isInteracting && !other.gameObject.GetComponent<Item>().Prone)
+                if (isInteracting && !other.gameObject.GetComponent<Item>().Prone && /* This is temporary just for prototype*/ other.gameObject.GetComponent<Item>().Name != "Plate") //check isinteracting on the item
                 {
+                    isInteracting = false; //turn off isinteracting HERE to prevent problems
                     if (hand[0] == null)
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
+                        Inv1.text = hand[0].Name;
                         Debug.Log(hand[0].Name);
                     }
                     else if (hand[1] == null)
                     {
                         hand[1] = hand[0];
                         hand[0] = other.gameObject.GetComponent<Item>();
+                        Inv1.text = hand[0].Name;
+                        Inv2.text = hand[1].Name;
                         Debug.Log(hand[0].Name);
                     }
                 }
                 else
                 {
                     other.gameObject.GetComponent<Item>().Prone = false;
+                    isInteracting = false;
                 }
             }
             else if (other.gameObject.GetComponent<Utility>() != null)
@@ -234,16 +276,34 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.GetComponent<Utility>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
             }
-            isInteracting = false;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<Item>() != null || other.GetComponent<Utility>() != null)
+        interactionText.text = "";
+        readyToInteract = false;
+        isInteracting = false;
+        if (other.GetComponent<Item>() != null || other.GetComponent<Utility>() != null || other.gameObject.tag == "Interactable")
         {
-            interactionText.text = "";
-            readyToInteract = false;
+            //Depreciated
+        }
+        //Debug.LogWarning("OnTriggerExit()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
+
+        if (other.gameObject.tag == "CookBook")
+        {
+            GameManager.isTouchingBook = false;
+            cookBook = null;
+
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "CookBook")
+        {
+            GameManager.isTouchingBook = true;
+            cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
         }
     }
 
@@ -340,37 +400,43 @@ public class PlayerController : MonoBehaviour
 
     void OnThrowKnife()
     {
-        readyToThrow = false;
+        if (GameManager.recipeIsOpenP1)
+        {
+            cookBook.ClickThroughBook();
+        } else
+        {
+            readyToThrow = false;
 
-        // instantiate object to throw
-        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, transform.rotation);
+            // instantiate object to throw
+            GameObject projectile = Instantiate(objectToThrow, attackPoint.position, transform.rotation);
 
-        // get rigidbody component
-        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+            // get rigidbody component
+            Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
 
-        // calculate direction
-        KnifeAddon kscript = projectile.GetComponent<KnifeAddon>();
+            // calculate direction
+            KnifeAddon kscript = projectile.GetComponent<KnifeAddon>();
 
-        kscript.forward = transform.forward;
+            kscript.forward = transform.forward;
 
-        //OLD
-        //RaycastHit hit;
+            //OLD
+            //RaycastHit hit;
 
-        //if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
-        //{
-        //    forceDirection = (hit.point - attackPoint.position).normalized;
-        //}
+            //if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
+            //{
+            //    forceDirection = (hit.point - attackPoint.position).normalized;
+            //}
 
-        //// add force
-        //Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+            //// add force
+            //Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
 
-        //projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
+            //projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
 
-        //totalThrows++;
-        //END OLD
+            //totalThrows++;
+            //END OLD
 
-        // implement throwCooldown
-        Invoke(nameof(ResetThrow), throwCooldown);
+            // implement throwCooldown
+            Invoke(nameof(ResetThrow), throwCooldown);
+        }
     }
 
     void ResetThrow()
