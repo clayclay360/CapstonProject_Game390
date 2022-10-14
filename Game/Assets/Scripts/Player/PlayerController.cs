@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     public void Update()
     {
         //Interact();
+
     }
 
     // Update is called once per frame
