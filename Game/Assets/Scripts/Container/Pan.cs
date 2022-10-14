@@ -109,7 +109,7 @@ public class Pan : Item
                         //Attempts
                         Debug.Log("Index: " + interactionIndex);
 
-                        if(progressMeter > progressMeterMax / 2)
+                        if(progressMeter > progressMeterMax / 4)
                         {
                             foodInPan.GetComponent<Egg>().state = Egg.State.omelet;
                         }
