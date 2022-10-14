@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6980871192615772528}
   - component: {fileID: 7073600682186653092}
   - component: {fileID: 2373799488727391745}
-  - component: {fileID: 7804948331500068884}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -82,20 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7804948331500068884
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463261848171184591}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &3832381486221213659
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +90,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 841177211169960695}
-  - component: {fileID: 1768388647232157910}
+  - component: {fileID: 741834894374719149}
+  - component: {fileID: 21931889}
   m_Layer: 0
   m_Name: TrashCan
   m_TagString: Interactable
@@ -128,7 +114,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1768388647232157910
+--- !u!114 &741834894374719149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,8 +123,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 3832381486221213659}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec226e6b7f5ce7f4183e7afbfe94a991, type: 3}
+  m_Script: {fileID: 11500000, guid: 11b7c82a53ea7c14e952f6a81897f421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interactionrange: 5
-  interactionType: 3
+  interactionType: 0
+  itemNeed: 0
+  itemGive: 0
+  Name: Trash Can
+  Height: 0
+  On: 0
+  Occupied: 0
+  Interaction: 
+--- !u!65 &21931889
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832381486221213659}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.5114111, z: 1}
+  m_Center: {x: 0, y: 0.25570565, z: 0}
