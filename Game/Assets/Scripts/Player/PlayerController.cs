@@ -185,6 +185,20 @@ public class PlayerController : MonoBehaviour
         hand[0] = hand[1];
         hand[1] = hand[2];
 
+        Debug.LogWarning("Switching Hands: \nHand 1: " + hand[0] + "\nHand 2: " + hand[1]);
+    }
+
+    private void CheckInventory()
+    {
+        if (hand[0] != null && hand[1] != null)
+        {
+            inventoryFull = true;
+        }
+        else
+        {
+            inventoryFull = false;
+        }
+
         if (hand[0] != null)
         {
             Inv1.text = hand[0].Name;
@@ -202,20 +216,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             Inv2.text = "";
-        }
-
-        Debug.LogWarning("Switching Hands: \nHand 1: " + hand[0] + "\nHand 2: " + hand[1]);
-    }
-
-    private void CheckInventory()
-    {
-        if (hand[0] != null && hand[1] != null)
-        {
-            inventoryFull = true;
-        }
-        else
-        {
-            inventoryFull = false;
         }
     }
 
@@ -276,6 +276,7 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.GetComponent<Utility>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
             }
+            isInteracting = false;
         }
     }
 
