@@ -25,19 +25,18 @@ public class LineRend : MonoBehaviour
 
         //Debug.Log("AimLine on");
 
-
-        //To see if we hit any collider in the scene
+        //To which the line will go down if indicated that we hit a collider
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
             if (hit.collider)
             {
-                al.SetPosition(1, transform.position + transform.forward * aimLineLength);
+                al.SetPosition(0, new Vector3(0, 0, hit.distance));//transform.position + transform.forward);
 
             }
             else
             {
-                al.SetPosition(1, new Vector3(0, 0, 50));
+                al.SetPosition(0, new Vector3(0, 0, 5));
             }
 
         }
