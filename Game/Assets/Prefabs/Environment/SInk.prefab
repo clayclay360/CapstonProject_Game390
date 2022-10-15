@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5301670482694899615}
   m_Layer: 0
   m_Name: SInk
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,6 +85,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d688296b929e8c44f928e7b1d47d92fe, type: 3}
       propertyPath: m_Name
       value: Sink
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d688296b929e8c44f928e7b1d47d92fe, type: 3}
+      propertyPath: m_TagString
+      value: Climbable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d688296b929e8c44f928e7b1d47d92fe, type: 3}

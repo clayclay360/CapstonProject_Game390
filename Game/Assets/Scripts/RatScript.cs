@@ -132,8 +132,6 @@ public class RatScript : MonoBehaviour
                 if (hit.collider.tag == "Climbable" && !climbing)
                 {
                     climbableTargetMesh = hit.transform.gameObject.GetComponent<MeshRenderer>(); ;
-                    Climb();
-                    StartCoroutine(ClimbCoolDOwn());
                 }
             }
         }
@@ -145,7 +143,7 @@ public class RatScript : MonoBehaviour
         if (target != null)
         {
             float distanceBetweenTarget = Vector3.Distance(transform.position, target.transform.position);
-
+            //Debug.Log(distanceBetweenTarget.ToString());
             if (distanceBetweenTarget < climbRaduis && !climbing)
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
@@ -163,6 +161,7 @@ public class RatScript : MonoBehaviour
         Vector3 dir = target.transform.position - transform.position;
         dir.Normalize();
         startLink.position = new Vector3(body.transform.position.x, body.transform.position.y - startHeight, body.transform.position.z + startLinkOffset);
+        RayCast();
         if (climbableTargetMesh != null)
         {
             endLink.position = new Vector3((dir.x + transform.localPosition.x), climbableTargetMesh.bounds.size.y + transform.position.y, (dir.z + transform.localPosition.z));
@@ -231,11 +230,6 @@ public class RatScript : MonoBehaviour
                     break;
             }
         }
-        else if (other.CompareTag("Knife"))
-        {
-            TakeDamage(1);
-            Destroy(other);
-        }
     }
 
     IEnumerator AttackRate()
@@ -258,6 +252,51 @@ public class RatScript : MonoBehaviour
         target = GameObject.Find(targetPrefab.name);
 
         //Debug.Log("Rat is targeting: " + target.name);
+    }
+
+    public void CrossEntryway()
+    {
+        StartCoroutine(RethinkTarget());
+    }
+
+    public IEnumerator RethinkTarget()
+    {
+        agent.destination = transform.position;
+        int chance = Random.Range(1, 100);
+
+        if (chance >= 95)
+        {
+            Debug.Log("Fled");
+
+            target = null;
+            ReturnToVent();
+        }
+        else if (chance >= 70)
+        {
+            Debug.Log("Changed Target");
+
+            //Make new target list
+            GameObject[] NewTargetsList = new GameObject[TargetsList.Length -1];
+            int count = 0;
+            for (int i = 0; i < TargetsList.Length; i++)
+            { 
+                //Ensure original target is not on list
+                if (TargetsList[i] != targetPrefab)
+                {
+                    //Add potential targets to new list
+                    NewTargetsList.SetValue(TargetsList[i], count);
+                    count++;
+                }
+            }
+            //Pick target from new list
+            SetTarget(NewTargetsList);
+        }
+        else
+        {
+            Debug.Log("Kept going");
+        }
+
+        yield return new WaitForSeconds(1f);
     }
 
     public void ReturnToVent()
