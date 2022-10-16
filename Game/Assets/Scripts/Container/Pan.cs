@@ -19,6 +19,7 @@ public class Pan : Item
     public float cookOffset;
     public float progressMeterMin, progressMeterMax;
     public float[] interactionMeterStart, interactionMeterEnd;
+    RecipeBook cookBook; //Added by Owen for changing the steps
 
     private int attempts;
     private float progressMeter;
@@ -39,6 +40,7 @@ public class Pan : Item
     {
         progressSlider.GetComponent<Slider>();
         interactionAttemptReady = new bool[interactionMeterEnd.Length];
+        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -71,6 +73,11 @@ public class Pan : Item
 
                         if (chef.isInteracting)
                         {
+                            if (!GameManager.isStepCompleted.Contains(5))
+                            {
+                                GameManager.isStepCompleted.Add(5);
+                                cookBook.printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
+                            }
                             chef.hand[0].GetComponent<Egg>().state = Egg.State.yoke;
                             chef.hand[0].GetComponent<Egg>().toolItemIsOccupying = this;
                             chef.hand[0].GetComponent<Egg>().gameObject.transform.parent = transform;
@@ -92,6 +99,11 @@ public class Pan : Item
                     Interaction = "Use Spatula";
                     if (chef.isInteracting)
                     {
+                        if (!GameManager.isStepCompleted.Contains(6))
+                        {
+                            GameManager.isStepCompleted.Add(6);
+                            cookBook.printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
+                        }
                         chef.isInteracting = false;
                         interactionIndex = 0;
 

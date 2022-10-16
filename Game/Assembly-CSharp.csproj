@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\RecipeBook.cs" />
      <Compile Include="Assets\Scripts\Interactable.cs" />
      <Compile Include="Assets\Scripts\Inventory.cs" />
+     <Compile Include="Assets\Scripts\Utilities\TrashCan.cs" />
      <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Trash.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Press.cs" />
