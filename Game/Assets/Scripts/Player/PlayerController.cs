@@ -76,7 +76,6 @@ public class PlayerController : MonoBehaviour
     {
         //Interact();
 
-
     }
 
     // Update is called once per frame
@@ -91,8 +90,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 moveVal = value.Get<Vector2>();
         moveVec = new Vector3(moveVal.x, 0, moveVal.y);
-        Vector2 rotateVal = value.Get<Vector2>();
-        rotateVec = new Vector3(rotateVal.x, 0, rotateVal.y);
     }
 
     public void OnLook(InputValue value)
@@ -104,14 +101,13 @@ public class PlayerController : MonoBehaviour
     public void PlayerMovement() 
     {
         animator.SetFloat("Blend", moveVec.magnitude);
-        
+
         //Movement
-        if (Mathf.Abs(moveVec.x) > 0 || Mathf.Abs(moveVec.z) > 0 )
+        if (Mathf.Abs(moveVec.x) > 0 || Mathf.Abs(moveVec.z) > 0)
         {
             if (moveVec.magnitude > .1f)
             {
                 transform.position += movingSpeed * Time.deltaTime * moveVec;
-               
             }
         }
         //Rotation
