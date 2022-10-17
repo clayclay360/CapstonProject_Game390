@@ -416,6 +416,10 @@ MonoBehaviour:
   attackRate: 0.2
   attackCoolDown: 2
   collider: {fileID: 4749945232554853721}
+  hidingPointsList:
+  - {fileID: 0}
+  minHideTimer: 3
+  maxHideTimer: 5
 --- !u!195 &4064905241100655121
 NavMeshAgent:
   m_ObjectHideFlags: 0

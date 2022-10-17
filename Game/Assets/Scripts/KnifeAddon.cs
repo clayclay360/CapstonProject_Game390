@@ -50,29 +50,16 @@ public class KnifeAddon : MonoBehaviour
 
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (targetHit)
-    //    {
-    //        return;
-    //    }
-    //    else
-    //        targetHit = true;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponentInParent<RatScript>() != null)
+        {
+            Debug.Log("Rat scared");
+            RatScript enemy = other.gameObject.GetComponentInParent<RatScript>();
 
-
-
-    //    if (other.gameObject.GetComponent<RatScript>() != null)
-    //    {
-    //        Debug.Log("Rat scared");
-    //        RatScript enemy = other.gameObject.GetComponent<RatScript>();
-
-    //        //enemy.TakeDamage(damage);
-
-    //        Destroy(gameObject);
-    //    }
-
-    //    Invoke(nameof(DestroyKnife), 0.7f);
-    //}
+            enemy.Hide();
+        }
+    }
 
     private void DestroyKnife()
     {

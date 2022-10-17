@@ -39,11 +39,18 @@ public class RatScript : MonoBehaviour
     public float attackCoolDown;
     public new Collider collider;
 
+    [Header("Scared")]
+    public GameObject[] hidingPointsList;
+    public float minHideTimer;
+    public float maxHideTimer;
+
     private float distanceBetweenTarget;
     private float startHeight;
+    private float hideTime;
     private bool linkActivated;
     private bool climbing;
     private bool attackReady;
+    private bool hiding;
 
     private NavMeshAgent agent;
     private MeshRenderer climbableTargetMesh;
@@ -57,6 +64,7 @@ public class RatScript : MonoBehaviour
     {
         startHeight = transform.position.y;
         attackReady = true;
+        hiding = false;
 
         //GetTarget();
         ventsTransform = GameObject.FindGameObjectsWithTag("RatVent");
@@ -68,6 +76,7 @@ public class RatScript : MonoBehaviour
         startLink.GetComponent<Transform>();
         endLink.GetComponent<Transform>();
         SetTarget(TargetsList);
+        hidingPointsList = GameObject.FindGameObjectsWithTag("HidingPoint");
     }
 
     // Update is called once per frame
@@ -94,7 +103,7 @@ public class RatScript : MonoBehaviour
     private void GetAction()
     {
 
-        if (target != null)
+        if (target != null && !hiding)
         {
             distanceBetweenTarget = Vector3.Distance(transform.position, target.transform.position);
             agent.stoppingDistance = attackRadius;
@@ -193,7 +202,7 @@ public class RatScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(target.tag))
+        if (other.tag != null && other.CompareTag(target.tag))
         {
             //Debug.Log("hit");
             collider.enabled = false;
@@ -256,7 +265,10 @@ public class RatScript : MonoBehaviour
 
     public void CrossEntryway()
     {
-        StartCoroutine(RethinkTarget());
+        if (!hiding)
+        {
+            StartCoroutine(RethinkTarget());
+        }
     }
 
     public IEnumerator RethinkTarget()
@@ -297,6 +309,34 @@ public class RatScript : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
+    }
+
+    public void Hide()
+    {
+        hideTime = Random.Range(minHideTimer, maxHideTimer);
+        int hideindex = Random.Range(0, hidingPointsList.Length);
+
+        hiding = true;
+        agent.destination = hidingPointsList[hideindex].transform.position;
+        agent.speed = 2;
+
+        StartCoroutine(HideTimer());
+    }
+
+    public IEnumerator HideTimer()
+    {
+        float distanceToHidingPoint = Vector3.Distance(transform.position, agent.destination);
+        bool reachedHidingPoint = false;
+        while (distanceToHidingPoint > 0.5 && !reachedHidingPoint)
+        {
+            distanceToHidingPoint = Vector3.Distance(transform.position, agent.destination);
+            yield return null;
+        }
+        reachedHidingPoint = true;
+        yield return new WaitForSeconds(hideTime);
+        agent.destination = target.transform.position;
+        hiding = false;
+        agent.speed = 1;
     }
 
     public void ReturnToVent()

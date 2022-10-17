@@ -9,6 +9,7 @@ TagManager:
   - Interactable
   - RatVent
   - Knife
+  - HidingPoint
   layers:
   - Default
   - TransparentFX
