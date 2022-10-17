@@ -10,10 +10,12 @@ public class Stove :Utility
 
     [Header("Item Placement")]
     public Transform placement;
+    RecipeBook cookBook; //Added by Owen for changing the steps
 
     public void Start()
     {
         //ps.GetComponent<ParticleSystem>();
+        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
     }
 
     public Stove()
@@ -39,6 +41,11 @@ public class Stove :Utility
                     Interaction = "Turn On Stove";
                     if (chef.isInteracting)
                     {
+                        if (!GameManager.isStepCompleted.Contains(1))
+                        {
+                            GameManager.isStepCompleted.Add(1);
+                            cookBook.printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
+                        }
                         On = true;
                         State(On);
                         chef.isInteracting = false;
@@ -80,6 +87,11 @@ public class Stove :Utility
                         Interaction = "Place Pan On Stove";
                         if (chef.isInteracting)
                         {
+                            if (!GameManager.isStepCompleted.Contains(2))
+                            {
+                                GameManager.isStepCompleted.Add(2);
+                                cookBook.printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
+                            }
                             chef.hand[0].gameObject.SetActive(true);
                             chef.hand[0].gameObject.transform.position = placement.position;
                             chef.hand[0].utilityItemIsOccupying = this;

@@ -23,7 +23,7 @@ public class RecipeBook : MonoBehaviour
         steps = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
         currentPage = 1;
         currentStep = 2;
-        GameManager.isStepCompleted = new int[] { 0, 1, 7, 4, 8 };
+        GameManager.isStepCompleted.Add(0);
         GameManager.recipeIsOpenP1 = true;
         GameManager.isTouchingBook = false;
 
@@ -94,16 +94,13 @@ public class RecipeBook : MonoBehaviour
     public bool checkIfStepCompleted(int step) //This function is to determine if the step in the recipe book should be grayed out or not
     {
 
-        for (int i = 0; i < GameManager.isStepCompleted.Length; i++) //This is searching through the array of completed steps
+        if (GameManager.isStepCompleted.Contains(step)) //This is checking if the step is in the array or not, so as to return true or false
         {
-            if (step == GameManager.isStepCompleted[i]) //This is checking if the step is in the array or not, so as to return true or false
-            {
-                return (true);
-            }
-            else
-            {
-                isTrue = false;
-            }
+            return (true);
+        }
+        else
+        {
+            isTrue = false;
         }
         return (isTrue);
     }
