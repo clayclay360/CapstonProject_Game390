@@ -36,7 +36,7 @@ public class Pan : Item
         state = State.cold;
     }
 
-    private void Start()
+    private void Awake()
     {
         progressSlider.GetComponent<Slider>();
         interactionAttemptReady = new bool[interactionMeterEnd.Length];

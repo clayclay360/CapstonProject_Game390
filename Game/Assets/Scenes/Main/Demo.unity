@@ -9804,7 +9804,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Spatula
   Type: Tool
-  Height: 0
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
   status: 0
   Occupied: 0
   Prone: 0
@@ -9823,6 +9824,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 849393840}
     m_Modifications:
+    - target: {fileID: 741834894374719149, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
+      propertyPath: eggPrefab
+      value: 
+      objectReference: {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
+    - target: {fileID: 741834894374719149, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
+      propertyPath: panPrefab
+      value: 
+      objectReference: {fileID: 292810818963994974, guid: 7d553e0d24f221340a6e7befc5e702eb, type: 3}
+    - target: {fileID: 741834894374719149, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
+      propertyPath: spatulaPrefab
+      value: 
+      objectReference: {fileID: 9031513021252998085, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
+    - target: {fileID: 741834894374719149, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
+      propertyPath: parentTransform
+      value: 
+      objectReference: {fileID: 849393839}
     - target: {fileID: 841177211169960695, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -10348,7 +10365,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Plate
   Type: Tool
-  Height: 0
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
   status: 0
   Occupied: 0
   Prone: 0
@@ -15144,7 +15162,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Pan
   Type: Tool
-  Height: 0
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
   status: 0
   Occupied: 0
   Prone: 0
