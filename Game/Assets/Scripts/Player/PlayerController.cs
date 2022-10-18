@@ -412,17 +412,20 @@ public class PlayerController : MonoBehaviour
     {
         readyToThrow = false;
 
-        // instantiate object to throw
-        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, transform.rotation);
+        //can't throw if hands full
+        if (!inventoryFull) {
 
-        // get rigidbody component
-        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+            // instantiate object to throw
+            GameObject projectile = Instantiate(objectToThrow, attackPoint.position, transform.rotation);
 
-        // calculate direction
-        KnifeAddon kscript = projectile.GetComponent<KnifeAddon>();
+            // get rigidbody component
+            Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
 
-        kscript.forward = transform.forward;
+            // calculate direction
+            KnifeAddon kscript = projectile.GetComponent<KnifeAddon>();
 
+            kscript.forward = transform.forward;
+        }
         //OLD
         //RaycastHit hit;
 
