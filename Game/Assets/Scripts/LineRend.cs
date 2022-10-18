@@ -5,7 +5,7 @@ using UnityEngine;
 public class LineRend : MonoBehaviour
 {
     LineRenderer al;
-    private float aimLineLength = 2f;
+    private float aimLineLength = 1f;
     private Transform aimLinePoint;
     //private bool toggleAimPoint = true;
 
@@ -17,8 +17,13 @@ public class LineRend : MonoBehaviour
         aimLinePoint = transform.Find("AttackPoint");
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        aimLineOn();
+    }
+
+    // Update is called once per frame
+    public void aimLineOn()
     {
 
         //toggleAimPoint = false;
