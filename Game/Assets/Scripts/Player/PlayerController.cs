@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
 
     //Movement
     private Vector3 moveVec;
-    private Vector3 rotateVec2;
     private Vector3 rotateVec;
 
     //Inventory
@@ -91,8 +90,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 moveVal = value.Get<Vector2>();
         moveVec = new Vector3(moveVal.x, 0, moveVal.y);
-        Vector2 rotateVal2 = value.Get<Vector2>();
-        rotateVec2 = new Vector3(rotateVal2.x, 0, rotateVal2.y);
+        Vector2 rotateVal = value.Get<Vector2>();
+        rotateVec = new Vector3(rotateVal.x, 0, rotateVal.y);
     }
 
     public void OnLook(InputValue value)
@@ -113,21 +112,11 @@ public class PlayerController : MonoBehaviour
                 transform.position += movingSpeed * Time.deltaTime * moveVec;
             }
         }
-        //Rotation for player
-        if (Mathf.Abs(rotateVec2.x) > 0 || Mathf.Abs(rotateVec2.z) > 0)
-        {
-            Vector3 rotateLook = (Vector3.right * rotateVec2.x) + (Vector3.forward * rotateVec2.z);
-            if (rotateLook.sqrMagnitude > 0)
-            {
-                Quaternion LRotation = Quaternion.LookRotation(rotateLook, Vector3.up);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, LRotation, rotatingSpeed);
-            }
-        }
-        //Rotation for looking
+        //Rotation
         if (Mathf.Abs(rotateVec.x) > 0 || Mathf.Abs(rotateVec.z) > 0)
         {
             Vector3 rotateDirection = (Vector3.right * rotateVec.x) + (Vector3.forward * rotateVec.z);
-            if (rotateDirection.sqrMagnitude > 5)
+            if (rotateDirection.sqrMagnitude > 0)
             {
                 Quaternion newRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, rotatingSpeed);
