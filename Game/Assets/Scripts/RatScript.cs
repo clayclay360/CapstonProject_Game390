@@ -276,14 +276,14 @@ public class RatScript : MonoBehaviour
         agent.destination = transform.position;
         int chance = Random.Range(1, 100);
 
-        if (chance >= 100)
+        if (chance >= 90)
         {
             Debug.Log("Fled");
 
             target = null;
             ReturnToVent();
         }
-        else if (chance >= 100)
+        else if (chance >= 70)
         {
             Debug.Log("Changed Target");
 
