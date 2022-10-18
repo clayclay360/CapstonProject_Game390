@@ -21,13 +21,14 @@ public class Pan : Item
     public float[] interactionMeterStart, interactionMeterEnd;
     RecipeBook cookBook; //Added by Owen for changing the steps
 
-    private int attempts;
     private float progressMeter;
-    private float finishMeterStart, finishMeterEnd;
     int interactionIndex = 0;
     private bool[] interactionAttemptReady;
     [HideInInspector]
     public Item foodInPan;
+    private enum Attempt { None, Failed, Completed };
+    private Attempt[] attempt;
+
     public Pan()
     {
         Name = "Pan";
@@ -41,6 +42,9 @@ public class Pan : Item
         progressSlider.GetComponent<Slider>();
         interactionAttemptReady = new bool[interactionMeterEnd.Length];
         cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+        attempt = new Attempt[interactionMeterEnd.Length];
+        attempt[0] = Attempt.None;
+        attempt[0] = Attempt.None;
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -109,12 +113,10 @@ public class Pan : Item
 
                         for(int i = 0; i < interactionMeterEnd.Length; i++)
                         {
-                            if(interactionMeterEnd[interactionMeterEnd.Length-1] > progressMeter)
+                            if(interactionMeterEnd[i] < progressMeter)
                             {
-                                if(interactionMeterEnd[interactionIndex] < progressMeter)
-                                {
-                                    interactionIndex++;
-                                }
+                                Debug.Log("Attempts: " + attempt[interactionIndex]);
+                                interactionIndex++;
                             }
                         }
                         
@@ -125,28 +127,59 @@ public class Pan : Item
                         {
                             foodInPan.GetComponent<Egg>().state = Egg.State.omelet;
                         }
-
-                        if(interactionAttemptReady[interactionIndex])
+                        if (interactionIndex < attempt.Length)
                         {
-                            if(progressMeter > interactionMeterStart[interactionIndex] && progressMeter < interactionMeterEnd[interactionIndex])
+                            if (interactionAttemptReady[interactionIndex])
                             {
-                                Debug.Log("Great Job!");
-                                completeMark[interactionIndex].sprite = checkMark;
-                                completeMark[interactionIndex].gameObject.SetActive(true);
+                                if (progressMeter > interactionMeterStart[interactionIndex] && progressMeter < interactionMeterEnd[interactionIndex])
+                                {
+                                    Debug.Log("Great Job!");
+                                    completeMark[interactionIndex].sprite = checkMark;
+                                    completeMark[interactionIndex].gameObject.SetActive(true);
+                                    attempt[interactionIndex] = Attempt.Completed;
+                                }
+                                else if (progressMeter < interactionMeterStart[interactionIndex])
+                                {
+                                    completeMark[interactionIndex].sprite = xMark;
+                                    completeMark[interactionIndex].gameObject.SetActive(true);
+                                    attempt[interactionIndex] = Attempt.Failed;
+                                    Debug.Log("Too Early");
+                                }
+                                else if (progressMeter > interactionMeterEnd[interactionIndex])
+                                {
+                                    completeMark[interactionIndex].sprite = xMark;
+                                    completeMark[interactionIndex].gameObject.SetActive(true);
+                                    attempt[interactionIndex] = Attempt.Failed;
+                                    Debug.Log("Too Late");
+                                }
+                                interactionAttemptReady[interactionIndex] = false;
                             }
-                            else if(progressMeter < interactionMeterStart[interactionIndex])
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < interactionMeterEnd.Length; i++)
+                        {
+                            //Could also add a or to check if the attempt is complet or uncompleted
+                            if(interactionMeterEnd[i] < progressMeter) 
                             {
-                                completeMark[interactionIndex].sprite = xMark;
-                                completeMark[interactionIndex].gameObject.SetActive(true);
-                                Debug.Log("Too Early");
+                                completeMark[i].gameObject.SetActive(true);
+                                switch (attempt[i])
+                                {
+                                    case Attempt.None:
+                                        completeMark[i].sprite = xMark;
+                                        break;
+                                    case Attempt.Failed:
+                                        completeMark[i].sprite = xMark;
+                                        break;
+                                    case Attempt.Completed:
+                                        completeMark[i].sprite = checkMark;
+                                        break;
+                                    default:
+                                        Debug.Log(attempt);
+                                        break;
+                                }
                             }
-                            else if(progressMeter > interactionMeterEnd[interactionIndex])
-                            {
-                                completeMark[interactionIndex].sprite = xMark;
-                                completeMark[interactionIndex].gameObject.SetActive(true);
-                                Debug.Log("Too Late");
-                            }
-                            interactionAttemptReady[interactionIndex] = false;
                         }
                     }
                 }
