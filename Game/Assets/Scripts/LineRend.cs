@@ -32,7 +32,7 @@ public class LineRend : MonoBehaviour
         {
             if (hit.collider)
             {
-                al.SetPosition(1, transform.position + transform.forward * aimLineLength);
+                al.SetPosition(1, new Vector3(0, 0, hit.distance) * aimLineLength);
 
             }
             else

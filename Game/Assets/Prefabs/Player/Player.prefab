@@ -3140,7 +3140,7 @@ LineRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 0
 --- !u!114 &6843540600272842107
 MonoBehaviour:
@@ -3154,7 +3154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f82b2750aa7f6a4f8f6273f8f3478ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  al: {fileID: 1784961426118152710}
 --- !u!1 &8342010772087279380
 GameObject:
   m_ObjectHideFlags: 0
