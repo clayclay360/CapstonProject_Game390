@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     //Movement
     private Vector3 moveVec;
     private Vector3 rotateVec;
+    private float rightAnalogMagnitude;
 
     //Inventory
     //Holds item ids for held items
@@ -97,14 +98,20 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 moveVal = value.Get<Vector2>();
         moveVec = new Vector3(moveVal.x, 0, moveVal.y);
-        Vector2 rotateVal = value.Get<Vector2>();
-        rotateVec = new Vector3(rotateVal.x, 0, rotateVal.y);
+        
+        if (rightAnalogMagnitude < 0.1f)
+        {
+            Vector2 rotateVal = value.Get<Vector2>();
+            rotateVec = new Vector3(rotateVal.x, 0, rotateVal.y);
+        }
     }
 
     public void OnLook(InputValue value)
     {
         Vector2 rotateVal = value.Get<Vector2>();
         rotateVec = new Vector3(rotateVal.x,0,rotateVal.y);
+        rightAnalogMagnitude = rotateVec.magnitude;
+        
     }
 
     public void PlayerMovement() 
