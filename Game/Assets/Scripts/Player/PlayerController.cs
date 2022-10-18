@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(rotateVec.x) > 0 || Mathf.Abs(rotateVec.z) > 0)
         {
             Vector3 rotateDirection = (Vector3.right * rotateVec.x) + (Vector3.forward * rotateVec.z);
-            if (rotateDirection.sqrMagnitude > 5)
+            if (rotateDirection.sqrMagnitude > .1f)
             {
                     Quaternion newRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, rotatingSpeed);
