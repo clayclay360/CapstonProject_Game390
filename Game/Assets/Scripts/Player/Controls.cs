@@ -282,17 +282,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""ec9d3463-45ed-41b3-8d1e-622448877bc4"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Swap Inventory Slots"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""GamePad"",
                     ""id"": ""44f3e765-cae0-40af-a4e7-e96bc89768ed"",
                     ""path"": ""2DVector(mode=2)"",

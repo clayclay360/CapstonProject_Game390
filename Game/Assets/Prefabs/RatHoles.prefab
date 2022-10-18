@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRats: 0
-  maxNumberOfRats: 2
+  maxNumberOfRats: 1
   minPeeks: 0
   maxPeeks: 0
   peekTime: 0
