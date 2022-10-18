@@ -138,7 +138,7 @@ public class RatScript : MonoBehaviour
         {
             if (hit.collider != null)
             {
-                if (hit.collider.tag == "Climbable" && !climbing)
+                if (hit.collider.gameObject.tag == "Climbable" && !climbing)
                 {
                     climbableTargetMesh = hit.transform.gameObject.GetComponent<MeshRenderer>(); ;
                 }
@@ -157,7 +157,7 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    //Debug.Log("climb");
+                    Debug.Log("climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
                 }
@@ -204,12 +204,12 @@ public class RatScript : MonoBehaviour
     {
         if (other.tag != null && other.CompareTag(target.tag))
         {
-            //Debug.Log("hit");
+            Debug.Log("hit");
             collider.enabled = false;
             switch (target.tag)
             {
                 case "CookBook":
-                    CookBook cookbook = other.GetComponent<CookBook>();
+                    CookBook cookbook = other.GetComponentInParent<CookBook>();
                     cookbook.lives--;
                     if (cookbook.lives == 0)
                     {
@@ -276,14 +276,14 @@ public class RatScript : MonoBehaviour
         agent.destination = transform.position;
         int chance = Random.Range(1, 100);
 
-        if (chance >= 95)
+        if (chance >= 100)
         {
             Debug.Log("Fled");
 
             target = null;
             ReturnToVent();
         }
-        else if (chance >= 70)
+        else if (chance >= 100)
         {
             Debug.Log("Changed Target");
 
@@ -318,7 +318,7 @@ public class RatScript : MonoBehaviour
 
         hiding = true;
         agent.destination = hidingPointsList[hideindex].transform.position;
-        agent.speed = 2;
+        agent.speed = 4;
 
         StartCoroutine(HideTimer());
     }
@@ -336,7 +336,7 @@ public class RatScript : MonoBehaviour
         yield return new WaitForSeconds(hideTime);
         agent.destination = target.transform.position;
         hiding = false;
-        agent.speed = 1;
+        agent.speed = 2;
     }
 
     public void ReturnToVent()

@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private float throwForce = 11f;
     private float throwUpwardForce = 2f;
     private bool readyToThrow = true;
+    private bool isAiming = false;
 
     //Animator
     [Header("Animator")]
@@ -408,7 +409,7 @@ public class PlayerController : MonoBehaviour
     //    Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
     //}
 
-    void OnThrowKnife()
+    public void OnThrowKnife()
     {
         readyToThrow = false;
 
@@ -440,11 +441,25 @@ public class PlayerController : MonoBehaviour
         //END OLD
 
         // implement throwCooldown
-        Invoke(nameof(ResetThrow), throwCooldown);
-        
+        Invoke(nameof(ResetThrow), throwCooldown);   
     }
 
-    void ResetThrow()
+    public void OnToggleAimLine()
+    {
+        isAiming = !isAiming;
+        LineRenderer aimLine = gameObject.GetComponent<LineRenderer>();
+
+        if (isAiming)
+        {
+            aimLine.enabled = true;
+        }
+        else
+        {
+            aimLine.enabled = false;
+        }
+    }
+
+    public void ResetThrow()
     {
         readyToThrow = true;
     }
