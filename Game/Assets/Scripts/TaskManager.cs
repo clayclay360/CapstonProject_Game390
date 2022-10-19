@@ -50,13 +50,11 @@ public class TaskManager : MonoBehaviour
     {
         RectTransform rectTransform = tasksPanel.GetComponent<RectTransform>();
 
-        for(int i = 0; i < tasks.Length; i++)
+        for (int i = 0; i < tasks.Length; i++)
         {
             rectTransform.sizeDelta = new Vector2(rectTransform.rect.width, rectTransform.rect.height + 50);
 
-            GameObject task = Instantiate(taskPrefab);
-            task.transform.SetParent(tasksPanel.transform);
-
+            GameObject task = Instantiate(taskPrefab, tasksPanel.transform);
             taskContainer[i] = task.GetComponent<Text>();
         }
     }

@@ -3442,6 +3442,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1094840779440419839}
     m_Modifications:
+    - target: {fileID: 2037213236962368528, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -36.87964
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037213236962368528, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -919.37787
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037213236962368528, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1011.2117
+      objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690121, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_Name
       value: TaskManager
@@ -3492,7 +3504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690126, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0007135829
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690126, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3512,7 +3524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690126, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 960.88
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690126, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3532,11 +3544,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: tasks.Array.size
-      value: 0
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: tasks.Array.data[0].taskName
+      value: Turn On Stove
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: tasks.Array.data[1].taskName
+      value: Grab Pan
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: tasks.Array.data[2].taskName
+      value: Crack Egg
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: tasks.Array.data[3].taskName
+      value: Use Spatula
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237505104251, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 1.7000008
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037213237761212941, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -36.878635
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037213237761212941, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -919.37836
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037213237761212941, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 961.2117
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
