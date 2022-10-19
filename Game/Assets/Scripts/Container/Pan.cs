@@ -91,7 +91,7 @@ public class Pan : Item
                             chef.hand[0] = null;
                             chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                             Occupied = true;
-                            Prone = true;
+                            prone = true;
                             chef.isInteracting = false;
                         }
                         break;
@@ -211,6 +211,15 @@ public class Pan : Item
     private void Update()
     {
         StartCooking();
+
+        if (cooking)
+        {
+            prone = true;
+        }
+        else
+        {
+            prone = false;
+        }
     }
 
     public void ResetAttempts()
