@@ -67,6 +67,10 @@ public class Pan : Item
                         gameObject.SetActive(false);
                     }
                 }
+                else
+                {
+                    Interaction = "";
+                }
                 break;
             case PlayerController.ItemInMainHand.egg:
 
@@ -158,29 +162,7 @@ public class Pan : Item
                     }
                     else
                     {
-                        for (int i = 0; i < interactionMeterEnd.Length; i++)
-                        {
-                            //Could also add a or to check if the attempt is complet or uncompleted
-                            if(interactionMeterEnd[i] < progressMeter) 
-                            {
-                                completeMark[i].gameObject.SetActive(true);
-                                switch (attempt[i])
-                                {
-                                    case Attempt.None:
-                                        completeMark[i].sprite = xMark;
-                                        break;
-                                    case Attempt.Failed:
-                                        completeMark[i].sprite = xMark;
-                                        break;
-                                    case Attempt.Completed:
-                                        completeMark[i].sprite = checkMark;
-                                        break;
-                                    default:
-                                        Debug.Log(attempt);
-                                        break;
-                                }
-                            }
-                        }
+                        
                     }
                 }
                 else
@@ -250,6 +232,31 @@ public class Pan : Item
         {
             progressMeter = Mathf.Lerp(progressMeter, progressMeterMax, time);
             progressSlider.value = progressMeter;
+
+            for (int i = 0; i < interactionMeterEnd.Length; i++)
+            {
+                //Could also add a or to check if the attempt is complet or uncompleted
+                if (interactionMeterEnd[i] < progressMeter)
+                {
+                    completeMark[i].gameObject.SetActive(true);
+                    switch (attempt[i])
+                    {
+                        case Attempt.None:
+                            completeMark[i].sprite = xMark;
+                            break;
+                        case Attempt.Failed:
+                            completeMark[i].sprite = xMark;
+                            break;
+                        case Attempt.Completed:
+                            completeMark[i].sprite = checkMark;
+                            break;
+                        default:
+                            Debug.Log(attempt);
+                            break;
+                    }
+                }
+            }
+
             yield return null;
         }
         progressSlider.gameObject.SetActive(false);
