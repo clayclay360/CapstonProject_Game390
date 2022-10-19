@@ -10,6 +10,7 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
 
     [HideInInspector]
     public Vector3 startPosition;
+    [HideInInspector]
     public Quaternion startRotation;
 
     //I'll definetly have to make a food and tool child

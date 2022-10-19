@@ -1,30 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.PlayerLoop;
 
-public class Egg : Item
+public class Bacon : Item
 {
     public GameObject[] Form;
-    public enum State { shell, yoke, omelet };
-    public State state;
 
     PlayerController player;
-    public Egg()
+    public Bacon()
     {
-        Name = "Egg";
+        Name = "Bacon";
         Type = "Food";
         Interaction = "";
         status = Status.uncooked;
         prone = false;
-        state = State.shell;
     }
 
     public void Update()
     {
-        GetState(state);
+        GetState(status);
 
         if (toolItemIsOccupying == null)
         {
@@ -35,7 +29,7 @@ public class Egg : Item
             tag = "Untagged";
         }
 
-        if(player != null)
+        if (player != null)
         {
             //player.Interact();
         }
@@ -54,16 +48,16 @@ public class Egg : Item
         switch (item)
         {
             case PlayerController.ItemInMainHand.empty:
-                Interaction = "Grab Egg";
+                Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
-                    Debug.Log("Egg Grabbed");
+                    Debug.Log("Bacon Grabbed");
                     gameObject.SetActive(false);
                     Interaction = "";
                 }
                 break;
             case PlayerController.ItemInMainHand.spatula:
-                Interaction = "Grab Egg";
+                Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
                     gameObject.SetActive(false);
@@ -71,14 +65,14 @@ public class Egg : Item
                 }
                 break;
             case PlayerController.ItemInMainHand.pan:
-                Interaction = "Grab Egg";
+                Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
                 }
                 break;
-            case PlayerController.ItemInMainHand.bacon:
+            case PlayerController.ItemInMainHand.egg:
                 Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
@@ -89,20 +83,16 @@ public class Egg : Item
         }
     }
 
-    public void GetState(State state)
+    public void GetState(Status status)
     {
-        switch (state)
+        switch (status)
         {
-            case State.shell:
+            case Status.uncooked:
                 Form[0].SetActive(true);
                 break;
-            case State.yoke:
+            case Status.cooked:
                 Form[0].SetActive(false);
                 Form[1].SetActive(true);
-                break;
-            case State.omelet:
-                Form[1].SetActive(false);
-                Form[2].SetActive(true);
                 break;
         }
     }

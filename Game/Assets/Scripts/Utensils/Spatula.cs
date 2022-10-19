@@ -46,6 +46,14 @@ public class Spatula : Item
                     Interaction = "";
                 }
                 break;
+            case PlayerController.ItemInMainHand.bacon:
+                Interaction = "Grab Spatula";
+                if (chef.isInteracting)
+                {
+                    gameObject.SetActive(false);
+                    Interaction = "";
+                }
+                break;
         }
     }
 }

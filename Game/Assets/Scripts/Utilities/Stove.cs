@@ -81,6 +81,14 @@ public class Stove :Utility
                         State(On);
                     }
                     break;
+                case PlayerController.ItemInMainHand.bacon:
+                    Interaction = "Turn Off Stove";
+                    if (chef.isInteracting)
+                    {
+                        On = false;
+                        State(On);
+                    }
+                    break;
                 case PlayerController.ItemInMainHand.pan:
                     if (!Occupied)
                     {
