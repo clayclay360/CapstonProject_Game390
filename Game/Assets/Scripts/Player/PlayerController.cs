@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.GetComponent<Item>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Item>().Interaction;
 
-                if (isInteracting && !other.gameObject.GetComponent<Item>().Prone && /* This is temporary just for prototype*/ other.gameObject.GetComponent<Item>().Name != "Plate") //check isinteracting on the item
+                if (isInteracting && !other.gameObject.GetComponent<Item>().prone && /* This is temporary just for prototype*/ other.gameObject.GetComponent<Item>().Name != "Plate") //check isinteracting on the item
                 {
                     isInteracting = false; //turn off isinteracting HERE to prevent problems
                     if (hand[0] == null)
@@ -277,7 +277,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    other.gameObject.GetComponent<Item>().Prone = false;
+                    other.gameObject.GetComponent<Item>().prone = false;
                     isInteracting = false;
                 }
             }

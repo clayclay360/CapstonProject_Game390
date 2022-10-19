@@ -16,7 +16,7 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     public enum Status {uncooked, cooked, burnt}
     [HideInInspector] public Status status;
     [HideInInspector] public bool Occupied;
-    [HideInInspector] public bool Prone;
+    [HideInInspector] public bool prone;
     [HideInInspector] public string Interaction;
     [HideInInspector] public Utility utilityItemIsOccupying;
     [HideInInspector] public Item toolItemIsOccupying;

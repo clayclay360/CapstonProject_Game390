@@ -18,7 +18,7 @@ public class Egg : Item
         Type = "Food";
         Interaction = "";
         status = Status.uncooked;
-        Prone = false;
+        prone = false;
         state = State.shell;
     }
 
