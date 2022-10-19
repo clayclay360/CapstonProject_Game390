@@ -92,7 +92,7 @@ public class Pan : Item
                             chef.hand[0].GetComponent<Egg>().state = Egg.State.yoke;
                             chef.hand[0].GetComponent<Egg>().toolItemIsOccupying = this;
                             chef.hand[0].GetComponent<Egg>().gameObject.transform.parent = transform;
-                            chef.hand[0].GetComponent<Egg>().gameObject.transform.localPosition = placement.position;
+                            chef.hand[0].GetComponent<Egg>().gameObject.transform.position = placement.position;
                             chef.hand[0].GetComponent<Egg>().gameObject.SetActive(true);
                             foodInPan = chef.hand[0];
                             chef.hand[0] = null;
