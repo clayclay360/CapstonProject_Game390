@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
     [Header("Interactions")]
     public Text interactionText;
     public Dictionary<int, Item> hand = new Dictionary<int, Item>();
-    public enum ItemInMainHand { empty, egg, spatula, pan };
+    public enum ItemInMainHand { empty, egg, spatula, pan, bacon };
     public ItemInMainHand itemInMainHand;
     RecipeBook cookBook;
 
@@ -177,6 +177,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Pan":
                     itemInMainHand = ItemInMainHand.pan;
+                    break;
+                case "Bacon":
+                    itemInMainHand = ItemInMainHand.bacon;
                     break;
                 default:
                     itemInMainHand = ItemInMainHand.empty;

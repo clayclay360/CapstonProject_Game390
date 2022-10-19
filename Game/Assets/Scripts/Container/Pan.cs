@@ -21,8 +21,11 @@ public class Pan : Item
     public float[] interactionMeterStart, interactionMeterEnd;
     RecipeBook cookBook; //Added by Owen for changing the steps
 
+    [Header("Item Placement")]
+    public Transform placement;
+
     private float progressMeter;
-    int interactionIndex = 0;
+    private int interactionIndex = 0;
     private bool[] interactionAttemptReady;
     [HideInInspector]
     public Item foodInPan;
@@ -89,7 +92,7 @@ public class Pan : Item
                             chef.hand[0].GetComponent<Egg>().state = Egg.State.yoke;
                             chef.hand[0].GetComponent<Egg>().toolItemIsOccupying = this;
                             chef.hand[0].GetComponent<Egg>().gameObject.transform.parent = transform;
-                            chef.hand[0].GetComponent<Egg>().gameObject.transform.localPosition = new Vector3(0, .15f, 0);
+                            chef.hand[0].GetComponent<Egg>().gameObject.transform.localPosition = placement.position;
                             chef.hand[0].GetComponent<Egg>().gameObject.SetActive(true);
                             foodInPan = chef.hand[0];
                             chef.hand[0] = null;
@@ -99,6 +102,22 @@ public class Pan : Item
                             chef.isInteracting = false;
                         }
                         break;
+                }
+                break;
+            case PlayerController.ItemInMainHand.bacon:
+                Interaction = "Place Bacon";
+                if (chef.isInteracting)
+                {
+                    chef.hand[0].GetComponent<Bacon>().toolItemIsOccupying = this;
+                    chef.hand[0].GetComponent<Bacon>().gameObject.transform.parent = transform;
+                    chef.hand[0].GetComponent<Bacon>().gameObject.transform.position = placement.position;
+                    chef.hand[0].GetComponent<Bacon>().gameObject.SetActive(true);
+                    foodInPan = chef.hand[0];
+                    chef.hand[0] = null;
+                    chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
+                    Occupied = true;
+                    prone = true;
+                    chef.isInteracting = false;
                 }
                 break;
             case PlayerController.ItemInMainHand.spatula:
@@ -129,7 +148,15 @@ public class Pan : Item
 
                         if(progressMeter > progressMeterMax / 4)
                         {
-                            foodInPan.GetComponent<Egg>().state = Egg.State.omelet;
+                            switch (foodInPan.Name)
+                            {
+                                case "Egg":
+                                    foodInPan.GetComponent<Egg>().state = Egg.State.omelet;
+                                    break;
+                                case "Bacon":
+                                    foodInPan.GetComponent<Bacon>().status = Bacon.Status.cooked;
+                                    break;
+                            }
                         }
                         if (interactionIndex < attempt.Length)
                         {
@@ -159,10 +186,6 @@ public class Pan : Item
                                 interactionAttemptReady[interactionIndex] = false;
                             }
                         }
-                    }
-                    else
-                    {
-                        
                     }
                 }
                 else
