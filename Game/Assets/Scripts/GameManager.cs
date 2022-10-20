@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
             if (_instance == null)
             {
                 //Debug.LogError("GameManager is null!");
-                Debug.LogWarning("Creating GameManager");
+                //Debug.LogWarning("Creating GameManager");
 
                 _instance = new GameObject().AddComponent<GameManager>();
 
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         scoreMultiplier = 1;
 
         recipeReq.Add("omelet");
-        Debug.LogWarning("GameManager Ready!");
+        //Debug.LogWarning("GameManager Ready!");
     }
 
     private void Update() 

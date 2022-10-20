@@ -120,6 +120,7 @@ public class RecipeBook : MonoBehaviour
 
     public void ClickOnBook()
     {
+        //if (!GameManager.cookBookActive) { return; };
         if (GameManager.isTouchingBook) //This is to detect if the player is touching the book
         {
             /*//variable telling the game that the recipe for player one is open

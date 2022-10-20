@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     [Header("Interactions")]
     public Text interactionText;
     public Dictionary<int, Item> hand = new Dictionary<int, Item>();
-    public enum ItemInMainHand { empty, egg, spatula, pan, bacon };
+    public enum ItemInMainHand { empty, egg, spatula, pan, bacon, pages };
     public ItemInMainHand itemInMainHand;
     RecipeBook cookBook;
 
@@ -186,6 +186,9 @@ public class PlayerController : MonoBehaviour
                 case "Bacon":
                     itemInMainHand = ItemInMainHand.bacon;
                     break;
+                case "Cookbook Pages":
+                    itemInMainHand = ItemInMainHand.pages;
+                        break;
                 default:
                     itemInMainHand = ItemInMainHand.empty;
                     break;
@@ -254,7 +257,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Interactable")
+        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook") ;
         { 
             readyToInteract = true; //assign ready to interact so that isinteracting can be set from OnInteract()
 
