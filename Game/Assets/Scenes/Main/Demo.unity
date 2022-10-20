@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028346, g: 0.22571373, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9294,7 +9294,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22922
+  m_Name: pb_Mesh20918
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14967,65 +14967,9 @@ MonoBehaviour:
   assetGuid: 
   m_Mesh: {fileID: 184146090}
   m_IsSelectable: 1
-  m_SelectedFaces: 3600000065000000420000004e000000020000006400000010000000
-  m_SelectedEdges:
-  - a: 216
-    b: 217
-  - a: 217
-    b: 218
-  - a: 218
-    b: 219
-  - a: 219
-    b: 216
-  - a: 407
-    b: 404
-  - a: 404
-    b: 405
-  - a: 405
-    b: 406
-  - a: 406
-    b: 407
-  - a: 267
-    b: 264
-  - a: 264
-    b: 265
-  - a: 265
-    b: 266
-  - a: 266
-    b: 267
-  - a: 315
-    b: 312
-  - a: 312
-    b: 313
-  - a: 313
-    b: 314
-  - a: 314
-    b: 315
-  - a: 8
-    b: 9
-  - a: 10
-    b: 8
-  - a: 9
-    b: 11
-  - a: 11
-    b: 10
-  - a: 400
-    b: 401
-  - a: 401
-    b: 402
-  - a: 402
-    b: 403
-  - a: 403
-    b: 400
-  - a: 65
-    b: 66
-  - a: 66
-    b: 67
-  - a: 67
-    b: 64
-  - a: 64
-    b: 65
-  m_SelectedVertices: da000000d8000000d9000000db00000095010000970100009401000096010000090100000b010000080100000a010000390100003b010000380100003a01000008000000090000000a0000000b0000009201000090010000910100009301000043000000410000004200000040000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!4 &1712708161
 Transform:
   m_ObjectHideFlags: 0

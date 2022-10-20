@@ -33,7 +33,7 @@ public class CookBook : Utility
         //TESTING
         else if (!destroying)
         {
-            StartCoroutine(DestroyCookbook());
+            //StartCoroutine(DestroyCookbook());
             destroying = true;
         }
     }
@@ -70,12 +70,12 @@ public class CookBook : Utility
     }
 
     //TEST FUNCTION FOR DESTROYING COOKBOOK
-    private IEnumerator DestroyCookbook()
+    /*private IEnumerator DestroyCookbook()
     {
         if (lives <= 0) { yield return null; }
         yield return new WaitForSeconds(2);
         lives--;
         Debug.Log("Cookbook lives: " + lives);
         destroying = false;
-    }
+    }*/
 }

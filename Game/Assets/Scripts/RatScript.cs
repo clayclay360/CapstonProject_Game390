@@ -13,7 +13,7 @@ public class RatScript : MonoBehaviour
 
     [Header("Target")]
     public float attackRadius;
-    public GameObject[] TargetsList;
+    public List<GameObject> TargetsList;
     public bool objectiveComplete;
     public GameObject[] ventsTransform;
 
@@ -56,7 +56,6 @@ public class RatScript : MonoBehaviour
     private MeshRenderer climbableTargetMesh;
     private Transform escapeVent;
     private RatSpawnSystem ratSpawnSystem;
-    private GameObject targetPrefab;
     private GameObject target;
 
     // Start is called before the first frame update
@@ -255,10 +254,73 @@ public class RatScript : MonoBehaviour
         transform.up = dir;
     }
 
-    public void SetTarget(GameObject[] targetList)
+    public void AdjustTargetList(List<GameObject> targetList)
     {
-        targetPrefab = targetList[Random.Range(0, targetList.Length)];
-        target = GameObject.Find(targetPrefab.name);
+        //Get all interactable items and the cookbook
+        GameObject[] targetarray =  GameObject.FindGameObjectsWithTag("Interactable");
+        targetList.AddRange(targetarray);
+        targetList.Add(GameObject.FindGameObjectWithTag("CookBook"));
+
+        //Remove items that we don't want the rats targeting in a given surcunstance.
+        foreach(GameObject item in targetList)
+        {
+            switch (item.name)
+            {
+                case ("CookBook"):
+                    break;
+                
+                case ("Spatula"):
+                    targetList.Remove(item);
+                    break;
+
+                case ("Plate"):
+                    targetList.Remove(item);
+                    break;
+
+                case ("Pan"):
+                    targetList.Remove(item);
+                    break;
+
+                case ("Stove"):
+                    //Don't target stove if it's off
+                    if (!item.GetComponent<Stove>().On)
+                    {
+                        targetList.Remove(item);
+                    }
+                    break;
+
+                case ("Egg"):
+                    break;
+
+                case ("TrashCan"):
+                    targetList.Remove(item);
+                    break;
+
+                case ("Bacon"):
+                    break;
+
+                case ("Fridge"):
+                    targetList.Remove(item);
+                    break;
+
+                case ("Computer"):
+                    targetList.Remove(item);
+                    break;
+            }
+            
+            if(item == target)
+            {
+                targetList.Remove(item);
+            }
+        }
+    }
+
+    public void SetTarget(List<GameObject> targetList)
+    {
+        //Adjust target list if necessary
+        AdjustTargetList(targetList);
+
+        target = targetList[Random.Range(0, targetList.Count)];
 
         //Debug.Log("Rat is targeting: " + target.name);
     }
@@ -287,21 +349,8 @@ public class RatScript : MonoBehaviour
         {
             Debug.Log("Changed Target");
 
-            //Make new target list
-            GameObject[] NewTargetsList = new GameObject[TargetsList.Length -1];
-            int count = 0;
-            for (int i = 0; i < TargetsList.Length; i++)
-            { 
-                //Ensure original target is not on list
-                if (TargetsList[i] != targetPrefab)
-                {
-                    //Add potential targets to new list
-                    NewTargetsList.SetValue(TargetsList[i], count);
-                    count++;
-                }
-            }
-            //Pick target from new list
-            SetTarget(NewTargetsList);
+            //Pick new target from list
+            SetTarget(TargetsList);
         }
         else
         {
