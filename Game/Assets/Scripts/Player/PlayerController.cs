@@ -294,7 +294,7 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.GetComponent<Utility>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
             }
-            isInteracting = false;
+            //isInteracting = false;
         }
     }
 
@@ -419,37 +419,40 @@ public class PlayerController : MonoBehaviour
 
     public void OnThrowKnife()
     {
-        readyToThrow = false;
+        if (hand[0] == null || hand[1] == null)
+        {
+            readyToThrow = false;
 
-        // instantiate object to throw
-        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, transform.rotation);
+            // instantiate object to throw
+            GameObject projectile = Instantiate(objectToThrow, attackPoint.position, transform.rotation);
 
-        // get rigidbody component
-        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+            // get rigidbody component
+            Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
 
-        // calculate direction
-        KnifeAddon kscript = projectile.GetComponent<KnifeAddon>();
+            // calculate direction
+            KnifeAddon kscript = projectile.GetComponent<KnifeAddon>();
 
-        kscript.forward = transform.forward;
+            kscript.forward = transform.forward;
 
-        //OLD
-        //RaycastHit hit;
+            //OLD
+            //RaycastHit hit;
 
-        //if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
-        //{
-        //    forceDirection = (hit.point - attackPoint.position).normalized;
-        //}
+            //if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
+            //{
+            //    forceDirection = (hit.point - attackPoint.position).normalized;
+            //}
 
-        //// add force
-        //Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+            //// add force
+            //Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
 
-        //projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
+            //projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
 
-        //totalThrows++;
-        //END OLD
+            //totalThrows++;
+            //END OLD
 
-        // implement throwCooldown
-        Invoke(nameof(ResetThrow), throwCooldown);   
+            // implement throwCooldown
+            Invoke(nameof(ResetThrow), throwCooldown);
+        }
     }
 
     public void OnToggleAimLine()
