@@ -274,7 +274,7 @@ Transform:
   - {fileID: 1621751252}
   - {fileID: 1719422407}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &84301899
 PrefabInstance:
@@ -2198,7 +2198,7 @@ Transform:
   - {fileID: 678285057}
   - {fileID: 7108395}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &612328162
 GameObject:
@@ -4741,7 +4741,7 @@ Transform:
   - {fileID: 1854599340}
   - {fileID: 925612679}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &953938117
 GameObject:
@@ -9724,7 +9724,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1307880531
 PrefabInstance:
@@ -10602,6 +10602,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5845323697461641057, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
   m_PrefabInstance: {fileID: 594496547}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1668792482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1668792484}
+  - component: {fileID: 1668792483}
+  m_Layer: 0
+  m_Name: RecipeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1668792483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668792482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee5ea45fe517a040b7e0cb040e30445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipe:
+  - Name: Omelet
+    Steps:
+    - Turn On Stove
+    - Grab Pan
+    - 'Place Pan On Stove '
+    - Grab Egg
+    - Crack Egg On Pan
+    - Grab Spatula
+    - Flip Egg When Ready
+    - Grab Pan
+    - Place Food On Plate
+  - Name: Bacon
+    Steps: []
+--- !u!4 &1668792484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668792482}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1703388368 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4110198402601966224, guid: bb1a6c702029d294597173b9f87700b0, type: 3}

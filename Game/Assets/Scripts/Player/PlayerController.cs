@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
     [Header("Animator")]
     public Animator animator;
 
+    [Header("Task Manager")]
+    public TaskManager taskManager;
+
     //Movement
     private Vector3 moveVec;
     private Vector3 rotateVec;
@@ -147,11 +150,13 @@ public class PlayerController : MonoBehaviour
         if(GameManager.numberOfPlayers == 1)
         {
             player = Player.PlayerOne;
+            GameManager.playerOne = this;
             transform.position = new Vector3(-5, 0, 0);
         }
         else
         {
             player = Player.PlayerTwo;
+            GameManager.playerTwo = this;
             transform.position = new Vector3(1, 0, 0);
         }
 
