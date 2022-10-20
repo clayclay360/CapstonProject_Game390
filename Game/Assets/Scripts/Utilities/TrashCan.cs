@@ -42,7 +42,6 @@ public class TrashCan : Utility
                 chef.hand[0] = null;
                 chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                 Interaction = "";
-                chef.isInteracting = false;
             }
         }
     }

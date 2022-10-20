@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook") ;
+        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook")
         { 
             readyToInteract = true; //assign ready to interact so that isinteracting can be set from OnInteract()
 
@@ -294,7 +294,7 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.GetComponent<Utility>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
             }
-            //isInteracting = false;
+            isInteracting = false;
         }
     }
 
