@@ -25,6 +25,15 @@ public class RecipeManager : MonoBehaviour
                     GameManager.playerOne.taskManager.CreateTask();
                     GameManager.playerOne.taskManager.tasks[i].taskName = recipe[GameManager.currentLevel].Steps[i];
                 }
+                
+                if(GameManager.numberOfPlayers == 2)
+                {
+                    for (int i = 0; i < recipe[1].Steps.Length; i++)
+                    {
+                        GameManager.playerOne.taskManager.CreateTask();
+                        GameManager.playerOne.taskManager.tasks[i].taskName = recipe[GameManager.currentLevel + 1].Steps[i];
+                    }
+                }
                 break;
         }
         GameManager.assigningOrders = false;
