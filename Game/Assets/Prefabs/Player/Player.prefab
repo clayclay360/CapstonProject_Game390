@@ -2942,6 +2942,7 @@ MonoBehaviour:
   throwCooldown: 0
   objectToThrow: {fileID: 432155490203820227, guid: 1421fc372dd76bb4c9a94f63854079a6, type: 3}
   animator: {fileID: 6666133079928596205}
+  taskManager: {fileID: 4835468046618603164}
   Inv1: {fileID: 3511479360006217213}
   Inv2: {fileID: 5647515790076485959}
   interactionText: {fileID: 818611845322245482}
@@ -3444,15 +3445,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2037213236962368528, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -36.87964
+      value: -36.827347
       objectReference: {fileID: 0}
     - target: {fileID: 2037213236962368528, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -919.37787
+      value: -880
       objectReference: {fileID: 0}
     - target: {fileID: 2037213236962368528, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1011.2117
+      value: 1011.16064
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690121, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_Name
@@ -3543,24 +3544,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+      propertyPath: maxTasks
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: tasks.Array.size
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: tasks.Array.data[0].taskName
-      value: Turn On Stove
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: tasks.Array.data[1].taskName
-      value: Grab Pan
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: tasks.Array.data[2].taskName
-      value: Crack Egg
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: tasks.Array.data[3].taskName
-      value: Use Spatula
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237505104251, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3568,15 +3573,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237761212941, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -36.878635
+      value: -36.953117
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237761212941, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -919.37836
+      value: -880
       objectReference: {fileID: 0}
     - target: {fileID: 2037213237761212941, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 961.2117
+      value: 961.0408
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
@@ -3585,3 +3590,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2037213237306690126, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
   m_PrefabInstance: {fileID: 6872117225555731667}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4835468046618603164 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2037213237306690127, guid: d123368a213ab9d42bbcfd78928e1606, type: 3}
+  m_PrefabInstance: {fileID: 6872117225555731667}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02aa94a5df0f9834ba9be0d6ca6cd232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

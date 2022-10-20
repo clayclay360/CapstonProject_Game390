@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool gameStarted;
+    public static bool assigningOrders;
+    public static int currentLevel;
+
     public static bool recipeIsOpenP1;
     public static bool isTouchingBook;
     public static List<int> isStepCompleted = new List<int>();
@@ -39,6 +43,9 @@ public class GameManager : MonoBehaviour
     public int playerScore;
     public int scoreMultiplier;
 
+    public static PlayerController playerOne;
+    public static PlayerController playerTwo;
+
     private void Awake()
     {
         _instance = this;
@@ -55,7 +62,18 @@ public class GameManager : MonoBehaviour
 
     private void Update() 
     {
+        //this is temporary
+        if(numberOfPlayers == 1 && !gameStarted)
+        {
+            gameStarted = true;
+            StartCoroutine(StartGame());
+        }
+    }
 
+    IEnumerator StartGame()
+    {
+        yield return null;
+        assigningOrders = true;
     }
 
     private void CheckIfLevelComplete()
