@@ -79,7 +79,7 @@ public class Egg : Item
                 }
                 break;
             case PlayerController.ItemInMainHand.bacon:
-                Interaction = "Grab Bacon";
+                Interaction = "Grab Egg";
                 if (chef.isInteracting)
                 {
                     gameObject.SetActive(false);

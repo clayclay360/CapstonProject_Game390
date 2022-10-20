@@ -89,6 +89,7 @@ public class Pan : Item
                                 GameManager.isStepCompleted.Add(5);
                                 cookBook.printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
                             }
+                            chef.hand[0].GetComponent<Collider>().enabled = false;
                             chef.hand[0].GetComponent<Egg>().state = Egg.State.yoke;
                             chef.hand[0].GetComponent<Egg>().toolItemIsOccupying = this;
                             chef.hand[0].GetComponent<Egg>().gameObject.transform.parent = transform;
@@ -108,6 +109,7 @@ public class Pan : Item
                 Interaction = "Place Bacon";
                 if (chef.isInteracting)
                 {
+                    chef.hand[0].GetComponent<Collider>().enabled = false;
                     chef.hand[0].GetComponent<Bacon>().toolItemIsOccupying = this;
                     chef.hand[0].GetComponent<Bacon>().gameObject.transform.parent = transform;
                     chef.hand[0].GetComponent<Bacon>().gameObject.transform.position = placement.position;
