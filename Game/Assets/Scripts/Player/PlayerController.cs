@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     //Movement
     private Vector3 moveVec;
     private Vector3 rotateVec;
-    private Vector3 rotateVec2;
+    private float rightAnalogMagnitude;
 
     //Inventory
     //Holds item ids for held items
@@ -91,14 +91,21 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 moveVal = value.Get<Vector2>();
         moveVec = new Vector3(moveVal.x, 0, moveVal.y);
-        Vector2 rotateVal2 = value.Get<Vector2>();
-        rotateVec2 = new Vector3(rotateVal2.x, 0, rotateVal2.y);
+
+        if(rightAnalogMagnitude < .1f)
+        {
+            Vector2 rotateVal = value.Get<Vector2>();
+            rotateVec = new Vector3(rotateVal.x, 0, rotateVal.y);
+        }
+        
     }
 
     public void OnLook(InputValue value)
     {
         Vector2 rotateVal = value.Get<Vector2>();
         rotateVec = new Vector3(rotateVal.x,0,rotateVal.y);
+        //float angle = Mathf.Atan2(rotateVec.x, rotateVec.z) * Mathf.Rad2Deg;
+        rightAnalogMagnitude = rotateVec.magnitude;
     }
 
     public void PlayerMovement() 
@@ -113,16 +120,6 @@ public class PlayerController : MonoBehaviour
                 transform.position += movingSpeed * Time.deltaTime * moveVec;
             }
         }
-        //Rotation for player
-        if (Mathf.Abs(rotateVec2.x) > 0 || Mathf.Abs(rotateVec2.z) > 0)
-        {
-            Vector3 rotateLook = (Vector3.right * rotateVec2.x) + (Vector3.forward * rotateVec2.z);
-            if (rotateLook.sqrMagnitude > 0)
-            {
-                Quaternion LRotation = Quaternion.LookRotation(rotateLook, Vector3.up);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, LRotation, rotatingSpeed);
-            }
-        }
         //Rotation for looking
         if (Mathf.Abs(rotateVec.x) > 0 || Mathf.Abs(rotateVec.z) > 0)
         {
@@ -130,7 +127,9 @@ public class PlayerController : MonoBehaviour
             if (rotateDirection.sqrMagnitude > .1f)
             {
                     Quaternion newRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, rotatingSpeed);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, rotatingSpeed);
+                float angle = Mathf.Atan2(rotateVec.x, rotateVec.z) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             }
         }
 
