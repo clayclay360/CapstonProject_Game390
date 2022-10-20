@@ -202,8 +202,6 @@ public class PlayerController : MonoBehaviour
         hand[2] = hand[0];
         hand[0] = hand[1];
         hand[1] = hand[2];
-
-        Debug.LogWarning("Switching Hands: \nHand 1: " + hand[0] + "\nHand 2: " + hand[1]);
     }
 
     private void CheckInventory()
@@ -272,7 +270,6 @@ public class PlayerController : MonoBehaviour
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
-                        Debug.Log(hand[0].Name);
                     }
                     else if (hand[1] == null)
                     {

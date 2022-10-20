@@ -51,7 +51,6 @@ public class Bacon : Item
                 Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
-                    Debug.Log("Bacon Grabbed");
                     gameObject.SetActive(false);
                     Interaction = "";
                 }

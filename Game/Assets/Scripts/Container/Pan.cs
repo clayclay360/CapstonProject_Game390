@@ -138,14 +138,11 @@ public class Pan : Item
                         {
                             if(interactionMeterEnd[i] < progressMeter)
                             {
-                                Debug.Log("Attempts: " + attempt[interactionIndex]);
                                 interactionIndex++;
                             }
                         }
                         
                         //Attempts
-                        Debug.Log("Index: " + interactionIndex);
-
                         if(progressMeter > progressMeterMax / 4)
                         {
                             switch (foodInPan.Name)
@@ -164,7 +161,6 @@ public class Pan : Item
                             {
                                 if (progressMeter > interactionMeterStart[interactionIndex] && progressMeter < interactionMeterEnd[interactionIndex])
                                 {
-                                    Debug.Log("Great Job!");
                                     completeMark[interactionIndex].sprite = checkMark;
                                     completeMark[interactionIndex].gameObject.SetActive(true);
                                     attempt[interactionIndex] = Attempt.Completed;
@@ -174,14 +170,12 @@ public class Pan : Item
                                     completeMark[interactionIndex].sprite = xMark;
                                     completeMark[interactionIndex].gameObject.SetActive(true);
                                     attempt[interactionIndex] = Attempt.Failed;
-                                    Debug.Log("Too Early");
                                 }
                                 else if (progressMeter > interactionMeterEnd[interactionIndex])
                                 {
                                     completeMark[interactionIndex].sprite = xMark;
                                     completeMark[interactionIndex].gameObject.SetActive(true);
                                     attempt[interactionIndex] = Attempt.Failed;
-                                    Debug.Log("Too Late");
                                 }
                                 interactionAttemptReady[interactionIndex] = false;
                             }
