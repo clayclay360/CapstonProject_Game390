@@ -30,12 +30,16 @@ public class CookBook : Utility
             GameManager.cookBookActive = false;
             //Set to desroyed book
         }
-        //TESTING
-        else if (!destroying)
+        else if (!GameManager.cookBookActive)
         {
-            StartCoroutine(DestroyCookbook());
-            destroying = true;
+            lives = 0;
         }
+        //TESTING
+        //else if (!destroying)
+        //{
+        //    StartCoroutine(DestroyCookbook());
+        //    destroying = true;
+        //}
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -55,14 +59,13 @@ public class CookBook : Utility
         {
             Interaction = "Cookbook is Destroyed.";
         }
-
         if (chef.isInteracting)
         {
             if (item == PlayerController.ItemInMainHand.pages) {
                 lives = 3;
                 GameManager.cookBookActive = true;
                 Debug.LogWarning("Cookbook repaired!");
-                chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
+                chef.hand[0] = null;
                 chef.Inv1.text = "";
                 //Restore book model
             }
@@ -70,12 +73,12 @@ public class CookBook : Utility
     }
 
     //TEST FUNCTION FOR DESTROYING COOKBOOK
-    private IEnumerator DestroyCookbook()
-    {
-        if (lives <= 0) { yield return null; }
-        yield return new WaitForSeconds(2);
-        lives--;
-        Debug.Log("Cookbook lives: " + lives);
-        destroying = false;
-    }
+    //private IEnumerator DestroyCookbook()
+    //{
+    //    if (lives <= 0) { yield return null; }
+    //    yield return new WaitForSeconds(2);
+    //    lives--;
+    //    Debug.Log("Cookbook lives: " + lives);
+    //    destroying = false;
+    //}
 }

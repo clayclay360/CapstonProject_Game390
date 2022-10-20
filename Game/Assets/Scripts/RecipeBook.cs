@@ -121,7 +121,7 @@ public class RecipeBook : MonoBehaviour
     public void ClickOnBook()
     {
         //if (!GameManager.cookBookActive) { return; };
-        if (GameManager.isTouchingBook) //This is to detect if the player is touching the book
+        if (GameManager.isTouchingBook && GameManager.cookBookActive) //This is to detect if the player is touching the book
         {
             /*//variable telling the game that the recipe for player one is open
             GameManager.recipeIsOpenP1 = true;
@@ -134,6 +134,8 @@ public class RecipeBook : MonoBehaviour
             currentPage = 1;
 
             printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", "Beat the eggs (Bowl on countertop).", 1, 2, 3);*/
+
+            //if (!GameManager.cookBookActive) { return; }
 
             if (GameManager.recipeIsOpenP1)
             {
