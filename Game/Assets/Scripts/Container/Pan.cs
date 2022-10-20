@@ -232,6 +232,10 @@ public class Pan : Item
     {
         if(Occupied && !cooking && state == State.hot && foodInPan.status == Status.uncooked)
         {
+            foreach(Image img in completeMark)
+            {
+                img.gameObject.SetActive(false);
+            }
             progressSlider.gameObject.SetActive(true);
             progressMeter = progressMeterMin;
             progressSlider.maxValue = progressMeterMax;
