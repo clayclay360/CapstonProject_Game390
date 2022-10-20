@@ -294,7 +294,7 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.GetComponent<Utility>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
             }
-            //isInteracting = false;
+            isInteracting = false; //this is needed so the player doesn't keep interacting with items and utilities
         }
     }
 
