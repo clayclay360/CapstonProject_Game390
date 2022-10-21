@@ -29,7 +29,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1917331530159182313}
-  - {fileID: 4483255376135978167}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45,73 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2ceae58640f24c86eb542d55e748b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionType: 0
+  itemNeed: 0
+  itemGive: 0
+  Name: Cookbook
+  Height: 0
+  On: 0
+  Occupied: 0
+  Interaction: 
   lives: 3
---- !u!1001 &82916186
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1484350882870019931}
-    m_Modifications:
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7773432307314902472, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_Name
-      value: CookBook_Open
-      objectReference: {fileID: 0}
-    - target: {fileID: 7773432307314902472, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6922b188335767642a6e3d5729895c07, type: 3}
---- !u!4 &4483255376135978167 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4483255376187281389, guid: 6922b188335767642a6e3d5729895c07, type: 3}
-  m_PrefabInstance: {fileID: 82916186}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1390739608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194,18 +135,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &594177147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3069704369454553419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d2ceae58640f24c86eb542d55e748b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lives: 3
+  m_Size: {x: 2.46, y: 1, z: 2.06}
+  m_Center: {x: -0.55, y: 0, z: 0}

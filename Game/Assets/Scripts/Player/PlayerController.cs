@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     public void Update()
     {
         //Interact();
-        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+        cookBook = GameObject.Find("CookBook_Closed").GetComponent<RecipeBook>();
     }
 
     // Update is called once per frame
@@ -322,7 +322,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "CookBook")
         {
             GameManager.isTouchingBook = true;
-            cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+            cookBook = GameObject.Find("CookBook_Closed").GetComponent<RecipeBook>();
         }
     }
 
