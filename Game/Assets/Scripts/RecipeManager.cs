@@ -20,19 +20,19 @@ public class RecipeManager : MonoBehaviour
         switch (GameManager.currentLevel)
         {
             case 0:
+                
                 for (int i = 0; i < recipe[0].Steps.Length; i++)
                 {
                     GameManager.playerOne.taskManager.CreateTask();
                     GameManager.playerOne.taskManager.tasks[i].taskName = recipe[GameManager.currentLevel].Steps[i];
                 }
-                
-                if(GameManager.numberOfPlayers == 2)
+
+                Debug.Log(GameManager.numberOfPlayers);
+
+                for (int i = 0; i < recipe[1].Steps.Length; i++)
                 {
-                    for (int i = 0; i < recipe[1].Steps.Length; i++)
-                    {
-                        GameManager.playerOne.taskManager.CreateTask();
-                        GameManager.playerOne.taskManager.tasks[i].taskName = recipe[GameManager.currentLevel + 1].Steps[i];
-                    }
+                    GameManager.playerTwo.taskManager.CreateTask();
+                    GameManager.playerTwo.taskManager.tasks[i].taskName = recipe[GameManager.currentLevel + 1].Steps[i];
                 }
                 break;
         }
