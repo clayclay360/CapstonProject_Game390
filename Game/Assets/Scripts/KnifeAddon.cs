@@ -54,10 +54,13 @@ public class KnifeAddon : MonoBehaviour
     {
         if (other.gameObject.GetComponentInParent<RatScript>() != null)
         {
-            Debug.Log("Rat scared");
             RatScript enemy = other.gameObject.GetComponentInParent<RatScript>();
 
-            enemy.Hide();
+            if (!enemy.hiding)
+            {
+                Debug.Log("Rat scared");
+                enemy.Hide();
+            }
         }
     }
 

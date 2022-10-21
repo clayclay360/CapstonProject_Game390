@@ -43,6 +43,7 @@ public class RatScript : MonoBehaviour
     public GameObject[] hidingPointsList;
     public float minHideTimer;
     public float maxHideTimer;
+    public bool hiding;
 
     private float distanceBetweenTarget;
     private float startHeight;
@@ -50,7 +51,6 @@ public class RatScript : MonoBehaviour
     private bool linkActivated;
     private bool climbing;
     private bool attackReady;
-    private bool hiding;
 
     private NavMeshAgent agent;
     private MeshRenderer climbableTargetMesh;
@@ -74,7 +74,7 @@ public class RatScript : MonoBehaviour
         endRay.GetComponent<Transform>();
         startLink.GetComponent<Transform>();
         endLink.GetComponent<Transform>();
-        SetTarget(TargetsList);
+        AdjustTargetList(TargetsList);
         hidingPointsList = GameObject.FindGameObjectsWithTag("HidingPoint");
     }
 
@@ -201,7 +201,7 @@ public class RatScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != null && other.CompareTag(target.tag))
+        if (other.tag != "Untagged" && other.CompareTag(target.tag))
         {
             Debug.Log("hit");
             collider.enabled = false;
@@ -262,7 +262,8 @@ public class RatScript : MonoBehaviour
         targetList.Add(GameObject.FindGameObjectWithTag("CookBook"));
 
         //Remove items that we don't want the rats targeting in a given surcunstance.
-        foreach(GameObject item in targetList)
+        List<GameObject> removeList = new List<GameObject> { };
+        foreach (GameObject item in targetList)
         {
             switch (item.name)
             {
@@ -270,59 +271,65 @@ public class RatScript : MonoBehaviour
                     break;
                 
                 case ("Spatula"):
-                    targetList.Remove(item);
+                    removeList.Add(item);
                     break;
 
                 case ("Plate"):
-                    targetList.Remove(item);
+                    removeList.Add(item);
                     break;
 
                 case ("Pan"):
-                    targetList.Remove(item);
+                    removeList.Add(item);
                     break;
 
                 case ("Stove"):
                     //Don't target stove if it's off
                     if (!item.GetComponent<Stove>().On)
                     {
-                        targetList.Remove(item);
+                        removeList.Add(item);
                     }
                     break;
 
-                case ("Egg"):
+                case ("Egg"): case ("Egg(Clone)"):
                     break;
 
                 case ("TrashCan"):
-                    targetList.Remove(item);
+                    removeList.Add(item);
                     break;
 
                 case ("Bacon"):
                     break;
 
                 case ("Fridge"):
-                    targetList.Remove(item);
+                    removeList.Add(item);
                     break;
 
                 case ("Computer"):
-                    targetList.Remove(item);
+                    removeList.Add(item);
                     break;
             }
-            
-            if(item == target)
+
+            if (item == target)
+            {
+                removeList.Add(item);
+            }
+        }
+        foreach (GameObject item in removeList)
+        {
+            if (targetList.Contains(item))
             {
                 targetList.Remove(item);
             }
         }
+
+        SetTarget(targetList);
     }
 
     public void SetTarget(List<GameObject> targetList)
     {
-        //Adjust target list if necessary
-        AdjustTargetList(targetList);
-
         target = targetList[Random.Range(0, targetList.Count)];
 
-        //Debug.Log("Rat is targeting: " + target.name);
+        Debug.Log("Rat is targeting: " + target.name);
     }
 
     public void CrossEntryway()
@@ -350,7 +357,7 @@ public class RatScript : MonoBehaviour
             Debug.Log("Changed Target");
 
             //Pick new target from list
-            SetTarget(TargetsList);
+            AdjustTargetList(TargetsList);
         }
         else
         {
@@ -367,7 +374,8 @@ public class RatScript : MonoBehaviour
 
         hiding = true;
         agent.destination = hidingPointsList[hideindex].transform.position;
-        agent.speed = 4;
+        agent.speed = agent.speed * 2;
+        agent.angularSpeed = agent.angularSpeed * 2;
 
         StartCoroutine(HideTimer());
     }
@@ -385,7 +393,8 @@ public class RatScript : MonoBehaviour
         yield return new WaitForSeconds(hideTime);
         agent.destination = target.transform.position;
         hiding = false;
-        agent.speed = 2;
+        agent.speed = agent.speed / 2;
+        agent.angularSpeed = agent.angularSpeed / 2;
     }
 
     public void ReturnToVent()

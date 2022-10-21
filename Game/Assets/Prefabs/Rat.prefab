@@ -227,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5076919210506732733}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.07, z: 0.55}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5782238861253727562}
@@ -244,7 +244,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.3, z: 0.2}
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5782238860536919977
 GameObject:
@@ -273,8 +273,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5782238860536919977}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.16169, z: 0}
-  m_LocalScale: {x: 0.593425, y: 0.593425, z: 0.83079493}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.8}
   m_Children: []
   m_Father: {fileID: 5782238861253727562}
   m_RootOrder: 1
@@ -338,10 +338,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.9708149
-  m_Height: 1.3868785
+  m_Radius: 0.6
+  m_Height: 0.8
   m_Direction: 2
-  m_Center: {x: 0, y: 0.47081488, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5782238861253727561
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,10 +395,7 @@ MonoBehaviour:
   body: {fileID: 5782238860536919977}
   health: 0
   attackRadius: 1
-  TargetsList:
-  - {fileID: 1484350882870019920, guid: 7728c74f842b41a4481021fd3f7ec695, type: 3}
-  - {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
-  - {fileID: 3807997087155036473, guid: 874db3dec4c040d4d8e03708505955b0, type: 3}
+  TargetsList: []
   objectiveComplete: 0
   ventsTransform:
   - {fileID: 0}
@@ -420,6 +417,7 @@ MonoBehaviour:
   - {fileID: 0}
   minHideTimer: 3
   maxHideTimer: 5
+  hiding: 0
 --- !u!195 &4064905241100655121
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -429,11 +427,11 @@ NavMeshAgent:
   m_GameObject: {fileID: 5782238861253727561}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 240
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
