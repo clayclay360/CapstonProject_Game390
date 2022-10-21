@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     private void Update() 
     {
         //this is temporary
-        if(numberOfPlayers == 1 && !gameStarted)
+        if(numberOfPlayers == 2 && !gameStarted)
         {
             gameStarted = true;
             StartCoroutine(StartGame());
