@@ -15,7 +15,7 @@ public class Stove :Utility
     public void Start()
     {
         //ps.GetComponent<ParticleSystem>();
-        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+        cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
     }
 
     public Stove()

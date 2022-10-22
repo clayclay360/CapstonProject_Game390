@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Pan : Item
 {
+    public bool canCheck = true;
+
     [Header("UI")]
     public Slider progressSlider;
     public Image[] completeMark;
@@ -38,13 +40,14 @@ public class Pan : Item
         Type = "Tool";
         Interaction = "";
         state = State.cold;
+        status = Status.clean;
     }
 
     private void Awake()
     {
         progressSlider.GetComponent<Slider>();
         interactionAttemptReady = new bool[interactionMeterEnd.Length];
-        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+        cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
         attempt = new Attempt[interactionMeterEnd.Length];
         attempt[0] = Attempt.None;
         attempt[0] = Attempt.None;
@@ -77,6 +80,12 @@ public class Pan : Item
                 break;
             case PlayerController.ItemInMainHand.egg:
 
+                if (GameManager.Instance.CheckIfDirty(this))
+                {
+                    Interaction = "Pan is dirty!";
+                    break;
+                }
+
                 switch (chef.hand[0].GetComponent<Egg>().state)
                 {
                     case Egg.State.shell:
@@ -106,6 +115,12 @@ public class Pan : Item
                 }
                 break;
             case PlayerController.ItemInMainHand.bacon:
+                if (GameManager.Instance.CheckIfDirty(this))
+                {
+                    Interaction = "Pan is dirty!";
+                    break;
+                }
+
                 Interaction = "Place Bacon";
                 if (chef.isInteracting)
                 {
@@ -125,6 +140,11 @@ public class Pan : Item
             case PlayerController.ItemInMainHand.spatula:
                 if (Occupied && state == State.hot && cooking)
                 {
+                    if (chef.hand[0].status == Status.dirty)
+                    {
+                        Interaction = "Spatula is Dirty!";
+                        return;
+                    }
                     Interaction = "Use Spatula";
                     if (chef.isInteracting)
                     {
@@ -166,6 +186,7 @@ public class Pan : Item
                                     completeMark[interactionIndex].sprite = checkMark;
                                     completeMark[interactionIndex].gameObject.SetActive(true);
                                     attempt[interactionIndex] = Attempt.Completed;
+                                    chef.hand[0].status = Status.dirty;
                                 }
                                 else if (progressMeter < interactionMeterStart[interactionIndex])
                                 {
@@ -209,6 +230,13 @@ public class Pan : Item
         }
     }
 
+
+    private IEnumerator CheckStatus()
+    {
+        yield return new WaitForSeconds(5f);
+        canCheck = true;
+    }
+
     private void Update()
     {
         StartCooking();
@@ -221,6 +249,7 @@ public class Pan : Item
         {
             prone = false;
         }
+
     }
 
     public void ResetAttempts()
@@ -285,5 +314,7 @@ public class Pan : Item
         progressSlider.gameObject.SetActive(false);
         cooking = false;
         foodInPan.status = Status.cooked;
+        status = Status.dirty;
     }
+
 }

@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         if (reqsClear)
         {
             Debug.LogWarning("Omelet Complete!");
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
         }
     }
 
@@ -116,5 +116,10 @@ public class GameManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public bool CheckIfDirty(Item item)
+    {
+        return item.status == Item.Status.dirty;
     }
 }

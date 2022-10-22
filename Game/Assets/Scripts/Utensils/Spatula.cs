@@ -10,6 +10,7 @@ public class Spatula : Item
         Name = "Spatula";
         Type = "Tool";
         Interaction = "";
+        status = Status.clean;
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)

@@ -16,7 +16,6 @@ public class Utility : MonoBehaviour, IInteractable<PlayerController.ItemInMainH
     private int progress = 0;
     private int complete = 10;
 
-
     public string Name;
     public float Height;
     public bool On;

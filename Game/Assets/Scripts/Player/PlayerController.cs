@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     [Header("Interactions")]
     public Text interactionText;
     public Dictionary<int, Item> hand = new Dictionary<int, Item>();
-    public enum ItemInMainHand { empty, egg, spatula, pan, bacon, pages };
+    public enum ItemInMainHand { empty, egg, spatula, pan, bacon, pages, plate };
     public ItemInMainHand itemInMainHand;
     RecipeBook cookBook;
 
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     public void Update()
     {
         //Interact();
-        cookBook = GameObject.Find("CookBook_Closed").GetComponent<RecipeBook>();
+        cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
     }
 
     // Update is called once per frame
