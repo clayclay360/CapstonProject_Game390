@@ -65,7 +65,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+<<<<<<< HEAD
         Aim();
+=======
+        //Interact();
+        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+>>>>>>> parent of 32b1bc16 (Merge pull request #70 from clayclay360/Recipe-Book-Pages)
     }
 
     // Update is called once per frame
@@ -240,8 +245,169 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask))
         {
+<<<<<<< HEAD
             // The Raycast hit something, return with the position.
             return (success: true, position: hitInfo.point);
+=======
+            //Depreciated
+        }
+        //Debug.LogWarning("OnTriggerExit()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
+
+        if (other.gameObject.tag == "CookBook")
+        {
+            GameManager.isTouchingBook = false;
+            cookBook = null;
+
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "CookBook")
+        {
+            GameManager.isTouchingBook = true;
+            cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+        }
+    }
+
+    //public void OnInteract()
+    //{
+    //    GameObject[] interactableObjs = GameObject.FindGameObjectsWithTag("Interactable");
+    //    GameObject closest = null;
+    //    Interactable interactObj = null;
+
+    //    //Find which of the gameobjects with interactable tag is the closest
+    //    foreach (var obj in interactableObjs)
+    //    {
+    //        if ((transform.position - obj.transform.position).magnitude < interactRange)
+    //        {
+    //            if (closest == null)
+    //            {
+    //                closest = obj;
+    //            }
+    //            else if ((transform.position - obj.transform.position).magnitude < (transform.position - closest.transform.position).magnitude)
+    //            {
+    //                closest = obj;
+    //            }
+    //        }
+    //    }
+    //    if (closest == null) { return; }
+
+    //    //Get the Interactable component from the gameobject
+    //    if (closest.GetComponent<Interactable>() != null)
+    //    {
+    //        interactObj = closest.GetComponent<Interactable>();
+    //    }
+
+    //    //Now find out if it is an inventory item or a utility
+    //    if (interactObj.TryGetComponent<InventoryItem>(out InventoryItem invItem))
+    //    {
+    //        addToInventory(invItem.itemID);
+    //    }
+    //    if (interactObj.TryGetComponent<Utility>(out Utility util))
+    //    {
+    //        int x = util.interactionType;
+    //        if (x == 1 && util.itemNeed == main_hand_id)
+    //        {
+    //            Debug.Log("making progress");
+    //            if (util.makeProgress(2))
+    //            {
+    //                main_hand_id = util.itemGive;
+    //                Debug.Log("progress complete");
+    //                Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+    //            }
+    //        }
+    //        else if (x == 2 && util.itemNeed == main_hand_id)
+    //        {
+    //            Debug.Log("making progress");
+    //            if (util.makeProgress(2))
+    //            {
+    //                main_hand_id = util.itemGive;
+    //                Debug.Log("progress complete");
+    //                Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+    //            }
+    //        }
+    //        else if (x == 3)
+    //        {
+    //            main_hand_id = off_hand_id;
+    //            off_hand_id = 0;
+    //            Debug.Log("trashed mainhand item");
+    //            Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+    //        }
+    //    }
+    //}
+
+    //void OnSwapInventorySlots()
+    //{
+    //    if (main_hand_id == 0 || off_hand_id == 0) { return; }
+    //    int temp_id = main_hand_id;
+    //    main_hand_id = off_hand_id;
+    //    off_hand_id = temp_id;
+
+    //    Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+    //}
+
+    //void addToInventory(int id)
+    //{
+    //    if (main_hand_id == 0)
+    //    {
+    //        main_hand_id = id;
+    //    }
+    //    else if (off_hand_id == 0)
+    //    {
+    //        off_hand_id = id;
+    //    }
+    //    else { Debug.Log("Both Inventory Slots filled"); }
+    //    Debug.Log("mainhand ID: " + main_hand_id + "\noffand ID:" + off_hand_id);
+    //}
+
+    public void OnThrowKnife()
+    {
+        if (hand[0] == null || hand[1] == null)
+        {
+            readyToThrow = false;
+
+            // instantiate object to throw
+            GameObject projectile = Instantiate(objectToThrow, attackPoint.position, transform.rotation);
+
+            // get rigidbody component
+            Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+
+            // calculate direction
+            KnifeAddon kscript = projectile.GetComponent<KnifeAddon>();
+
+            kscript.forward = transform.forward;
+
+            //OLD
+            //RaycastHit hit;
+
+            //if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
+            //{
+            //    forceDirection = (hit.point - attackPoint.position).normalized;
+            //}
+
+            //// add force
+            //Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+
+            //projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
+
+            //totalThrows++;
+            //END OLD
+
+            // implement throwCooldown
+            Invoke(nameof(ResetThrow), throwCooldown);
+        }
+    }
+
+    public void OnToggleAimLine()
+    {
+        isAiming = !isAiming;
+        LineRenderer aimLine = gameObject.GetComponent<LineRenderer>();
+
+        if (isAiming)
+        {
+            aimLine.enabled = true;
+>>>>>>> parent of 32b1bc16 (Merge pull request #70 from clayclay360/Recipe-Book-Pages)
         }
         else
         {

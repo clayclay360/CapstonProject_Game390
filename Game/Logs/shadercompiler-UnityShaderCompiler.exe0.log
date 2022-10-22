@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 Base path: 'C:/Program Files/Unity/Hub/Editor/2020.3.38f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2020.3.38f1/Editor/Data/PlaybackEngines'
+=======
+Base path: 'G:/2020.3.38f1/Editor/Data', plugins path 'G:/2020.3.38f1/Editor/Data/PlaybackEngines'
+>>>>>>> parent of 32b1bc16 (Merge pull request #70 from clayclay360/Recipe-Book-Pages)
 Cmd: initializeCompiler
 
