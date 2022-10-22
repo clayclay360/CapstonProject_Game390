@@ -94,7 +94,6 @@
     <Compile Include="Assets\Scripts\Food\Egg.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Item.cs" />
-    <Compile Include="Assets\Scripts\Utilities\Sink.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
