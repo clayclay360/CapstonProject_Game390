@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRats: 0
-  maxNumberOfRats: 1
-  minPeeks: 0
-  maxPeeks: 0
-  peekTime: 0
-  timeBetweenPeeks: 0
+  maxNumberOfRats: 4
+  minPeeks: 1
+  maxPeeks: 3
+  peekTime: 0.5
+  timeBetweenPeeks: 2
   TargetContainer:
   - {fileID: 0}
   maxSpawnTime: 3

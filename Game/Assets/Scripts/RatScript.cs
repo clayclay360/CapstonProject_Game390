@@ -203,7 +203,7 @@ public class RatScript : MonoBehaviour
     {
         if (other.tag != "Untagged" && other.CompareTag(target.tag))
         {
-            Debug.Log("hit");
+            Debug.Log(gameObject.name + "hit");
             collider.enabled = false;
             switch (target.tag)
             {
@@ -261,7 +261,7 @@ public class RatScript : MonoBehaviour
         targetList.AddRange(targetarray);
         targetList.Add(GameObject.FindGameObjectWithTag("CookBook"));
 
-        //Remove items that we don't want the rats targeting in a given surcunstance.
+        //Remove items that we don't want the rats targeting in a given circumstance.
         List<GameObject> removeList = new List<GameObject> { };
         foreach (GameObject item in targetList)
         {
@@ -271,15 +271,12 @@ public class RatScript : MonoBehaviour
                     break;
                 
                 case ("Spatula"):
-                    removeList.Add(item);
                     break;
 
                 case ("Plate"):
-                    removeList.Add(item);
                     break;
 
                 case ("Pan"):
-                    removeList.Add(item);
                     break;
 
                 case ("Stove"):
@@ -329,7 +326,7 @@ public class RatScript : MonoBehaviour
     {
         target = targetList[Random.Range(0, targetList.Count)];
 
-        Debug.Log("Rat is targeting: " + target.name);
+        Debug.Log(gameObject.name + " is targeting: " + target.name);
     }
 
     public void CrossEntryway()
@@ -347,21 +344,21 @@ public class RatScript : MonoBehaviour
 
         if (chance >= 90)
         {
-            Debug.Log("Fled");
+            Debug.Log(gameObject.name + " Fled");
 
             target = null;
             ReturnToVent();
         }
         else if (chance >= 70)
         {
-            Debug.Log("Changed Target");
+            Debug.Log(gameObject.name + " Changed Target");
 
             //Pick new target from list
             AdjustTargetList(TargetsList);
         }
         else
         {
-            Debug.Log("Kept going");
+            Debug.Log(gameObject.name + " Kept going");
         }
 
         yield return new WaitForSeconds(1f);
