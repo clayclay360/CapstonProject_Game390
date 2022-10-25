@@ -153,7 +153,7 @@ public class Sink : Utility
     {
         //Process a dish being cleaned
         if (isCleaning) {
-            CleaningDish(cleaningDish);
+            CleaningDish();
             return; 
         }
 
@@ -196,9 +196,9 @@ public class Sink : Utility
     }
 
     //Runs every frame a dish is being cleaned, adding to the progressbar
-    public void CleaningDish(Item dish)
+    public void CleaningDish()
     {
-        if (dish == null)
+        if (cleaningDish == null)
         {
             Debug.LogError("IsCleaning but no dish in the sink!");
             return;
@@ -213,8 +213,8 @@ public class Sink : Utility
         {
             //Debug.LogWarning(cleaningDish.Name +  " is clean!");
             progressSlider.gameObject.SetActive(false);
-            dish.status = Item.Status.clean;
-            dish.currUses = 0;
+            cleaningDish.status = Item.Status.clean;
+            cleaningDish.currUses = 0;
             currentDish = dishBeingCleaned.none;
             isCleaning = false;
         }
