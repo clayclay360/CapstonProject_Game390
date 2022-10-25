@@ -227,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5076919210506732733}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0.45}
+  m_LocalPosition: {x: 0, y: 0, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5782238861253727562}
@@ -244,7 +244,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Size: {x: 0.2, y: 0.3, z: 0.7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5782238860536919977
 GameObject:
@@ -274,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 5782238860536919977}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5782238861253727562}
   m_RootOrder: 1
@@ -338,8 +338,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.6
-  m_Height: 0.8
+  m_Radius: 0.3
+  m_Height: 0.3
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5782238861253727561
@@ -369,7 +369,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5782238861253727561}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.7, y: 0.1, z: 1.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3977599474150098992}
@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 5782238860536919977}
-  health: 0
+  health: 3
   attackRadius: 1
   TargetsList: []
   objectiveComplete: 0
@@ -406,8 +406,8 @@ MonoBehaviour:
   startLink: {fileID: 2054915768880127568}
   endLink: {fileID: 2054915769639909919}
   startLinkOffset: 0.3
-  endLinkOffset: 1
-  climbRaduis: 3
+  endLinkOffset: 2.3
+  climbRaduis: 1.8
   platformYOffset: 0.5
   climbCoolDown: 1.5
   attackRate: 0.2

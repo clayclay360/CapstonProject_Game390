@@ -156,7 +156,7 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    Debug.Log("climb");
+                    Debug.Log(gameObject.name + " climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
                 }
@@ -203,7 +203,7 @@ public class RatScript : MonoBehaviour
     {
         if (other.tag != "Untagged" && other.CompareTag(target.tag))
         {
-            Debug.Log("hit");
+            Debug.Log(gameObject.name + " hit");
             collider.enabled = false;
             switch (target.tag)
             {
@@ -234,6 +234,9 @@ public class RatScript : MonoBehaviour
                             pan.status = Item.Status.dirty;
                             break;
 
+                        case ("Sink"):
+                            break;
+
                         case ("Stove"):
                             Stove stove = other.gameObject.GetComponent<Stove>();
                             stove.On = false;
@@ -241,11 +244,16 @@ public class RatScript : MonoBehaviour
                             break;
 
                         case ("Egg"):  case ("Egg(Clone)"):
+                            Egg egg = other.gameObject.GetComponent<Egg>();
+                            egg.HitByRat();
                             break;
 
                         case ("Bacon"):
+                            Bacon bacon = other.gameObject.GetComponent<Bacon>();
+                            bacon.HitByRat();
                             break;
                     }
+                    objectiveComplete = true;
                     break;
             }
         }
@@ -279,15 +287,43 @@ public class RatScript : MonoBehaviour
             switch (item.name)
             {
                 case ("CookBook"):
+                    //Don't target cookbook if it's destroyed
+                    if (!GameManager.cookBookActive)
+                    {
+                        removeList.Add(item);
+                    }
                     break;
                 
                 case ("Spatula"):
+                    //Don't target if spatula is dirty
+                    if(item.GetComponent<Spatula>().status == Item.Status.dirty)
+                    {
+                        removeList.Add(item);
+                    }
                     break;
 
                 case ("Plate"):
+                    //Don't target if plate is dirty
+                    if (item.GetComponent<Plate>().status == Item.Status.dirty)
+                    {
+                        removeList.Add(item);
+                    }
                     break;
 
                 case ("Pan"):
+                    //Don't target if pan is dirty
+                    if (item.GetComponent<Pan>().status == Item.Status.dirty)
+                    {
+                        removeList.Add(item);
+                    }
+                    break;
+
+                case ("Sink"):
+                    //Don't target sink if it's off
+                    if (!item.GetComponent<Sink>().On)
+                    {
+                        removeList.Add(item);
+                    }
                     break;
 
                 case ("Stove"):
@@ -299,6 +335,11 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case ("Egg"): case ("Egg(Clone)"):
+                    //Don't target egg if it's despawned
+                    if (!item.GetComponent<Egg>().isActive)
+                    {
+                        removeList.Add(item);
+                    }
                     break;
 
                 case ("TrashCan"):
@@ -306,6 +347,11 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case ("Bacon"):
+                    //Don't target bacon if it's despawned
+                    if (!item.GetComponent<Bacon>().isActive)
+                    {
+                        removeList.Add(item);
+                    }
                     break;
 
                 case ("Fridge"):
@@ -337,7 +383,7 @@ public class RatScript : MonoBehaviour
     {
         target = targetList[Random.Range(0, targetList.Count)];
 
-        Debug.Log("Rat is targeting: " + target.name);
+        Debug.Log(gameObject.name + " is targeting: " + target.name);
     }
 
     public void CrossEntryway()
@@ -355,21 +401,21 @@ public class RatScript : MonoBehaviour
 
         if (chance >= 90)
         {
-            Debug.Log("Fled");
+            Debug.Log(gameObject.name + " fled");
 
             target = null;
             ReturnToVent();
         }
         else if (chance >= 70)
         {
-            Debug.Log("Changed Target");
+            Debug.Log(gameObject.name + " changed Target");
 
             //Pick new target from list
             AdjustTargetList(TargetsList);
         }
         else
         {
-            Debug.Log("Kept going");
+            Debug.Log(gameObject.name + " kept going");
         }
 
         yield return new WaitForSeconds(1f);

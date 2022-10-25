@@ -95,4 +95,12 @@ public class Bacon : Item
                 break;
         }
     }
+
+    public void HitByRat()
+    {
+        isActive = false;
+        StartCoroutine(Despawn(gameObject));
+        Debug.Log("Despawning Bacon");
+        gameObject.SetActive(false);
+    }
 }
