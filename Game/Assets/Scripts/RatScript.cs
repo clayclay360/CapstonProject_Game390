@@ -217,23 +217,34 @@ public class RatScript : MonoBehaviour
                     break;
                 case "Interactable":
                     //Debug.Log("Hit Interactable Object");
-                    if(other.TryGetComponent<InventoryItem>(out InventoryItem invitem))
+                    switch (other.gameObject.name)
                     {
-                        //Debug.Log("Hit Inventory Item.");
-                        other.gameObject.SetActive(false);
-                        objectiveComplete = true;
-                    }
-                    else if(other.TryGetComponent<Utility>(out Utility util))
-                    {
-                        //Debug.Log("Hit Utility.");
-                        switch (target.name)
-                        {
-                            case "Stove":
-                                target.GetComponent<Stove>().On = false;
-                                target.GetComponent<Stove>().State(false);
-                                objectiveComplete = true;
-                                break;
-                        }
+                        case ("Spatula"):
+                            Spatula spatula = other.gameObject.GetComponent<Spatula>();
+                            spatula.status = Item.Status.dirty;
+                            break;
+
+                        case ("Plate"):
+                            Plate plate = other.gameObject.GetComponent<Plate>();
+                            plate.status = Item.Status.dirty;
+                            break;
+
+                        case ("Pan"):
+                            Pan pan = other.gameObject.GetComponent<Pan>();
+                            pan.status = Item.Status.dirty;
+                            break;
+
+                        case ("Stove"):
+                            Stove stove = other.gameObject.GetComponent<Stove>();
+                            stove.On = false;
+                            stove.State(stove.On);
+                            break;
+
+                        case ("Egg"):  case ("Egg(Clone)"):
+                            break;
+
+                        case ("Bacon"):
+                            break;
                     }
                     break;
             }
@@ -271,15 +282,12 @@ public class RatScript : MonoBehaviour
                     break;
                 
                 case ("Spatula"):
-                    removeList.Add(item);
                     break;
 
                 case ("Plate"):
-                    removeList.Add(item);
                     break;
 
                 case ("Pan"):
-                    removeList.Add(item);
                     break;
 
                 case ("Stove"):
