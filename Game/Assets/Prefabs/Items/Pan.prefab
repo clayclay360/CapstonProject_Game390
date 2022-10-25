@@ -477,6 +477,8 @@ MonoBehaviour:
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
+  usesUntilDirty: 0
+  currUses: 0
   canCheck: 1
   progressSlider: {fileID: 4647432270931860574}
   completeMark:
