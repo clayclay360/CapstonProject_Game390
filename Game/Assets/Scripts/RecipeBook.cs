@@ -172,6 +172,20 @@ public class RecipeBook : MonoBehaviour
         }
     }
 
+    public void setActiveFalseFunc()
+    {
+        recipeTextbox1.SetActive(false);
+        recipeTextbox2.SetActive(false);
+        backgroundImage.SetActive(false);
+    }
+
+    public void setActiveTrueFunc()
+    {
+        recipeTextbox1.SetActive(true);
+        recipeTextbox2.SetActive(true);
+        backgroundImage.SetActive(true);
+    }
+
     /*public void ClickThroughBook()
     {
         if (GameManager.recipeIsOpenP1)

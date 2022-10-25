@@ -9,6 +9,8 @@ public class CookBook : Utility
 
     private bool destroying = false; //Variable used for testing
 
+    RecipeBook setCookBookActive; //put in by Owen to activate and deactivate the cook book
+
     public CookBook()
     {
         Name = "Cookbook";
@@ -19,7 +21,7 @@ public class CookBook : Utility
     void Start()
     {
         GameManager.cookBookActive = true;
-
+        setCookBookActive = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
     }
 
     // Update is called once per frame
@@ -28,6 +30,7 @@ public class CookBook : Utility
         if (lives == 0)
         {
             GameManager.cookBookActive = false;
+            setCookBookActive.setActiveFalseFunc();
             //Set to desroyed book
         }
         else if (!GameManager.cookBookActive)
@@ -64,6 +67,7 @@ public class CookBook : Utility
             if (item == PlayerController.ItemInMainHand.pages) {
                 lives = 3;
                 GameManager.cookBookActive = true;
+                setCookBookActive.setActiveTrueFunc();
                 Debug.LogWarning("Cookbook repaired!");
                 chef.hand[0] = null;
                 chef.Inv1.text = "";

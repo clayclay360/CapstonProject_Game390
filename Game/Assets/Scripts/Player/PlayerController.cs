@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour
         animator.GetComponent<Animator>();
         PlayerAssignment();
         gm = GameManager.Instance;
+        throwCooldown = 0.8f;
     }
 
     public void Update()
@@ -419,7 +420,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnThrowKnife()
     {
-        if (hand[0] == null || hand[1] == null)
+        if ((hand[0] == null || hand[1] == null) && readyToThrow)
         {
             readyToThrow = false;
 
