@@ -11,6 +11,13 @@ public class Spatula : Item
         Type = "Tool";
         Interaction = "";
         status = Status.clean;
+         
+    }
+
+    public new void Start()
+    {
+        currUses = 0;
+        usesUntilDirty = 2;
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)

@@ -21,11 +21,26 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     [HideInInspector] public string Interaction;
     [HideInInspector] public Utility utilityItemIsOccupying;
     [HideInInspector] public Item toolItemIsOccupying;
-
+    //Sink
+    [HideInInspector] public int usesUntilDirty;
+    [HideInInspector] public int currUses;
     public void Start()
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
+    }
+
+    //Function to manage dishes and stuff getting dirty. currUses and usesUntilDirty
+    //should be set from the Awake() or Start() functions of the individual items
+    public void CheckIfDirty()
+    {
+        
+        currUses += 1;
+        if (currUses >= usesUntilDirty)
+        {
+            status = Status.dirty;
+        }
+        //Debug.LogError(currUses + " // " + usesUntilDirty);
     }
 
     public void Properties() { }

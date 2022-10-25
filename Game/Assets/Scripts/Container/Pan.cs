@@ -41,6 +41,7 @@ public class Pan : Item
         Interaction = "";
         state = State.cold;
         status = Status.clean;
+
     }
 
     private void Awake()
@@ -51,6 +52,8 @@ public class Pan : Item
         attempt = new Attempt[interactionMeterEnd.Length];
         attempt[0] = Attempt.None;
         attempt[0] = Attempt.None;
+        usesUntilDirty = 1;
+        currUses = 0;
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -186,7 +189,7 @@ public class Pan : Item
                                     completeMark[interactionIndex].sprite = checkMark;
                                     completeMark[interactionIndex].gameObject.SetActive(true);
                                     attempt[interactionIndex] = Attempt.Completed;
-                                    chef.hand[0].status = Status.dirty;
+                                    
                                 }
                                 else if (progressMeter < interactionMeterStart[interactionIndex])
                                 {
@@ -203,6 +206,8 @@ public class Pan : Item
                                 interactionAttemptReady[interactionIndex] = false;
                             }
                         }
+                        chef.hand[0].CheckIfDirty();
+                        chef.isInteracting = false;
                     }
                 }
                 else
@@ -314,7 +319,7 @@ public class Pan : Item
         progressSlider.gameObject.SetActive(false);
         cooking = false;
         foodInPan.status = Status.cooked;
-        status = Status.dirty;
+        CheckIfDirty();
     }
 
 }

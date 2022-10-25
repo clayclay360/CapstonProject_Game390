@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1484350882870019931}
   - component: {fileID: 169181783901973587}
+  - component: {fileID: 135341480}
   m_Layer: 0
   m_Name: CookBook
   m_TagString: CookBook
@@ -53,6 +54,19 @@ MonoBehaviour:
   Occupied: 0
   Interaction: 
   lives: 3
+--- !u!65 &135341480
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484350882870019920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.46, y: 1, z: 2.06}
+  m_Center: {x: -0.55, y: 0, z: 0}
 --- !u!1001 &1390739608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66,7 +80,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1917331529310032241, guid: b042de72ed9b12e40b98a0ce6a3087fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 1917331529310032241, guid: b042de72ed9b12e40b98a0ce6a3087fc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -124,16 +138,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1917331529310032241, guid: b042de72ed9b12e40b98a0ce6a3087fc, type: 3}
   m_PrefabInstance: {fileID: 1390739608}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &594177148
-BoxCollider:
+--- !u!114 &1118622690
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3069704369454553419}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.46, y: 1, z: 2.06}
-  m_Center: {x: -0.55, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb6eaf64d7c541449bf669d86675827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theName: 
+  recipeTextbox1: {fileID: 0}
+  recipeTextbox2: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  pages: 
+  steps: 
+  currentStep: 0
+  currentPage: 0

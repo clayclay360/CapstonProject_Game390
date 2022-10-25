@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Sink : Utility
 {
+    public enum dishBeingCleaned { none, pan, spatula, plate }
+    public dishBeingCleaned currentDish; //enum to track which dish is being washed
+
+    [Header("ProgressBar")]
+    public bool isCleaning;
+    public float cleanTime = 5f;
+    public float cleanProgress = 0f;
+    public Slider progressSlider;
     
+
     [Header("States")]
     public GameObject sinkEmpty;
     public GameObject sinkFull;
 
     [Header("Dishes")]
+    
     public Pan sinkPan;
     public Spatula sinkSpatula;
     public Plate sinkPlate;
+    public Item cleaningDish; //This will be whichever dish is currently being washed
 
     public Sink()
     {
@@ -20,6 +32,18 @@ public class Sink : Utility
         Interaction = "";
         Occupied = false;
         On = false;
+    }
+
+    private void Awake()
+    {
+        progressSlider.GetComponent<Slider>();
+        currentDish = 0; //none
+        isCleaning = false;
+    }
+
+    public void Update()
+    {
+        ProcessCleaning();
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -46,6 +70,19 @@ public class Sink : Utility
                         {
                             chef.hand[0] = dish;
                             chef.Inv1.text = dish.Name;
+                            //Now this is an awful way to do this and I don't want to see anything like this in the future
+                            switch (dish.Name)
+                            {
+                                case "Pan":
+                                    sinkPan = null;
+                                    break;
+                                case "Plate":
+                                    sinkPlate = null;
+                                    break;
+                                case "Spatula":
+                                    sinkSpatula = null;
+                                    break;
+                            }
                             //chef.itemInMainHand = PlayerController.ItemInMainHand.
                         }
                         return;
@@ -65,7 +102,6 @@ public class Sink : Utility
                     sinkSpatula = spatula;
                     chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                     chef.hand[0] = null;
-                    StartCoroutine(WaitForClean(sinkSpatula));
                     Interaction = "";
                 }
                 else { Debug.LogError("Could not get Spatula component with ItemInMainHand.spatula!");}
@@ -80,7 +116,6 @@ public class Sink : Utility
                     sinkPan = pan;
                     chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                     chef.hand[0] = null;
-                    StartCoroutine(WaitForClean(sinkPan));
                     Interaction = "";
                 }
                 else { Debug.LogError("Could not get Pan component with ItemInMainHand.pan!"); }
@@ -94,7 +129,6 @@ public class Sink : Utility
                     sinkPlate = plate;
                     chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                     chef.hand[0] = null;
-                    StartCoroutine(WaitForClean(sinkPlate));
                     Interaction = "";
                 }
                 else { Debug.LogError("Could not get Plate component with ItemInMainHand.plate!"); }
@@ -103,13 +137,86 @@ public class Sink : Utility
                 Debug.LogWarning("Unaccounted for dirty item in Sink.cs! switch statement");
                 break;
         }
+        chef.isInteracting = false;
     }
 
-    public IEnumerator WaitForClean(Item item)
+    //Helper function for when we start cleaning a dish
+    public void ActivateCleaning()
     {
-        yield return new WaitForSeconds(5f);
-        item.status = Item.Status.clean;
-        Debug.Log(item.Name + " is clean!");
-        yield return null;
+        isCleaning = true;
+        progressSlider.gameObject.SetActive(true);
+        cleanProgress = 0f;
+        progressSlider.value = 0f;
+    }
+
+    public void ProcessCleaning()
+    {
+        //Process a dish being cleaned
+        if (isCleaning) {
+            CleaningDish(cleaningDish);
+            return; 
+        }
+
+
+        
+        switch (currentDish)
+        {
+            //Check for other dishes and set them to be cleaned
+            //Right now, this will check in the order they are listed
+            //which means technically there is a priority list
+            case dishBeingCleaned.none:
+
+                if (sinkPan != null && sinkPan.status == Item.Status.dirty)
+                {
+                    cleaningDish = sinkPan;
+                    ActivateCleaning();
+                    currentDish = dishBeingCleaned.pan;
+                }
+                else if (sinkSpatula != null && sinkSpatula.status == Item.Status.dirty)
+                {
+                    cleaningDish = sinkSpatula;
+                    ActivateCleaning();
+                    currentDish = dishBeingCleaned.spatula;
+                }
+                else if (sinkPlate != null && sinkPlate.status == Item.Status.dirty)
+                {
+                    cleaningDish = sinkPlate;
+                    ActivateCleaning();
+                    currentDish = dishBeingCleaned.plate;
+                }
+                if (currentDish != dishBeingCleaned.none)
+                {
+                    progressSlider.gameObject.SetActive(true);
+                }
+                break;
+            default:
+
+                break;
+        }
+    }
+
+    //Runs every frame a dish is being cleaned, adding to the progressbar
+    public void CleaningDish(Item dish)
+    {
+        if (dish == null)
+        {
+            Debug.LogError("IsCleaning but no dish in the sink!");
+            return;
+        }
+        if (cleanProgress + Time.deltaTime < cleanTime)
+        {
+            //Debug.Log("Adding Progress!!");
+            cleanProgress += Time.deltaTime;
+            progressSlider.value = cleanProgress;
+        }
+        else //We go here when the dish is finished being cleaned
+        {
+            //Debug.LogWarning(cleaningDish.Name +  " is clean!");
+            progressSlider.gameObject.SetActive(false);
+            dish.status = Item.Status.clean;
+            dish.currUses = 0;
+            currentDish = dishBeingCleaned.none;
+            isCleaning = false;
+        }
     }
 }

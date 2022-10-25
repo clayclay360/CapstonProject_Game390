@@ -12,6 +12,13 @@ public class Plate : Item
         Name = "Plate";
         Type = "Tool";
         status = Status.clean;
+
+    }
+
+    public void Awake()
+    {
+        currUses = 0;
+        usesUntilDirty = 1;
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -30,7 +37,7 @@ public class Plate : Item
                         foodOnPlate.gameObject.transform.localPosition = new Vector3(0, .15f, 0);
                         chef.hand[0].GetComponent<Pan>().foodInPan = null;
                         chef.hand[0].GetComponent<Pan>().Occupied = false;
-                        chef.hand[0].GetComponent<Pan>().status = Status.dirty;
+                        chef.hand[0].GetComponent<Pan>().CheckIfDirty();
                         chef.isInteracting = false;
 
                         //Checkcompletion

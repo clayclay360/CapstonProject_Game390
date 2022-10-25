@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\KnifeAddon.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\Stove.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Sink.cs" />
     <Compile Include="Assets\Scripts\Utensils\Spatula.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Item.cs" />
     <Compile Include="Assets\Scripts\CookBook.cs" />
