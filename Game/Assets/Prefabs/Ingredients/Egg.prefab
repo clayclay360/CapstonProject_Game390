@@ -416,14 +416,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Egg
   Type: Food
+  despawnTime: 2
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
   status: 0
   Occupied: 0
   prone: 0
+  isActive: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
+  usesUntilDirty: 0
+  currUses: 0
   Form:
   - {fileID: 2557686710460750971}
   - {fileID: 2557686711327224517}

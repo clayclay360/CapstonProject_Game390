@@ -47,7 +47,8 @@ public class RatSpawnSystem : MonoBehaviour
 
                 yield return StartCoroutine(RatPeek());
 
-                Instantiate(ratPrefab, ratSpawnTransform[spawnIndex].position, Quaternion.identity);
+                GameObject rat = Instantiate(ratPrefab, ratSpawnTransform[spawnIndex].position, Quaternion.identity);
+                rat.name = "Rat " + numberOfRats.ToString();
             }
         }
     }

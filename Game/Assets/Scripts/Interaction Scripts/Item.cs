@@ -7,6 +7,7 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
 {
     public string Name;
     public string Type;
+    public float despawnTime;
 
     [HideInInspector]
     public Vector3 startPosition;
@@ -18,6 +19,7 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     [HideInInspector] public Status status;
     [HideInInspector] public bool Occupied;
     [HideInInspector] public bool prone;
+    [HideInInspector] public bool isActive;
     [HideInInspector] public string Interaction;
     [HideInInspector] public Utility utilityItemIsOccupying;
     [HideInInspector] public Item toolItemIsOccupying;
@@ -28,6 +30,7 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
+        isActive = true;
     }
 
     //Function to manage dishes and stuff getting dirty. currUses and usesUntilDirty
@@ -64,5 +67,14 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         }
         Interaction = "";
         gameObject.SetActive(false);
+    }
+
+    public IEnumerator Despawn(GameObject item)
+    {
+        Debug.Log(item.name);
+        yield return new WaitForSeconds(despawnTime);
+        isActive = true;
+        Debug.Log("Respawning Item");
+        item.SetActive(true);
     }
 }
