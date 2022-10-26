@@ -63,6 +63,10 @@ public class PlayerController : MonoBehaviour
     public ItemInMainHand itemInMainHand;
     RecipeBook cookBook;
 
+    [Header("Orders")]
+    public GameObject orderPrefab;
+    public GameObject orderLayoutGroup;
+
     //quickref for whether hands are full
     public bool inventoryFull = false;
 
@@ -473,5 +477,12 @@ public class PlayerController : MonoBehaviour
     public void ResetThrow()
     {
         readyToThrow = true;
+    }
+
+    public void AddOrder(string name, int timer)
+    {
+        GameObject orderRef = Instantiate(orderPrefab, orderLayoutGroup.transform);
+        Order order = orderRef.GetComponent<Order>();
+        order.AssignOrder(name, timer);
     }
 }
