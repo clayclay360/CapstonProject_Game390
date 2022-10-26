@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5845323697461641057}
   - component: {fileID: 1352716761}
   - component: {fileID: 1352716762}
+  - component: {fileID: 2242809337484976740}
   m_Layer: 0
   m_Name: Spatula
   m_TagString: Interactable
@@ -25,14 +26,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9031513021252998085}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0.7071068, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4998905599694363265}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: -90}
 --- !u!135 &1352716761
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -61,12 +62,28 @@ MonoBehaviour:
   Name: Spatula
   Type: Tool
   startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
   status: 0
   Occupied: 0
-  Prone: 0
+  prone: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
+  usesUntilDirty: 0
+  currUses: 0
+--- !u!135 &2242809337484976740
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031513021252998085}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1001 &4815781031082933610
 PrefabInstance:
   m_ObjectHideFlags: 0
