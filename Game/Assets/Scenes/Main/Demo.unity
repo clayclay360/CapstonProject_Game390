@@ -10713,6 +10713,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1668792484}
   - component: {fileID: 1668792483}
+  - component: {fileID: 1668792485}
   m_Layer: 0
   m_Name: RecipeManager
   m_TagString: Untagged
@@ -10727,7 +10728,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668792482}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ee5ea45fe517a040b7e0cb040e30445, type: 3}
   m_Name: 
@@ -10769,6 +10770,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1668792485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668792482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d1a45cad27ca94dbadff37e34ee6a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orderNames:
+  - Omelet
+  - Bacon
+  startingOrders: 0
+  maxTimeInBetweenOrders: 10
+  minTimeInBetweenOrders: 20
 --- !u!1 &1703388368 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4110198402601966224, guid: bb1a6c702029d294597173b9f87700b0, type: 3}

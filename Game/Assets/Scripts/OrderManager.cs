@@ -7,9 +7,10 @@ public class OrderManager : MonoBehaviour
     public string[] orderNames;
     public bool startingOrders;
     public float maxTimeInBetweenOrders, minTimeInBetweenOrders;
+    public static int currentOrders;
 
     private float timeInBetweenOrders;
-    private int maxOrders, currentOrders;
+    private int maxOrders;
 
     // Start is called before the first frame update
     void Start()
@@ -33,19 +34,19 @@ public class OrderManager : MonoBehaviour
         switch (GameManager.currentLevel)
         {
             case 0:
-                maxOrders = 4;
+                maxOrders = 3;
                 break;
         }
 
         while (GameManager.gameStarted)
         {
-            yield return null;
+            yield return new WaitForSeconds(2);
 
             if(GameManager.currentLevel == 0 && maxOrders > currentOrders)
             {
                 Debug.Log("Waiting for Order");
                 timeInBetweenOrders = Random.Range(minTimeInBetweenOrders, maxTimeInBetweenOrders);
-                yield return new WaitForSeconds(timeInBetweenOrders);
+                
 
                 int orderNumber = Random.Range(0, 2);
 
@@ -56,6 +57,7 @@ public class OrderManager : MonoBehaviour
                 }
 
                 currentOrders++;
+                yield return new WaitForSeconds(timeInBetweenOrders);
             }
         }
     }

@@ -30,5 +30,8 @@ public class Order : MonoBehaviour
             yield return null;
             sliderTimer.value = maxTime - orderTime;
         }
+
+        OrderManager.currentOrders--;
+        Destroy(gameObject);
     }
 }
