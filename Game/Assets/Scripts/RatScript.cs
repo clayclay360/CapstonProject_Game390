@@ -143,7 +143,7 @@ public class RatScript : MonoBehaviour
                 }
             }
         }
-        Debug.DrawLine(starRay.position, endRay.position);
+        //Debug.DrawLine(starRay.position, endRay.position);
     }
 
     private void DistanceBetweenTarget()
@@ -157,8 +157,8 @@ public class RatScript : MonoBehaviour
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
                     //Debug.Log(gameObject.name + " climb");
-                    //Climb();
-                    //StartCoroutine(ClimbCoolDOwn());
+                    Climb();
+                    StartCoroutine(ClimbCoolDOwn());
                 }
             }
         }
@@ -168,11 +168,11 @@ public class RatScript : MonoBehaviour
     {
         Vector3 dir = target.transform.position - transform.position;
         dir.Normalize();
-        startLink.position = new Vector3(body.transform.position.x, body.transform.position.y - startHeight, body.transform.position.z + startLinkOffset);
+        startLink.position = transform.position;
         RayCast();
         if (climbableTargetMesh != null)
         {
-            endLink.position = new Vector3((dir.x + transform.localPosition.x), climbableTargetMesh.bounds.size.y + transform.position.y, (dir.z + transform.localPosition.z));
+            endLink.position = NavMesh.SamplePosition(transform.position, )
         }
         else
         {
