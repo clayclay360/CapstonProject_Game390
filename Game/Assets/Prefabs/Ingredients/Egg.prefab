@@ -416,7 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Egg
   Type: Food
-  despawnTime: 2
+  despawnTime: 5
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
   status: 0

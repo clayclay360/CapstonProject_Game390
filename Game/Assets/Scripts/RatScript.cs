@@ -172,7 +172,11 @@ public class RatScript : MonoBehaviour
         RayCast();
         if (climbableTargetMesh != null)
         {
-            endLink.position = NavMesh.SamplePosition(transform.position, )
+            NavMeshHit hit;
+            if(NavMesh.SamplePosition(transform.position,out hit, climbRaduis, NavMesh.GetAreaFromName("Jump")))
+            {
+                endLink.position = hit.position;
+            }
         }
         else
         {
@@ -288,50 +292,50 @@ public class RatScript : MonoBehaviour
             {
                 case ("CookBook"):
                     //Don't target cookbook if it's destroyed
-                    /*if (!GameManager.cookBookActive)
-                    {*/
+                    if (!GameManager.cookBookActive)
+                    {
                         removeList.Add(item);
-                    //}
+                    }
                     break;
                 
                 case ("Spatula"):
                     //Don't target if spatula is dirty
-                    /*if(item.GetComponent<Spatula>().status == Item.Status.dirty)
-                    {*/
+                    if(item.GetComponent<Spatula>().status == Item.Status.dirty)
+                    {
                         removeList.Add(item);
-                    //}
+                    }
                     break;
 
                 case ("Plate"):
                     //Don't target if plate is dirty
-                    /*if (item.GetComponent<Plate>().status == Item.Status.dirty)
-                    {*/
+                    if (item.GetComponent<Plate>().status == Item.Status.dirty)
+                    {
                         removeList.Add(item);
-                    //}
+                    }
                     break;
 
                 case ("Pan"):
                     //Don't target if pan is dirty
-                    /*if (item.GetComponent<Pan>().status == Item.Status.dirty)
-                    {*/
+                    if (item.GetComponent<Pan>().status == Item.Status.dirty)
+                    {
                         removeList.Add(item);
-                    //}
+                    }
                     break;
 
                 case ("Sink"):
                     //Don't target sink if it's off
-                    /*if (!item.GetComponent<Sink>().On)
-                    {*/
+                    if (!item.GetComponent<Sink>().On)
+                    {
                         removeList.Add(item);
-                    //}
+                    }
                     break;
 
                 case ("Stove"):
                     //Don't target stove if it's off
-                    /*if (!item.GetComponent<Stove>().On)
-                    {*/
+                    if (!item.GetComponent<Stove>().On)
+                    {
                         removeList.Add(item);
-                    //}
+                    }
                     break;
 
                 case ("Egg"): case ("Egg(Clone)"):

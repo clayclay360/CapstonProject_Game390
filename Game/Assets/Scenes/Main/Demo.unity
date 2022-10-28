@@ -1534,7 +1534,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1326
+  m_Name: pb_Mesh-1474
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9125,7 +9125,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1302
+  m_Name: pb_Mesh-1450
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9638,7 +9638,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
       propertyPath: despawnTime
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 919132149036748829, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
       propertyPath: m_NavMeshLayer
@@ -16332,7 +16332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4627609362790912808, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
       propertyPath: despawnTime
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
       propertyPath: m_Name
