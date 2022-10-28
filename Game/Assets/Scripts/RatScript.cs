@@ -156,9 +156,9 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    Debug.Log(gameObject.name + " climb");
-                    Climb();
-                    StartCoroutine(ClimbCoolDOwn());
+                    //Debug.Log(gameObject.name + " climb");
+                    //Climb();
+                    //StartCoroutine(ClimbCoolDOwn());
                 }
             }
         }
@@ -245,12 +245,12 @@ public class RatScript : MonoBehaviour
 
                         case ("Egg"):  case ("Egg(Clone)"):
                             Egg egg = other.gameObject.GetComponent<Egg>();
-                            egg.HitByRat();
+                            egg.DespawnItem(other.gameObject);
                             break;
 
                         case ("Bacon"):
                             Bacon bacon = other.gameObject.GetComponent<Bacon>();
-                            bacon.HitByRat();
+                            bacon.DespawnItem(other.gameObject);
                             break;
                     }
                     objectiveComplete = true;
@@ -288,50 +288,50 @@ public class RatScript : MonoBehaviour
             {
                 case ("CookBook"):
                     //Don't target cookbook if it's destroyed
-                    if (!GameManager.cookBookActive)
-                    {
+                    /*if (!GameManager.cookBookActive)
+                    {*/
                         removeList.Add(item);
-                    }
+                    //}
                     break;
                 
                 case ("Spatula"):
                     //Don't target if spatula is dirty
-                    if(item.GetComponent<Spatula>().status == Item.Status.dirty)
-                    {
+                    /*if(item.GetComponent<Spatula>().status == Item.Status.dirty)
+                    {*/
                         removeList.Add(item);
-                    }
+                    //}
                     break;
 
                 case ("Plate"):
                     //Don't target if plate is dirty
-                    if (item.GetComponent<Plate>().status == Item.Status.dirty)
-                    {
+                    /*if (item.GetComponent<Plate>().status == Item.Status.dirty)
+                    {*/
                         removeList.Add(item);
-                    }
+                    //}
                     break;
 
                 case ("Pan"):
                     //Don't target if pan is dirty
-                    if (item.GetComponent<Pan>().status == Item.Status.dirty)
-                    {
+                    /*if (item.GetComponent<Pan>().status == Item.Status.dirty)
+                    {*/
                         removeList.Add(item);
-                    }
+                    //}
                     break;
 
                 case ("Sink"):
                     //Don't target sink if it's off
-                    if (!item.GetComponent<Sink>().On)
-                    {
+                    /*if (!item.GetComponent<Sink>().On)
+                    {*/
                         removeList.Add(item);
-                    }
+                    //}
                     break;
 
                 case ("Stove"):
                     //Don't target stove if it's off
-                    if (!item.GetComponent<Stove>().On)
-                    {
+                    /*if (!item.GetComponent<Stove>().On)
+                    {*/
                         removeList.Add(item);
-                    }
+                    //}
                     break;
 
                 case ("Egg"): case ("Egg(Clone)"):

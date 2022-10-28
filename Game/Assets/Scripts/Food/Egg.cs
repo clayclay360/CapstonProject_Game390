@@ -106,12 +106,4 @@ public class Egg : Item
                 break;
         }
     }
-
-    public void HitByRat()
-    {
-        isActive = false;
-        StartCoroutine(Despawn(gameObject));
-        Debug.Log("Despawning Egg");
-        gameObject.SetActive(false);
-    }
 }

@@ -102,13 +102,13 @@ OffMeshLink:
   m_GameObject: {fileID: 2054915770432568325}
   m_Enabled: 1
   serializedVersion: 3
-  m_AreaIndex: 0
+  m_AreaIndex: 2
   m_AgentTypeID: 0
   m_Start: {fileID: 2054915768880127568}
   m_End: {fileID: 2054915769639909919}
   m_CostOverride: -1
   m_BiDirectional: 1
-  m_Activated: 0
+  m_Activated: 1
   m_AutoUpdatePositions: 1
 --- !u!1 &2302075545348261851
 GameObject:
@@ -201,6 +201,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7496226151489686848}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5073241243684476503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7271476718289543225}
+  m_Layer: 6
+  m_Name: HoldPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7271476718289543225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5073241243684476503}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.037, z: 0.307}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5782238861253727562}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5076919210506732733
 GameObject:
@@ -377,6 +407,7 @@ Transform:
   - {fileID: 7496226151489686848}
   - {fileID: 2054915770432568330}
   - {fileID: 7890341272668584071}
+  - {fileID: 7271476718289543225}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -394,7 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 5782238860536919977}
   health: 3
-  attackRadius: 1
+  attackRadius: 0.55
   TargetsList: []
   objectiveComplete: 0
   ventsTransform:
@@ -430,7 +461,7 @@ NavMeshAgent:
   m_Radius: 0.3
   m_Speed: 2
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 5
   m_AngularSpeed: 240
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -438,7 +469,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 0.3
   m_BaseOffset: 0.1
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!54 &6280761598103775855
 Rigidbody:

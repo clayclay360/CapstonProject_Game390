@@ -69,7 +69,15 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         gameObject.SetActive(false);
     }
 
-    public IEnumerator Despawn(GameObject item)
+    public void DespawnItem(GameObject item)
+    {
+        isActive = false;
+        StartCoroutine(Respawn(item));
+        Debug.Log("Despawning Egg");
+        item.SetActive(false);
+    }
+
+    public IEnumerator Respawn(GameObject item)
     {
         Debug.Log(item.name);
         yield return new WaitForSeconds(despawnTime);
