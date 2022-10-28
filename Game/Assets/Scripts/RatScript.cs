@@ -10,6 +10,7 @@ public class RatScript : MonoBehaviour
 
     [Header("Stats")]
     public int health;
+    public RatHealthBar ratHealthBar;
 
     [Header("Target")]
     public float attackRadius;
@@ -76,6 +77,8 @@ public class RatScript : MonoBehaviour
         endLink.GetComponent<Transform>();
         AdjustTargetList(TargetsList);
         hidingPointsList = GameObject.FindGameObjectsWithTag("HidingPoint");
+
+        ratHealthBar.SetMaxHealth(health);
     }
 
     // Update is called once per frame
@@ -91,6 +94,7 @@ public class RatScript : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        ratHealthBar.SetHealth(health);
 
         if (health <= 0)
         {
