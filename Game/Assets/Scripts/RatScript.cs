@@ -18,11 +18,6 @@ public class RatScript : MonoBehaviour
     public bool objectiveComplete;
     public GameObject[] ventsTransform;
 
-    [Header("RayCast")]
-    public float rayDistance;
-    public Transform starRay;
-    public Transform endRay;
-
     [Header("Off Mesh Link")]
     public OffMeshLink offMeshLink;
     public Transform startLink;
@@ -65,14 +60,13 @@ public class RatScript : MonoBehaviour
         startHeight = transform.position.y;
         attackReady = true;
         hiding = false;
+        climbing = false;
 
         //GetTarget();
         ventsTransform = GameObject.FindGameObjectsWithTag("RatVent");
         ratSpawnSystem = FindObjectOfType<RatSpawnSystem>();
         agent = GetComponent<NavMeshAgent>();
         offMeshLink.GetComponent<OffMeshLink>();
-        starRay.GetComponent<Transform>();
-        endRay.GetComponent<Transform>();
         startLink.GetComponent<Transform>();
         endLink.GetComponent<Transform>();
         AdjustTargetList(TargetsList);
@@ -133,21 +127,27 @@ public class RatScript : MonoBehaviour
         agent.destination = target.transform.position;
     }
 
-    private void RayCast()
+    private void LookForClosestClimbableObject()
     {
-        RaycastHit hit;
+        Collider closestCollider = null;
+        float radius = climbRaduis;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, climbRaduis);
 
-        if (Physics.Linecast(starRay.position, endRay.position, out hit))
+        foreach(Collider collider in colliders)
         {
-            if (hit.collider != null)
+            if(Vector3.Distance(transform.position, collider.ClosestPoint(transform.position)) < radius)
             {
-                if (hit.collider.gameObject.tag == "Climbable" && !climbing)
+                if (collider.gameObject.CompareTag("Climbable"))
                 {
-                    climbableTargetMesh = hit.transform.gameObject.GetComponent<MeshRenderer>(); ;
+                    closestCollider = collider;
                 }
             }
         }
-        //Debug.DrawLine(starRay.position, endRay.position);
+
+        if (!climbing)
+        {
+            climbableTargetMesh = closestCollider.gameObject.GetComponent<MeshRenderer>();
+        }
     }
 
     private void DistanceBetweenTarget()
@@ -160,7 +160,7 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    //Debug.Log(gameObject.name + " climb");
+                    Debug.Log(gameObject.name + " climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
                 }
@@ -173,14 +173,21 @@ public class RatScript : MonoBehaviour
         Vector3 dir = target.transform.position - transform.position;
         dir.Normalize();
         startLink.position = transform.position;
-        RayCast();
+        LookForClosestClimbableObject();
         if (climbableTargetMesh != null)
         {
+            Debug.Log(climbableTargetMesh);
             NavMeshHit hit;
-            if(NavMesh.SamplePosition(transform.position,out hit, climbRaduis, NavMesh.GetAreaFromName("Jump")))
+            if (NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.GetAreaFromName("Jump")))
             {
+                Debug.Log(hit.mask);
                 endLink.position = hit.position;
             }
+            else
+            {
+                Debug.Log("Navmesh not detected");
+            }
+            Debug.Log(NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.GetAreaFromName("Jump")));
         }
         else
         {
