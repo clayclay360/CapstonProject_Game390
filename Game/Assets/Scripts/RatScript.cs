@@ -139,6 +139,7 @@ public class RatScript : MonoBehaviour
             {
                 if (collider.gameObject.CompareTag("Climbable"))
                 {
+                    radius = Vector3.Distance(transform.position, collider.ClosestPoint(transform.position));
                     closestCollider = collider;
                 }
             }
@@ -176,18 +177,19 @@ public class RatScript : MonoBehaviour
         LookForClosestClimbableObject();
         if (climbableTargetMesh != null)
         {
-            Debug.Log(climbableTargetMesh);
-            NavMeshHit hit;
-            if (NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.GetAreaFromName("Jump")))
+            Transform[] jumpPoints = climbableTargetMesh.GetComponentsInChildren<Transform>();
+            float radius = climbRaduis * 2;
+            Transform closestJumpPoint = null;
+            foreach (Transform jumpPoint in jumpPoints)
             {
-                Debug.Log(hit.mask);
-                endLink.position = hit.position;
+                if(Vector3.Distance(transform.position, jumpPoint.position) < radius)
+                {
+                    radius = Vector3.Distance(transform.position, jumpPoint.position);
+                    closestJumpPoint = jumpPoint;
+                }
             }
-            else
-            {
-                Debug.Log("Navmesh not detected");
-            }
-            Debug.Log(NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.GetAreaFromName("Jump")));
+
+            endLink.position = closestJumpPoint.position;
         }
         else
         {
@@ -218,7 +220,7 @@ public class RatScript : MonoBehaviour
     {
         if (other.tag != "Untagged" && other.CompareTag(target.tag))
         {
-            Debug.Log(gameObject.name + " hit");
+            Debug.Log(gameObject.name + " hit" + other.gameObject.name);
             collider.enabled = false;
             switch (target.tag)
             {

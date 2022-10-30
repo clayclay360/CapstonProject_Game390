@@ -288,7 +288,7 @@ OffMeshLink:
   m_Start: {fileID: 2054915768880127568}
   m_End: {fileID: 2054915769639909919}
   m_CostOverride: -1
-  m_BiDirectional: 1
+  m_BiDirectional: 0
   m_Activated: 0
   m_AutoUpdatePositions: 1
 --- !u!1 &2196418732025785903
@@ -815,9 +815,6 @@ MonoBehaviour:
   objectiveComplete: 0
   ventsTransform:
   - {fileID: 0}
-  rayDistance: 0.5
-  starRay: {fileID: 0}
-  endRay: {fileID: 0}
   offMeshLink: {fileID: 2054915770432568331}
   startLink: {fileID: 2054915768880127568}
   endLink: {fileID: 2054915769639909919}
@@ -847,14 +844,14 @@ NavMeshAgent:
   m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 240
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.3
   m_BaseOffset: 0.1
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!54 &6280761598103775855
 Rigidbody:
