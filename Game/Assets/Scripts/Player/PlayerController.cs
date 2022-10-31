@@ -143,6 +143,8 @@ public class PlayerController : MonoBehaviour
             {
                 Quaternion newRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, rotatingSpeed);
+                float angle = Mathf.Atan2(rotateVec.x, rotateVec.z) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             }
         }
 
