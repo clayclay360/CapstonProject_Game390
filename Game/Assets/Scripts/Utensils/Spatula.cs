@@ -10,6 +10,14 @@ public class Spatula : Item
         Name = "Spatula";
         Type = "Tool";
         Interaction = "";
+        status = Status.clean;
+         
+    }
+
+    public new void Start()
+    {
+        currUses = 0;
+        usesUntilDirty = 2;
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -39,6 +47,14 @@ public class Spatula : Item
                 }
                 break;
             case PlayerController.ItemInMainHand.pan:
+                Interaction = "Grab Spatula";
+                if (chef.isInteracting)
+                {
+                    gameObject.SetActive(false);
+                    Interaction = "";
+                }
+                break;
+            case PlayerController.ItemInMainHand.bacon:
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Pan : Item
 {
+    public bool canCheck = true;
+
     [Header("UI")]
     public Slider progressSlider;
     public Image[] completeMark;
@@ -21,8 +23,11 @@ public class Pan : Item
     public float[] interactionMeterStart, interactionMeterEnd;
     RecipeBook cookBook; //Added by Owen for changing the steps
 
+    [Header("Item Placement")]
+    public Transform placement;
+
     private float progressMeter;
-    int interactionIndex = 0;
+    private int interactionIndex = 0;
     private bool[] interactionAttemptReady;
     [HideInInspector]
     public Item foodInPan;
@@ -35,16 +40,20 @@ public class Pan : Item
         Type = "Tool";
         Interaction = "";
         state = State.cold;
+        status = Status.clean;
+
     }
 
     private void Awake()
     {
         progressSlider.GetComponent<Slider>();
         interactionAttemptReady = new bool[interactionMeterEnd.Length];
-        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+        cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
         attempt = new Attempt[interactionMeterEnd.Length];
         attempt[0] = Attempt.None;
         attempt[0] = Attempt.None;
+        usesUntilDirty = 1;
+        currUses = 0;
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -67,8 +76,18 @@ public class Pan : Item
                         gameObject.SetActive(false);
                     }
                 }
+                else
+                {
+                    Interaction = "";
+                }
                 break;
             case PlayerController.ItemInMainHand.egg:
+
+                if (GameManager.Instance.CheckIfDirty(this))
+                {
+                    Interaction = "Pan is dirty!";
+                    break;
+                }
 
                 switch (chef.hand[0].GetComponent<Egg>().state)
                 {
@@ -82,24 +101,53 @@ public class Pan : Item
                                 GameManager.isStepCompleted.Add(5);
                                 cookBook.printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
                             }
+                            chef.hand[0].GetComponent<Collider>().enabled = false;
                             chef.hand[0].GetComponent<Egg>().state = Egg.State.yoke;
                             chef.hand[0].GetComponent<Egg>().toolItemIsOccupying = this;
                             chef.hand[0].GetComponent<Egg>().gameObject.transform.parent = transform;
-                            chef.hand[0].GetComponent<Egg>().gameObject.transform.localPosition = new Vector3(0, .15f, 0);
+                            chef.hand[0].GetComponent<Egg>().gameObject.transform.position = placement.position;
                             chef.hand[0].GetComponent<Egg>().gameObject.SetActive(true);
                             foodInPan = chef.hand[0];
                             chef.hand[0] = null;
                             chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                             Occupied = true;
-                            Prone = true;
+                            prone = true;
                             chef.isInteracting = false;
                         }
                         break;
                 }
                 break;
+            case PlayerController.ItemInMainHand.bacon:
+                if (GameManager.Instance.CheckIfDirty(this))
+                {
+                    Interaction = "Pan is dirty!";
+                    break;
+                }
+
+                Interaction = "Place Bacon";
+                if (chef.isInteracting)
+                {
+                    chef.hand[0].GetComponent<Collider>().enabled = false;
+                    chef.hand[0].GetComponent<Bacon>().toolItemIsOccupying = this;
+                    chef.hand[0].GetComponent<Bacon>().gameObject.transform.parent = transform;
+                    chef.hand[0].GetComponent<Bacon>().gameObject.transform.position = placement.position;
+                    chef.hand[0].GetComponent<Bacon>().gameObject.SetActive(true);
+                    foodInPan = chef.hand[0];
+                    chef.hand[0] = null;
+                    chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
+                    Occupied = true;
+                    prone = true;
+                    chef.isInteracting = false;
+                }
+                break;
             case PlayerController.ItemInMainHand.spatula:
                 if (Occupied && state == State.hot && cooking)
                 {
+                    if (chef.hand[0].status == Status.dirty)
+                    {
+                        Interaction = "Spatula is Dirty!";
+                        return;
+                    }
                     Interaction = "Use Spatula";
                     if (chef.isInteracting)
                     {
@@ -115,17 +163,22 @@ public class Pan : Item
                         {
                             if(interactionMeterEnd[i] < progressMeter)
                             {
-                                Debug.Log("Attempts: " + attempt[interactionIndex]);
                                 interactionIndex++;
                             }
                         }
                         
                         //Attempts
-                        Debug.Log("Index: " + interactionIndex);
-
                         if(progressMeter > progressMeterMax / 4)
                         {
-                            foodInPan.GetComponent<Egg>().state = Egg.State.omelet;
+                            switch (foodInPan.Name)
+                            {
+                                case "Egg":
+                                    foodInPan.GetComponent<Egg>().state = Egg.State.omelet;
+                                    break;
+                                case "Bacon":
+                                    foodInPan.GetComponent<Bacon>().status = Bacon.Status.cooked;
+                                    break;
+                            }
                         }
                         if (interactionIndex < attempt.Length)
                         {
@@ -133,54 +186,28 @@ public class Pan : Item
                             {
                                 if (progressMeter > interactionMeterStart[interactionIndex] && progressMeter < interactionMeterEnd[interactionIndex])
                                 {
-                                    Debug.Log("Great Job!");
                                     completeMark[interactionIndex].sprite = checkMark;
                                     completeMark[interactionIndex].gameObject.SetActive(true);
                                     attempt[interactionIndex] = Attempt.Completed;
+                                    
                                 }
                                 else if (progressMeter < interactionMeterStart[interactionIndex])
                                 {
                                     completeMark[interactionIndex].sprite = xMark;
                                     completeMark[interactionIndex].gameObject.SetActive(true);
                                     attempt[interactionIndex] = Attempt.Failed;
-                                    Debug.Log("Too Early");
                                 }
                                 else if (progressMeter > interactionMeterEnd[interactionIndex])
                                 {
                                     completeMark[interactionIndex].sprite = xMark;
                                     completeMark[interactionIndex].gameObject.SetActive(true);
                                     attempt[interactionIndex] = Attempt.Failed;
-                                    Debug.Log("Too Late");
                                 }
                                 interactionAttemptReady[interactionIndex] = false;
                             }
                         }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < interactionMeterEnd.Length; i++)
-                        {
-                            //Could also add a or to check if the attempt is complet or uncompleted
-                            if(interactionMeterEnd[i] < progressMeter) 
-                            {
-                                completeMark[i].gameObject.SetActive(true);
-                                switch (attempt[i])
-                                {
-                                    case Attempt.None:
-                                        completeMark[i].sprite = xMark;
-                                        break;
-                                    case Attempt.Failed:
-                                        completeMark[i].sprite = xMark;
-                                        break;
-                                    case Attempt.Completed:
-                                        completeMark[i].sprite = checkMark;
-                                        break;
-                                    default:
-                                        Debug.Log(attempt);
-                                        break;
-                                }
-                            }
-                        }
+                        chef.hand[0].CheckIfDirty();
+                        chef.isInteracting = false;
                     }
                 }
                 else
@@ -208,9 +235,26 @@ public class Pan : Item
         }
     }
 
+
+    private IEnumerator CheckStatus()
+    {
+        yield return new WaitForSeconds(5f);
+        canCheck = true;
+    }
+
     private void Update()
     {
         StartCooking();
+
+        if (cooking)
+        {
+            prone = true;
+        }
+        else
+        {
+            prone = false;
+        }
+
     }
 
     public void ResetAttempts()
@@ -224,6 +268,10 @@ public class Pan : Item
     {
         if(Occupied && !cooking && state == State.hot && foodInPan.status == Status.uncooked)
         {
+            foreach(Image img in completeMark)
+            {
+                img.gameObject.SetActive(false);
+            }
             progressSlider.gameObject.SetActive(true);
             progressMeter = progressMeterMin;
             progressSlider.maxValue = progressMeterMax;
@@ -241,10 +289,37 @@ public class Pan : Item
         {
             progressMeter = Mathf.Lerp(progressMeter, progressMeterMax, time);
             progressSlider.value = progressMeter;
+
+            for (int i = 0; i < interactionMeterEnd.Length; i++)
+            {
+                //Could also add a or to check if the attempt is complet or uncompleted
+                if (interactionMeterEnd[i] < progressMeter)
+                {
+                    completeMark[i].gameObject.SetActive(true);
+                    switch (attempt[i])
+                    {
+                        case Attempt.None:
+                            completeMark[i].sprite = xMark;
+                            break;
+                        case Attempt.Failed:
+                            completeMark[i].sprite = xMark;
+                            break;
+                        case Attempt.Completed:
+                            completeMark[i].sprite = checkMark;
+                            break;
+                        default:
+                            Debug.Log(attempt);
+                            break;
+                    }
+                }
+            }
+
             yield return null;
         }
         progressSlider.gameObject.SetActive(false);
         cooking = false;
         foodInPan.status = Status.cooked;
+        CheckIfDirty();
     }
+
 }

@@ -18,7 +18,7 @@ public class Egg : Item
         Type = "Food";
         Interaction = "";
         status = Status.uncooked;
-        Prone = false;
+        prone = false;
         state = State.shell;
     }
 
@@ -78,6 +78,14 @@ public class Egg : Item
                     Interaction = "";
                 }
                 break;
+            case PlayerController.ItemInMainHand.bacon:
+                Interaction = "Grab Egg";
+                if (chef.isInteracting)
+                {
+                    gameObject.SetActive(false);
+                    Interaction = "";
+                }
+                break;
         }
     }
 
@@ -97,5 +105,13 @@ public class Egg : Item
                 Form[2].SetActive(true);
                 break;
         }
+    }
+
+    public void HitByRat()
+    {
+        isActive = false;
+        StartCoroutine(Despawn(gameObject));
+        Debug.Log("Despawning Egg");
+        gameObject.SetActive(false);
     }
 }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool gameStarted;
+    public static bool assigningOrders;
+    public static int currentLevel;
+
     public static bool recipeIsOpenP1;
     public static bool isTouchingBook;
     public static List<int> isStepCompleted = new List<int>();
@@ -15,7 +19,7 @@ public class GameManager : MonoBehaviour
             if (_instance == null)
             {
                 //Debug.LogError("GameManager is null!");
-                Debug.LogWarning("Creating GameManager");
+                //Debug.LogWarning("Creating GameManager");
 
                 _instance = new GameObject().AddComponent<GameManager>();
 
@@ -39,6 +43,9 @@ public class GameManager : MonoBehaviour
     public int playerScore;
     public int scoreMultiplier;
 
+    public static PlayerController playerOne;
+    public static PlayerController playerTwo;
+
     private void Awake()
     {
         _instance = this;
@@ -50,12 +57,24 @@ public class GameManager : MonoBehaviour
         scoreMultiplier = 1;
 
         recipeReq.Add("omelet");
-        Debug.LogWarning("GameManager Ready!");
+        //Debug.LogWarning("GameManager Ready!");
     }
 
     private void Update() 
     {
+        //this is temporary
+        if(numberOfPlayers == 1 && !gameStarted)
+        {
+            Debug.Log("Game started");
+            gameStarted = true;
+            StartCoroutine(StartGame());
+        }
+    }
 
+    IEnumerator StartGame()
+    {
+        yield return null;
+        assigningOrders = true;
     }
 
     private void CheckIfLevelComplete()
@@ -63,7 +82,7 @@ public class GameManager : MonoBehaviour
         if (reqsClear)
         {
             Debug.LogWarning("Omelet Complete!");
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
         }
     }
 
@@ -98,5 +117,10 @@ public class GameManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public bool CheckIfDirty(Item item)
+    {
+        return item.status == Item.Status.dirty;
     }
 }

@@ -9,7 +9,6 @@ public class PlayerManager : MonoBehaviour
     public void OnPlayerJoined()
     {
         GameManager.numberOfPlayers++;
-        Debug.Log("Player" + GameManager.numberOfPlayers + " Joined");
     }
 
 }
