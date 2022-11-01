@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerMovement() 
     {
-        animator.SetFloat("Blend", moveVec.magnitude);
+        animator.SetFloat("BlendX", moveVec.magnitude);
 
         //Movement
         if (Mathf.Abs(moveVec.x) > 0 || Mathf.Abs(moveVec.z) > 0)
