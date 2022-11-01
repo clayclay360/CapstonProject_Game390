@@ -14,7 +14,7 @@ public class OrderManager : MonoBehaviour
     [Header("Orders")]
     public GameObject platePrefab;
     public Transform[] spawnPosition;
-    public Dictionary<int, Plate> Order = new Dictionary<int, Plate>();
+    public static Dictionary<int, Plate> Order = new Dictionary<int, Plate>();
     public int orderNumber;
 
     private float timeInBetweenOrders;
@@ -50,9 +50,9 @@ public class OrderManager : MonoBehaviour
                 int orderIndex = Random.Range(0, 2);
                 
                 //reset
-                if(orderIndex > 2)
+                if(orderNumber > 2)
                 {
-                    orderIndex = 0;
+                    orderNumber = 0;
                 }
 
                 //temporary 
@@ -61,6 +61,7 @@ public class OrderManager : MonoBehaviour
                 plate.transform.position = spawnPosition[orderNumber].position;
                 plate.GetComponent<Plate>().orderName = orderNames[orderIndex];
                 plate.GetComponent<Plate>().timer = 120;
+                plate.GetComponent<Plate>().orderNumber = orderNumber;
                 plate.GetComponent<Plate>().StartTimer();
                 currentOrders++;
                 orderNumber++;
