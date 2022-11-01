@@ -112,7 +112,7 @@ public class RatScript : MonoBehaviour
             }
             else
             {
-                //LookAt();
+                LookAt();
                 Attack();
             }
         }
@@ -178,7 +178,7 @@ public class RatScript : MonoBehaviour
         if (climbableTargetMesh != null)
         {
             Transform[] jumpPoints = climbableTargetMesh.GetComponentsInChildren<Transform>();
-            float radius = climbRaduis * 2;
+            float radius = climbRaduis * 3;
             Transform closestJumpPoint = null;
             foreach (Transform jumpPoint in jumpPoints)
             {
@@ -287,7 +287,7 @@ public class RatScript : MonoBehaviour
     private void LookAt()
     {
         Vector2 dir = target.transform.position - transform.position;
-        transform.up = dir;
+        transform.forward = dir;
     }
 
     public void AdjustTargetList(List<GameObject> targetList)
@@ -401,6 +401,7 @@ public class RatScript : MonoBehaviour
         target = targetList[Random.Range(0, targetList.Count)];
 
         Debug.Log(gameObject.name + " is targeting: " + target.name);
+        Debug.Log(target.transform.position);
     }
 
     public void CrossEntryway()
