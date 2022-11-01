@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Plate : Item
 {
     [HideInInspector]
     public Item foodOnPlate;
+    public string orderName;
+    public float timer;
+    public Slider sliderTimer;
 
     public Plate()
     {
@@ -51,8 +55,33 @@ public class Plate : Item
                     }
                 break;
             default:
-                Interaction = "";
+                Interaction = orderName;
+                sliderTimer.gameObject.SetActive(true);
                 break;
         }
+    }
+
+    public void StartTimer()
+    {
+        StartCoroutine(Timer());
+    }
+
+    public IEnumerator Timer()
+    {
+        sliderTimer.maxValue = timer;
+        float maxTime = sliderTimer.maxValue;
+        float currentTime = Time.unscaledTime;
+        float orderTime = 0;
+        sliderTimer.value = maxTime;
+
+        while (maxTime - orderTime > 0)
+        {
+            orderTime = Time.unscaledTime - currentTime;
+            yield return null;
+            sliderTimer.value = maxTime - orderTime;
+        }
+
+        OrderManager.currentOrders--;
+        Destroy(gameObject);
     }
 }
