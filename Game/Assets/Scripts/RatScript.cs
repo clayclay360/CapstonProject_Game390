@@ -256,19 +256,31 @@ public class RatScript : MonoBehaviour
                         case ("Spatula"):
                             Spatula spatula = other.gameObject.GetComponent<Spatula>();
                             spatula.status = Item.Status.dirty;
-                            objectiveComplete = true;
+                            spatula.DespawnItem(other.gameObject);
+                            item = other.gameObject.name;
+                            ratHealthBar.SetItemText(item);
+                            SelectDestination();
+                            isCarryingItem = true;
                             break;
 
                         case ("Plate"):
                             Plate plate = other.gameObject.GetComponent<Plate>();
                             plate.status = Item.Status.dirty;
-                            objectiveComplete = true;
+                            plate.DespawnItem(other.gameObject);
+                            item = other.gameObject.name;
+                            ratHealthBar.SetItemText(item);
+                            SelectDestination();
+                            isCarryingItem = true;
                             break;
 
                         case ("Pan"):
                             Pan pan = other.gameObject.GetComponent<Pan>();
                             pan.status = Item.Status.dirty;
-                            objectiveComplete = true;
+                            pan.DespawnItem(other.gameObject);
+                            item = other.gameObject.name;
+                            ratHealthBar.SetItemText(item);
+                            SelectDestination();
+                            isCarryingItem = true;
                             break;
 
                         case ("Sink"):
