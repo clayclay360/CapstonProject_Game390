@@ -102,14 +102,6 @@ public class Bacon : Item
         }
     }
 
-    public void HitByRat()
-    {
-        isActive = false;
-        StartCoroutine(Despawn(gameObject));
-        Debug.Log("Despawning Bacon");
-        gameObject.SetActive(false);
-    }
-
     public void PassBacon()
     {
         transform.position = passItems.transform.position;

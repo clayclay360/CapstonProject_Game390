@@ -113,14 +113,6 @@ public class Egg : Item
         }
     }
 
-    public void HitByRat()
-    {
-        isActive = false;
-        StartCoroutine(Despawn(gameObject));
-        Debug.Log("Despawning Egg");
-        gameObject.SetActive(false);
-    }
-
     public void PassEgg()
     {
         transform.position = passItems.transform.position;

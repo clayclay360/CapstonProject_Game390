@@ -11,6 +11,7 @@ TagManager:
   - Knife
   - HidingPoint
   - PassItems
+  - Destination
   layers:
   - Default
   - TransparentFX

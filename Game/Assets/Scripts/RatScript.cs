@@ -114,7 +114,7 @@ public class RatScript : MonoBehaviour
             }
             else
             {
-                LookAt();
+                //LookAt();
                 Attack();
             }
         }
@@ -184,7 +184,7 @@ public class RatScript : MonoBehaviour
             Transform closestJumpPoint = null;
             foreach (Transform jumpPoint in jumpPoints)
             {
-                if(Vector3.Distance(transform.position, jumpPoint.position) < radius)
+                if (Vector3.Distance(transform.position, jumpPoint.position) < radius && jumpPoint.transform.position.y > 0.5)
                 {
                     radius = Vector3.Distance(transform.position, jumpPoint.position);
                     closestJumpPoint = jumpPoint;
