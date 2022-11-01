@@ -55,6 +55,21 @@ public class PlayerController : MonoBehaviour
     public Text Inv1;
     public Text Inv2;
 
+    [Header("Prefabs")]
+    public GameObject pan;
+    public GameObject spatula;
+    public GameObject bacon;
+    public GameObject egg;
+    public GameObject pages;
+    private GameObject passItems;
+
+    [Header("Pass Items Scripts")]
+    Pan passPan;
+    Bacon passBacon;
+    Egg passEgg;
+    Spatula passSpatula;
+    Computer passPages;
+
     //Interactions
     [Header("Interactions")]
     public Text interactionText;
@@ -87,6 +102,15 @@ public class PlayerController : MonoBehaviour
         PlayerAssignment();
         gm = GameManager.Instance;
         throwCooldown = 0.8f;
+
+        GameManager.isTouchingTrashCan = false;
+        GameManager.passItemsReady = false;
+
+        passPan = GameObject.Find("Pan").GetComponentInChildren<Pan>();
+        passBacon = GameObject.Find("Bacon").GetComponentInChildren<Bacon>();
+        passEgg = GameObject.Find("Egg").GetComponentInChildren<Egg>();
+        passSpatula = GameObject.Find("Spatula").GetComponentInChildren<Spatula>();
+        passPages = GameObject.Find("Computer").GetComponentInChildren<Computer>();
     }
 
     public void Update()
@@ -250,6 +274,72 @@ public class PlayerController : MonoBehaviour
             isInteracting= true;
         }
         //Debug.LogWarning("OnInteract()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
+
+        if (hand[0] != null && !GameManager.passItemsReady && !readyToInteract)
+        {
+            switch (hand[0].Name)
+            {
+                case "Egg":
+                    passEgg.DropEggOnGround(gameObject);
+                    hand[0] = null;
+                    break;
+                case "Spatula":
+                    passSpatula.DropSpatulaOnGround(gameObject);
+                    hand[0] = null;
+                    break;
+                case "Pan":
+                    passPan.DropPanOnGround(gameObject);
+                    hand[0] = null;
+                    break;
+                case "Bacon":
+                    passBacon.DropBaconOnGround(gameObject);
+                    hand[0] = null;
+                    break;
+                case "Cookbook Pages":
+                    passPages.DropPagesOnGround(gameObject);
+                    hand[0] = null;
+                    break;
+                default:
+                    itemInMainHand = ItemInMainHand.empty;
+                    break;
+            }
+        }
+         if (hand[0] != null && GameManager.passItemsReady && !readyToInteract)
+        {
+            passItems = GameObject.Find("PassItems");
+
+            switch (hand[0].Name)
+            {
+                case "Egg":
+                    passEgg.PassEgg();
+                    hand[0] = null;
+                    break;
+                case "Spatula":
+                    passSpatula.PassSpatula();
+                    hand[0] = null;
+                    break;
+                case "Pan":
+                    passPan.PassPan();
+                    hand[0] = null;
+                    break;
+                case "Bacon":
+                    passBacon.PassBacon();
+                    hand[0] = null;
+                    break;
+                case "Cookbook Pages":
+                    passPages.PassPages();
+                    hand[0] = null;
+                    break;
+                default:
+                    itemInMainHand = ItemInMainHand.empty;
+                    break;
+            }
+        }
+        else
+        {
+            itemInMainHand = ItemInMainHand.empty;
+        }
+
         cookBook.ClickOnBook();
     }
 
@@ -277,6 +367,7 @@ public class PlayerController : MonoBehaviour
                     if (hand[0] == null)
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
+                        Debug.LogError("Penis");
                         Inv1.text = hand[0].Name;
                     }
                     else if (hand[1] == null)
@@ -318,7 +409,17 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.isTouchingBook = false;
             cookBook = null;
+        }
 
+        //if not looking at the plate, deactivate slider
+        if(other.GetComponent<Plate>() != null)
+        {
+            other.GetComponent<Plate>().sliderTimer.gameObject.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "PassItems")
+        {
+            GameManager.passItemsReady = false;
         }
     }
 
@@ -328,6 +429,11 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.isTouchingBook = true;
             cookBook = GameObject.Find("CookBook_Closed").GetComponent<RecipeBook>();
+        }
+
+        if (other.gameObject.tag == "PassItems")
+        {
+            GameManager.passItemsReady = true;
         }
     }
 

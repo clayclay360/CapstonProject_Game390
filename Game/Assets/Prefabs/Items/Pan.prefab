@@ -433,7 +433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4647432269454624998}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2, y: 1.1310005, z: 5.3}
+  m_LocalPosition: {x: 1.2822268, y: 2.1, z: 0.51699287}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6491837537980357995}
@@ -469,14 +469,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Pan
   Type: Tool
+  despawnTime: 0
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
   status: 0
   Occupied: 0
   prone: 0
+  isActive: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
+  usesUntilDirty: 0
+  currUses: 0
   canCheck: 1
   progressSlider: {fileID: 4647432270931860574}
   completeMark:

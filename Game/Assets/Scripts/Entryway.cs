@@ -14,7 +14,10 @@ public class Entryway : MonoBehaviour
         {
             RatScript rat = other.gameObject.GetComponentInParent<RatScript>();
 
-            rat.CrossEntryway();
+            if (!rat.hiding && !rat.objectiveComplete && !rat.isCarryingItem)
+            {
+                rat.CrossEntryway();
+            }
         }
         //Disable trigger
         hasTriggered = true;

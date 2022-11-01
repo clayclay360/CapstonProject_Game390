@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bacon : Item
 {
     public GameObject[] Form;
+    private GameObject passItems;
 
     PlayerController player;
     public Bacon()
@@ -14,6 +15,11 @@ public class Bacon : Item
         Interaction = "";
         status = Status.uncooked;
         prone = false;
+    }
+
+    private void Start()
+    {
+        passItems = GameObject.Find("PassItems");
     }
 
     public void Update()
@@ -96,11 +102,15 @@ public class Bacon : Item
         }
     }
 
-    public void HitByRat()
+    public void PassBacon()
     {
-        isActive = false;
-        StartCoroutine(Despawn(gameObject));
-        Debug.Log("Despawning Bacon");
-        gameObject.SetActive(false);
+        transform.position = passItems.transform.position;
+        gameObject.SetActive(true);
+    }
+
+    public void DropBaconOnGround(GameObject player)
+    {
+        transform.position = player.transform.position;
+        gameObject.SetActive(true);
     }
 }

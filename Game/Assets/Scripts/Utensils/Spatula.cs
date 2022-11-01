@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Spatula : Item
 {
+    private GameObject passItems;
+
     public Spatula()
     {
         Name = "Spatula";
@@ -18,6 +20,7 @@ public class Spatula : Item
     {
         currUses = 0;
         usesUntilDirty = 2;
+        passItems = GameObject.Find("PassItems");
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -63,5 +66,17 @@ public class Spatula : Item
                 }
                 break;
         }
+    }
+
+    public void PassSpatula()
+    {
+        transform.position = passItems.transform.position + new Vector3(0.35f, 0, 0);
+        gameObject.SetActive(true);
+    }
+
+    public void DropSpatulaOnGround(GameObject player)
+    {
+        transform.position = player.transform.position;
+        gameObject.SetActive(true);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class RatHealthBar : MonoBehaviour
 {
     public Slider slider;
+    public Text itemText;
 
     public void SetMaxHealth(int health)
     {
@@ -16,5 +17,10 @@ public class RatHealthBar : MonoBehaviour
     public void SetHealth(int health)
     {
         slider.value = health;
+    }
+
+    public void SetItemText(string item)
+    {
+        itemText.text = item;
     }
 }

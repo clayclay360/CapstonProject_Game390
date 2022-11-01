@@ -10,6 +10,7 @@ public class Egg : Item
     public GameObject[] Form;
     public enum State { shell, yoke, omelet };
     public State state;
+    private GameObject passItems;
 
     PlayerController player;
     public Egg()
@@ -20,6 +21,11 @@ public class Egg : Item
         status = Status.uncooked;
         prone = false;
         state = State.shell;
+    }
+
+    private void Start()
+    {
+        passItems = GameObject.Find("PassItems");
     }
 
     public void Update()
@@ -107,11 +113,15 @@ public class Egg : Item
         }
     }
 
-    public void HitByRat()
+    public void PassEgg()
     {
-        isActive = false;
-        StartCoroutine(Despawn(gameObject));
-        Debug.Log("Despawning Egg");
-        gameObject.SetActive(false);
+        transform.position = passItems.transform.position;
+        gameObject.SetActive(true);
+    }
+
+    public void DropEggOnGround(GameObject player)
+    {
+        transform.position = player.transform.position;
+        gameObject.SetActive(true);
     }
 }

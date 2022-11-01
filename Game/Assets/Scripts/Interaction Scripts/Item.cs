@@ -69,12 +69,28 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         gameObject.SetActive(false);
     }
 
-    public IEnumerator Despawn(GameObject item)
+    public void DespawnItem(GameObject item)
     {
-        Debug.Log(item.name);
-        yield return new WaitForSeconds(despawnTime);
+        isActive = false;
+        Debug.Log("Despawning " + item.name);
+        item.GetComponent<Collider>().enabled = false;
+        MeshRenderer[] meshRenderers = item.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer meshRenderer in meshRenderers)
+        {
+            meshRenderer.enabled = false;
+        }
+    }
+
+    public void RespawnItem(GameObject item)
+
+    {
         isActive = true;
-        Debug.Log("Respawning Item");
-        item.SetActive(true);
+        Debug.Log("Respawning " + item.name);
+        item.GetComponent<Collider>().enabled = true;
+        MeshRenderer[] meshRenderers = item.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer meshRenderer in meshRenderers)
+        {
+            meshRenderer.enabled = true;
+        }
     }
 }
