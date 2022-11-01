@@ -317,7 +317,12 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.isTouchingBook = false;
             cookBook = null;
+        }
 
+        //if not looking at the plate, deactivate slider
+        if(other.GetComponent<Plate>() != null)
+        {
+            other.GetComponent<Plate>().sliderTimer.gameObject.SetActive(false);
         }
     }
 
