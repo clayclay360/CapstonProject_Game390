@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\InventoryItem.cs" />
      <Compile Include="Assets\Scripts\Order.cs" />
      <Compile Include="Assets\Scripts\Container\Plate.cs" />
+     <Compile Include="Assets\Scripts\RatHealthBar.cs" />
      <Compile Include="Assets\Scripts\Entryway.cs" />
      <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Parent.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -88,6 +89,7 @@
      <Compile Include="Assets\Scripts\Food\Egg.cs" />
      <Compile Include="Assets\Scripts\Utility.cs" />
      <Compile Include="Assets\Scripts\Interaction Scripts\Item.cs" />
+     <Compile Include="Assets\Scripts\Billboard.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity 2020.3.38f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

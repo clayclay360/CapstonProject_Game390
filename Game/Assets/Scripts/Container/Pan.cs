@@ -22,6 +22,8 @@ public class Pan : Item
     public float progressMeterMin, progressMeterMax;
     public float[] interactionMeterStart, interactionMeterEnd;
     RecipeBook cookBook; //Added by Owen for changing the steps
+    private GameObject passItems;
+
 
     [Header("Item Placement")]
     public Transform placement;
@@ -54,6 +56,7 @@ public class Pan : Item
         attempt[0] = Attempt.None;
         usesUntilDirty = 1;
         currUses = 0;
+        passItems = GameObject.Find("PassItems");
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -320,6 +323,18 @@ public class Pan : Item
         cooking = false;
         foodInPan.status = Status.cooked;
         CheckIfDirty();
+    }
+
+    public void PassPan()
+    {
+        transform.position = passItems.transform.position;
+        gameObject.SetActive(true);
+    }
+
+    public void DropPanOnGround(GameObject player)
+    {
+        transform.position = player.transform.position;
+        gameObject.SetActive(true);
     }
 
 }

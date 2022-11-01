@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public static bool assigningOrders;
     public static int currentLevel;
 
+    public static bool isTouchingTrashCan;
+    public static bool passItemsReady;
+
     public static bool recipeIsOpenP1;
     public static bool isTouchingBook;
     public static List<int> isStepCompleted = new List<int>();

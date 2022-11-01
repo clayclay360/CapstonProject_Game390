@@ -3126,6 +3126,12 @@ MonoBehaviour:
   taskManager: {fileID: 4835468046618603164}
   Inv1: {fileID: 3511479360006217213}
   Inv2: {fileID: 5647515790076485959}
+  pan: {fileID: 4647432269454624998, guid: bf5ead34707a2c34d95a652753c5d893, type: 3}
+  spatula: {fileID: 9031513021252998085, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
+  bacon: {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+  egg: {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
+  pages: {fileID: 619990019060272739, guid: 6dc38e2368aa8384fa447fe2837a9e58, type: 3}
+  extraPrefab: {fileID: 0}
   interactionText: {fileID: 818611845322245482}
   itemInMainHand: 0
   orderPrefab: {fileID: 3038329976277649417, guid: d5b323fdc8cc87142aedfcad602c3b26, type: 3}

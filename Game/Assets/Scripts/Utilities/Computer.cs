@@ -5,6 +5,7 @@ using UnityEngine;
 public class Computer : Utility
 {
     public CookBookPages pages;
+    private GameObject passItems;
 
     public Computer()
     {
@@ -15,6 +16,7 @@ public class Computer : Utility
     public void Start()
     {
         //pages = gameObject.AddComponent<CookBookPages>();
+        passItems = GameObject.Find("PassItems");
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -57,5 +59,17 @@ public class Computer : Utility
         }
 
 
+    }
+
+    public void PassPages()
+    {
+        transform.position = passItems.transform.position;
+        gameObject.SetActive(true);
+    }
+
+    public void DropPagesOnGround(GameObject player)
+    {
+        transform.position = player.transform.position;
+        gameObject.SetActive(true);
     }
 }
