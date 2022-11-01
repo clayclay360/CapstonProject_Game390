@@ -786,7 +786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1344734082222359329
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1037,10 +1037,10 @@ RectTransform:
   m_Father: {fileID: 1344734082222359329}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -62.5}
+  m_SizeDelta: {x: 400, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8649668824915233578
 CanvasRenderer:
@@ -3131,7 +3131,6 @@ MonoBehaviour:
   bacon: {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
   egg: {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
   pages: {fileID: 619990019060272739, guid: 6dc38e2368aa8384fa447fe2837a9e58, type: 3}
-  extraPrefab: {fileID: 0}
   interactionText: {fileID: 818611845322245482}
   itemInMainHand: 0
   orderPrefab: {fileID: 3038329976277649417, guid: d5b323fdc8cc87142aedfcad602c3b26, type: 3}

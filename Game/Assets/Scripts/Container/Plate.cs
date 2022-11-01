@@ -9,6 +9,7 @@ public class Plate : Item
     public Item foodOnPlate;
     public string orderName;
     public float timer;
+    public int orderNumber;
     public Slider sliderTimer;
 
     public Plate()
@@ -82,6 +83,7 @@ public class Plate : Item
         }
 
         OrderManager.currentOrders--;
+        OrderManager.Order.Remove(orderNumber);
         Destroy(gameObject);
     }
 }
