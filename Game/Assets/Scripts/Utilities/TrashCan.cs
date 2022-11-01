@@ -11,6 +11,7 @@ public class TrashCan : Utility
     public GameObject eggPrefab;
     public GameObject spatulaPrefab;
     public GameObject panPrefab;
+    public GameObject baconPrefab;
 
     public TrashCan()
     {
@@ -36,6 +37,9 @@ public class TrashCan : Utility
                     break;
                 case PlayerController.ItemInMainHand.spatula:
                     Instantiate(spatulaPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, parentTransform.transform);
+                    break;
+                case PlayerController.ItemInMainHand.bacon:
+                    Instantiate(baconPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, parentTransform.transform);
                     break;
                 }
                        
