@@ -11,6 +11,8 @@ public class RatScript : MonoBehaviour
     [Header("Stats")]
     public int health;
     public RatHealthBar ratHealthBar;
+    public string item;
+    public bool isCarryingItem;
 
     [Header("Target")]
     public float attackRadius;
@@ -232,6 +234,21 @@ public class RatScript : MonoBehaviour
                         objectiveComplete = true;
                     }
                     break;
+
+                case "Destination":
+                    if(item != "")
+                    {
+                        GameObject itemObject = GameObject.Find(item);
+                        Item itemScript = itemObject.GetComponent<Item>();
+                        itemObject.transform.position = other.gameObject.transform.position;
+                        itemScript.RespawnItem(itemObject);
+                        isCarryingItem = false;
+                        item = "";
+                        ratHealthBar.SetItemText(item);
+                    }
+                    objectiveComplete = true;
+                    break;
+
                 case "Interactable":
                     //Debug.Log("Hit Interactable Object");
                     switch (other.gameObject.name)
@@ -239,38 +256,50 @@ public class RatScript : MonoBehaviour
                         case ("Spatula"):
                             Spatula spatula = other.gameObject.GetComponent<Spatula>();
                             spatula.status = Item.Status.dirty;
+                            objectiveComplete = true;
                             break;
 
                         case ("Plate"):
                             Plate plate = other.gameObject.GetComponent<Plate>();
                             plate.status = Item.Status.dirty;
+                            objectiveComplete = true;
                             break;
 
                         case ("Pan"):
                             Pan pan = other.gameObject.GetComponent<Pan>();
                             pan.status = Item.Status.dirty;
+                            objectiveComplete = true;
                             break;
 
                         case ("Sink"):
+                            objectiveComplete = true;
                             break;
 
                         case ("Stove"):
                             Stove stove = other.gameObject.GetComponent<Stove>();
                             stove.On = false;
                             stove.State(stove.On);
+                            objectiveComplete = true;
                             break;
 
                         case ("Egg"):  case ("Egg(Clone)"):
                             Egg egg = other.gameObject.GetComponent<Egg>();
                             egg.DespawnItem(other.gameObject);
+                            item = other.gameObject.name;
+                            ratHealthBar.SetItemText(item);
+                            SelectDestination();
+                            isCarryingItem = true;
                             break;
 
                         case ("Bacon"):
                             Bacon bacon = other.gameObject.GetComponent<Bacon>();
                             bacon.DespawnItem(other.gameObject);
+                            item = other.gameObject.name;
+                            ratHealthBar.SetItemText(item);
+                            SelectDestination();
+                            isCarryingItem = true;
                             break;
                     }
-                    objectiveComplete = true;
                     break;
             }
         }
@@ -396,6 +425,14 @@ public class RatScript : MonoBehaviour
         SetTarget(targetList);
     }
 
+    public void SelectDestination()
+    {
+        GameObject[] destinationsList = GameObject.FindGameObjectsWithTag("Destination");
+        int destinationIndex = Random.Range(0, destinationsList.Length);
+
+        target = destinationsList[destinationIndex];
+    }
+
     public void SetTarget(List<GameObject> targetList)
     {
         target = targetList[Random.Range(0, targetList.Count)];
@@ -442,10 +479,10 @@ public class RatScript : MonoBehaviour
     public void Hide()
     {
         hideTime = Random.Range(minHideTimer, maxHideTimer);
-        int hideindex = Random.Range(0, hidingPointsList.Length);
+        int hideIndex = Random.Range(0, hidingPointsList.Length);
 
         hiding = true;
-        agent.destination = hidingPointsList[hideindex].transform.position;
+        agent.destination = hidingPointsList[hideIndex].transform.position;
         agent.speed = agent.speed * 2;
         agent.angularSpeed = agent.angularSpeed * 2;
 

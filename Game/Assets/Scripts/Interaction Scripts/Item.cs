@@ -72,7 +72,6 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     public void DespawnItem(GameObject item)
     {
         isActive = false;
-        StartCoroutine(Respawn(item));
         Debug.Log("Despawning " + item.name);
         item.GetComponent<Collider>().enabled = false;
         MeshRenderer[] meshRenderers = item.GetComponentsInChildren<MeshRenderer>();
@@ -82,9 +81,8 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         }
     }
 
-    public IEnumerator Respawn(GameObject item)
+    public void RespawnItem(GameObject item)
     {
-        yield return new WaitForSeconds(despawnTime);
         isActive = true;
         Debug.Log("Respawning " + item.name);
         item.GetComponent<Collider>().enabled = true;
