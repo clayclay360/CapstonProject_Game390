@@ -107,6 +107,7 @@ public class Egg : Item
                 Form[1].SetActive(true);
                 break;
             case State.omelet:
+                Name = "Omelet";
                 Form[1].SetActive(false);
                 Form[2].SetActive(true);
                 break;

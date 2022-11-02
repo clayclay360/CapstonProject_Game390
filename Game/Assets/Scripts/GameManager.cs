@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static bool gameStarted;
     public static bool assigningOrders;
     public static int currentLevel;
+    public static float rating;
 
     public static bool isTouchingTrashCan;
     public static bool passItemsReady;
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour
     {
         yield return null;
         assigningOrders = true;
+        rating = 1.0f;
     }
 
     private void CheckIfLevelComplete()

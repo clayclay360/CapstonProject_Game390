@@ -31,11 +31,33 @@ public class Plate : Item
         switch(item)
         {
             case PlayerController.ItemInMainHand.pan:
-                if(chef.hand[0].GetComponent<Pan>() != null && chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
+
+                Interaction = orderName;
+                sliderTimer.gameObject.SetActive(true);
+
+                if (chef.hand[0].GetComponent<Pan>() != null && chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
                 {
                     Interaction = "Place food on plate";
                     if(chef.isInteracting)
                     {
+                        //if whether the order is coorect or not
+                        if(orderName == chef.hand[0].GetComponent<Pan>().foodInPan.Name)
+                        {
+                            Debug.Log("Order Complete");
+                            GameManager.rating += .2f;
+                            OrderManager.currentOrders--;
+                            OrderManager.Order.Remove(orderNumber);
+                            Destroy(gameObject);
+                        }
+                        else
+                        {
+                            Debug.Log("Wrong Order");
+                            GameManager.rating -= .2f;
+                            OrderManager.currentOrders--;
+                            OrderManager.Order.Remove(orderNumber);
+                            Destroy(gameObject);
+                        }
+
                         foodOnPlate = chef.hand[0].GetComponent<Pan>().foodInPan;
                         foodOnPlate.toolItemIsOccupying = this;
                         foodOnPlate.gameObject.transform.parent = transform;
@@ -46,7 +68,7 @@ public class Plate : Item
                         chef.isInteracting = false;
 
                         //Checkcompletion
-                        GameManager.Instance.CheckLevelCompletion(foodOnPlate);
+                        //GameManager.Instance.CheckLevelCompletion(foodOnPlate);
                     }
                 }
                 else if(chef.inventoryFull)
