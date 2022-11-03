@@ -13,6 +13,8 @@ public class RatScript : MonoBehaviour
     public RatHealthBar ratHealthBar;
     public string item;
     public bool isCarryingItem;
+    public Canvas hbCanv;
+    private Vector3 hbarOffset = new Vector3(0f, .5f, -.5f);
 
     [Header("Target")]
     public float attackRadius;
@@ -85,6 +87,10 @@ public class RatScript : MonoBehaviour
         //Climbing
         DistanceBetweenTarget();
         ReturnToVent();
+
+        var CanvRot = hbCanv.transform.rotation.eulerAngles;
+        CanvRot.z = -transform.rotation.eulerAngles.y;
+        hbCanv.transform.rotation = Quaternion.Euler(CanvRot);
     }
 
     public void TakeDamage(int damage)
