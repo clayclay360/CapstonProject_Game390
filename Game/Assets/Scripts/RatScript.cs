@@ -120,7 +120,7 @@ public class RatScript : MonoBehaviour
             }
             else
             {
-                //LookAt();
+                LookAt();
                 Attack();
             }
         }
@@ -226,7 +226,7 @@ public class RatScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Untagged" && other.CompareTag(target.tag))
+        if (other.gameObject == target)
         {
             Debug.Log(gameObject.name + " hit" + other.gameObject.name);
             collider.enabled = false;
