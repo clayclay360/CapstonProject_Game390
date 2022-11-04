@@ -63,9 +63,9 @@ public class Egg : Item
                 Interaction = "Grab Egg";
                 if (chef.isInteracting)
                 {
-                    Debug.Log("Egg Grabbed");
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
             case PlayerController.ItemInMainHand.spatula:
@@ -74,6 +74,7 @@ public class Egg : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
             case PlayerController.ItemInMainHand.pan:
@@ -82,6 +83,7 @@ public class Egg : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
             case PlayerController.ItemInMainHand.bacon:
@@ -90,6 +92,7 @@ public class Egg : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
         }
@@ -114,15 +117,45 @@ public class Egg : Item
         }
     }
 
-    public void PassEgg()
+    public void PassEgg(int passLocation)
     {
-        transform.position = passItems.transform.position;
-        gameObject.SetActive(true);
+        if (passLocation == 0)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, 0.5f);
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 1)
+        {
+            transform.position = passItems.transform.position;
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 2)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, -0.5f);
+            gameObject.SetActive(true);
+        }
     }
 
     public void DropEggOnGround(GameObject player)
     {
         transform.position = player.transform.position;
         gameObject.SetActive(true);
+    }
+
+    public void CheckCounter()
+    {
+        for (int i = 0; i <= GameManager.counterItems.Length; i++)
+        {
+            if (i >= GameManager.counterItems.Length)
+            {
+                return;
+            }
+
+            if (gameObject.name == GameManager.counterItems[i])
+            {
+                GameManager.counterItems[i] = "";
+                return;
+            }
+        }
     }
 }

@@ -311,23 +311,57 @@ public class PlayerController : MonoBehaviour
             switch (hand[0].Name)
             {
                 case "Egg":
-                    passEgg.PassEgg();
+                    if (GameManager.counterItems.Contains(egg.name))
+                    {
+                        Debug.Log("Contains Egg");
+                    }
+                    else
+                    {
+                        passEgg.PassEgg(AddItemsToCounter(egg.name));
+                    }
                     hand[0] = null;
                     break;
                 case "Spatula":
-                    passSpatula.PassSpatula();
+                    if (GameManager.counterItems.Contains(spatula.name))
+                    {
+                        Debug.Log("Contains Spatula");
+                    } else
+                    {
+                        passSpatula.PassSpatula(AddItemsToCounter(spatula.name));
+                    }
                     hand[0] = null;
                     break;
                 case "Pan":
-                    passPan.PassPan();
+                    if (GameManager.counterItems.Contains(pan.name))
+                    {
+                        Debug.Log("Contains Pan");
+                    }
+                    else
+                    {
+                        passPan.PassPan(AddItemsToCounter(pan.name));
+                    }
                     hand[0] = null;
                     break;
                 case "Bacon":
-                    passBacon.PassBacon();
+                    if (GameManager.counterItems.Contains(bacon.name))
+                    {
+                        Debug.Log("Contains Bacon");
+                    }
+                    else
+                    {
+                        passBacon.PassBacon(AddItemsToCounter(bacon.name));
+                    }
                     hand[0] = null;
                     break;
                 case "Cookbook Pages":
-                    passPages.PassPages();
+                    if (GameManager.counterItems.Contains(pages.name))
+                    {
+                        Debug.Log("Contains Pages");
+                    }
+                    else
+                    {
+                        passPages.PassPages(AddItemsToCounter(pages.name));
+                    }
                     hand[0] = null;
                     break;
                 default:
@@ -367,7 +401,6 @@ public class PlayerController : MonoBehaviour
                     if (hand[0] == null)
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
-                        Debug.LogError("Penis");
                         Inv1.text = hand[0].Name;
                     }
                     else if (hand[1] == null)
@@ -591,5 +624,26 @@ public class PlayerController : MonoBehaviour
         GameObject orderRef = Instantiate(orderPrefab, orderLayoutGroup.transform);
         Order order = orderRef.GetComponent<Order>();
         order.AssignOrder(name, timer);
+    }
+
+    public int AddItemsToCounter(string checkItem)
+    {
+        int itemLocation = -1;
+
+        for (int i = 0; i <= GameManager.counterItems.Length; i++)
+        {
+            if (i >= GameManager.counterItems.Length)
+            {
+                return (itemLocation);
+            }
+
+            if (GameManager.counterItems[i] == "")
+            {
+                itemLocation = i;
+                GameManager.counterItems[i] = checkItem;
+                return (itemLocation);
+            }
+        }
+        return (itemLocation);
     }
 }

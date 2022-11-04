@@ -77,6 +77,7 @@ public class Pan : Item
                         }
                         Interaction = "";
                         gameObject.SetActive(false);
+                        CheckCounter();
                     }
                 }
                 else
@@ -232,6 +233,7 @@ public class Pan : Item
                         }
                         Interaction = "";
                         gameObject.SetActive(false);
+                        CheckCounter();
                     }
                 }
                 break;
@@ -325,10 +327,23 @@ public class Pan : Item
         CheckIfDirty();
     }
 
-    public void PassPan()
+    public void PassPan(int passLocation)
     {
-        transform.position = passItems.transform.position;
-        gameObject.SetActive(true);
+        if (passLocation == 0)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, 0.5f);
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 1)
+        {
+            transform.position = passItems.transform.position;
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 2)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, -0.5f);
+            gameObject.SetActive(true);
+        }
     }
 
     public void DropPanOnGround(GameObject player)
@@ -337,4 +352,20 @@ public class Pan : Item
         gameObject.SetActive(true);
     }
 
+    public void CheckCounter()
+    {
+        for (int i = 0; i <= GameManager.counterItems.Length; i++)
+        {
+            if (i >= GameManager.counterItems.Length)
+            {
+                return;
+            }
+
+            if (gameObject.name == GameManager.counterItems[i])
+            {
+                GameManager.counterItems[i] = "";
+                return;
+            }
+        }
+    }
 }

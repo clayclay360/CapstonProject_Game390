@@ -39,6 +39,7 @@ public class Spatula : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
             case PlayerController.ItemInMainHand.egg:
@@ -47,6 +48,7 @@ public class Spatula : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
             case PlayerController.ItemInMainHand.pan:
@@ -55,6 +57,7 @@ public class Spatula : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
             case PlayerController.ItemInMainHand.bacon:
@@ -63,20 +66,49 @@ public class Spatula : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
         }
     }
 
-    public void PassSpatula()
+    public void PassSpatula(int passLocation)
     {
-        transform.position = passItems.transform.position + new Vector3(0.35f, 0, 0);
-        gameObject.SetActive(true);
+        if (passLocation == 0)
+        {
+            transform.position = passItems.transform.position + new Vector3(0.35f, 0, 0.5f);
+            gameObject.SetActive(true);
+        } else if (passLocation == 1)
+        {
+            transform.position = passItems.transform.position + new Vector3(0.35f, 0, 0);
+            gameObject.SetActive(true);
+        } else if (passLocation == 2)
+        {
+            transform.position = passItems.transform.position + new Vector3(0.35f, 0, -0.5f);
+            gameObject.SetActive(true);
+        }
     }
 
     public void DropSpatulaOnGround(GameObject player)
     {
         transform.position = player.transform.position;
         gameObject.SetActive(true);
+    }
+
+    public void CheckCounter()
+    {
+        for (int i = 0; i <= GameManager.counterItems.Length; i++)
+        {
+            if (i >= GameManager.counterItems.Length)
+            {
+                return;
+            }
+
+            if (gameObject.name == GameManager.counterItems[i])
+            {
+                GameManager.counterItems[i] = "";
+                return;
+            }
+        }
     }
 }
