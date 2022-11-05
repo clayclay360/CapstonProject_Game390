@@ -288,9 +288,11 @@ public class Pan : Item
 
     IEnumerator Cooking(float time, float offset)
     {
-        while(progressMeter + offset < progressMeterMax)
+        float deltaTime = Time.unscaledTime;
+
+        while (progressMeter < progressMeterMax)
         {
-            progressMeter = Mathf.Lerp(progressMeter, progressMeterMax, time);
+            progressMeter = (Time.unscaledTime - deltaTime) / time;
             progressSlider.value = progressMeter;
 
             for (int i = 0; i < interactionMeterEnd.Length; i++)
