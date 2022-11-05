@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Sink : Utility
 {
-    public enum dishBeingCleaned { none, pan, spatula, plate }
-    public dishBeingCleaned currentDish; //enum to track which dish is being washed
+    public enum invSlots { none, one, two, three }
+    public invSlots currClean; //enum to track which dish is being washed
 
     [Header("ProgressBar")]
     public bool isCleaning;
@@ -18,13 +18,12 @@ public class Sink : Utility
     [Header("States")]
     public GameObject sinkEmpty;
     public GameObject sinkFull;
+    public bool waterFull;
 
     [Header("Dishes")]
-    
-    public Pan sinkPan;
-    public Spatula sinkSpatula;
-    public Plate sinkPlate;
     public Item cleaningDish; //This will be whichever dish is currently being washed
+    public Item sinkInv1, sinkInv2, sinkInv3;
+
 
     public Sink()
     {
@@ -37,8 +36,9 @@ public class Sink : Utility
     private void Awake()
     {
         progressSlider.GetComponent<Slider>();
-        currentDish = 0; //none
         isCleaning = false;
+
+        FillSink(false);
     }
 
     public void Update()
@@ -59,79 +59,66 @@ public class Sink : Utility
         //Checking the player's mainhand item
         switch (item)
         {
+            //Empty mainhand means we're seeing if we can take anything out of the sink
             case PlayerController.ItemInMainHand.empty:
-                Item[] dishes = { sinkPan, sinkPlate, sinkSpatula };
-                foreach (Item dish in dishes)
+                Item[] dishes = { sinkInv1, sinkInv2, sinkInv3 };
+                for (int i = 0; i < dishes.Length; i++)
                 {
-                    if (dish != null && dish.status == Item.Status.clean)
+                    if (dishes[i] != null && dishes[i].status == Item.Status.clean)
                     {
-                        Interaction = "Pick up " + dish.Name;
+                        Interaction = "Pick up " + dishes[i].Name;
                         if (chef.isInteracting)
                         {
-                            chef.hand[0] = dish;
-                            chef.Inv1.text = dish.Name;
-                            //Now this is an awful way to do this and I don't want to see anything like this in the future
-                            switch (dish.Name)
+                            chef.hand[0] = dishes[i];
+                            chef.Inv1.text = dishes[i].Name;
+                            //Set sinkInv slot to empty
+                            switch (i)
                             {
-                                case "Pan":
-                                    sinkPan = null;
+                                case 0:
+                                    sinkInv1 = null;
                                     break;
-                                case "Plate":
-                                    sinkPlate = null;
+                                case 1:
+                                    sinkInv2 = null;
                                     break;
-                                case "Spatula":
-                                    sinkSpatula = null;
+                                case 2:
+                                    sinkInv3 = null;
                                     break;
                             }
-                            //chef.itemInMainHand = PlayerController.ItemInMainHand.
+
+                            //If the sink is empty, drain the water
+                            if (!sinkInv1 && !sinkInv2 && !sinkInv3)
+                            {
+                                FillSink(false);
+                            }
                         }
                         return;
                     }
                 }
                 break;
 
-
             //Now check for the three items that can be dirty
-            //Spatula
+            //Using fallthrough for all of them to be a little safer
             case PlayerController.ItemInMainHand.spatula:
-                Interaction = "Put spatula in sink";
-                //Try and get spatula component, clear play hand and set spatula to sink
-                if (chef.hand[0].TryGetComponent(out Spatula spatula))
-                {
-                    if (!chef.isInteracting) { break; }
-                    sinkSpatula = spatula;
-                    chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
-                    chef.hand[0] = null;
-                    Interaction = "";
-                }
-                else { Debug.LogError("Could not get Spatula component with ItemInMainHand.spatula!");}
-                break;
-            //Pan
             case PlayerController.ItemInMainHand.pan:
-                Interaction = "Put pan in sink";
-                //We do the same thing for the other possible items
-                if (chef.hand[0].TryGetComponent(out Pan pan))
-                {
-                    if (!chef.isInteracting) { break; }
-                    sinkPan = pan;
-                    chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
-                    chef.hand[0] = null;
-                    Interaction = "";
-                }
-                else { Debug.LogError("Could not get Pan component with ItemInMainHand.pan!"); }
-                break;
-            //Plate
             case PlayerController.ItemInMainHand.plate:
-                Interaction = "Put plate in sink";
-                if (chef.hand[0].TryGetComponent(out Plate plate))
+                if (chef.hand[0].status == Item.Status.dirty)
                 {
-                    if (!chef.isInteracting) { break; }
-                    sinkPlate = plate;
-                    chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
-                    chef.hand[0] = null;
-                    Interaction = "";
+                    if (sinkInv1 && sinkInv2 && sinkInv3) //Can't put anything in the sink if all sink areas are full
+                    {
+                        Interaction = "Sink is full!";
+                        return;
+                    } 
+                    Interaction = "Put " + chef.hand[0].Name + " in sink";
+                    if (chef.hand[0].TryGetComponent(out Item dish))
+                    {
+                        if (!chef.isInteracting) { break; }
+                        AddSinkInv(dish);
+                        chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
+                        chef.hand[0] = null;
+                        Interaction = "";
+                    }
+                    else { Debug.LogError("Could not get Item component!"); }
                 }
-                else { Debug.LogError("Could not get Plate component with ItemInMainHand.plate!"); }
                 break;
             default:
                 Debug.LogWarning("Unaccounted for dirty item in Sink.cs! switch statement");
@@ -140,58 +127,58 @@ public class Sink : Utility
         chef.isInteracting = false;
     }
 
+    //Add a new dish to the sink inventory
+    public void AddSinkInv(Item dish)
+    {
+        if (sinkInv1 == null)
+        {
+            sinkInv1 = dish;
+            currClean = invSlots.one;
+        }
+        else if (sinkInv2 == null)
+        {
+            sinkInv2 = dish;
+            currClean = invSlots.two;
+        }
+        else if (sinkInv3 == null)
+        {
+            sinkInv3 = dish;
+            currClean = invSlots.three;
+        }
+        else { Debug.LogWarning("Tried to put a dish in the sink but the sink is full!"); }
+    }
+
     //Helper function for when we start cleaning a dish
     public void ActivateCleaning()
     {
         isCleaning = true;
         progressSlider.gameObject.SetActive(true);
+        FillSink(true);
         cleanProgress = 0f;
         progressSlider.value = 0f;
     }
 
     public void ProcessCleaning()
     {
-        //Process a dish being cleaned
-        if (isCleaning) {
+        if (isCleaning) 
+        {
             CleaningDish();
             return; 
         }
 
-
-        
-        switch (currentDish)
+        //Set the dish to be cleaned
+        if (!cleaningDish)
         {
-            //Check for other dishes and set them to be cleaned
-            //Right now, this will check in the order they are listed
-            //which means technically there is a priority list
-            case dishBeingCleaned.none:
-
-                if (sinkPan != null && sinkPan.status == Item.Status.dirty)
+            Item[] sinkInv = { sinkInv1, sinkInv2, sinkInv3 };
+            for (int i = 0; i < sinkInv.Length; i++)
+            {
+                if (sinkInv[i] != null && sinkInv[i].status == Item.Status.dirty)
                 {
-                    cleaningDish = sinkPan;
+                    cleaningDish = sinkInv[i];
                     ActivateCleaning();
-                    currentDish = dishBeingCleaned.pan;
+                    return;
                 }
-                else if (sinkSpatula != null && sinkSpatula.status == Item.Status.dirty)
-                {
-                    cleaningDish = sinkSpatula;
-                    ActivateCleaning();
-                    currentDish = dishBeingCleaned.spatula;
-                }
-                else if (sinkPlate != null && sinkPlate.status == Item.Status.dirty)
-                {
-                    cleaningDish = sinkPlate;
-                    ActivateCleaning();
-                    currentDish = dishBeingCleaned.plate;
-                }
-                if (currentDish != dishBeingCleaned.none)
-                {
-                    progressSlider.gameObject.SetActive(true);
-                }
-                break;
-            default:
-
-                break;
+            }
         }
     }
 
@@ -203,20 +190,35 @@ public class Sink : Utility
             Debug.LogError("IsCleaning but no dish in the sink!");
             return;
         }
+        //Add to the progress slider
         if (cleanProgress + Time.deltaTime < cleanTime)
         {
-            //Debug.Log("Adding Progress!!");
             cleanProgress += Time.deltaTime;
             progressSlider.value = cleanProgress;
         }
         else //We go here when the dish is finished being cleaned
         {
-            //Debug.LogWarning(cleaningDish.Name +  " is clean!");
+            currClean = invSlots.none;
             progressSlider.gameObject.SetActive(false);
             cleaningDish.status = Item.Status.clean;
             cleaningDish.currUses = 0;
-            currentDish = dishBeingCleaned.none;
-            isCleaning = false;
+            cleaningDish = null;
+            isCleaning = false;   
+        }
+    }
+
+    //Helper function to switch sink models
+    public void FillSink(bool fillSink)
+    {
+        if (fillSink)
+        {
+            sinkFull.SetActive(true);
+            sinkEmpty.SetActive(false);
+        }
+        else
+        {
+            sinkFull.SetActive(false);
+            sinkEmpty.SetActive(true);
         }
     }
 }

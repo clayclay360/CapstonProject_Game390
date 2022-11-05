@@ -16,7 +16,7 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
 
     //I'll definetly have to make a food and tool child
     public enum Status {uncooked, cooked, burnt, clean, dirty}
-    [HideInInspector] public Status status;
+    public Status status;
     [HideInInspector] public bool Occupied;
     [HideInInspector] public bool prone;
     [HideInInspector] public bool isActive;
