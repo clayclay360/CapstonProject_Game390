@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bacon : Item
 {
+    private GameManager gm;
     public GameObject[] Form;
     private GameObject passItems;
 
@@ -19,6 +20,7 @@ public class Bacon : Item
 
     private void Start()
     {
+        gm = GameManager.Instance;
         passItems = GameObject.Find("PassItems");
     }
 
@@ -131,20 +133,4 @@ public class Bacon : Item
         gameObject.SetActive(true);
     }
 
-    public void CheckCounter()
-    {
-        for (int i = 0; i <= GameManager.counterItems.Length; i++)
-        {
-            if (i >= GameManager.counterItems.Length)
-            {
-                return;
-            }
-
-            if (gameObject.name == GameManager.counterItems[i])
-            {
-                GameManager.counterItems[i] = "";
-                return;
-            }
-        }
-    }
 }

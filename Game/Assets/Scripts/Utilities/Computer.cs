@@ -88,20 +88,4 @@ public class Computer : Utility
         gameObject.SetActive(true);
     }
 
-    public void CheckCounter()
-    {
-        for (int i = 0; i <= GameManager.counterItems.Length; i++)
-        {
-            if (i >= GameManager.counterItems.Length)
-            {
-                return;
-            }
-
-            if (gameObject.name == GameManager.counterItems[i])
-            {
-                GameManager.counterItems[i] = "";
-                return;
-            }
-        }
-    }
 }

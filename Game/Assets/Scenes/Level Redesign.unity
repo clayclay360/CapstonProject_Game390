@@ -23305,6 +23305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1860873218}
   - component: {fileID: 1860873219}
+  - component: {fileID: 1860873220}
   m_Layer: 0
   m_Name: PassItems
   m_TagString: PassItems
@@ -23339,6 +23340,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1860873220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860873217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037c95024069de54eb754dfb1e456993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionType: 0
+  itemNeed: 0
+  itemGive: 0
+  Name: 
+  Height: 0
+  On: 0
+  Occupied: 0
+  Interaction: 
 --- !u!1 &1865152596 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3772974374037439962, guid: 026476fd727257a4fa3eb03ead6e4a09, type: 3}

@@ -100,6 +100,7 @@
     <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\Billboard.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Window.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

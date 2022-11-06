@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand, PlayerController>
 {
+    protected GameManager gm;
     public string Name;
     public string Type;
     public float despawnTime;
@@ -26,6 +27,12 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     //Sink
     [HideInInspector] public int usesUntilDirty;
     [HideInInspector] public int currUses;
+
+    public void Awake()
+    {
+        gm = GameManager.Instance;
+    }
+
     public void Start()
     {
         startPosition = transform.position;
@@ -91,6 +98,23 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         foreach (MeshRenderer meshRenderer in meshRenderers)
         {
             meshRenderer.enabled = true;
+        }
+    }
+
+    public void CheckCounter()
+    {
+        for (int i = 0; i <= gm.counterItems.Length; i++)
+        {
+            if (i >= gm.counterItems.Length)
+            {
+                return;
+            }
+
+            if (gameObject.name == gm.counterItems[i])
+            {
+                gm.counterItems[i] = "";
+                return;
+            }
         }
     }
 }
