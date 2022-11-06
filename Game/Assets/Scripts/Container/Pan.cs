@@ -48,6 +48,7 @@ public class Pan : Item
 
     private void Awake()
     {
+        base.Awake();
         progressSlider.GetComponent<Slider>();
         interactionAttemptReady = new bool[interactionMeterEnd.Length];
         cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();

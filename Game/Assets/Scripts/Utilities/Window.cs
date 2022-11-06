@@ -9,11 +9,12 @@ public class Window : Utility
     {
         for (int i = 0; i < gm.counterItems.Length; i++)
         {
-            if (gm.counterItems[i] != "")
+            if (gm.counterItems[i] == "" && chef.hand[0])
             {
-                Interaction = "Place " + gm.counterItems[i] + " in Window";
+                Interaction = "Place " + chef.hand[0].name + " in Window";
                 return;
             }
         }
+        Interaction = "";
     }
 }

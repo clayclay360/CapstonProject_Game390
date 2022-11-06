@@ -25,6 +25,7 @@ public class Egg : Item
 
     private void Start()
     {
+        base.Start();
         passItems = GameObject.Find("PassItems");
     }
 

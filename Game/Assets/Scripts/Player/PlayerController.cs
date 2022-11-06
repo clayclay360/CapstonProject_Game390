@@ -377,7 +377,7 @@ public class PlayerController : MonoBehaviour
         cookBook.ClickOnBook();
     }
 
-    public IEnumerable InteractCD()
+    public IEnumerator InteractCD()
     {
         readyToInteract = false;
         yield return new WaitForSeconds(.5f);
@@ -425,7 +425,7 @@ public class PlayerController : MonoBehaviour
             }
             //isInteracting = false;
         }
-        else if (other.gameObject.tag == "PassItems")
+        else if (other.gameObject.tag == "PassItems" && !readyToInteract)
         {
             if(other.TryGetComponent(out Window wind))
             {

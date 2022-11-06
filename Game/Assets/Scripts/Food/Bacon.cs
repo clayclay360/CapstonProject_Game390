@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bacon : Item
 {
-    private GameManager gm;
     public GameObject[] Form;
     private GameObject passItems;
 
@@ -18,7 +17,7 @@ public class Bacon : Item
         prone = false;
     }
 
-    private void Start()
+    private new void Start()
     {
         gm = GameManager.Instance;
         passItems = GameObject.Find("PassItems");
