@@ -10,6 +10,10 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     public string Type;
     public float despawnTime;
 
+    [Header("Models")]
+    public GameObject cleanSelf;
+    public GameObject dirtySelf;
+
     [HideInInspector]
     public Vector3 startPosition;
     [HideInInspector]
@@ -49,6 +53,8 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         if (currUses >= usesUntilDirty)
         {
             status = Status.dirty;
+            cleanSelf.SetActive(false);
+            dirtySelf.SetActive(true);
         }
         //Debug.LogError(currUses + " // " + usesUntilDirty);
     }

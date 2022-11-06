@@ -200,6 +200,8 @@ public class Sink : Utility
         {
             currClean = invSlots.none;
             progressSlider.gameObject.SetActive(false);
+            cleaningDish.dirtySelf.SetActive(false);
+            cleaningDish.cleanSelf.SetActive(true);
             cleaningDish.status = Item.Status.clean;
             cleaningDish.currUses = 0;
             cleaningDish = null;
