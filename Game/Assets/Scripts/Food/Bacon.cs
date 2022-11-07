@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bacon : Item
 {
     public GameObject[] Form;
+    private GameObject passItems;
 
     PlayerController player;
     public Bacon()
@@ -14,6 +15,12 @@ public class Bacon : Item
         Interaction = "";
         status = Status.uncooked;
         prone = false;
+    }
+
+    private new void Start()
+    {
+        gm = GameManager.Instance;
+        passItems = GameObject.Find("PassItems");
     }
 
     public void Update()
@@ -53,6 +60,7 @@ public class Bacon : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
             case PlayerController.ItemInMainHand.spatula:
@@ -61,6 +69,7 @@ public class Bacon : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
             case PlayerController.ItemInMainHand.pan:
@@ -69,6 +78,7 @@ public class Bacon : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
             case PlayerController.ItemInMainHand.egg:
@@ -77,6 +87,7 @@ public class Bacon : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
                 }
                 break;
         }
@@ -96,11 +107,29 @@ public class Bacon : Item
         }
     }
 
-    public void HitByRat()
+    public void PassBacon(int passLocation)
     {
-        isActive = false;
-        StartCoroutine(Despawn(gameObject));
-        Debug.Log("Despawning Bacon");
-        gameObject.SetActive(false);
+        if (passLocation == 0)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, 0.5f);
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 1)
+        {
+            transform.position = passItems.transform.position;
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 2)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, -0.5f);
+            gameObject.SetActive(true);
+        }
     }
+
+    public void DropBaconOnGround(GameObject player)
+    {
+        transform.position = player.transform.position;
+        gameObject.SetActive(true);
+    }
+
 }

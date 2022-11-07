@@ -5,9 +5,14 @@ using UnityEngine.InputSystem;
 
 public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand, PlayerController>
 {
+    protected GameManager gm;
     public string Name;
     public string Type;
     public float despawnTime;
+
+    [Header("Models")]
+    public GameObject cleanSelf;
+    public GameObject dirtySelf;
 
     [HideInInspector]
     public Vector3 startPosition;
@@ -16,16 +21,23 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
 
     //I'll definetly have to make a food and tool child
     public enum Status {uncooked, cooked, burnt, clean, dirty}
-    [HideInInspector] public Status status;
+    public Status status;
     [HideInInspector] public bool Occupied;
     [HideInInspector] public bool prone;
     [HideInInspector] public bool isActive;
+    [HideInInspector] public bool isTarget;
     [HideInInspector] public string Interaction;
     [HideInInspector] public Utility utilityItemIsOccupying;
     [HideInInspector] public Item toolItemIsOccupying;
     //Sink
     [HideInInspector] public int usesUntilDirty;
     [HideInInspector] public int currUses;
+
+    public void Awake()
+    {
+        gm = GameManager.Instance;
+    }
+
     public void Start()
     {
         startPosition = transform.position;
@@ -42,6 +54,8 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         if (currUses >= usesUntilDirty)
         {
             status = Status.dirty;
+            cleanSelf.SetActive(false);
+            dirtySelf.SetActive(true);
         }
         //Debug.LogError(currUses + " // " + usesUntilDirty);
     }
@@ -69,12 +83,45 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         gameObject.SetActive(false);
     }
 
-    public IEnumerator Despawn(GameObject item)
+    public void DespawnItem(GameObject item)
     {
-        Debug.Log(item.name);
-        yield return new WaitForSeconds(despawnTime);
+        isActive = false;
+        Debug.Log("Despawning " + item.name);
+        item.GetComponent<Collider>().enabled = false;
+        MeshRenderer[] meshRenderers = item.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer meshRenderer in meshRenderers)
+        {
+            meshRenderer.enabled = false;
+        }
+    }
+
+    public void RespawnItem(GameObject item)
+
+    {
         isActive = true;
-        Debug.Log("Respawning Item");
-        item.SetActive(true);
+        Debug.Log("Respawning " + item.name);
+        item.GetComponent<Collider>().enabled = true;
+        MeshRenderer[] meshRenderers = item.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer meshRenderer in meshRenderers)
+        {
+            meshRenderer.enabled = true;
+        }
+    }
+
+    public void CheckCounter()
+    {
+        for (int i = 0; i <= gm.counterItems.Length; i++)
+        {
+            if (i >= gm.counterItems.Length)
+            {
+                return;
+            }
+
+            if (gameObject.name == gm.counterItems[i])
+            {
+                gm.counterItems[i] = "";
+                return;
+            }
+        }
     }
 }

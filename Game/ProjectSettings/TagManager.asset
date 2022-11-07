@@ -10,6 +10,8 @@ TagManager:
   - RatVent
   - Knife
   - HidingPoint
+  - PassItems
+  - Destination
   layers:
   - Default
   - TransparentFX

@@ -1,29 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class OrderManager : MonoBehaviour
 {
+    [Header("Variables")]
     public string[] orderNames;
     public bool startingOrders;
     public float maxTimeInBetweenOrders, minTimeInBetweenOrders;
     public static int currentOrders;
 
+    [Header("Orders")]
+    public GameObject platePrefab;
+    public Transform[] spawnPosition;
+    public static Dictionary<int, Plate> Order = new Dictionary<int, Plate>();
+    public int orderNumber;
+
     private float timeInBetweenOrders;
     private int maxOrders;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         if(GameManager.gameStarted && !startingOrders)
         {
-            Debug.Log("Orders of go");
             startingOrders = true;
             StartCoroutine(Orders());
         }
@@ -44,19 +45,27 @@ public class OrderManager : MonoBehaviour
 
             if(GameManager.currentLevel == 0 && maxOrders > currentOrders)
             {
-                Debug.Log("Waiting for Order");
                 timeInBetweenOrders = Random.Range(minTimeInBetweenOrders, maxTimeInBetweenOrders);
+
+                int orderIndex = Random.Range(0, 2);
                 
-
-                int orderNumber = Random.Range(0, 2);
-
-                Debug.Log("Order Made");
-                foreach(PlayerController player in FindObjectsOfType<PlayerController>())
+                //reset
+                if(orderNumber > 2)
                 {
-                    player.AddOrder(orderNames[orderNumber], 120);
+                    orderNumber = 0;
                 }
 
+                //temporary 
+                GameObject plate = Instantiate(platePrefab);
+                Order.Add(orderNumber, plate.GetComponent<Plate>());
+                plate.transform.position = spawnPosition[orderNumber].position;
+                plate.GetComponent<Plate>().orderName = orderNames[orderIndex];
+                plate.GetComponent<Plate>().timer = 120;
+                plate.GetComponent<Plate>().orderNumber = orderNumber;
+                plate.GetComponent<Plate>().StartTimer();
                 currentOrders++;
+                orderNumber++;
+
                 yield return new WaitForSeconds(timeInBetweenOrders);
             }
         }

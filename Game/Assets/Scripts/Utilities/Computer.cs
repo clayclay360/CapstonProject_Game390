@@ -5,6 +5,7 @@ using UnityEngine;
 public class Computer : Utility
 {
     public CookBookPages pages;
+    private GameObject passItems;
 
     public Computer()
     {
@@ -15,6 +16,7 @@ public class Computer : Utility
     public void Start()
     {
         //pages = gameObject.AddComponent<CookBookPages>();
+        passItems = GameObject.Find("PassItems");
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -46,11 +48,13 @@ public class Computer : Utility
                 {
                     chef.Inv1.text = "Cookbook pages";
                     chef.hand[0] = pages;
+                    CheckCounter();
                 }
                 else
                 {
                     chef.Inv2.text = "Cookbook pages";
                     chef.hand[1] = pages;
+                    CheckCounter();
                 }
                 chef.isInteracting = false;
             }
@@ -58,4 +62,30 @@ public class Computer : Utility
 
 
     }
+
+    public void PassPages(int passLocation)
+    {
+        if (passLocation == 0)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, 0.5f);
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 1)
+        {
+            transform.position = passItems.transform.position;
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 2)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, -0.5f);
+            gameObject.SetActive(true);
+        }
+    }
+
+    public void DropPagesOnGround(GameObject player)
+    {
+        transform.position = player.transform.position;
+        gameObject.SetActive(true);
+    }
+
 }

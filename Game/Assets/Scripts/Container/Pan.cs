@@ -22,6 +22,8 @@ public class Pan : Item
     public float progressMeterMin, progressMeterMax;
     public float[] interactionMeterStart, interactionMeterEnd;
     RecipeBook cookBook; //Added by Owen for changing the steps
+    private GameObject passItems;
+
 
     [Header("Item Placement")]
     public Transform placement;
@@ -46,6 +48,7 @@ public class Pan : Item
 
     private void Awake()
     {
+        base.Awake();
         progressSlider.GetComponent<Slider>();
         interactionAttemptReady = new bool[interactionMeterEnd.Length];
         cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
@@ -54,6 +57,7 @@ public class Pan : Item
         attempt[0] = Attempt.None;
         usesUntilDirty = 1;
         currUses = 0;
+        passItems = GameObject.Find("PassItems");
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -74,6 +78,7 @@ public class Pan : Item
                         }
                         Interaction = "";
                         gameObject.SetActive(false);
+                        CheckCounter();
                     }
                 }
                 else
@@ -229,6 +234,7 @@ public class Pan : Item
                         }
                         Interaction = "";
                         gameObject.SetActive(false);
+                        CheckCounter();
                     }
                 }
                 break;
@@ -320,6 +326,31 @@ public class Pan : Item
         cooking = false;
         foodInPan.status = Status.cooked;
         CheckIfDirty();
+    }
+
+    public void PassPan(int passLocation)
+    {
+        if (passLocation == 0)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, 0.5f);
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 1)
+        {
+            transform.position = passItems.transform.position;
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 2)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, -0.5f);
+            gameObject.SetActive(true);
+        }
+    }
+
+    public void DropPanOnGround(GameObject player)
+    {
+        transform.position = player.transform.position;
+        gameObject.SetActive(true);
     }
 
 }
