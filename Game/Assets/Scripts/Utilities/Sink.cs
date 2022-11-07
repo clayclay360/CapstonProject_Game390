@@ -24,7 +24,6 @@ public class Sink : Utility
     public Item cleaningDish; //This will be whichever dish is currently being washed
     public Item sinkInv1, sinkInv2, sinkInv3;
 
-
     public Sink()
     {
         Name = "Sink";

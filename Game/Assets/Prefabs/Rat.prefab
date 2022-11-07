@@ -908,7 +908,7 @@ MonoBehaviour:
   item: 
   isCarryingItem: 0
   hbCanv: {fileID: 8903764017962889403}
-  attackRadius: 1
+  attackRadius: 0.55
   TargetsList: []
   objectiveComplete: 0
   ventsTransform:
