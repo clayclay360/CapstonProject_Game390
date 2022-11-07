@@ -25,6 +25,7 @@ public class Egg : Item
 
     private void Start()
     {
+        base.Start();
         passItems = GameObject.Find("PassItems");
     }
 
@@ -140,22 +141,5 @@ public class Egg : Item
     {
         transform.position = player.transform.position;
         gameObject.SetActive(true);
-    }
-
-    public void CheckCounter()
-    {
-        for (int i = 0; i <= GameManager.counterItems.Length; i++)
-        {
-            if (i >= GameManager.counterItems.Length)
-            {
-                return;
-            }
-
-            if (gameObject.name == GameManager.counterItems[i])
-            {
-                GameManager.counterItems[i] = "";
-                return;
-            }
-        }
     }
 }

@@ -48,6 +48,7 @@ public class Pan : Item
 
     private void Awake()
     {
+        base.Awake();
         progressSlider.GetComponent<Slider>();
         interactionAttemptReady = new bool[interactionMeterEnd.Length];
         cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
@@ -352,20 +353,4 @@ public class Pan : Item
         gameObject.SetActive(true);
     }
 
-    public void CheckCounter()
-    {
-        for (int i = 0; i <= GameManager.counterItems.Length; i++)
-        {
-            if (i >= GameManager.counterItems.Length)
-            {
-                return;
-            }
-
-            if (gameObject.name == GameManager.counterItems[i])
-            {
-                GameManager.counterItems[i] = "";
-                return;
-            }
-        }
-    }
 }
