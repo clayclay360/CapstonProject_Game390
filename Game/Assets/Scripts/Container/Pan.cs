@@ -79,6 +79,10 @@ public class Pan : Item
                         Interaction = "";
                         gameObject.SetActive(false);
                         CheckCounter();
+                        if (counterInUse != null)
+                        {
+                            CheckIndividualCounters(counterInUse);
+                        }
                     }
                 }
                 else
@@ -235,6 +239,10 @@ public class Pan : Item
                         Interaction = "";
                         gameObject.SetActive(false);
                         CheckCounter();
+                        if (counterInUse != null)
+                        {
+                            CheckIndividualCounters(counterInUse);
+                        }
                     }
                 }
                 break;

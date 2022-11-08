@@ -40,6 +40,10 @@ public class Spatula : Item
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.egg:
@@ -49,6 +53,10 @@ public class Spatula : Item
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.pan:
@@ -58,6 +66,10 @@ public class Spatula : Item
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.bacon:
@@ -67,6 +79,10 @@ public class Spatula : Item
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
         }

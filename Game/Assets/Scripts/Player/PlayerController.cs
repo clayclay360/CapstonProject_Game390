@@ -70,6 +70,10 @@ public class PlayerController : MonoBehaviour
     Spatula passSpatula;
     Computer passPages;
 
+    [Header("Counter Top")]
+    public GameObject counterTop;
+    CounterTop counterTopScript;
+
     //Interactions
     [Header("Interactions")]
     public Text interactionText;
@@ -105,6 +109,7 @@ public class PlayerController : MonoBehaviour
 
         GameManager.isTouchingTrashCan = false;
         GameManager.passItemsReady = false;
+        GameManager.putOnCounter = false;
 
         passPan = GameObject.Find("Pan").GetComponentInChildren<Pan>();
         passBacon = GameObject.Find("Bacon").GetComponentInChildren<Bacon>();
@@ -275,7 +280,7 @@ public class PlayerController : MonoBehaviour
         }
         //Debug.LogWarning("OnInteract()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
 
-        if (hand[0] != null && !GameManager.passItemsReady && !readyToInteract)
+        if (hand[0] != null && !GameManager.passItemsReady && !GameManager.putOnCounter && !readyToInteract)
         {
             switch (hand[0].Name)
             {
@@ -304,7 +309,7 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-         if (hand[0] != null && GameManager.passItemsReady && !readyToInteract)
+        if (hand[0] != null && GameManager.passItemsReady && !readyToInteract)
         {
             passItems = GameObject.Find("PassItems");
 
@@ -369,9 +374,11 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-        else
+
+        if (hand[0] != null && GameManager.putOnCounter && !counterTopScript.inUse && readyToInteract)
         {
-            itemInMainHand = ItemInMainHand.empty;
+            counterTopScript.AddToCounterTop(hand[0].ToString());
+            hand[0] = null;
         }
 
         cookBook.ClickOnBook();
@@ -386,7 +393,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook")
+        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook" || other.gameObject.tag == "CounterTop")
         { 
             readyToInteract = true; //assign ready to interact so that isinteracting can be set from OnInteract()
 
@@ -462,6 +469,12 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.passItemsReady = false;
         }
+
+        if (other.gameObject.tag == "CounterTop")
+        {
+            GameManager.putOnCounter = false;
+            counterTopScript.DeleteGameObject();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -475,6 +488,13 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "PassItems")
         {
             GameManager.passItemsReady = true;
+        }
+
+        if (other.gameObject.tag == "CounterTop")
+        {
+            GameManager.putOnCounter = true;
+            counterTopScript = other.gameObject.GetComponent<CounterTop>();
+            counterTopScript.CheckIfInUse();
         }
     }
 
