@@ -2836,7 +2836,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-7020
+  m_Name: pb_Mesh-2334
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9523,6 +9523,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 849393840}
     m_Modifications:
+    - target: {fileID: 4647432269454624993, guid: bf5ead34707a2c34d95a652753c5d893, type: 3}
+      propertyPath: cookTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4647432269454624998, guid: bf5ead34707a2c34d95a652753c5d893, type: 3}
       propertyPath: m_Name
       value: Pan
@@ -10875,7 +10879,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-6996
+  m_Name: pb_Mesh-2310
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11520,7 +11524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4422763601645354035, guid: 81fdbf44d58c1164c8235f9959aa278c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4422763601729473632, guid: 81fdbf44d58c1164c8235f9959aa278c, type: 3}
       propertyPath: m_TagString
