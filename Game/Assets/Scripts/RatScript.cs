@@ -13,6 +13,8 @@ public class RatScript : MonoBehaviour
     public RatHealthBar ratHealthBar;
     public string item;
     public bool isCarryingItem;
+    public Canvas hbCanv;
+    private Vector3 hbarOffset = new Vector3(0f, .5f, -.5f);
 
     [Header("Target")]
     public float attackRadius;
@@ -55,6 +57,8 @@ public class RatScript : MonoBehaviour
     private Transform escapeVent;
     private RatSpawnSystem ratSpawnSystem;
     private GameObject target;
+    private GameObject itemObject;
+    private Item itemScript;
 
     // Start is called before the first frame update
     private void Awake()
@@ -85,6 +89,10 @@ public class RatScript : MonoBehaviour
         //Climbing
         DistanceBetweenTarget();
         ReturnToVent();
+
+        var CanvRot = hbCanv.transform.rotation.eulerAngles;
+        CanvRot.z = -transform.rotation.eulerAngles.y;
+        hbCanv.transform.rotation = Quaternion.Euler(CanvRot);
     }
 
     public void TakeDamage(int damage)
@@ -94,6 +102,16 @@ public class RatScript : MonoBehaviour
 
         if (health <= 0)
         {
+            if(isCarryingItem)
+            {
+                itemObject = GameObject.Find(item);
+                itemScript = itemObject.GetComponent<Item>();
+                itemObject.transform.position = transform.position;
+                itemScript.RespawnItem(itemObject);
+                isCarryingItem = false;
+                item = "";
+                ratHealthBar.SetItemText(item);
+            }
             ratSpawnSystem.numberOfRats--;
             Destroy(gameObject);
         }
@@ -114,7 +132,7 @@ public class RatScript : MonoBehaviour
             }
             else
             {
-                //LookAt();
+                LookAt();
                 Attack();
             }
         }
@@ -220,7 +238,7 @@ public class RatScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Untagged" && other.CompareTag(target.tag))
+        if (other.gameObject == target)
         {
             Debug.Log(gameObject.name + " hit" + other.gameObject.name);
             collider.enabled = false;
@@ -236,10 +254,10 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case "Destination":
-                    if(item != "")
+                    if(isCarryingItem)
                     {
-                        GameObject itemObject = GameObject.Find(item);
-                        Item itemScript = itemObject.GetComponent<Item>();
+                        itemObject = GameObject.Find(item);
+                        itemScript = itemObject.GetComponent<Item>();
                         itemObject.transform.position = other.gameObject.transform.position;
                         itemScript.RespawnItem(itemObject);
                         isCarryingItem = false;
@@ -251,68 +269,73 @@ public class RatScript : MonoBehaviour
 
                 case "Interactable":
                     //Debug.Log("Hit Interactable Object");
-                    switch (other.gameObject.name)
-                    {
-                        case ("Spatula"):
-                            Spatula spatula = other.gameObject.GetComponent<Spatula>();
-                            spatula.status = Item.Status.dirty;
-                            spatula.DespawnItem(other.gameObject);
-                            item = other.gameObject.name;
-                            ratHealthBar.SetItemText(item);
-                            SelectDestination();
-                            isCarryingItem = true;
-                            break;
+                        switch (other.gameObject.name)
+                        {
+                            case ("Spatula"):
+                                Spatula spatula = other.gameObject.GetComponent<Spatula>();
+                                spatula.isTarget = false;
+                                spatula.status = Item.Status.dirty;
+                                spatula.DespawnItem(other.gameObject);
+                                item = other.gameObject.name;
+                                ratHealthBar.SetItemText(item);
+                                SelectDestination();
+                                isCarryingItem = true;
+                                break;
 
-                        case ("Plate"):
-                            Plate plate = other.gameObject.GetComponent<Plate>();
-                            plate.status = Item.Status.dirty;
-                            plate.DespawnItem(other.gameObject);
-                            item = other.gameObject.name;
-                            ratHealthBar.SetItemText(item);
-                            SelectDestination();
-                            isCarryingItem = true;
-                            break;
+                            case ("Plate"):
+                                Plate plate = other.gameObject.GetComponent<Plate>();
+                                plate.isTarget = false;
+                                plate.status = Item.Status.dirty;
+                                plate.DespawnItem(other.gameObject);
+                                item = other.gameObject.name;
+                                ratHealthBar.SetItemText(item);
+                                SelectDestination();
+                                isCarryingItem = true;
+                                break;
 
-                        case ("Pan"):
-                            Pan pan = other.gameObject.GetComponent<Pan>();
-                            pan.status = Item.Status.dirty;
-                            pan.DespawnItem(other.gameObject);
-                            item = other.gameObject.name;
-                            ratHealthBar.SetItemText(item);
-                            SelectDestination();
-                            isCarryingItem = true;
-                            break;
+                            case ("Pan"):
+                                Pan pan = other.gameObject.GetComponent<Pan>();
+                                pan.isTarget = false;
+                                pan.status = Item.Status.dirty;
+                                pan.DespawnItem(other.gameObject);
+                                item = other.gameObject.name;
+                                ratHealthBar.SetItemText(item);
+                                SelectDestination();
+                                isCarryingItem = true;
+                                break;
 
-                        case ("Sink"):
-                            objectiveComplete = true;
-                            break;
+                            case ("Sink"):
+                                objectiveComplete = true;
+                                break;
 
-                        case ("Stove"):
-                            Stove stove = other.gameObject.GetComponent<Stove>();
-                            stove.On = false;
-                            stove.State(stove.On);
-                            objectiveComplete = true;
-                            break;
+                            case ("Stove"):
+                                Stove stove = other.gameObject.GetComponent<Stove>();
+                                stove.On = false;
+                                stove.State(stove.On);
+                                objectiveComplete = true;
+                                break;
 
-                        case ("Egg"):  case ("Egg(Clone)"):
-                            Egg egg = other.gameObject.GetComponent<Egg>();
-                            egg.DespawnItem(other.gameObject);
-                            item = other.gameObject.name;
-                            ratHealthBar.SetItemText(item);
-                            SelectDestination();
-                            isCarryingItem = true;
-                            break;
+                            case ("Egg(Clone)"):
+                                Egg egg = other.gameObject.GetComponent<Egg>();
+                                egg.isTarget = false;
+                                egg.DespawnItem(other.gameObject);
+                                item = other.gameObject.name;
+                                ratHealthBar.SetItemText(item);
+                                SelectDestination();
+                                isCarryingItem = true;
+                                break;
 
-                        case ("Bacon"):
-                            Bacon bacon = other.gameObject.GetComponent<Bacon>();
-                            bacon.DespawnItem(other.gameObject);
-                            item = other.gameObject.name;
-                            ratHealthBar.SetItemText(item);
-                            SelectDestination();
-                            isCarryingItem = true;
-                            break;
-                    }
-                    break;
+                            case ("Bacon(Clone)"):
+                                Bacon bacon = other.gameObject.GetComponent<Bacon>();
+                                bacon.isTarget = false;
+                                bacon.DespawnItem(other.gameObject);
+                                item = other.gameObject.name;
+                                ratHealthBar.SetItemText(item);
+                                SelectDestination();
+                                isCarryingItem = true;
+                                break;
+                        }
+                        break;
             }
         }
     }
@@ -353,24 +376,27 @@ public class RatScript : MonoBehaviour
                     break;
                 
                 case ("Spatula"):
-                    //Don't target if spatula is dirty
-                    if(item.GetComponent<Spatula>().status == Item.Status.dirty)
+                    //Don't target if spatula is dirty, despawned, or being targeted by another rat
+                    Spatula spatula = item.GetComponent<Spatula>();
+                    if (spatula.status == Item.Status.dirty || !spatula.isActive || spatula.isTarget)
                     {
                         removeList.Add(item);
                     }
                     break;
 
                 case ("Plate"):
-                    //Don't target if plate is dirty
-                    if (item.GetComponent<Plate>().status == Item.Status.dirty)
+                    //Don't target if plate is dirty, despawned, or being targeted by another rat
+                    Plate plate = item.GetComponent<Plate>();
+                    if (plate.status == Item.Status.dirty || !plate.isActive || plate.isTarget)
                     {
                         removeList.Add(item);
                     }
                     break;
 
                 case ("Pan"):
-                    //Don't target if pan is dirty
-                    if (item.GetComponent<Pan>().status == Item.Status.dirty)
+                    //Don't target if pan is dirty, despawned, or being targeted by another rat
+                    Pan pan = item.GetComponent<Pan>();
+                    if (pan.status == Item.Status.dirty || !pan.isActive || pan.isTarget)
                     {
                         removeList.Add(item);
                     }
@@ -392,9 +418,14 @@ public class RatScript : MonoBehaviour
                     }
                     break;
 
-                case ("Egg"): case ("Egg(Clone)"):
-                    //Don't target egg if it's despawned
-                    if (!item.GetComponent<Egg>().isActive)
+                case ("Egg"):
+                    removeList.Add(item);
+                    break;
+                
+                case ("Egg(Clone)"):
+                    //Don't target egg if it's despawned or being targeted by another rat
+                    Egg egg = item.GetComponent<Egg>();
+                    if (!egg.isActive || egg.isTarget)
                     {
                         removeList.Add(item);
                     }
@@ -405,8 +436,13 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case ("Bacon"):
-                    //Don't target bacon if it's despawned
-                    if (!item.GetComponent<Bacon>().isActive)
+                    removeList.Add(item);
+                    break;
+
+                case ("Bacon(Clone)"):
+                    //Don't target bacon if it's despawned or being targeted by another rat
+                    Bacon bacon = item.GetComponent<Bacon>();
+                    if (!bacon.isActive || bacon.isTarget)
                     {
                         removeList.Add(item);
                     }
@@ -450,6 +486,10 @@ public class RatScript : MonoBehaviour
         target = targetList[Random.Range(0, targetList.Count)];
 
         Debug.Log(gameObject.name + " is targeting: " + target.name);
+        if(target.GetComponent<Item>() != null)
+        {
+            target.GetComponent<Item>().isTarget = true;
+        }
         Debug.Log(target.transform.position);
     }
 

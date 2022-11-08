@@ -70,6 +70,10 @@ public class PlayerController : MonoBehaviour
     Spatula passSpatula;
     Computer passPages;
 
+    [Header("Counter Top")]
+    public GameObject counterTop;
+    CounterTop counterTopScript;
+
     //Interactions
     [Header("Interactions")]
     public Text interactionText;
@@ -105,6 +109,7 @@ public class PlayerController : MonoBehaviour
 
         GameManager.isTouchingTrashCan = false;
         GameManager.passItemsReady = false;
+        GameManager.putOnCounter = false;
 
         passPan = GameObject.Find("Pan").GetComponentInChildren<Pan>();
         passBacon = GameObject.Find("Bacon").GetComponentInChildren<Bacon>();
@@ -180,13 +185,13 @@ public class PlayerController : MonoBehaviour
         {
             player = Player.PlayerOne;
             GameManager.playerOne = this;
-            transform.position = new Vector3(-5, 0, 0);
+            transform.position = new Vector3(-5f, 0f, 0f);
         }
         else
         {
             player = Player.PlayerTwo;
             GameManager.playerTwo = this;
-            transform.position = new Vector3(1, 0, 0);
+            transform.position = new Vector3(5f, 0f, 0f);
         }
 
         hand[0] = null;
@@ -275,7 +280,7 @@ public class PlayerController : MonoBehaviour
         }
         //Debug.LogWarning("OnInteract()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
 
-        if (hand[0] != null && !GameManager.passItemsReady && !readyToInteract)
+        if (hand[0] != null && !GameManager.passItemsReady && !GameManager.putOnCounter && !readyToInteract)
         {
             switch (hand[0].Name)
             {
@@ -304,30 +309,64 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-         if (hand[0] != null && GameManager.passItemsReady && !readyToInteract)
+        if (hand[0] != null && GameManager.passItemsReady && !readyToInteract)
         {
             passItems = GameObject.Find("PassItems");
 
             switch (hand[0].Name)
             {
                 case "Egg":
-                    passEgg.PassEgg();
+                    if (gm.counterItems.Contains(egg.name))
+                    {
+                        Debug.Log("Contains Egg");
+                    }
+                    else
+                    {
+                        passEgg.PassEgg(AddItemsToCounter(egg.name));
+                    }
                     hand[0] = null;
                     break;
                 case "Spatula":
-                    passSpatula.PassSpatula();
+                    if (gm.counterItems.Contains(spatula.name))
+                    {
+                        Debug.Log("Contains Spatula");
+                    } else
+                    {
+                        passSpatula.PassSpatula(AddItemsToCounter(spatula.name));
+                    }
                     hand[0] = null;
                     break;
                 case "Pan":
-                    passPan.PassPan();
+                    if (gm.counterItems.Contains(pan.name))
+                    {
+                        Debug.Log("Contains Pan");
+                    }
+                    else
+                    {
+                        passPan.PassPan(AddItemsToCounter(pan.name));
+                    }
                     hand[0] = null;
                     break;
                 case "Bacon":
-                    passBacon.PassBacon();
+                    if (gm.counterItems.Contains(bacon.name))
+                    {
+                        Debug.Log("Contains Bacon");
+                    }
+                    else
+                    {
+                        passBacon.PassBacon(AddItemsToCounter(bacon.name));
+                    }
                     hand[0] = null;
                     break;
                 case "Cookbook Pages":
-                    passPages.PassPages();
+                    if (gm.counterItems.Contains(pages.name))
+                    {
+                        Debug.Log("Contains Pages");
+                    }
+                    else
+                    {
+                        passPages.PassPages(AddItemsToCounter(pages.name));
+                    }
                     hand[0] = null;
                     break;
                 default:
@@ -335,15 +374,17 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-        else
+
+        if (hand[0] != null && GameManager.putOnCounter && !counterTopScript.inUse && readyToInteract)
         {
-            itemInMainHand = ItemInMainHand.empty;
+            counterTopScript.AddToCounterTop(hand[0].ToString());
+            hand[0] = null;
         }
 
         cookBook.ClickOnBook();
     }
 
-    public IEnumerable InteractCD()
+    public IEnumerator InteractCD()
     {
         readyToInteract = false;
         yield return new WaitForSeconds(.5f);
@@ -352,7 +393,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook")
+        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook" || other.gameObject.tag == "CounterTop")
         { 
             readyToInteract = true; //assign ready to interact so that isinteracting can be set from OnInteract()
 
@@ -367,7 +408,6 @@ public class PlayerController : MonoBehaviour
                     if (hand[0] == null)
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
-                        Debug.LogError("Penis");
                         Inv1.text = hand[0].Name;
                     }
                     else if (hand[1] == null)
@@ -391,6 +431,14 @@ public class PlayerController : MonoBehaviour
                 interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
             }
             //isInteracting = false;
+        }
+        else if (other.gameObject.tag == "PassItems" && !readyToInteract)
+        {
+            if(other.TryGetComponent(out Window wind))
+            {
+                wind.CheckHand(itemInMainHand, this);
+            }
+            interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
         }
     }
 
@@ -421,6 +469,12 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.passItemsReady = false;
         }
+
+        if (other.gameObject.tag == "CounterTop")
+        {
+            GameManager.putOnCounter = false;
+            counterTopScript.DeleteGameObject();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -434,6 +488,13 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "PassItems")
         {
             GameManager.passItemsReady = true;
+        }
+
+        if (other.gameObject.tag == "CounterTop")
+        {
+            GameManager.putOnCounter = true;
+            counterTopScript = other.gameObject.GetComponent<CounterTop>();
+            counterTopScript.CheckIfInUse();
         }
     }
 
@@ -591,5 +652,26 @@ public class PlayerController : MonoBehaviour
         GameObject orderRef = Instantiate(orderPrefab, orderLayoutGroup.transform);
         Order order = orderRef.GetComponent<Order>();
         order.AssignOrder(name, timer);
+    }
+
+    public int AddItemsToCounter(string checkItem)
+    {
+        int itemLocation = -1;
+
+        for (int i = 0; i <= gm.counterItems.Length; i++)
+        {
+            if (i >= gm.counterItems.Length)
+            {
+                return (itemLocation);
+            }
+
+            if (gm.counterItems[i] == "")
+            {
+                itemLocation = i;
+                gm.counterItems[i] = checkItem;
+                return (itemLocation);
+            }
+        }
+        return (itemLocation);
     }
 }

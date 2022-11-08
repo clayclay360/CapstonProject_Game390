@@ -25,6 +25,7 @@ public class Egg : Item
 
     private void Start()
     {
+        base.Start();
         passItems = GameObject.Find("PassItems");
     }
 
@@ -63,9 +64,13 @@ public class Egg : Item
                 Interaction = "Grab Egg";
                 if (chef.isInteracting)
                 {
-                    Debug.Log("Egg Grabbed");
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.spatula:
@@ -74,6 +79,11 @@ public class Egg : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.pan:
@@ -82,6 +92,11 @@ public class Egg : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.bacon:
@@ -90,6 +105,11 @@ public class Egg : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
         }
@@ -114,10 +134,23 @@ public class Egg : Item
         }
     }
 
-    public void PassEgg()
+    public void PassEgg(int passLocation)
     {
-        transform.position = passItems.transform.position;
-        gameObject.SetActive(true);
+        if (passLocation == 0)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, 0.5f);
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 1)
+        {
+            transform.position = passItems.transform.position;
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 2)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, -0.5f);
+            gameObject.SetActive(true);
+        }
     }
 
     public void DropEggOnGround(GameObject player)

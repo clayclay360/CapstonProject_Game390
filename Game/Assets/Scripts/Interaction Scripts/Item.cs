@@ -5,9 +5,14 @@ using UnityEngine.InputSystem;
 
 public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand, PlayerController>
 {
+    protected GameManager gm;
     public string Name;
     public string Type;
     public float despawnTime;
+
+    [Header("Models")]
+    public GameObject cleanSelf;
+    public GameObject dirtySelf;
 
     [HideInInspector]
     public Vector3 startPosition;
@@ -16,16 +21,24 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
 
     //I'll definetly have to make a food and tool child
     public enum Status {uncooked, cooked, burnt, clean, dirty}
-    [HideInInspector] public Status status;
+    public Status status;
     [HideInInspector] public bool Occupied;
     [HideInInspector] public bool prone;
     [HideInInspector] public bool isActive;
+    [HideInInspector] public bool isTarget;
     [HideInInspector] public string Interaction;
     [HideInInspector] public Utility utilityItemIsOccupying;
     [HideInInspector] public Item toolItemIsOccupying;
     //Sink
     [HideInInspector] public int usesUntilDirty;
     [HideInInspector] public int currUses;
+    [HideInInspector] public GameObject counterInUse;
+
+    public void Awake()
+    {
+        gm = GameManager.Instance;
+    }
+
     public void Start()
     {
         startPosition = transform.position;
@@ -42,6 +55,8 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         if (currUses >= usesUntilDirty)
         {
             status = Status.dirty;
+            cleanSelf.SetActive(false);
+            dirtySelf.SetActive(true);
         }
         //Debug.LogError(currUses + " // " + usesUntilDirty);
     }
@@ -92,5 +107,55 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         {
             meshRenderer.enabled = true;
         }
+    }
+
+    public void CheckCounter()
+    {
+        for (int i = 0; i <= gm.counterItems.Length; i++)
+        {
+            if (i >= gm.counterItems.Length)
+            {
+                return;
+            }
+
+            if (gameObject.name == gm.counterItems[i])
+            {
+                gm.counterItems[i] = "";
+                return;
+            }
+        }
+    }
+
+    public void PlaceOnCounter(GameObject counter)
+    {
+        transform.position = counter.transform.position;
+        gameObject.SetActive(true);
+
+        CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+        counterScript.inUse = true;
+    }
+
+    public void CheckIndividualCounters(GameObject counter)
+    {
+        CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+        if (counterScript.inUse)
+        {
+            counterScript.inUse = false;
+        }
+        else
+        {
+            return;
+        }
+
+    }
+
+    public void HelpRunItemCode(GameObject counter)
+    {
+        counterInUse = counter;
+    }
+
+    public void HelpDeleteGameObject()
+    {
+        counterInUse = null;
     }
 }

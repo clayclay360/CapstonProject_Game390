@@ -12,6 +12,7 @@ TagManager:
   - HidingPoint
   - PassItems
   - Destination
+  - CounterTop
   layers:
   - Default
   - TransparentFX

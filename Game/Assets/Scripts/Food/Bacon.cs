@@ -17,8 +17,9 @@ public class Bacon : Item
         prone = false;
     }
 
-    private void Start()
+    private new void Start()
     {
+        gm = GameManager.Instance;
         passItems = GameObject.Find("PassItems");
     }
 
@@ -59,6 +60,11 @@ public class Bacon : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.spatula:
@@ -67,6 +73,11 @@ public class Bacon : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.pan:
@@ -75,6 +86,11 @@ public class Bacon : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.egg:
@@ -83,6 +99,11 @@ public class Bacon : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
         }
@@ -102,10 +123,23 @@ public class Bacon : Item
         }
     }
 
-    public void PassBacon()
+    public void PassBacon(int passLocation)
     {
-        transform.position = passItems.transform.position;
-        gameObject.SetActive(true);
+        if (passLocation == 0)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, 0.5f);
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 1)
+        {
+            transform.position = passItems.transform.position;
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 2)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, -0.5f);
+            gameObject.SetActive(true);
+        }
     }
 
     public void DropBaconOnGround(GameObject player)
@@ -113,4 +147,5 @@ public class Bacon : Item
         transform.position = player.transform.position;
         gameObject.SetActive(true);
     }
+
 }

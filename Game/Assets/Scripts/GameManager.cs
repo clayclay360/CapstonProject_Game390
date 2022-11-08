@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public static bool isTouchingTrashCan;
     public static bool passItemsReady;
+    public string[] counterItems = { "", "", ""};
+    public static bool putOnCounter;
 
     public static bool recipeIsOpenP1;
     public static bool isTouchingBook;
@@ -128,4 +130,6 @@ public class GameManager : MonoBehaviour
     {
         return item.status == Item.Status.dirty;
     }
+    
+    
 }
