@@ -3072,8 +3072,8 @@ GameObject:
   - component: {fileID: 8313516844159529846}
   - component: {fileID: 8313516844159529847}
   - component: {fileID: 8313516844159529844}
-  - component: {fileID: 7927454286247336878}
   - component: {fileID: 3256998693948647019}
+  - component: {fileID: 498346989685536266}
   - component: {fileID: 1784961426118152710}
   - component: {fileID: 6843540600272842107}
   m_Layer: 8
@@ -3204,20 +3204,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player Controls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 6666133080782141945}
---- !u!136 &7927454286247336878
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8313516844159529845}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.72
-  m_Height: 2.04
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0.1}
 --- !u!54 &3256998693948647019
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3232,8 +3218,21 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!65 &498346989685536266
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313516844159529845}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.6017582, z: 0.68218285}
+  m_Center: {x: 0, y: 0.93016195, z: 0.14109153}
 --- !u!120 &1784961426118152710
 LineRenderer:
   m_ObjectHideFlags: 0
