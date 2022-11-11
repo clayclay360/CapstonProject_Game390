@@ -9,18 +9,18 @@ public class Entryway : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Don't enter this code unless the object is a rat that hasn't done this before
+        //Don't enter this code unless the object is a rat
         if (other.gameObject.GetComponentInParent<RatScript>() != null  && !hasTriggered)
         {
             RatScript rat = other.gameObject.GetComponentInParent<RatScript>();
 
-            if (!rat.hiding && !rat.objectiveComplete && !rat.isCarryingItem)
+            //Don't continue if the rat is hiding, carrying an item, returning to a vent, or has already gone through this trigger
+            if (!rat.hiding && !rat.objectiveComplete && !rat.isCarryingItem && !hasTriggered)
             {
+                hasTriggered = true;
                 rat.CrossEntryway();
             }
         }
-        //Disable trigger
-        hasTriggered = true;
     }
     private void OnTriggerExit(Collider other)
     {
