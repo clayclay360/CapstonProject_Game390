@@ -513,7 +513,7 @@ public class RatScript : MonoBehaviour
         agent.destination = transform.position;
         int chance = Random.Range(1, 100);
 
-        if (chance >= 0)
+        if (chance >= 90)
         {
             Debug.Log(gameObject.name + " fled");
 
