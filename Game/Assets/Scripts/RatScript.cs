@@ -10,17 +10,18 @@ public class RatScript : MonoBehaviour
 
     [Header("Stats")]
     public int health;
+    public RatHealthBar ratHealthBar;
+    public string item;
+    public bool isCarryingItem;
+    public Canvas hbCanv;
+    private Vector3 hbarOffset = new Vector3(0f, .5f, -.5f);
 
     [Header("Target")]
     public float attackRadius;
-    public GameObject[] TargetsList;
+    public List<GameObject> TargetsList;
+    public GameObject target;
     public bool objectiveComplete;
     public GameObject[] ventsTransform;
-
-    [Header("RayCast")]
-    public float rayDistance;
-    public Transform starRay;
-    public Transform endRay;
 
     [Header("Off Mesh Link")]
     public OffMeshLink offMeshLink;
@@ -43,6 +44,7 @@ public class RatScript : MonoBehaviour
     public GameObject[] hidingPointsList;
     public float minHideTimer;
     public float maxHideTimer;
+    public bool hiding;
 
     private float distanceBetweenTarget;
     private float startHeight;
@@ -50,14 +52,14 @@ public class RatScript : MonoBehaviour
     private bool linkActivated;
     private bool climbing;
     private bool attackReady;
-    private bool hiding;
+    private bool hasReachedVent;
 
     private NavMeshAgent agent;
     private MeshRenderer climbableTargetMesh;
     private Transform escapeVent;
     private RatSpawnSystem ratSpawnSystem;
-    private GameObject targetPrefab;
-    private GameObject target;
+    private GameObject itemObject;
+    private Item itemScript;
 
     // Start is called before the first frame update
     private void Awake()
@@ -65,18 +67,20 @@ public class RatScript : MonoBehaviour
         startHeight = transform.position.y;
         attackReady = true;
         hiding = false;
+        climbing = false;
+        hasReachedVent = false;
 
         //GetTarget();
         ventsTransform = GameObject.FindGameObjectsWithTag("RatVent");
         ratSpawnSystem = FindObjectOfType<RatSpawnSystem>();
         agent = GetComponent<NavMeshAgent>();
         offMeshLink.GetComponent<OffMeshLink>();
-        starRay.GetComponent<Transform>();
-        endRay.GetComponent<Transform>();
         startLink.GetComponent<Transform>();
         endLink.GetComponent<Transform>();
-        SetTarget(TargetsList);
+        AdjustTargetList(TargetsList);
         hidingPointsList = GameObject.FindGameObjectsWithTag("HidingPoint");
+
+        ratHealthBar.SetMaxHealth(health);
     }
 
     // Update is called once per frame
@@ -87,14 +91,30 @@ public class RatScript : MonoBehaviour
         //Climbing
         DistanceBetweenTarget();
         ReturnToVent();
+
+        var CanvRot = hbCanv.transform.rotation.eulerAngles;
+        CanvRot.z = -transform.rotation.eulerAngles.y;
+        hbCanv.transform.rotation = Quaternion.Euler(CanvRot);
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
+        ratHealthBar.SetHealth(health);
+        hiding = false;
 
         if (health <= 0)
         {
+            if(isCarryingItem)
+            {
+                itemObject = GameObject.Find(item);
+                itemScript = itemObject.GetComponent<Item>();
+                itemObject.transform.position = transform.position;
+                itemScript.RespawnItem(itemObject);
+                isCarryingItem = false;
+                item = "";
+                ratHealthBar.SetItemText(item);
+            }
             ratSpawnSystem.numberOfRats--;
             Destroy(gameObject);
         }
@@ -115,7 +135,7 @@ public class RatScript : MonoBehaviour
             }
             else
             {
-                //LookAt();
+                LookAt();
                 Attack();
             }
         }
@@ -130,21 +150,28 @@ public class RatScript : MonoBehaviour
         agent.destination = target.transform.position;
     }
 
-    private void RayCast()
+    private void LookForClosestClimbableObject()
     {
-        RaycastHit hit;
+        Collider closestCollider = null;
+        float radius = climbRaduis;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, climbRaduis);
 
-        if (Physics.Linecast(starRay.position, endRay.position, out hit))
+        foreach(Collider collider in colliders)
         {
-            if (hit.collider != null)
+            if(Vector3.Distance(transform.position, collider.ClosestPoint(transform.position)) < radius)
             {
-                if (hit.collider.gameObject.tag == "Climbable" && !climbing)
+                if (collider.gameObject.CompareTag("Climbable"))
                 {
-                    climbableTargetMesh = hit.transform.gameObject.GetComponent<MeshRenderer>(); ;
+                    radius = Vector3.Distance(transform.position, collider.ClosestPoint(transform.position));
+                    closestCollider = collider;
                 }
             }
         }
-        Debug.DrawLine(starRay.position, endRay.position);
+
+        if (!climbing)
+        {
+            climbableTargetMesh = closestCollider.gameObject.GetComponent<MeshRenderer>();
+        }
     }
 
     private void DistanceBetweenTarget()
@@ -157,7 +184,7 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    Debug.Log("climb");
+                    Debug.Log(gameObject.name + " climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
                 }
@@ -169,11 +196,23 @@ public class RatScript : MonoBehaviour
     {
         Vector3 dir = target.transform.position - transform.position;
         dir.Normalize();
-        startLink.position = new Vector3(body.transform.position.x, body.transform.position.y - startHeight, body.transform.position.z + startLinkOffset);
-        RayCast();
+        startLink.position = transform.position;
+        LookForClosestClimbableObject();
         if (climbableTargetMesh != null)
         {
-            endLink.position = new Vector3((dir.x + transform.localPosition.x), climbableTargetMesh.bounds.size.y + transform.position.y, (dir.z + transform.localPosition.z));
+            Transform[] jumpPoints = climbableTargetMesh.GetComponentsInChildren<Transform>();
+            float radius = climbRaduis * 3;
+            Transform closestJumpPoint = null;
+            foreach (Transform jumpPoint in jumpPoints)
+            {
+                if (Vector3.Distance(transform.position, jumpPoint.position) < radius && jumpPoint.transform.position.y > 0.5)
+                {
+                    radius = Vector3.Distance(transform.position, jumpPoint.position);
+                    closestJumpPoint = jumpPoint;
+                }
+            }
+
+            endLink.position = closestJumpPoint.position;
         }
         else
         {
@@ -202,9 +241,9 @@ public class RatScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != null && other.CompareTag(target.tag))
+        if (other.gameObject == target)
         {
-            Debug.Log("hit");
+            Debug.Log(gameObject.name + " hit" + other.gameObject.name);
             collider.enabled = false;
             switch (target.tag)
             {
@@ -216,27 +255,90 @@ public class RatScript : MonoBehaviour
                         objectiveComplete = true;
                     }
                     break;
+
+                case "Destination":
+                    if(isCarryingItem)
+                    {
+                        itemObject = GameObject.Find(item);
+                        itemScript = itemObject.GetComponent<Item>();
+                        itemObject.transform.position = other.gameObject.transform.position;
+                        itemScript.RespawnItem(itemObject);
+                        isCarryingItem = false;
+                        item = "";
+                        ratHealthBar.SetItemText(item);
+                    }
+                    objectiveComplete = true;
+                    break;
+
                 case "Interactable":
                     //Debug.Log("Hit Interactable Object");
-                    if(other.TryGetComponent<InventoryItem>(out InventoryItem invitem))
-                    {
-                        //Debug.Log("Hit Inventory Item.");
-                        other.gameObject.SetActive(false);
-                        objectiveComplete = true;
-                    }
-                    else if(other.TryGetComponent<Utility>(out Utility util))
-                    {
-                        //Debug.Log("Hit Utility.");
-                        switch (target.name)
+                        switch (other.gameObject.name)
                         {
-                            case "Stove":
-                                target.GetComponent<Stove>().On = false;
-                                target.GetComponent<Stove>().State(false);
+                            case ("Spatula"):
+                                Spatula spatula = other.gameObject.GetComponent<Spatula>();
+                                spatula.isTarget = false;
+                                spatula.status = Item.Status.dirty;
+                                spatula.DespawnItem(other.gameObject);
+                                item = other.gameObject.name;
+                                ratHealthBar.SetItemText(item);
+                                SelectDestination();
+                                isCarryingItem = true;
+                                break;
+
+                            case ("Plate"):
+                                Plate plate = other.gameObject.GetComponent<Plate>();
+                                plate.isTarget = false;
+                                plate.status = Item.Status.dirty;
+                                plate.DespawnItem(other.gameObject);
+                                item = other.gameObject.name;
+                                ratHealthBar.SetItemText(item);
+                                SelectDestination();
+                                isCarryingItem = true;
+                                break;
+
+                            case ("Pan"):
+                                Pan pan = other.gameObject.GetComponent<Pan>();
+                                pan.isTarget = false;
+                                pan.status = Item.Status.dirty;
+                                pan.DespawnItem(other.gameObject);
+                                item = other.gameObject.name;
+                                ratHealthBar.SetItemText(item);
+                                SelectDestination();
+                                isCarryingItem = true;
+                                break;
+
+                            case ("Sink"):
                                 objectiveComplete = true;
                                 break;
+
+                            case ("Stove"):
+                                Stove stove = other.gameObject.GetComponent<Stove>();
+                                stove.On = false;
+                                stove.State(stove.On);
+                                objectiveComplete = true;
+                                break;
+
+                            case ("Egg(Clone)"):
+                                Egg egg = other.gameObject.GetComponent<Egg>();
+                                egg.isTarget = false;
+                                egg.DespawnItem(other.gameObject);
+                                item = other.gameObject.name;
+                                ratHealthBar.SetItemText(item);
+                                SelectDestination();
+                                isCarryingItem = true;
+                                break;
+
+                            case ("Bacon(Clone)"):
+                                Bacon bacon = other.gameObject.GetComponent<Bacon>();
+                                bacon.isTarget = false;
+                                bacon.DespawnItem(other.gameObject);
+                                item = other.gameObject.name;
+                                ratHealthBar.SetItemText(item);
+                                SelectDestination();
+                                isCarryingItem = true;
+                                break;
                         }
-                    }
-                    break;
+                        break;
             }
         }
     }
@@ -252,15 +354,150 @@ public class RatScript : MonoBehaviour
     private void LookAt()
     {
         Vector2 dir = target.transform.position - transform.position;
-        transform.up = dir;
+        transform.forward = dir;
     }
 
-    public void SetTarget(GameObject[] targetList)
+    public void AdjustTargetList(List<GameObject> targetList)
     {
-        targetPrefab = targetList[Random.Range(0, targetList.Length)];
-        target = GameObject.Find(targetPrefab.name);
+        //Get all interactable items and the cookbook
+        GameObject[] targetarray =  GameObject.FindGameObjectsWithTag("Interactable");
+        targetList.AddRange(targetarray);
+        targetList.Add(GameObject.FindGameObjectWithTag("CookBook"));
 
-        //Debug.Log("Rat is targeting: " + target.name);
+        //Remove items that we don't want the rats targeting in a given surcunstance.
+        List<GameObject> removeList = new List<GameObject> { };
+        foreach (GameObject item in targetList)
+        {
+            switch (item.name)
+            {
+                case ("CookBook"):
+                    //Don't target cookbook if it's destroyed
+                    if (!GameManager.cookBookActive)
+                    {
+                        removeList.Add(item);
+                    }
+                    break;
+                
+                case ("Spatula"):
+                    //Don't target if spatula is dirty, despawned, or being targeted by another rat
+                    Spatula spatula = item.GetComponent<Spatula>();
+                    if (spatula.status == Item.Status.dirty || !spatula.isActive || spatula.isTarget)
+                    {
+                        removeList.Add(item);
+                    }
+                    break;
+
+                case ("Plate"):
+                    //Don't target if plate is dirty, despawned, or being targeted by another rat
+                    Plate plate = item.GetComponent<Plate>();
+                    if (plate.status == Item.Status.dirty || !plate.isActive || plate.isTarget)
+                    {
+                        removeList.Add(item);
+                    }
+                    break;
+
+                case ("Plate(Clone)"):
+                    removeList.Add(item);
+                    break;
+
+                case ("Pan"):
+                    //Don't target if pan is dirty, despawned, or being targeted by another rat
+                    Pan pan = item.GetComponent<Pan>();
+                    if (pan.status == Item.Status.dirty || !pan.isActive || pan.isTarget)
+                    {
+                        removeList.Add(item);
+                    }
+                    break;
+
+                case ("Sink"):
+                    //Don't target sink if it's off
+                    if (!item.GetComponent<Sink>().On)
+                    {
+                        removeList.Add(item);
+                    }
+                    break;
+
+                case ("Stove"):
+                    //Don't target stove if it's off
+                    if (!item.GetComponent<Stove>().On)
+                    {
+                        removeList.Add(item);
+                    }
+                    break;
+
+                case ("Egg"):
+                    removeList.Add(item);
+                    break;
+                
+                case ("Egg(Clone)"):
+                    //Don't target egg if it's despawned or being targeted by another rat
+                    Egg egg = item.GetComponent<Egg>();
+                    if (!egg.isActive || egg.isTarget)
+                    {
+                        removeList.Add(item);
+                    }
+                    break;
+
+                case ("TrashCan"):
+                    removeList.Add(item);
+                    break;
+
+                case ("Bacon"):
+                    removeList.Add(item);
+                    break;
+
+                case ("Bacon(Clone)"):
+                    //Don't target bacon if it's despawned or being targeted by another rat
+                    Bacon bacon = item.GetComponent<Bacon>();
+                    if (!bacon.isActive || bacon.isTarget)
+                    {
+                        removeList.Add(item);
+                    }
+                    break;
+
+                case ("Fridge"):
+                    removeList.Add(item);
+                    break;
+
+                case ("Computer"):
+                    removeList.Add(item);
+                    break;
+            }
+
+            if (item == target)
+            {
+                removeList.Add(item);
+            }
+        }
+        foreach (GameObject item in removeList)
+        {
+            if (targetList.Contains(item))
+            {
+                targetList.Remove(item);
+            }
+        }
+
+        SetTarget(targetList);
+    }
+
+    public void SelectDestination()
+    {
+        GameObject[] destinationsList = GameObject.FindGameObjectsWithTag("Destination");
+        int destinationIndex = Random.Range(0, destinationsList.Length);
+
+        target = destinationsList[destinationIndex];
+    }
+
+    public void SetTarget(List<GameObject> targetList)
+    {
+        target = targetList[Random.Range(0, targetList.Count)];
+
+        Debug.Log(gameObject.name + " is targeting: " + target.name);
+        if(target.GetComponent<Item>() != null)
+        {
+            target.GetComponent<Item>().isTarget = true;
+        }
+        Debug.Log(target.transform.position);
     }
 
     public void CrossEntryway()
@@ -276,36 +513,23 @@ public class RatScript : MonoBehaviour
         agent.destination = transform.position;
         int chance = Random.Range(1, 100);
 
-        if (chance >= 100)
+        if (chance >= 90)
         {
-            Debug.Log("Fled");
+            Debug.Log(gameObject.name + " fled");
 
             target = null;
             ReturnToVent();
         }
-        else if (chance >= 100)
+        else if (chance >= 70)
         {
-            Debug.Log("Changed Target");
+            Debug.Log(gameObject.name + " changed Target");
 
-            //Make new target list
-            GameObject[] NewTargetsList = new GameObject[TargetsList.Length -1];
-            int count = 0;
-            for (int i = 0; i < TargetsList.Length; i++)
-            { 
-                //Ensure original target is not on list
-                if (TargetsList[i] != targetPrefab)
-                {
-                    //Add potential targets to new list
-                    NewTargetsList.SetValue(TargetsList[i], count);
-                    count++;
-                }
-            }
-            //Pick target from new list
-            SetTarget(NewTargetsList);
+            //Pick new target from list
+            AdjustTargetList(TargetsList);
         }
         else
         {
-            Debug.Log("Kept going");
+            Debug.Log(gameObject.name + " kept going");
         }
 
         yield return new WaitForSeconds(1f);
@@ -314,29 +538,37 @@ public class RatScript : MonoBehaviour
     public void Hide()
     {
         hideTime = Random.Range(minHideTimer, maxHideTimer);
-        int hideindex = Random.Range(0, hidingPointsList.Length);
+        int hideIndex = Random.Range(0, hidingPointsList.Length);
 
         hiding = true;
-        agent.destination = hidingPointsList[hideindex].transform.position;
-        agent.speed = 4;
+        if (hiding)
+        {
+            agent.destination = hidingPointsList[hideIndex].transform.position;
+            //agent.speed = agent.speed * 2;
+            //agent.angularSpeed = agent.angularSpeed * 2;
+        }
 
         StartCoroutine(HideTimer());
     }
 
     public IEnumerator HideTimer()
     {
-        float distanceToHidingPoint = Vector3.Distance(transform.position, agent.destination);
-        bool reachedHidingPoint = false;
-        while (distanceToHidingPoint > 0.5 && !reachedHidingPoint)
+        while (hiding)
         {
-            distanceToHidingPoint = Vector3.Distance(transform.position, agent.destination);
-            yield return null;
+            float distanceToHidingPoint = Vector3.Distance(transform.position, agent.destination);
+            bool reachedHidingPoint = false;
+            while (distanceToHidingPoint > 0.5 && !reachedHidingPoint)
+            {
+                distanceToHidingPoint = Vector3.Distance(transform.position, agent.destination);
+                yield return null;
+            }
+            reachedHidingPoint = true;
+            yield return new WaitForSeconds(hideTime);
+            agent.destination = target.transform.position;
+            hiding = false;
+            //agent.speed = agent.speed / 2;
+            //agent.angularSpeed = agent.angularSpeed / 2;
         }
-        reachedHidingPoint = true;
-        yield return new WaitForSeconds(hideTime);
-        agent.destination = target.transform.position;
-        hiding = false;
-        agent.speed = 2;
     }
 
     public void ReturnToVent()
@@ -356,8 +588,9 @@ public class RatScript : MonoBehaviour
 
             agent.destination = escapeVent.position;
 
-            if (Vector3.Distance(transform.position, escapeVent.transform.position) < attackRadius)
+            if (Vector3.Distance(transform.position, escapeVent.transform.position) < attackRadius  &&!hasReachedVent)
             {
+                hasReachedVent = true;
                 ratSpawnSystem.numberOfRats--;
                 Destroy(gameObject);
             }

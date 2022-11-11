@@ -202,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2557686711327224517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.04, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0132, z: 0}
   m_LocalScale: {x: 0.25, y: 0.05, z: 0.25}
   m_Children:
   - {fileID: 2557686710425719548}
@@ -284,7 +284,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2557686712286819358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.04, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0064, z: 0}
   m_LocalScale: {x: 0.25, y: 0.05, z: 0.15}
   m_Children: []
   m_Father: {fileID: 9193496973303149583}
@@ -416,13 +416,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Egg
   Type: Food
-  Height: 0
+  despawnTime: 2
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
   status: 0
   Occupied: 0
-  Prone: 0
+  prone: 0
+  isActive: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
+  usesUntilDirty: 0
+  currUses: 0
   Form:
   - {fileID: 2557686710460750971}
   - {fileID: 2557686711327224517}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5845323697461641057}
   - component: {fileID: 1352716761}
   - component: {fileID: 1352716762}
+  - component: {fileID: 2242809337484976740}
   m_Layer: 0
   m_Name: Spatula
   m_TagString: Interactable
@@ -25,14 +26,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9031513021252998085}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0.7071068, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4998905599694363265}
+  - {fileID: 1802585043855215752}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: -90}
 --- !u!135 &1352716761
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -60,13 +62,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Spatula
   Type: Tool
+  despawnTime: 0
+  cleanSelf: {fileID: 5626260943346204731}
+  dirtySelf: {fileID: 4284445408655221864}
   startPosition: {x: 0, y: 0, z: 0}
-  status: 0
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
+  status: 3
   Occupied: 0
-  Prone: 0
+  prone: 0
+  isActive: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
+  usesUntilDirty: 0
+  currUses: 0
+--- !u!135 &2242809337484976740
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031513021252998085}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1001 &4815781031082933610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -122,10 +144,90 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spatula
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ec4e0157dd48aff46b35633ebf0852c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec4e0157dd48aff46b35633ebf0852c8, type: 3}
+--- !u!1 &5626260943346204731 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ec4e0157dd48aff46b35633ebf0852c8, type: 3}
+  m_PrefabInstance: {fileID: 4815781031082933610}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4998905599694363265 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ec4e0157dd48aff46b35633ebf0852c8, type: 3}
   m_PrefabInstance: {fileID: 4815781031082933610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8504941497279122755
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5845323697461641057}
+    m_Modifications:
+    - target: {fileID: 5580794868122233131, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_Name
+      value: Dirty_Spatula
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580794868122233131, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+--- !u!1 &4284445408655221864 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5580794868122233131, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+  m_PrefabInstance: {fileID: 8504941497279122755}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1802585043855215752 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7999394279982170571, guid: b5b5192908890fa49b9f5ff3468a354d, type: 3}
+  m_PrefabInstance: {fileID: 8504941497279122755}
   m_PrefabAsset: {fileID: 0}

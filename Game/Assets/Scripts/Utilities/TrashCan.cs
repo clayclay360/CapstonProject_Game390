@@ -22,6 +22,7 @@ public class TrashCan : Utility
         if (chef.hand[0] != null)
         {
             Interaction = "Throw " + chef.hand[0].Name + " Away";
+            GameManager.isTouchingTrashCan = true;
 
             if (chef.isInteracting)
             {
@@ -42,6 +43,7 @@ public class TrashCan : Utility
                 chef.hand[0] = null;
                 chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                 Interaction = "";
+                chef.isInteracting = false;
             }
         }
     }

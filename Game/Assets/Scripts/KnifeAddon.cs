@@ -34,6 +34,10 @@ public class KnifeAddon : MonoBehaviour
         else
         targetHit = true;
 
+        rb.isKinematic = true;
+
+        transform.SetParent(collision.transform);
+
         
 
         if(collision.gameObject.GetComponent<RatScript>() != null)
@@ -46,7 +50,7 @@ public class KnifeAddon : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Invoke(nameof(DestroyKnife), 0.7f);
+        Invoke(nameof(DestroyKnife), 0.5f);
 
     }
 
@@ -54,10 +58,13 @@ public class KnifeAddon : MonoBehaviour
     {
         if (other.gameObject.GetComponentInParent<RatScript>() != null)
         {
-            Debug.Log("Rat scared");
             RatScript enemy = other.gameObject.GetComponentInParent<RatScript>();
 
-            enemy.Hide();
+            if (!enemy.hiding)
+            {
+                Debug.Log("Rat scared");
+                enemy.Hide();
+            }
         }
     }
 

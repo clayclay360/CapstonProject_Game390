@@ -10,6 +10,7 @@ public class Egg : Item
     public GameObject[] Form;
     public enum State { shell, yoke, omelet };
     public State state;
+    private GameObject passItems;
 
     PlayerController player;
     public Egg()
@@ -18,8 +19,14 @@ public class Egg : Item
         Type = "Food";
         Interaction = "";
         status = Status.uncooked;
-        Prone = false;
+        prone = false;
         state = State.shell;
+    }
+
+    private void Start()
+    {
+        base.Start();
+        passItems = GameObject.Find("PassItems");
     }
 
     public void Update()
@@ -57,9 +64,13 @@ public class Egg : Item
                 Interaction = "Grab Egg";
                 if (chef.isInteracting)
                 {
-                    Debug.Log("Egg Grabbed");
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.spatula:
@@ -68,6 +79,11 @@ public class Egg : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.pan:
@@ -76,6 +92,24 @@ public class Egg : Item
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
+                }
+                break;
+            case PlayerController.ItemInMainHand.bacon:
+                Interaction = "Grab Egg";
+                if (chef.isInteracting)
+                {
+                    gameObject.SetActive(false);
+                    Interaction = "";
+                    CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
         }
@@ -93,9 +127,35 @@ public class Egg : Item
                 Form[1].SetActive(true);
                 break;
             case State.omelet:
+                Name = "Omelet";
                 Form[1].SetActive(false);
                 Form[2].SetActive(true);
                 break;
         }
+    }
+
+    public void PassEgg(int passLocation)
+    {
+        if (passLocation == 0)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, 0.5f);
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 1)
+        {
+            transform.position = passItems.transform.position;
+            gameObject.SetActive(true);
+        }
+        else if (passLocation == 2)
+        {
+            transform.position = passItems.transform.position + new Vector3(0, 0, -0.5f);
+            gameObject.SetActive(true);
+        }
+    }
+
+    public void DropEggOnGround(GameObject player)
+    {
+        transform.position = player.transform.position;
+        gameObject.SetActive(true);
     }
 }

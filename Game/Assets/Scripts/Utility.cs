@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Utility : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand,PlayerController>
 {
-
+    protected GameManager gm;
     //declares interaction type: 1 for hold button for event, 2 for rapidly press button for event, or 3 for dispose of item
     public int interactionType;
 
@@ -15,7 +15,6 @@ public class Utility : MonoBehaviour, IInteractable<PlayerController.ItemInMainH
     //tracks progress
     private int progress = 0;
     private int complete = 10;
-
 
     public string Name;
     public float Height;
@@ -47,12 +46,29 @@ public class Utility : MonoBehaviour, IInteractable<PlayerController.ItemInMainH
     // Start is called before the first frame update
     void Start()
     {
-
+        gm = GameManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void CheckCounter()
+    {
+        for (int i = 0; i <= gm.counterItems.Length; i++)
+        {
+            if (i >= gm.counterItems.Length)
+            {
+                return;
+            }
+
+            if (gameObject.name == gm.counterItems[i])
+            {
+                gm.counterItems[i] = "";
+                return;
+            }
+        }
     }
 }

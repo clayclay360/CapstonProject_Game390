@@ -15,7 +15,7 @@ public class Stove :Utility
     public void Start()
     {
         //ps.GetComponent<ParticleSystem>();
-        cookBook = GameObject.Find("DetectCollision").GetComponent<RecipeBook>();
+        cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
     }
 
     public Stove()
@@ -74,6 +74,14 @@ public class Stove :Utility
                     }
                     break;
                 case PlayerController.ItemInMainHand.egg:
+                    Interaction = "Turn Off Stove";
+                    if (chef.isInteracting)
+                    {
+                        On = false;
+                        State(On);
+                    }
+                    break;
+                case PlayerController.ItemInMainHand.bacon:
                     Interaction = "Turn Off Stove";
                     if (chef.isInteracting)
                     {
