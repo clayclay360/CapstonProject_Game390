@@ -926,8 +926,8 @@ MonoBehaviour:
   collider: {fileID: 4749945232554853721}
   hidingPointsList:
   - {fileID: 0}
-  minHideTimer: 3
-  maxHideTimer: 5
+  minHideTimer: 1
+  maxHideTimer: 3
   hiding: 0
 --- !u!195 &4064905241100655121
 NavMeshAgent:

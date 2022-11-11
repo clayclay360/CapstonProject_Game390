@@ -32,6 +32,7 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     //Sink
     [HideInInspector] public int usesUntilDirty;
     [HideInInspector] public int currUses;
+    [HideInInspector] public GameObject counterInUse;
 
     public void Awake()
     {
@@ -123,5 +124,38 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
                 return;
             }
         }
+    }
+
+    public void PlaceOnCounter(GameObject counter)
+    {
+        transform.position = counter.transform.position;
+        gameObject.SetActive(true);
+
+        CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+        counterScript.inUse = true;
+    }
+
+    public void CheckIndividualCounters(GameObject counter)
+    {
+        CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+        if (counterScript.inUse)
+        {
+            counterScript.inUse = false;
+        }
+        else
+        {
+            return;
+        }
+
+    }
+
+    public void HelpRunItemCode(GameObject counter)
+    {
+        counterInUse = counter;
+    }
+
+    public void HelpDeleteGameObject()
+    {
+        counterInUse = null;
     }
 }

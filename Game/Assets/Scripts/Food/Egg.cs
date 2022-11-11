@@ -67,6 +67,10 @@ public class Egg : Item
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.spatula:
@@ -76,6 +80,10 @@ public class Egg : Item
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.pan:
@@ -85,6 +93,10 @@ public class Egg : Item
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
             case PlayerController.ItemInMainHand.bacon:
@@ -94,6 +106,10 @@ public class Egg : Item
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
+                    if (counterInUse != null)
+                    {
+                        CheckIndividualCounters(counterInUse);
+                    }
                 }
                 break;
         }
