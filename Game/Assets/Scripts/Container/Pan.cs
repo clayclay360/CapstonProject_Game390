@@ -76,6 +76,7 @@ public class Pan : Item
                             utilityItemIsOccupying.Occupied = false;
                             utilityItemIsOccupying = null;
                         }
+                        state = State.cold;
                         Interaction = "";
                         gameObject.SetActive(false);
                         CheckCounter();
