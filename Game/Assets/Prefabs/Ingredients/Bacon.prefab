@@ -31,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 2016917738324942981}
   - {fileID: 543450652752890535}
+  - {fileID: 5679697835071668315}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -62,20 +63,25 @@ MonoBehaviour:
   Name: Bacon
   Type: Food
   despawnTime: 2
+  cleanSelf: {fileID: 0}
+  dirtySelf: {fileID: 0}
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
   status: 0
   Occupied: 0
   prone: 0
   isActive: 0
+  isTarget: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
   usesUntilDirty: 0
   currUses: 0
+  counterInUse: {fileID: 0}
   Form:
   - {fileID: 919132149036748829}
   - {fileID: 1204245967260006975}
+  - {fileID: 5015188893686880993}
 --- !u!1001 &955723084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -241,4 +247,75 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
   m_PrefabInstance: {fileID: 2051176884577208174}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5285236309499963312
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2051176884005050768}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_Name
+      value: BurntBacon
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+--- !u!1 &5015188893686880993 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+  m_PrefabInstance: {fileID: 5285236309499963312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5679697835071668315 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a7026d5c5cd838d4383aaa43759c0c6a, type: 3}
+  m_PrefabInstance: {fileID: 5285236309499963312}
   m_PrefabAsset: {fileID: 0}
