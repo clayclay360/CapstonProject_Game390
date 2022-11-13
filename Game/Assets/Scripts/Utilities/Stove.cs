@@ -22,6 +22,7 @@ public class Stove :Utility
     {
         Name = "Stove";
         On = false;
+        Off = true;
         Occupied = false;
         Interaction = "";
     }
@@ -52,6 +53,7 @@ public class Stove :Utility
                     }
                     break;
             }
+
         }
         else
         {
@@ -71,6 +73,7 @@ public class Stove :Utility
                     {
                         On = false;
                         State(On);
+
                     }
                     break;
                 case PlayerController.ItemInMainHand.egg:

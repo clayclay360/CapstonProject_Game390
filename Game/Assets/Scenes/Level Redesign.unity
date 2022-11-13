@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2835,7 +2835,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4922
+  m_Name: pb_Mesh-2264
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4332,10 +4332,10 @@ MonoBehaviour:
   - {fileID: 7108395}
   foodPrefab:
   - {fileID: 6695557742826816012}
-  - {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+  - {fileID: 1622488777}
   foodClone:
   - {fileID: 6695557742826816012}
-  - {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+  - {fileID: 1622488777}
 --- !u!4 &603892303
 Transform:
   m_ObjectHideFlags: 0
@@ -10408,7 +10408,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4898
+  m_Name: pb_Mesh-2240
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10824,6 +10824,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 849393840}
     m_Modifications:
     - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+      propertyPath: status
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
       propertyPath: despawnTime
       value: 2
       objectReference: {fileID: 0}
@@ -10857,7 +10861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2051176884005050768, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.35
+      value: 1.4373
       objectReference: {fileID: 0}
     - target: {fileID: 2051176884005050768, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10894,6 +10898,10 @@ PrefabInstance:
     - target: {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
       propertyPath: m_Name
       value: Bacon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5015188893686880993, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
@@ -11497,7 +11505,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24278
+  m_Name: pb_Mesh20072
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13180,7 +13188,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23774
+  m_Name: pb_Mesh19578
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15010,6 +15018,11 @@ Transform:
   m_Father: {fileID: 76086769}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1622488777 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+  m_PrefabInstance: {fileID: 1307880531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1627498741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17232,6 +17245,7 @@ MonoBehaviour:
   Name: 
   Height: 0
   On: 0
+  Off: 0
   Occupied: 0
   Interaction: 
 --- !u!1001 &1862677481
@@ -18679,7 +18693,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23810
+  m_Name: pb_Mesh19608
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
