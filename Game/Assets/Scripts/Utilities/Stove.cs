@@ -64,7 +64,8 @@ public class Stove :Utility
                     if (chef.isInteracting)
                     {
                         On = false;
-                        State(On);
+                        State(Off);
+                        chef.isInteracting = false;
                     }
                     break;
                 case PlayerController.ItemInMainHand.spatula:
@@ -72,8 +73,8 @@ public class Stove :Utility
                     if (chef.isInteracting)
                     {
                         On = false;
-                        State(On);
-
+                        State(Off);
+                        chef.isInteracting = false;
                     }
                     break;
                 case PlayerController.ItemInMainHand.egg:
@@ -81,7 +82,8 @@ public class Stove :Utility
                     if (chef.isInteracting)
                     {
                         On = false;
-                        State(On);
+                        State(Off);
+                        chef.isInteracting = false;
                     }
                     break;
                 case PlayerController.ItemInMainHand.bacon:
@@ -89,7 +91,8 @@ public class Stove :Utility
                     if (chef.isInteracting)
                     {
                         On = false;
-                        State(On);
+                        State(Off);
+                        chef.isInteracting = false;
                     }
                     break;
                 case PlayerController.ItemInMainHand.pan:

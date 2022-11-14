@@ -193,7 +193,7 @@ public class Pan : Item
                         {
                             switch (foodInPan.Name)
                             {
-                                case "Bacon":
+                                case "Burnt Bacon":
                                     foodInPan.GetComponent<Bacon>().status = Bacon.Status.burnt;
                                     break;
                             }
@@ -340,19 +340,23 @@ public class Pan : Item
             }
 
             yield return null;
+               
         }
         progressSlider.gameObject.SetActive(false);
         cooking = false;
         foodInPan.status = Status.cooked;
         CheckIfDirty();
 
-        if(Attempt.Failed == attempt[2])
+
+
+        if (Attempt.Failed == attempt[0])
         {
             progressSlider.gameObject.SetActive(false);
             cooking = false;
             foodInPan.status = Status.burnt;
             CheckIfDirty();
         }
+
     }
 
     public void PassPan(int passLocation)
