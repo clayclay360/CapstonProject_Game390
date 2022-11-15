@@ -123,6 +123,11 @@ public class Bacon : Item
                 Form[0].SetActive(false);
                 Form[1].SetActive(true);
                 break;
+            case Status.burnt:
+                Name = "Burnt Bacon";
+                Form[1].SetActive(false);
+                Form[2].SetActive(true);
+                break;
         }
     }
 

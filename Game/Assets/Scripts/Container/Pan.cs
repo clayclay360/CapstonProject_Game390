@@ -76,6 +76,7 @@ public class Pan : Item
                             utilityItemIsOccupying.Occupied = false;
                             utilityItemIsOccupying = null;
                         }
+                        state = State.cold;
                         Interaction = "";
                         gameObject.SetActive(false);
                         CheckCounter();
@@ -186,6 +187,15 @@ public class Pan : Item
                                     break;
                                 case "Bacon":
                                     foodInPan.GetComponent<Bacon>().status = Bacon.Status.cooked;
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            switch (foodInPan.Name)
+                            {
+                                case "Burnt Bacon":
+                                    foodInPan.GetComponent<Bacon>().status = Bacon.Status.burnt;
                                     break;
                             }
                         }
@@ -331,11 +341,23 @@ public class Pan : Item
             }
 
             yield return null;
+               
         }
         progressSlider.gameObject.SetActive(false);
         cooking = false;
         foodInPan.status = Status.cooked;
         CheckIfDirty();
+
+
+
+        if (Attempt.Failed == attempt[0])
+        {
+            progressSlider.gameObject.SetActive(false);
+            cooking = false;
+            foodInPan.status = Status.burnt;
+            CheckIfDirty();
+        }
+
     }
 
     public void PassPan(int passLocation)
