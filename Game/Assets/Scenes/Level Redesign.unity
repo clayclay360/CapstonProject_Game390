@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028346, g: 0.22571373, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -109,7 +109,7 @@ NavMeshSettings:
     agentRadius: 0.3
     agentHeight: 0.3
     agentSlope: 0
-    agentClimb: 0
+    agentClimb: 0.05
     ledgeDropHeight: 2
     maxJumpAcrossDistance: 2
     minRegionArea: 0.05
@@ -2896,7 +2896,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2264
+  m_Name: pb_Mesh-3230
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5276,8 +5276,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651643507}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.290001, y: 0.6, z: 0.94}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 12.290001, y: 0.6, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1.2}
   m_Children:
   - {fileID: 1765777732}
   - {fileID: 1517872671}
@@ -10655,7 +10655,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2240
+  m_Name: pb_Mesh-3206
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11814,7 +11814,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20072
+  m_Name: pb_Mesh22250
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13497,7 +13497,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh19578
+  m_Name: pb_Mesh21740
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19160,7 +19160,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh19608
+  m_Name: pb_Mesh21770
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19687,6 +19687,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 463261848171184591, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 463261848171184591, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 741834894374719149, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
       propertyPath: eggPrefab
       value: 
@@ -21046,6 +21054,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 5.2999997
       objectReference: {fileID: 0}
+    - target: {fileID: 7472572741150424537, guid: 4379c0e1b3a6492438c8456379d0bb5c, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472572741150424537, guid: 4379c0e1b3a6492438c8456379d0bb5c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8296136429670285375, guid: 4379c0e1b3a6492438c8456379d0bb5c, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -21072,7 +21088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8915835902573112876, guid: 4379c0e1b3a6492438c8456379d0bb5c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8915835902573112876, guid: 4379c0e1b3a6492438c8456379d0bb5c, type: 3}
       propertyPath: m_LocalPosition.z
