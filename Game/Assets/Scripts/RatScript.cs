@@ -51,6 +51,8 @@ public class RatScript : MonoBehaviour
     private bool linkActivated;
     private bool climbing;
     private bool attackReady;
+    Bacon baconRespawn;
+    Egg eggRespawn;
 
     private NavMeshAgent agent;
     private MeshRenderer climbableTargetMesh;
@@ -93,6 +95,8 @@ public class RatScript : MonoBehaviour
         var CanvRot = hbCanv.transform.rotation.eulerAngles;
         CanvRot.z = -transform.rotation.eulerAngles.y;
         hbCanv.transform.rotation = Quaternion.Euler(CanvRot);
+        baconRespawn = GameManager.bacon;
+        eggRespawn = GameManager.egg;
     }
 
     public void TakeDamage(int damage)
@@ -261,6 +265,13 @@ public class RatScript : MonoBehaviour
                         itemObject.transform.position = other.gameObject.transform.position;
                         itemScript.RespawnItem(itemObject);
                         isCarryingItem = false;
+                        if (item == "Egg(Clone)")
+                        {
+                            eggRespawn.Respawn();
+                        } else if (item == "Bacon(Clone)")
+                        {
+                            baconRespawn.Respawn();
+                        }
                         item = "";
                         ratHealthBar.SetItemText(item);
                     }

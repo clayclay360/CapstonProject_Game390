@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     Bacon passBacon;
     Egg passEgg;
     Spatula passSpatula;
-    Computer passPages;
+    CookBookPages passPages;
 
     [Header("Counter Top")]
     public GameObject counterTop;
@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         passBacon = GameObject.Find("Bacon").GetComponentInChildren<Bacon>();
         passEgg = GameObject.Find("Egg").GetComponentInChildren<Egg>();
         passSpatula = GameObject.Find("Spatula").GetComponentInChildren<Spatula>();
-        passPages = GameObject.Find("Computer").GetComponentInChildren<Computer>();
+        passPages = GameObject.Find("Pages").GetComponentInChildren<CookBookPages>();
     }
 
     public void Update()
