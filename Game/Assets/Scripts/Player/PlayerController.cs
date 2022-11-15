@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -92,6 +93,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool isInteracting;
     private bool readyToInteract;
+    private NavMeshAgent agent;
 
     void Awake()
     {
@@ -103,6 +105,7 @@ public class PlayerController : MonoBehaviour
     {
         attackPoint = transform.Find("Attackpoint");
         animator.GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
         PlayerAssignment();
         gm = GameManager.Instance;
         throwCooldown = 0.8f;
@@ -191,8 +194,10 @@ public class PlayerController : MonoBehaviour
         {
             player = Player.PlayerTwo;
             GameManager.playerTwo = this;
-            transform.position = new Vector3(5f, 0f, 0f);
+            transform.position = new Vector3(7f, 0f, 0f);
         }
+
+        StartCoroutine(OnPlayerSpawn());
 
         hand[0] = null;
         hand[1] = null;
@@ -200,6 +205,15 @@ public class PlayerController : MonoBehaviour
         itemInMainHand = ItemInMainHand.empty;
 
         interactionText.GetComponent<Text>();
+    }
+
+    IEnumerator OnPlayerSpawn()
+    {
+        yield return new WaitForSeconds(.5f);
+        if (agent != null)
+        {
+            agent.enabled = true;
+        }
     }
 
     private void GetNameInMain()
