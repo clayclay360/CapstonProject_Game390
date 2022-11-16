@@ -19,6 +19,7 @@ public class Utility : MonoBehaviour, IInteractable<PlayerController.ItemInMainH
     public string Name;
     public float Height;
     public bool On;
+    public bool Off;
     public bool Occupied;
     [HideInInspector] public string Interaction;
 

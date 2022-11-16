@@ -11,6 +11,7 @@ public class Egg : Item
     public enum State { shell, yoke, omelet };
     public State state;
     private GameObject passItems;
+    public Vector3 origPos;
 
     PlayerController player;
     public Egg()
@@ -27,6 +28,8 @@ public class Egg : Item
     {
         base.Start();
         passItems = GameObject.Find("PassItems");
+        GameManager.egg = GameObject.Find("Egg(Clone)").GetComponentInChildren<Egg>();
+        origPos = transform.position;
     }
 
     public void Update()
@@ -156,6 +159,12 @@ public class Egg : Item
     public void DropEggOnGround(GameObject player)
     {
         transform.position = player.transform.position;
+        gameObject.SetActive(true);
+    }
+
+    public void Respawn()
+    {
+        transform.position = origPos;
         gameObject.SetActive(true);
     }
 }

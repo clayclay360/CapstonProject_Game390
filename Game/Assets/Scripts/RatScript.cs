@@ -19,7 +19,6 @@ public class RatScript : MonoBehaviour
     [Header("Target")]
     public float attackRadius;
     public List<GameObject> TargetsList;
-    public GameObject target;
     public bool objectiveComplete;
     public GameObject[] ventsTransform;
 
@@ -52,12 +51,14 @@ public class RatScript : MonoBehaviour
     private bool linkActivated;
     private bool climbing;
     private bool attackReady;
-    private bool hasReachedVent;
+    Bacon baconRespawn;
+    Egg eggRespawn;
 
     private NavMeshAgent agent;
     private MeshRenderer climbableTargetMesh;
     private Transform escapeVent;
     private RatSpawnSystem ratSpawnSystem;
+    private GameObject target;
     private GameObject itemObject;
     private Item itemScript;
 
@@ -68,7 +69,6 @@ public class RatScript : MonoBehaviour
         attackReady = true;
         hiding = false;
         climbing = false;
-        hasReachedVent = false;
 
         //GetTarget();
         ventsTransform = GameObject.FindGameObjectsWithTag("RatVent");
@@ -95,13 +95,14 @@ public class RatScript : MonoBehaviour
         var CanvRot = hbCanv.transform.rotation.eulerAngles;
         CanvRot.z = -transform.rotation.eulerAngles.y;
         hbCanv.transform.rotation = Quaternion.Euler(CanvRot);
+        baconRespawn = GameManager.bacon;
+        eggRespawn = GameManager.egg;
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
         ratHealthBar.SetHealth(health);
-        hiding = false;
 
         if (health <= 0)
         {
@@ -264,6 +265,13 @@ public class RatScript : MonoBehaviour
                         itemObject.transform.position = other.gameObject.transform.position;
                         itemScript.RespawnItem(itemObject);
                         isCarryingItem = false;
+                        if (item == "Egg(Clone)")
+                        {
+                            eggRespawn.Respawn();
+                        } else if (item == "Bacon(Clone)")
+                        {
+                            baconRespawn.Respawn();
+                        }
                         item = "";
                         ratHealthBar.SetItemText(item);
                     }
@@ -394,10 +402,6 @@ public class RatScript : MonoBehaviour
                     {
                         removeList.Add(item);
                     }
-                    break;
-
-                case ("Plate(Clone)"):
-                    removeList.Add(item);
                     break;
 
                 case ("Pan"):
@@ -541,34 +545,28 @@ public class RatScript : MonoBehaviour
         int hideIndex = Random.Range(0, hidingPointsList.Length);
 
         hiding = true;
-        if (hiding)
-        {
-            agent.destination = hidingPointsList[hideIndex].transform.position;
-            //agent.speed = agent.speed * 2;
-            //agent.angularSpeed = agent.angularSpeed * 2;
-        }
+        agent.destination = hidingPointsList[hideIndex].transform.position;
+        agent.speed = agent.speed * 2;
+        agent.angularSpeed = agent.angularSpeed * 2;
 
         StartCoroutine(HideTimer());
     }
 
     public IEnumerator HideTimer()
     {
-        while (hiding)
+        float distanceToHidingPoint = Vector3.Distance(transform.position, agent.destination);
+        bool reachedHidingPoint = false;
+        while (distanceToHidingPoint > 0.5 && !reachedHidingPoint)
         {
-            float distanceToHidingPoint = Vector3.Distance(transform.position, agent.destination);
-            bool reachedHidingPoint = false;
-            while (distanceToHidingPoint > 0.5 && !reachedHidingPoint)
-            {
-                distanceToHidingPoint = Vector3.Distance(transform.position, agent.destination);
-                yield return null;
-            }
-            reachedHidingPoint = true;
-            yield return new WaitForSeconds(hideTime);
-            agent.destination = target.transform.position;
-            hiding = false;
-            //agent.speed = agent.speed / 2;
-            //agent.angularSpeed = agent.angularSpeed / 2;
+            distanceToHidingPoint = Vector3.Distance(transform.position, agent.destination);
+            yield return null;
         }
+        reachedHidingPoint = true;
+        yield return new WaitForSeconds(hideTime);
+        agent.destination = target.transform.position;
+        hiding = false;
+        agent.speed = agent.speed / 2;
+        agent.angularSpeed = agent.angularSpeed / 2;
     }
 
     public void ReturnToVent()
@@ -588,9 +586,8 @@ public class RatScript : MonoBehaviour
 
             agent.destination = escapeVent.position;
 
-            if (Vector3.Distance(transform.position, escapeVent.transform.position) < attackRadius  &&!hasReachedVent)
+            if (Vector3.Distance(transform.position, escapeVent.transform.position) < attackRadius)
             {
-                hasReachedVent = true;
                 ratSpawnSystem.numberOfRats--;
                 Destroy(gameObject);
             }

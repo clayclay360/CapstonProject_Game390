@@ -11,13 +11,14 @@ public class Plate : Item
     public float timer;
     public int orderNumber;
     public Slider sliderTimer;
+    Bacon baconRespawn;
+    Egg eggRespawn;
 
     public Plate()
     {
         Name = "Plate";
         Type = "Tool";
         status = Status.clean;
-
     }
 
     public void Awake()
@@ -26,9 +27,16 @@ public class Plate : Item
         usesUntilDirty = 1;
     }
 
+    public void Update()
+    {
+        baconRespawn = GameManager.bacon;
+        eggRespawn = GameManager.egg;
+    }
+
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
     {
-        switch(item)
+        
+        switch (item)
         {
             case PlayerController.ItemInMainHand.pan:
 
@@ -38,7 +46,8 @@ public class Plate : Item
                 if (chef.hand[0].GetComponent<Pan>() != null && chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
                 {
                     Interaction = "Place food on plate";
-                    if(chef.isInteracting)
+                    Debug.LogError(orderName);
+                    if (chef.isInteracting)
                     {
                         //if whether the order is coorect or not
                         if(orderName == chef.hand[0].GetComponent<Pan>().foodInPan.Name)
@@ -48,6 +57,15 @@ public class Plate : Item
                             OrderManager.currentOrders--;
                             OrderManager.Order.Remove(orderNumber);
                             Destroy(gameObject);
+                            if(orderName.Contains("Omelet"))
+                            {
+                                eggRespawn.Respawn();
+                                Debug.LogError("Egg");
+                            } else if (orderName.Contains("Bacon"))
+                            {
+                                baconRespawn.Respawn();
+                                Debug.LogError("Bacon");
+                            }
                         }
                         else
                         {
