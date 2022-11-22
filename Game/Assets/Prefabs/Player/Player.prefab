@@ -3137,6 +3137,7 @@ GameObject:
   - component: {fileID: 3256998693948647019}
   - component: {fileID: 1784961426118152710}
   - component: {fileID: 6843540600272842107}
+  - component: {fileID: 5105973278097876266}
   m_Layer: 8
   m_Name: PlayerControler
   m_TagString: Untagged
@@ -3405,6 +3406,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f82b2750aa7f6a4f8f6273f8f3478ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &5105973278097876266
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313516844159529845}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.75
+  m_Height: 1.7439473
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9815949, z: 0.19999999}
 --- !u!1 &8342010772087279380
 GameObject:
   m_ObjectHideFlags: 0
