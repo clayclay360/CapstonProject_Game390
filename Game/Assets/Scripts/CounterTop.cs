@@ -8,7 +8,7 @@ public class CounterTop : Utility
     Bacon counterBacon;
     Egg counterEgg;
     Spatula counterSpatula;
-    Computer counterPages;
+    CookBookPages counterPages;
 
     public bool inUse;
 
@@ -18,8 +18,9 @@ public class CounterTop : Utility
         counterBacon = GameObject.Find("Bacon").GetComponentInChildren<Bacon>();
         counterEgg = GameObject.Find("Egg").GetComponentInChildren<Egg>();
         counterSpatula = GameObject.Find("Spatula").GetComponentInChildren<Spatula>();
-        counterPages = GameObject.Find("Computer").GetComponentInChildren<Computer>();
+        counterPages = GameObject.Find("Pages").GetComponentInChildren<CookBookPages>();
 
+        //Debug.LogError(counterBacon);
         inUse = false;
     }
 
@@ -53,7 +54,7 @@ public class CounterTop : Utility
         counterPan.HelpRunItemCode(gameObject);
         counterBacon.HelpRunItemCode(gameObject);
         counterEgg.HelpRunItemCode(gameObject);
-        //counterPages.HelpRunItemCode(gameObject);
+        counterPages.HelpRunItemCode(gameObject);
     }
 
     public void DeleteGameObject()
@@ -62,6 +63,7 @@ public class CounterTop : Utility
         counterPan.HelpDeleteGameObject();
         counterBacon.HelpDeleteGameObject();
         counterEgg.HelpDeleteGameObject();
+        counterPages.HelpDeleteGameObject();
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)

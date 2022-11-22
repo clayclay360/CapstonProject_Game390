@@ -11,7 +11,6 @@ public class Window : Utility
         {
             if (gm.counterItems[i] == "" && chef.hand[0])
             {
-                Debug.LogError("Pepsi");
                 Interaction = "Place " + chef.hand[0].name + " in Window";
                 return;
             }

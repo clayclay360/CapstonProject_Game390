@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public static bool passItemsReady;
     public string[] counterItems = { "", "", ""};
     public static bool putOnCounter;
+    public static Bacon bacon;
+    public static Egg egg;
 
     public static bool recipeIsOpenP1;
     public static bool isTouchingBook;

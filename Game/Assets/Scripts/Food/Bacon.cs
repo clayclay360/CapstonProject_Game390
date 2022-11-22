@@ -6,6 +6,7 @@ public class Bacon : Item
 {
     public GameObject[] Form;
     private GameObject passItems;
+    public Vector3 origPos;
 
     PlayerController player;
     public Bacon()
@@ -21,6 +22,8 @@ public class Bacon : Item
     {
         gm = GameManager.Instance;
         passItems = GameObject.Find("PassItems");
+        GameManager.bacon = GameObject.Find("Bacon(Clone)").GetComponentInChildren<Bacon>();
+        origPos = transform.position;
     }
 
     public void Update()
@@ -153,4 +156,9 @@ public class Bacon : Item
         gameObject.SetActive(true);
     }
 
+    public void Respawn()
+    {
+        transform.position = origPos;
+        gameObject.SetActive(true);
+    }
 }
