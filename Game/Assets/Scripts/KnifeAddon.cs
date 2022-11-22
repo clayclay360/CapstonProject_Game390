@@ -36,7 +36,7 @@ public class KnifeAddon : MonoBehaviour
 
         rb.isKinematic = true;
 
-        transform.SetParent(collision.transform);
+        //transform.SetParent(collision.transform);
 
         
 
