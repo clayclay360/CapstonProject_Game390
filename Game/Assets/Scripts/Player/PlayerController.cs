@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         animator.GetComponent<Animator>();
         PlayerAssignment();
         gm = GameManager.Instance;
-        throwCooldown = 0.8f;
+        throwCooldown = 0.4f;
 
         GameManager.isTouchingTrashCan = false;
         GameManager.passItemsReady = false;
