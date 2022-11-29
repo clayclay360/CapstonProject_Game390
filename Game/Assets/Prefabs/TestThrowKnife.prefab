@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   speed: 20
-  forward: {x: 0, y: 1, z: 10}
+  forward: {x: 0, y: 0, z: 0}
 --- !u!1001 &17310230412888986
 PrefabInstance:
   m_ObjectHideFlags: 0
