@@ -107,10 +107,13 @@ public class Sink : Utility
                         Interaction = "Sink is full!";
                         return;
                     }
-                    if(chef.hand[0].GetComponent<Pan>().foodInPan != null)
+                    if (chef.hand[0].TryGetComponent(out Item pan))
                     {
-                        Interaction = "Pan has food in it!";
-                        return;
+                        if (chef.hand[0].GetComponent<Pan>().foodInPan != null)
+                        {
+                            Interaction = "Pan has food in it!";
+                            return;
+                        }
                     }
                     Interaction = "Put " + chef.hand[0].Name + " in sink";
                     if (chef.hand[0].TryGetComponent(out Item dish))
