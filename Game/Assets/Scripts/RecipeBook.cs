@@ -24,8 +24,11 @@ public class RecipeBook : MonoBehaviour
         currentPage = 1;
         currentStep = 2;
         GameManager.isStepCompleted.Add(0);
-        GameManager.recipeIsOpenP1 = true;
+        GameManager.recipeIsOpenP1 = false;
         GameManager.isTouchingBook = false;
+        recipeTextbox1.SetActive(false);
+        recipeTextbox2.SetActive(false);
+        backgroundImage.SetActive(false);
 
         printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
         //currentStepTaskMang = taskManager.GetComponent<TaskManager>();

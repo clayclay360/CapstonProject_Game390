@@ -93,6 +93,11 @@ public class PlayerController : MonoBehaviour
     public bool isInteracting;
     private bool readyToInteract;
 
+    //comment
+
+    //player count to stop error with trying to spawn in more players
+    
+
     void Awake()
     {
         playerCamera.transform.position = gameObject.transform.position + camOffset;
@@ -381,7 +386,15 @@ public class PlayerController : MonoBehaviour
             hand[0] = null;
         }
 
-        cookBook.ClickOnBook();
+        if (GameManager.isTouchingBook && GameManager.recipeIsOpenP1)
+        {
+            GameManager.recipeIsOpenP1 = false;
+            cookBook.setActiveFalseFunc();
+        } else if (GameManager.isTouchingBook && !GameManager.recipeIsOpenP1)
+        {
+            GameManager.recipeIsOpenP1 = true;
+            cookBook.setActiveTrueFunc();
+        }
     }
 
     public IEnumerator InteractCD()
@@ -440,6 +453,17 @@ public class PlayerController : MonoBehaviour
             }
             interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
         }
+        if (other.gameObject.tag == "PassItems")
+        {
+            GameManager.passItemsReady = true;
+        }
+
+        if (other.gameObject.tag == "CounterTop")
+        {
+            GameManager.putOnCounter = true;
+            counterTopScript = other.gameObject.GetComponent<CounterTop>();
+            counterTopScript.CheckIfInUse();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -483,18 +507,6 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.isTouchingBook = true;
             cookBook = GameObject.Find("CookBook_Closed").GetComponent<RecipeBook>();
-        }
-
-        if (other.gameObject.tag == "PassItems")
-        {
-            GameManager.passItemsReady = true;
-        }
-
-        if (other.gameObject.tag == "CounterTop")
-        {
-            GameManager.putOnCounter = true;
-            counterTopScript = other.gameObject.GetComponent<CounterTop>();
-            counterTopScript.CheckIfInUse();
         }
     }
 
@@ -624,6 +636,11 @@ public class PlayerController : MonoBehaviour
 
             // implement throwCooldown
             Invoke(nameof(ResetThrow), throwCooldown);
+        }
+
+        if (GameManager.isTouchingBook && GameManager.recipeIsOpenP1)
+        {
+            cookBook.ClickOnBook();
         }
     }
 

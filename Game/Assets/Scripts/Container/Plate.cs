@@ -13,6 +13,7 @@ public class Plate : Item
     public Slider sliderTimer;
     Bacon baconRespawn;
     Egg eggRespawn;
+    Menu menuOrder;
 
     public Plate()
     {
@@ -25,6 +26,13 @@ public class Plate : Item
     {
         currUses = 0;
         usesUntilDirty = 1;
+    }
+
+    public void Start()
+    {
+        menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>();
+        menuOrder.PlaceOrder(orderName);
+        Debug.LogError(orderName);
     }
 
     public void Update()
@@ -42,6 +50,8 @@ public class Plate : Item
 
                 Interaction = orderName;
                 sliderTimer.gameObject.SetActive(true);
+                Menu menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>();
+                Debug.LogError(menuOrder.menuText1);
 
                 if (chef.hand[0].GetComponent<Pan>() != null && chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
                 {
@@ -57,15 +67,6 @@ public class Plate : Item
                             OrderManager.currentOrders--;
                             OrderManager.Order.Remove(orderNumber);
                             Destroy(gameObject);
-                            if(orderName.Contains("Omelet"))
-                            {
-                                eggRespawn.Respawn();
-                                Debug.LogError("Egg");
-                            } else if (orderName.Contains("Bacon"))
-                            {
-                                baconRespawn.Respawn();
-                                Debug.LogError("Bacon");
-                            }
                         }
                         else
                         {
@@ -75,6 +76,18 @@ public class Plate : Item
                             OrderManager.Order.Remove(orderNumber);
                             Destroy(gameObject);
                         }
+                        if (orderName.Contains("Omelet"))
+                        {
+                            eggRespawn.Respawn();
+                            Debug.LogError("Egg");
+                        }
+                        else if (orderName.Contains("Bacon"))
+                        {
+                            baconRespawn.Respawn();
+                            Debug.LogError("Bacon");
+                        }
+
+                        menuOrder.RemoveOrder(orderName);
 
                         foodOnPlate = chef.hand[0].GetComponent<Pan>().foodInPan;
                         foodOnPlate.toolItemIsOccupying = this;
@@ -124,6 +137,7 @@ public class Plate : Item
 
         OrderManager.currentOrders--;
         OrderManager.Order.Remove(orderNumber);
+        menuOrder.RemoveOrder(orderName);
         Destroy(gameObject);
     }
 }
