@@ -96,6 +96,7 @@ MonoBehaviour:
   Name: Stove
   Height: 0
   On: 0
+  Off: 1
   Occupied: 0
   Interaction: 
   stoveOn: {fileID: 4467370415075327568}
