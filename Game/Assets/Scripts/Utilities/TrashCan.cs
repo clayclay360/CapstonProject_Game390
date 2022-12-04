@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TrashCan : Utility
 {
-    [Header("Parent Transform")]
-    public GameObject parentTransform;
 
     [Header("Prefabs")]
     public GameObject eggPrefab;
@@ -27,16 +25,18 @@ public class TrashCan : Utility
             if (chef.isInteracting)
             {
                 //spawning the item that in the player hand to its original position
+                //TODO: This but better :\
+                //TODO: Throw out food in pan, not pan
                 switch (item)
                 {
                 case PlayerController.ItemInMainHand.egg:
-                    Instantiate(eggPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, parentTransform.transform);
+                    Instantiate(eggPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent);
                     break;
                 case PlayerController.ItemInMainHand.pan:
-                    Instantiate(panPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, parentTransform.transform);
+                    Instantiate(panPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent);
                     break;
                 case PlayerController.ItemInMainHand.spatula:
-                    Instantiate(spatulaPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, parentTransform.transform);
+                    Instantiate(spatulaPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent);
                     break;
                 }
                        

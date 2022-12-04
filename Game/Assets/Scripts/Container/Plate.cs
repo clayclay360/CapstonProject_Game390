@@ -30,7 +30,7 @@ public class Plate : Item
 
     public void Start()
     {
-        menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>();
+        menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>(); //This line returns an error every time the game is started
         menuOrder.PlaceOrder(orderName);
         Debug.LogError(orderName);
     }

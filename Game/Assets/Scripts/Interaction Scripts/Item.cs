@@ -34,16 +34,23 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     [HideInInspector] public int currUses;
     [HideInInspector] public GameObject counterInUse;
 
+
+    //IF YOU ARE READING THIS DON'T YOU DARE ADD AN AWAKE METHOD
+    //TO AN ITEM INHERITING FROM THIS CLASS DO YOU HEAR ME?
+    //FOD GOD'S SAKES IF YOU DO MAKE SURE YOU CALL base.Awake()
+    //IN IT BECAUSE THIS ISSUE CAUSED SO MANY ERRORS. FML.
     public void Awake()
     {
         gm = GameManager.Instance;
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+        isActive = true;
+        Debug.Log(name + ": " + startPosition);
     }
 
     public void Start()
     {
-        startPosition = transform.position;
-        startRotation = transform.rotation;
-        isActive = true;
+
     }
 
     //Function to manage dishes and stuff getting dirty. currUses and usesUntilDirty

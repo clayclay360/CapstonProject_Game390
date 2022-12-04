@@ -16,8 +16,9 @@ public class Spatula : Item
          
     }
 
-    public new void Start()
+    private new void Start()
     {
+
         currUses = 0;
         usesUntilDirty = 2;
         passItems = GameObject.Find("PassItems");
