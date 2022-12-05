@@ -25,6 +25,7 @@ public class RatScript : MonoBehaviour
     [Header("Target")]
     public float attackRadius;
     public List<GameObject> TargetsList;
+    public GameObject target;
     public bool objectiveComplete;
     public GameObject[] ventsTransform;
 
@@ -64,7 +65,6 @@ public class RatScript : MonoBehaviour
     private MeshRenderer climbableTargetMesh;
     private Transform escapeVent;
     private RatSpawnSystem ratSpawnSystem;
-    private GameObject target;
     private GameObject itemObject;
     private Item itemScript;
 
@@ -325,16 +325,16 @@ public class RatScript : MonoBehaviour
                                 }
                             break;
 
-                            case ("Plate"):
-                                Plate plate = other.gameObject.GetComponent<Plate>();
-                                plate.isTarget = false;
-                                plate.status = Item.Status.dirty;
-                                plate.DespawnItem(other.gameObject);
-                                item = other.gameObject.name;
-                                hbarScript.SetItemText(item);
-                                SelectDestination();
-                                isCarryingItem = true;
-                                break;
+                            //case ("Plate"):
+                            //    Plate plate = other.gameObject.GetComponent<Plate>();
+                            //    plate.isTarget = false;
+                            //    plate.status = Item.Status.dirty;
+                            //    plate.DespawnItem(other.gameObject);
+                            //    item = other.gameObject.name;
+                            //    hbarScript.SetItemText(item);
+                            //    SelectDestination();
+                            //    isCarryingItem = true;
+                            //    break;
 
                             case ("Pan"):
                                 Pan pan = other.gameObject.GetComponent<Pan>();
@@ -459,12 +459,8 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case ("Plate"):
-                    //Don't target if plate is dirty, despawned, or being targeted by another rat
-                    Plate plate = item.GetComponent<Plate>();
-                    if (plate.status == Item.Status.dirty || !plate.isActive || plate.isTarget)
-                    {
-                        removeList.Add(item);
-                    }
+                case ("Plate(Clone)"):
+                    removeList.Add(item);
                     break;
 
                 case ("Pan"):
@@ -527,6 +523,11 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case ("Computer"):
+                    removeList.Add(item);
+                    break;
+
+                case ("Pages"):
+                case ("Pages2"):
                     removeList.Add(item);
                     break;
             }
