@@ -10,18 +10,24 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     public string Type;
     public float despawnTime;
 
+    //I'll definetly have to make a food and tool child
+    public enum Status { uncooked, cooked, burnt, clean, dirty }
+    public Status status;
+
     [Header("Models")]
     public GameObject cleanSelf;
     public GameObject dirtySelf;
+
+    [Header("Respawning")]
+    public GameObject selfReference; //The prefab of the item, assigned in the editor
+    public bool canRespawn;
 
     [HideInInspector]
     public Vector3 startPosition;
     [HideInInspector]
     public Quaternion startRotation;
 
-    //I'll definetly have to make a food and tool child
-    public enum Status {uncooked, cooked, burnt, clean, dirty}
-    public Status status;
+
     [HideInInspector] public bool Occupied;
     [HideInInspector] public bool prone;
     [HideInInspector] public bool isActive;

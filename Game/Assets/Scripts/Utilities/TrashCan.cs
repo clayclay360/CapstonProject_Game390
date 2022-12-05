@@ -27,19 +27,26 @@ public class TrashCan : Utility
                 //spawning the item that in the player hand to its original position
                 //TODO: This but better :\
                 //TODO: Throw out food in pan, not pan
-                switch (item)
+                //switch (item)
+                //{
+                //case PlayerController.ItemInMainHand.egg:
+                //    Instantiate(eggPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent);
+                //    break;
+                //case PlayerController.ItemInMainHand.pan:
+                //    Instantiate(panPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent);
+                //    break;
+                //case PlayerController.ItemInMainHand.spatula:
+                //    Instantiate(spatulaPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent);
+                //    break;
+                //}
+
+                if (chef.hand[0].canRespawn)
                 {
-                case PlayerController.ItemInMainHand.egg:
-                    Instantiate(eggPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent);
-                    break;
-                case PlayerController.ItemInMainHand.pan:
-                    Instantiate(panPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent);
-                    break;
-                case PlayerController.ItemInMainHand.spatula:
-                    Instantiate(spatulaPrefab, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent);
-                    break;
+                    Instantiate(chef.hand[0].selfReference, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent); //Might not need name
                 }
-                       
+                //GameObject newItem = Instantiate(chef.hand[0].selfReference, chef.hand[0].startPosition, chef.hand[0].startRotation, transform.parent); //Might not need name
+
+                Destroy(chef.hand[0]);
                 chef.hand[0] = null;
                 chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                 Interaction = "";

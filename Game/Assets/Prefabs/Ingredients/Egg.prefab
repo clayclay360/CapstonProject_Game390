@@ -417,19 +417,26 @@ MonoBehaviour:
   Name: Egg
   Type: Food
   despawnTime: 2
+  status: 0
+  cleanSelf: {fileID: 0}
+  dirtySelf: {fileID: 0}
+  selfReference: {fileID: 9193496973303149577}
+  canRespawn: 1
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
-  status: 0
   Occupied: 0
   prone: 0
   isActive: 0
+  isTarget: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
   usesUntilDirty: 0
   currUses: 0
+  counterInUse: {fileID: 0}
   Form:
   - {fileID: 2557686710460750971}
   - {fileID: 2557686711327224517}
   - {fileID: 2557686712286819358}
   state: 0
+  origPos: {x: 0, y: 0, z: 0}
