@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
     public Dictionary<int, Item> hand = new Dictionary<int, Item>();
     public enum ItemInMainHand { empty, egg, spatula, pan, bacon, pages, plate };
     public ItemInMainHand itemInMainHand;
+    private Color outlineColor;
     RecipeBook cookBook;
 
     [Header("Orders")]
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour
         attackPoint = transform.Find("Attackpoint");
         animator.GetComponent<Animator>();
         PlayerAssignment();
+        ColorAssignment();
         gm = GameManager.Instance;
         throwCooldown = 0.4f;
 
@@ -205,6 +207,19 @@ public class PlayerController : MonoBehaviour
         itemInMainHand = ItemInMainHand.empty;
 
         interactionText.GetComponent<Text>();
+    }
+
+    private void ColorAssignment()
+    {
+        switch (player)
+        {
+            case Player.PlayerOne:
+                outlineColor = Color.blue;
+                break;
+            case Player.PlayerTwo:
+                outlineColor = Color.green;
+                break;
+        }
     }
 
     private void GetNameInMain()
@@ -410,6 +425,16 @@ public class PlayerController : MonoBehaviour
         { 
             readyToInteract = true; //assign ready to interact so that isinteracting can be set from OnInteract()
 
+            //Add highlight to item
+            if (!other.TryGetComponent<Outline>(out _)) //Using discard here because we don't need the outline
+            {
+                var outline = other.gameObject.AddComponent<Outline>();
+                outline.OutlineMode = Outline.Mode.OutlineVisible;
+                outline.OutlineColor = outlineColor;
+                outline.OutlineWidth = 3f;
+            }
+
+
             if (other.gameObject.GetComponent<Item>() != null)
             {
                 other.gameObject.GetComponent<Item>().CheckHand(itemInMainHand, this);
@@ -499,6 +524,12 @@ public class PlayerController : MonoBehaviour
             GameManager.putOnCounter = false;
             counterTopScript.DeleteGameObject();
         }
+
+        if (other.TryGetComponent<Outline>(out Outline ol))
+        {
+            Destroy(ol);
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)

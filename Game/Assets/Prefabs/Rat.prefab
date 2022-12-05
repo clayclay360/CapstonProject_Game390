@@ -33,7 +33,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00012207031, y: 0.00012207031}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1097322966504615444}
   itemText: {fileID: 8499496310780598184}
+  rat: {fileID: 0}
 --- !u!1 &2054915768880127571
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1178538567799275187
 RectTransform:
   m_ObjectHideFlags: 0
@@ -903,8 +904,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 5782238860536919977}
+  counter: {fileID: 0}
   health: 3
-  ratHealthBar: {fileID: 5331859375585525107}
+  healthBar: {fileID: 4577641971484226122, guid: 2d37ff2569b57b24a9951911e9f196fe, type: 3}
   item: 
   isCarryingItem: 0
   hbCanv: {fileID: 8903764017962889403}
@@ -981,6 +983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 0}
   itemText: {fileID: 0}
+  rat: {fileID: 0}
 --- !u!1 &6212266101822204090
 GameObject:
   m_ObjectHideFlags: 0
