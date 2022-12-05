@@ -55,7 +55,7 @@ public class Pan : Item
         cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
         attempt = new Attempt[interactionMeterEnd.Length];
         attempt[0] = Attempt.None;
-        attempt[0] = Attempt.None;
+        attempt[1] = Attempt.None;
         usesUntilDirty = 1;
         currUses = 0;
         passItems = GameObject.Find("PassItems");
@@ -347,7 +347,18 @@ public class Pan : Item
         progressSlider.gameObject.SetActive(false);
         cooking = false;
         foodInPan.status = Status.cooked;
-        CheckIfDirty();
+
+        //CHeck if the player failed all attempts if so, food is burnt
+        for(int i = 0; i < attempt.Length; i++)
+        {
+            if (attempt[i] == Attempt.Completed)
+            {
+                foodInPan.status = Status.cooked;
+                break;
+            }
+
+            foodInPan.status = Status.burnt;
+        }
 
         StartCoroutine(OverCooked(overCookTime));
 

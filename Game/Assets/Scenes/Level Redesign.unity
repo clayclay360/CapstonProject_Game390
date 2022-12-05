@@ -7016,7 +7016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5818574618760492040, guid: dded2f3cd00080c47a31009cb10ae6f9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.19
+      value: 6.027
       objectReference: {fileID: 0}
     - target: {fileID: 5818574618760492040, guid: dded2f3cd00080c47a31009cb10ae6f9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15866,7 +15866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 0
-  m_MaxPlayerCount: 2
+  m_MaxPlayerCount: -1
   m_AllowJoining: 1
   m_JoinBehavior: 1
   m_PlayerJoinedEvent:
@@ -18147,7 +18147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5818574618760492040, guid: dded2f3cd00080c47a31009cb10ae6f9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.31
+      value: 6.09
       objectReference: {fileID: 0}
     - target: {fileID: 5818574618760492040, guid: dded2f3cd00080c47a31009cb10ae6f9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21315,7 +21315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5818574618760492040, guid: dded2f3cd00080c47a31009cb10ae6f9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.22
+      value: 6.031
       objectReference: {fileID: 0}
     - target: {fileID: 5818574618760492040, guid: dded2f3cd00080c47a31009cb10ae6f9, type: 3}
       propertyPath: m_LocalRotation.w

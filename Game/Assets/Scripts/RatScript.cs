@@ -7,6 +7,7 @@ public class RatScript : MonoBehaviour
 {
     [Header("Variables")]
     public GameObject body;
+    public GameObject counter;
 
     [Header("Stats")]
     public int health;
@@ -291,7 +292,13 @@ public class RatScript : MonoBehaviour
                                 ratHealthBar.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
-                                break;
+                                spatula.CheckCounter();
+                                if (counter != null)
+                                {
+                                    CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+                                    counterScript.inUse = false;
+                                }
+                            break;
 
                             case ("Plate"):
                                 Plate plate = other.gameObject.GetComponent<Plate>();
@@ -313,6 +320,12 @@ public class RatScript : MonoBehaviour
                                 ratHealthBar.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
+                                pan.CheckCounter();
+                                if (counter != null)
+                                {
+                                    CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+                                    counterScript.inUse = false;
+                                }
                                 break;
 
                             case ("Sink"):
@@ -334,7 +347,13 @@ public class RatScript : MonoBehaviour
                                 ratHealthBar.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
-                                break;
+                                egg.CheckCounter();
+                                if (counter != null)
+                                {
+                                    CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+                                    counterScript.inUse = false;
+                                }
+                            break;
 
                             case ("Bacon(Clone)"):
                                 Bacon bacon = other.gameObject.GetComponent<Bacon>();
@@ -344,10 +363,29 @@ public class RatScript : MonoBehaviour
                                 ratHealthBar.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
-                                break;
+                                bacon.CheckCounter();
+                                if (counter != null)
+                                {
+                                    CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+                                    counterScript.inUse = false;
+                                }
+                            break;
                         }
                         break;
             }
+        }
+
+        if (other.gameObject.tag == "CounterTop")
+        {
+            counter = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "CounterTop")
+        {
+            counter = null;
         }
     }
 
