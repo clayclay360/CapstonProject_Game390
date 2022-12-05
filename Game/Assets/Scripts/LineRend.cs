@@ -35,14 +35,16 @@ public class LineRend : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
-            if (hit.collider)
+            if (hit.collider.gameObject.GetComponent<RatScript>())
             {
+                Debug.Log("Rat hit");
+                RatScript enemy = hit.collider.gameObject.GetComponent<RatScript>();
                 al.SetPosition(1, new Vector3(0, 0, hit.distance) * aimLineLength);
 
             }
             else
             {
-                al.SetPosition(1, new Vector3(0, 0, 50));
+                al.SetPosition(0, new Vector3(0, 0, 9));
             }
 
         }
