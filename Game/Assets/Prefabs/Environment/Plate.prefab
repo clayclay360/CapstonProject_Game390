@@ -550,19 +550,23 @@ MonoBehaviour:
   Name: Plate
   Type: Tool
   despawnTime: 0
+  status: 3
   cleanSelf: {fileID: 2361908493815248482}
   dirtySelf: {fileID: 9213992101252313714}
+  selfReference: {fileID: 4110198402601966224}
+  canRespawn: 1
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
-  status: 3
   Occupied: 0
   prone: 0
   isActive: 0
+  isTarget: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
   usesUntilDirty: 0
   currUses: 0
+  counterInUse: {fileID: 0}
   foodOnPlate: {fileID: 0}
   orderName: 
   timer: 0

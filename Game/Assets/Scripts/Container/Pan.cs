@@ -18,6 +18,7 @@ public class Pan : Item
     public bool cooking;
     public State state;
     public float cookTime;
+    public float overCookTime;
     public float cookOffset;
     public float progressMeterMin, progressMeterMax;
     public float[] interactionMeterStart, interactionMeterEnd;
@@ -54,7 +55,7 @@ public class Pan : Item
         cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
         attempt = new Attempt[interactionMeterEnd.Length];
         attempt[0] = Attempt.None;
-        attempt[0] = Attempt.None;
+        attempt[1] = Attempt.None;
         usesUntilDirty = 1;
         currUses = 0;
         passItems = GameObject.Find("PassItems");
@@ -346,18 +347,51 @@ public class Pan : Item
         progressSlider.gameObject.SetActive(false);
         cooking = false;
         foodInPan.status = Status.cooked;
-        CheckIfDirty();
 
+        //CHeck if the player failed all attempts if so, food is burnt
+        for(int i = 0; i < attempt.Length; i++)
+        {
+            if (attempt[i] == Attempt.Completed)
+            {
+                foodInPan.status = Status.cooked;
+                break;
+            }
 
+            foodInPan.status = Status.burnt;
+        }
+
+        StartCoroutine(OverCooked(overCookTime));
 
         if (Attempt.Failed == attempt[0])
         {
+            Debug.Log("Burnt");
             progressSlider.gameObject.SetActive(false);
             cooking = false;
             foodInPan.status = Status.burnt;
             CheckIfDirty();
         }
 
+    }
+
+    public IEnumerator OverCooked(float timer)
+    {
+        Debug.Log("Starting OverCooked");
+        yield return new WaitForSeconds(2);
+
+        float deltaTime = Time.unscaledTime;
+        float time = 0;
+
+        while (state == State.hot)
+        {
+            time = (Time.unscaledTime - deltaTime);
+            if(timer < time)
+            {
+                Debug.Log("Food Burnt");
+                foodInPan.GetComponent<Item>().status = Status.burnt;
+                state = State.cold;
+            }
+            yield return null;
+        }
     }
 
     public void PassPan(int passLocation)

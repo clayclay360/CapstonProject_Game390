@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     public static PlayerController playerOne;
     public static PlayerController playerTwo;
 
+
     private void Awake()
     {
         _instance = this;
@@ -132,6 +133,4 @@ public class GameManager : MonoBehaviour
     {
         return item.status == Item.Status.dirty;
     }
-    
-    
 }

@@ -10,6 +10,10 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     public string Type;
     public float despawnTime;
 
+    //I'll definetly have to make a food and tool child
+    public enum Status { uncooked, cooked, burnt, clean, dirty }
+    public Status status;
+
     [Header("Models")]
     public GameObject cleanSelf;
     public GameObject dirtySelf;
@@ -19,9 +23,13 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     [HideInInspector]
     public Quaternion startRotation;
 
+<<<<<<< HEAD
+
+=======
     //I'll definetly have to make a food and tool child
-    public enum Status {uncooked, cooked, burnt, clean, dirty}
+    public enum Status {uncooked, cooked, burnt, clean, dirty, spoiled}
     public Status status;
+>>>>>>> main
     [HideInInspector] public bool Occupied;
     [HideInInspector] public bool prone;
     [HideInInspector] public bool isActive;
@@ -34,16 +42,22 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     [HideInInspector] public int currUses;
     [HideInInspector] public GameObject counterInUse;
 
+
+    //IF YOU ARE READING THIS DON'T YOU DARE ADD AN AWAKE METHOD
+    //TO AN ITEM INHERITING FROM THIS CLASS DO YOU HEAR ME?
+    //FOD GOD'S SAKES IF YOU DO MAKE SURE YOU CALL base.Awake()
+    //IN IT BECAUSE THIS ISSUE CAUSED SO MANY ERRORS. FML.
     public void Awake()
     {
         gm = GameManager.Instance;
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+        isActive = true;
     }
 
     public void Start()
     {
-        startPosition = transform.position;
-        startRotation = transform.rotation;
-        isActive = true;
+
     }
 
     //Function to manage dishes and stuff getting dirty. currUses and usesUntilDirty
