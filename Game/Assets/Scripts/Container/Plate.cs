@@ -31,7 +31,11 @@ public class Plate : Item
 
     public void Start()
     {
+<<<<<<< HEAD
+        menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>(); //This line returns an error every time the game is started
+=======
         menuOrder = GameObject.Find("MenuOrderBackground").GetComponentInChildren<Menu>();
+>>>>>>> OwensBugsFixes
         menuOrder.PlaceOrder(orderName);
         cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
     }

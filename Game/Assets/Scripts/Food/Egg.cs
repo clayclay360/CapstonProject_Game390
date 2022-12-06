@@ -28,7 +28,11 @@ public class Egg : Item
     {
         base.Start();
         passItems = GameObject.Find("PassItems");
+<<<<<<< HEAD
         GameManager.egg = GameObject.Find("Egg(Clone)").GetComponentInChildren<Egg>(); //This line returns an error every time the game is started.
+=======
+        GameManager.egg = GameObject.Find("Egg(Clone)").GetComponent<Egg>();
+>>>>>>> OwensBugsFixes
         origPos = transform.position;
     }
 
