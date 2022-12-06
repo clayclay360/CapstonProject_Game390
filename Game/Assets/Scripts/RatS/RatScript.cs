@@ -38,7 +38,7 @@ public class RatScript : MonoBehaviour
 
     [Header("Climb")]
     public float climbRaduis;
-    public float platformYOffset;
+    //public float platformYOffset;
     public float climbCoolDown;
 
     [Header("Attack")]
@@ -207,14 +207,14 @@ public class RatScript : MonoBehaviour
         {
             float distanceBetweenTarget = Vector3.Distance(transform.position, target.transform.position);
             //Debug.Log(distanceBetweenTarget.ToString());
-            if (distanceBetweenTarget < climbRaduis && !climbing)
+            if (distanceBetweenTarget <= climbRaduis && !climbing)
             {
-                if (transform.position.y + platformYOffset < target.transform.position.y)
-                {
+                //if (transform.position.y + platformYOffset < target.transform.position.y)
+                //{
                     Debug.Log(gameObject.name + " climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
-                }
+                //}
             }
         }
     }
@@ -228,7 +228,7 @@ public class RatScript : MonoBehaviour
         if (climbableTargetMesh != null)
         {
             Transform[] jumpPoints = climbableTargetMesh.GetComponentsInChildren<Transform>();
-            float radius = climbRaduis * 3;
+            float radius = climbRaduis;
             Transform closestJumpPoint = null;
             foreach (Transform jumpPoint in jumpPoints)
             {
@@ -565,7 +565,6 @@ public class RatScript : MonoBehaviour
         {
             target.GetComponent<Item>().isTarget = true;
         }
-        Debug.Log(target.transform.position);
     }
 
     public void CrossEntryway()
