@@ -28,7 +28,7 @@ public class Egg : Item
     {
         base.Start();
         passItems = GameObject.Find("PassItems");
-        GameManager.egg = GameObject.Find("Egg(Clone)").GetComponentInChildren<Egg>();
+        GameManager.egg = GameObject.Find("Egg(Clone)").GetComponent<Egg>();
         origPos = transform.position;
     }
 
