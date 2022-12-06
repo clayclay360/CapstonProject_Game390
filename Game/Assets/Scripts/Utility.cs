@@ -58,16 +58,16 @@ public class Utility : MonoBehaviour, IInteractable<PlayerController.ItemInMainH
 
     public void CheckCounter()
     {
-        for (int i = 0; i <= GameManager.counterItems.Length; i++)
+        for (int i = 0; i <= gm.counterItems.Length; i++)
         {
-            if (i >= GameManager.counterItems.Length)
+            if (i >= gm.counterItems.Length)
             {
                 return;
             }
 
-            if (gameObject.name == GameManager.counterItems[i])
+            if (gameObject.name == gm.counterItems[i])
             {
-                GameManager.counterItems[i] = "";
+                gm.counterItems[i] = "";
                 return;
             }
         }
