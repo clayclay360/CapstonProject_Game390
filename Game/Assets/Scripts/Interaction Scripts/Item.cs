@@ -23,7 +23,13 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     [HideInInspector]
     public Quaternion startRotation;
 
+<<<<<<< HEAD
 
+=======
+    //I'll definetly have to make a food and tool child
+    public enum Status {uncooked, cooked, burnt, clean, dirty, spoiled}
+    public Status status;
+>>>>>>> main
     [HideInInspector] public bool Occupied;
     [HideInInspector] public bool prone;
     [HideInInspector] public bool isActive;

@@ -373,6 +373,7 @@ public class RatScript : MonoBehaviour
                                 SelectDestination();
                                 isCarryingItem = true;
                                 egg.CheckCounter();
+                                egg.status = Item.Status.spoiled;
                                 if (counter != null)
                                 {
                                     CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
@@ -389,6 +390,7 @@ public class RatScript : MonoBehaviour
                                 SelectDestination();
                                 isCarryingItem = true;
                                 bacon.CheckCounter();
+                                bacon.status = Item.Status.spoiled;
                                 if (counter != null)
                                 {
                                     CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
