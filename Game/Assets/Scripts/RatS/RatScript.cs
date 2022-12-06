@@ -211,7 +211,7 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    Debug.Log(gameObject.name + " climb");
+                    //Debug.Log(gameObject.name + " climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
                 }
@@ -270,7 +270,7 @@ public class RatScript : MonoBehaviour
     {
         if (other.gameObject == target)
         {
-            Debug.Log(gameObject.name + " hit" + other.gameObject.name);
+            //Debug.Log(gameObject.name + " hit" + other.gameObject.name);
             collider.enabled = false;
             switch (target.tag)
             {
@@ -560,12 +560,12 @@ public class RatScript : MonoBehaviour
     {
         target = targetList[Random.Range(0, targetList.Count)];
 
-        Debug.Log(gameObject.name + " is targeting: " + target.name);
+        //Debug.Log(gameObject.name + " is targeting: " + target.name);
         if(target.GetComponent<Item>() != null)
         {
             target.GetComponent<Item>().isTarget = true;
         }
-        Debug.Log(target.transform.position);
+        //Debug.Log(target.transform.position);
     }
 
     public void CrossEntryway()

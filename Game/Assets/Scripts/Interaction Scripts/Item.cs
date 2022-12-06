@@ -18,10 +18,6 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     public GameObject cleanSelf;
     public GameObject dirtySelf;
 
-    [Header("Respawning")]
-    public GameObject selfReference; //The prefab of the item, assigned in the editor
-    public bool canRespawn;
-
     [HideInInspector]
     public Vector3 startPosition;
     [HideInInspector]
@@ -51,7 +47,6 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         startPosition = transform.position;
         startRotation = transform.rotation;
         isActive = true;
-        Debug.Log(name + ": " + startPosition);
     }
 
     public void Start()

@@ -56,7 +56,7 @@ public class RatSpawnSystem : MonoBehaviour
     IEnumerator RatPeek()
     {
         int totalPeeks = Random.Range(minPeeks, maxPeeks + 1);
-        Debug.Log(totalPeeks.ToString());
+        //Debug.Log(totalPeeks.ToString());
         int peekCount = 0;
         ratPeek = ratSpawnTransform[spawnIndex].parent.Find("RatPeek").gameObject;
         while (peekCount < totalPeeks)

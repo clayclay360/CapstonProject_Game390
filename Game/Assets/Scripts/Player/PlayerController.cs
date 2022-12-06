@@ -438,9 +438,7 @@ public class PlayerController : MonoBehaviour
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
                         Inv2.text = hand[1].Name;
-                        Debug.Log(hand[0].Name);
                     }
-                    Debug.Log($"Hand 0: {hand[0].name}\nHand 1: {hand[1].name}");
                 }
                 else
                 {
