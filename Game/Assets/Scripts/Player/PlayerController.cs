@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System;
 public class PlayerController : MonoBehaviour
 {
     private GameManager gm;
@@ -175,10 +176,12 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(rotateVec.x) > 0 || Mathf.Abs(rotateVec.z) > 0)
         {
             Vector3 rotateDirection = (Vector3.right * rotateVec.x) + (Vector3.forward * rotateVec.z);
-            if (rotateDirection.sqrMagnitude > 0)
+            if (rotateDirection.sqrMagnitude > .1f)
             {
                 Quaternion newRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, rotatingSpeed);
+                float angle = Mathf.Atan2(rotateVec.x, rotateVec.z) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
             }
         }
 
@@ -298,7 +301,6 @@ public class PlayerController : MonoBehaviour
         {
             isInteracting= true;
         }
-        //Debug.LogWarning("OnInteract()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
 
         if (hand[0] != null && !GameManager.passItemsReady && !GameManager.putOnCounter && !readyToInteract)
         {
@@ -410,13 +412,7 @@ public class PlayerController : MonoBehaviour
             GameManager.recipeIsOpenP1 = true;
             cookBook.setActiveTrueFunc();
         }
-    }
 
-    public IEnumerator InteractCD()
-    {
-        readyToInteract = false;
-        yield return new WaitForSeconds(.5f);
-        readyToInteract = true;
     }
 
     private void OnTriggerStay(Collider other)
@@ -424,16 +420,6 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook" || other.gameObject.tag == "CounterTop")
         { 
             readyToInteract = true; //assign ready to interact so that isinteracting can be set from OnInteract()
-
-            //Add highlight to item
-            if (!other.TryGetComponent<Outline>(out _)) //Using discard here because we don't need the outline
-            {
-                var outline = other.gameObject.AddComponent<Outline>();
-                outline.OutlineMode = Outline.Mode.OutlineVisible;
-                outline.OutlineColor = outlineColor;
-                outline.OutlineWidth = 3f;
-            }
-
 
             if (other.gameObject.GetComponent<Item>() != null)
             {
@@ -454,7 +440,6 @@ public class PlayerController : MonoBehaviour
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
                         Inv2.text = hand[1].Name;
-                        Debug.Log(hand[0].Name);
                     }
                 }
                 else
@@ -468,7 +453,6 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.GetComponent<Utility>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
             }
-            //isInteracting = false;
         }
         else if (other.gameObject.tag == "PassItems" && !readyToInteract)
         {
@@ -496,11 +480,6 @@ public class PlayerController : MonoBehaviour
         interactionText.text = "";
         readyToInteract = false;
         isInteracting = false;
-        if (other.GetComponent<Item>() != null || other.GetComponent<Utility>() != null || other.gameObject.tag == "Interactable")
-        {
-            //Depreciated
-        }
-        //Debug.LogWarning("OnTriggerExit()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
 
         if (other.gameObject.tag == "CookBook")
         {
@@ -538,6 +517,17 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.isTouchingBook = true;
             cookBook = GameObject.Find("CookBook_Closed").GetComponent<RecipeBook>();
+        }
+        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook")
+        {
+            //Add highlight to item
+            if (!other.TryGetComponent<Outline>(out _)) //Using discard here because we don't need the outline
+            {
+                var outline = other.gameObject.AddComponent<Outline>();
+                outline.OutlineMode = Outline.Mode.OutlineVisible;
+                outline.OutlineColor = outlineColor;
+                outline.OutlineWidth = 3f;
+            }
         }
     }
 
@@ -648,22 +638,6 @@ public class PlayerController : MonoBehaviour
             KnifeAddon kscript = projectile.GetComponent<KnifeAddon>();
 
             kscript.forward = transform.forward;
-
-            //OLD
-            //RaycastHit hit;
-
-            //if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
-            //{
-            //    forceDirection = (hit.point - attackPoint.position).normalized;
-            //}
-
-            //// add force
-            //Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
-
-            //projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
-
-            //totalThrows++;
-            //END OLD
 
             // implement throwCooldown
             Invoke(nameof(ResetThrow), throwCooldown);

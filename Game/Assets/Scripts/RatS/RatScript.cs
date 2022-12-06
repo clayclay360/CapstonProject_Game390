@@ -38,7 +38,7 @@ public class RatScript : MonoBehaviour
 
     [Header("Climb")]
     public float climbRaduis;
-    //public float platformYOffset;
+    public float platformYOffset;
     public float climbCoolDown;
 
     [Header("Attack")]
@@ -207,14 +207,14 @@ public class RatScript : MonoBehaviour
         {
             float distanceBetweenTarget = Vector3.Distance(transform.position, target.transform.position);
             //Debug.Log(distanceBetweenTarget.ToString());
-            if (distanceBetweenTarget <= climbRaduis && !climbing)
+            if (distanceBetweenTarget < climbRaduis && !climbing)
             {
-                //if (transform.position.y + platformYOffset < target.transform.position.y)
-                //{
-                    Debug.Log(gameObject.name + " climb");
+                if (transform.position.y + platformYOffset < target.transform.position.y)
+                {
+                    //Debug.Log(gameObject.name + " climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
-                //}
+                }
             }
         }
     }
@@ -228,7 +228,7 @@ public class RatScript : MonoBehaviour
         if (climbableTargetMesh != null)
         {
             Transform[] jumpPoints = climbableTargetMesh.GetComponentsInChildren<Transform>();
-            float radius = climbRaduis;
+            float radius = climbRaduis * 3;
             Transform closestJumpPoint = null;
             foreach (Transform jumpPoint in jumpPoints)
             {
@@ -270,7 +270,7 @@ public class RatScript : MonoBehaviour
     {
         if (other.gameObject == target)
         {
-            Debug.Log(gameObject.name + " hit" + other.gameObject.name);
+            //Debug.Log(gameObject.name + " hit" + other.gameObject.name);
             collider.enabled = false;
             switch (target.tag)
             {
@@ -373,6 +373,7 @@ public class RatScript : MonoBehaviour
                                 SelectDestination();
                                 isCarryingItem = true;
                                 egg.CheckCounter();
+                                egg.status = Item.Status.spoiled;
                                 if (counter != null)
                                 {
                                     CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
@@ -389,6 +390,7 @@ public class RatScript : MonoBehaviour
                                 SelectDestination();
                                 isCarryingItem = true;
                                 bacon.CheckCounter();
+                                bacon.status = Item.Status.spoiled;
                                 if (counter != null)
                                 {
                                     CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
@@ -560,11 +562,12 @@ public class RatScript : MonoBehaviour
     {
         target = targetList[Random.Range(0, targetList.Count)];
 
-        Debug.Log(gameObject.name + " is targeting: " + target.name);
+        //Debug.Log(gameObject.name + " is targeting: " + target.name);
         if(target.GetComponent<Item>() != null)
         {
             target.GetComponent<Item>().isTarget = true;
         }
+        //Debug.Log(target.transform.position);
     }
 
     public void CrossEntryway()
