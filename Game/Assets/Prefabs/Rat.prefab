@@ -865,6 +865,7 @@ GameObject:
   - component: {fileID: 6280761598103775855}
   - component: {fileID: 9086033079376823336}
   - component: {fileID: 3728317455368140249}
+  - component: {fileID: 4323451485771693659}
   m_Layer: 6
   m_Name: Rat
   m_TagString: Untagged
@@ -906,6 +907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 5782238860536919977}
   counter: {fileID: 0}
+  ol: {fileID: 4323451485771693659}
   health: 3
   healthBar: {fileID: 4577641971484226122, guid: 2d37ff2569b57b24a9951911e9f196fe, type: 3}
   item: 
@@ -999,6 +1001,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4323451485771693659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5782238861253727561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6212266101822204090
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,14 +1462,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41d2a6d7518ddc245b828275f0b8e38c, type: 3}
---- !u!4 &3977599474150098992 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 41d2a6d7518ddc245b828275f0b8e38c, type: 3}
-  m_PrefabInstance: {fileID: 3511115392338767835}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4357396506874942090 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 41d2a6d7518ddc245b828275f0b8e38c, type: 3}
+  m_PrefabInstance: {fileID: 3511115392338767835}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3977599474150098992 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 41d2a6d7518ddc245b828275f0b8e38c, type: 3}
   m_PrefabInstance: {fileID: 3511115392338767835}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &4446382459504163419

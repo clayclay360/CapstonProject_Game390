@@ -133,4 +133,17 @@ public class GameManager : MonoBehaviour
     {
         return item.status == Item.Status.dirty;
     }
+
+    /// <summary>
+    /// Destroy's the object's item outline if it has one
+    /// </summary>
+    /// <param name="go"></param>
+    public void DestroyOutline(GameObject go)
+    {
+        if (go.TryGetComponent(out Outline ol))
+        {
+
+            Destroy(ol);
+        }
+    }
 }

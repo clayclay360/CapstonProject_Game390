@@ -433,6 +433,7 @@ public class PlayerController : MonoBehaviour
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
+                        gm.DestroyOutline(other.gameObject);
                     }
                     else if (hand[1] == null)
                     {
@@ -440,6 +441,7 @@ public class PlayerController : MonoBehaviour
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
                         Inv2.text = hand[1].Name;
+                        gm.DestroyOutline(other.gameObject);
                     }
                 }
                 else
@@ -504,10 +506,7 @@ public class PlayerController : MonoBehaviour
             counterTopScript.DeleteGameObject();
         }
 
-        if (other.TryGetComponent<Outline>(out Outline ol))
-        {
-            Destroy(ol);
-        }
+        gm.DestroyOutline(other.gameObject);
 
     }
 

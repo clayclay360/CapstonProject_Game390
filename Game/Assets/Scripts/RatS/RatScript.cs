@@ -8,6 +8,7 @@ public class RatScript : MonoBehaviour
     [Header("Variables")]
     public GameObject body;
     public GameObject counter;
+    public Outline ol;
 
     [Header("Healthbar")]
     public int health;
@@ -71,6 +72,7 @@ public class RatScript : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        ol.enabled = false;
         startHeight = transform.position.y;
         attackReady = true;
         hiding = false;
@@ -138,6 +140,7 @@ public class RatScript : MonoBehaviour
                 itemObject.transform.position = transform.position;
                 itemScript.RespawnItem(itemObject);
                 isCarryingItem = false;
+                ol.enabled = false;
                 item = "";
                 hbarScript.SetItemText(item);
             }
@@ -291,6 +294,7 @@ public class RatScript : MonoBehaviour
                         itemObject.transform.position = other.gameObject.transform.position;
                         itemScript.RespawnItem(itemObject);
                         isCarryingItem = false;
+                        ol.enabled = false;
                         if (item == "Egg(Clone)")
                         {
                             eggRespawn.Respawn();
@@ -317,6 +321,7 @@ public class RatScript : MonoBehaviour
                                 hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
+                                ol.enabled = true;
                                 spatula.CheckCounter();
                                 if (counter != null)
                                 {
@@ -345,6 +350,7 @@ public class RatScript : MonoBehaviour
                                 hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
+                                ol.enabled = true;
                                 pan.CheckCounter();
                                 if (counter != null)
                                 {
@@ -372,6 +378,7 @@ public class RatScript : MonoBehaviour
                                 hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
+                                ol.enabled = true;
                                 egg.CheckCounter();
                                 egg.status = Item.Status.spoiled;
                                 if (counter != null)
@@ -389,6 +396,7 @@ public class RatScript : MonoBehaviour
                                 hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
+                                ol.enabled = true;
                                 bacon.CheckCounter();
                                 bacon.status = Item.Status.spoiled;
                                 if (counter != null)
