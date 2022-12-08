@@ -63,19 +63,23 @@ MonoBehaviour:
   Name: Spatula
   Type: Tool
   despawnTime: 0
+  status: 3
   cleanSelf: {fileID: 5626260943346204731}
   dirtySelf: {fileID: 4284445408655221864}
+  selfReference: {fileID: 9031513021252998085}
+  canRespawn: 1
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
-  status: 3
   Occupied: 0
   prone: 0
   isActive: 0
+  isTarget: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
   usesUntilDirty: 0
   currUses: 0
+  counterInUse: {fileID: 0}
 --- !u!135 &2242809337484976740
 SphereCollider:
   m_ObjectHideFlags: 0

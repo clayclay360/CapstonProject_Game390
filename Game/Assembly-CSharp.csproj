@@ -53,19 +53,22 @@
     <UnityVersion>2020.3.38f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\QuickOutline\Scripts\Outline.cs" />
     <Compile Include="Assets\Scripts\Task.cs" />
     <Compile Include="Assets\Scripts\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\Order.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
     <Compile Include="Assets\Scripts\Container\Plate.cs" />
-    <Compile Include="Assets\Scripts\RatHealthBar.cs" />
+    <Compile Include="Assets\Scripts\RatS\RatHealthBar.cs" />
     <Compile Include="Assets\Scripts\Entryway.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Parent.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\TaskManager.cs" />
+    <Compile Include="Assets\Scripts\PrefabReferences.cs" />
     <Compile Include="Assets\Scripts\OrderManager.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\LineRend.cs" />
@@ -84,11 +87,11 @@
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Press.cs" />
     <Compile Include="Assets\Scripts\Utilities\Computer.cs" />
-    <Compile Include="Assets\Scripts\RatScript.cs" />
+    <Compile Include="Assets\Scripts\RatS\RatScript.cs" />
     <Compile Include="Assets\Scripts\CounterTop.cs" />
     <Compile Include="Assets\Scripts\Player\CameraScript.cs" />
     <Compile Include="Assets\Scripts\Container\Pan.cs" />
-    <Compile Include="Assets\Scripts\RatSpawnSystem.cs" />
+    <Compile Include="Assets\Scripts\RatS\RatSpawnSystem.cs" />
     <Compile Include="Assets\Scripts\KnifeAddon.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\Stove.cs" />
@@ -102,6 +105,11 @@
     <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\Billboard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\QuickOutline\Resources\Shaders\OutlineMask.shader" />
+    <None Include="Assets\QuickOutline\Readme.txt" />
+    <None Include="Assets\QuickOutline\Resources\Shaders\OutlineFill.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

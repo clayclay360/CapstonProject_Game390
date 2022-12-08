@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System;
 public class PlayerController : MonoBehaviour
 {
     private GameManager gm;
@@ -80,6 +81,7 @@ public class PlayerController : MonoBehaviour
     public Dictionary<int, Item> hand = new Dictionary<int, Item>();
     public enum ItemInMainHand { empty, egg, spatula, pan, bacon, pages, plate };
     public ItemInMainHand itemInMainHand;
+    private Color outlineColor;
     RecipeBook cookBook;
 
     [Header("Orders")]
@@ -93,6 +95,11 @@ public class PlayerController : MonoBehaviour
     public bool isInteracting;
     private bool readyToInteract;
 
+    //comment
+
+    //player count to stop error with trying to spawn in more players
+    
+
     void Awake()
     {
         playerCamera.transform.position = gameObject.transform.position + camOffset;
@@ -104,6 +111,7 @@ public class PlayerController : MonoBehaviour
         attackPoint = transform.Find("Attackpoint");
         animator.GetComponent<Animator>();
         PlayerAssignment();
+        ColorAssignment();
         gm = GameManager.Instance;
         throwCooldown = 0.4f;
 
@@ -204,6 +212,19 @@ public class PlayerController : MonoBehaviour
         interactionText.GetComponent<Text>();
     }
 
+    private void ColorAssignment()
+    {
+        switch (player)
+        {
+            case Player.PlayerOne:
+                outlineColor = Color.blue;
+                break;
+            case Player.PlayerTwo:
+                outlineColor = Color.green;
+                break;
+        }
+    }
+
     private void GetNameInMain()
     {
         if (hand[0] != null)
@@ -280,7 +301,6 @@ public class PlayerController : MonoBehaviour
         {
             isInteracting= true;
         }
-        //Debug.LogWarning("OnInteract()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
 
         if (hand[0] != null && !GameManager.passItemsReady && !GameManager.putOnCounter && !readyToInteract)
         {
@@ -383,14 +403,16 @@ public class PlayerController : MonoBehaviour
             hand[0] = null;
         }
 
-        cookBook.ClickOnBook();
-    }
+        if (GameManager.isTouchingBook && GameManager.recipeIsOpenP1)
+        {
+            GameManager.recipeIsOpenP1 = false;
+            cookBook.setActiveFalseFunc();
+        } else if (GameManager.isTouchingBook && !GameManager.recipeIsOpenP1)
+        {
+            GameManager.recipeIsOpenP1 = true;
+            cookBook.setActiveTrueFunc();
+        }
 
-    public IEnumerator InteractCD()
-    {
-        readyToInteract = false;
-        yield return new WaitForSeconds(.5f);
-        readyToInteract = true;
     }
 
     private void OnTriggerStay(Collider other)
@@ -411,6 +433,7 @@ public class PlayerController : MonoBehaviour
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
+                        gm.DestroyOutline(other.gameObject);
                     }
                     else if (hand[1] == null)
                     {
@@ -418,7 +441,7 @@ public class PlayerController : MonoBehaviour
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
                         Inv2.text = hand[1].Name;
-                        Debug.Log(hand[0].Name);
+                        gm.DestroyOutline(other.gameObject);
                     }
                 }
                 else
@@ -432,7 +455,6 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.GetComponent<Utility>().CheckHand(itemInMainHand, this);
                 interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
             }
-            //isInteracting = false;
         }
         else if (other.gameObject.tag == "PassItems" && !readyToInteract)
         {
@@ -442,6 +464,17 @@ public class PlayerController : MonoBehaviour
             }
             interactionText.text = other.gameObject.GetComponent<Utility>().Interaction;
         }
+        if (other.gameObject.tag == "PassItems")
+        {
+            GameManager.passItemsReady = true;
+        }
+
+        if (other.gameObject.tag == "CounterTop")
+        {
+            GameManager.putOnCounter = true;
+            counterTopScript = other.gameObject.GetComponent<CounterTop>();
+            counterTopScript.CheckIfInUse();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -449,11 +482,6 @@ public class PlayerController : MonoBehaviour
         interactionText.text = "";
         readyToInteract = false;
         isInteracting = false;
-        if (other.GetComponent<Item>() != null || other.GetComponent<Utility>() != null || other.gameObject.tag == "Interactable")
-        {
-            //Depreciated
-        }
-        //Debug.LogWarning("OnTriggerExit()\nisInteracting: " + isInteracting.ToString() + "\nreadyToInteract: " + readyToInteract.ToString());
 
         if (other.gameObject.tag == "CookBook")
         {
@@ -477,6 +505,9 @@ public class PlayerController : MonoBehaviour
             GameManager.putOnCounter = false;
             counterTopScript.DeleteGameObject();
         }
+
+        gm.DestroyOutline(other.gameObject);
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -486,17 +517,16 @@ public class PlayerController : MonoBehaviour
             GameManager.isTouchingBook = true;
             cookBook = GameObject.Find("CookBook_Closed").GetComponent<RecipeBook>();
         }
-
-        if (other.gameObject.tag == "PassItems")
+        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook")
         {
-            GameManager.passItemsReady = true;
-        }
-
-        if (other.gameObject.tag == "CounterTop")
-        {
-            GameManager.putOnCounter = true;
-            counterTopScript = other.gameObject.GetComponent<CounterTop>();
-            counterTopScript.CheckIfInUse();
+            //Add highlight to item
+            if (!other.TryGetComponent<Outline>(out _)) //Using discard here because we don't need the outline
+            {
+                var outline = other.gameObject.AddComponent<Outline>();
+                outline.OutlineMode = Outline.Mode.OutlineVisible;
+                outline.OutlineColor = outlineColor;
+                outline.OutlineWidth = 3f;
+            }
         }
     }
 
@@ -608,24 +638,13 @@ public class PlayerController : MonoBehaviour
 
             kscript.forward = transform.forward;
 
-            //OLD
-            //RaycastHit hit;
-
-            //if (Physics.Raycast(transform.position, transform.forward, out hit, 500f))
-            //{
-            //    forceDirection = (hit.point - attackPoint.position).normalized;
-            //}
-
-            //// add force
-            //Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
-
-            //projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
-
-            //totalThrows++;
-            //END OLD
-
             // implement throwCooldown
             Invoke(nameof(ResetThrow), throwCooldown);
+        }
+
+        if (GameManager.isTouchingBook && GameManager.recipeIsOpenP1)
+        {
+            cookBook.ClickOnBook();
         }
     }
 

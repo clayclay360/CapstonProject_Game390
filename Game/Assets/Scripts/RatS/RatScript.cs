@@ -7,18 +7,26 @@ public class RatScript : MonoBehaviour
 {
     [Header("Variables")]
     public GameObject body;
+    public GameObject counter;
+    public Outline ol;
+
+    [Header("Healthbar")]
+    public int health;
+    public GameObject healthBar;
+    private RatHealthBar hbarScript;
+    private float hbarTimer = 0f;
+    private const float HBARTIME = 3f;
+    private bool hbarVisible = false;
 
     [Header("Stats")]
-    public int health;
-    public RatHealthBar ratHealthBar;
     public string item;
     public bool isCarryingItem;
     public Canvas hbCanv;
-    private Vector3 hbarOffset = new Vector3(0f, .5f, -.5f);
 
     [Header("Target")]
     public float attackRadius;
     public List<GameObject> TargetsList;
+    public GameObject target;
     public bool objectiveComplete;
     public GameObject[] ventsTransform;
 
@@ -58,17 +66,22 @@ public class RatScript : MonoBehaviour
     private MeshRenderer climbableTargetMesh;
     private Transform escapeVent;
     private RatSpawnSystem ratSpawnSystem;
-    private GameObject target;
     private GameObject itemObject;
     private Item itemScript;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        ol.enabled = false;
         startHeight = transform.position.y;
         attackReady = true;
         hiding = false;
         climbing = false;
+        //Create healthbar and istance it
+        GameObject hbar = Instantiate(healthBar);
+        hbarScript = hbar.GetComponent<RatHealthBar>();
+        hbarScript.rat = gameObject;
+        hbarScript.gameObject.SetActive(false);
 
         //GetTarget();
         ventsTransform = GameObject.FindGameObjectsWithTag("RatVent");
@@ -80,7 +93,7 @@ public class RatScript : MonoBehaviour
         AdjustTargetList(TargetsList);
         hidingPointsList = GameObject.FindGameObjectsWithTag("HidingPoint");
 
-        ratHealthBar.SetMaxHealth(health);
+        hbarScript.SetMaxHealth(health);
     }
 
     // Update is called once per frame
@@ -97,12 +110,26 @@ public class RatScript : MonoBehaviour
         hbCanv.transform.rotation = Quaternion.Euler(CanvRot);
         baconRespawn = GameManager.bacon;
         eggRespawn = GameManager.egg;
+
+        //Healthbar timer—disappears if it has been visible for more than 3 seconds
+        if (hbarVisible)
+        {
+            hbarTimer += Time.deltaTime;
+            if (hbarTimer >= HBARTIME)
+            {
+                hbarScript.gameObject.SetActive(false);
+                hbarTimer = 0f;
+                hbarVisible = false;
+            }
+        }
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
-        ratHealthBar.SetHealth(health);
+        hbarScript.SetHealth(health);
+        hbarScript.gameObject.SetActive(true);
+        hbarVisible = true;
 
         if (health <= 0)
         {
@@ -113,10 +140,12 @@ public class RatScript : MonoBehaviour
                 itemObject.transform.position = transform.position;
                 itemScript.RespawnItem(itemObject);
                 isCarryingItem = false;
+                ol.enabled = false;
                 item = "";
-                ratHealthBar.SetItemText(item);
+                hbarScript.SetItemText(item);
             }
             ratSpawnSystem.numberOfRats--;
+            Destroy(hbarScript.gameObject);
             Destroy(gameObject);
         }
     }
@@ -185,7 +214,7 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    Debug.Log(gameObject.name + " climb");
+                    //Debug.Log(gameObject.name + " climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
                 }
@@ -244,7 +273,7 @@ public class RatScript : MonoBehaviour
     {
         if (other.gameObject == target)
         {
-            Debug.Log(gameObject.name + " hit" + other.gameObject.name);
+            //Debug.Log(gameObject.name + " hit" + other.gameObject.name);
             collider.enabled = false;
             switch (target.tag)
             {
@@ -265,6 +294,7 @@ public class RatScript : MonoBehaviour
                         itemObject.transform.position = other.gameObject.transform.position;
                         itemScript.RespawnItem(itemObject);
                         isCarryingItem = false;
+                        ol.enabled = false;
                         if (item == "Egg(Clone)")
                         {
                             eggRespawn.Respawn();
@@ -273,7 +303,7 @@ public class RatScript : MonoBehaviour
                             baconRespawn.Respawn();
                         }
                         item = "";
-                        ratHealthBar.SetItemText(item);
+                        hbarScript.SetItemText(item);
                     }
                     objectiveComplete = true;
                     break;
@@ -288,21 +318,28 @@ public class RatScript : MonoBehaviour
                                 spatula.status = Item.Status.dirty;
                                 spatula.DespawnItem(other.gameObject);
                                 item = other.gameObject.name;
-                                ratHealthBar.SetItemText(item);
+                                hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
-                                break;
+                                ol.enabled = true;
+                                spatula.CheckCounter();
+                                if (counter != null)
+                                {
+                                    CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+                                    counterScript.inUse = false;
+                                }
+                            break;
 
-                            case ("Plate"):
-                                Plate plate = other.gameObject.GetComponent<Plate>();
-                                plate.isTarget = false;
-                                plate.status = Item.Status.dirty;
-                                plate.DespawnItem(other.gameObject);
-                                item = other.gameObject.name;
-                                ratHealthBar.SetItemText(item);
-                                SelectDestination();
-                                isCarryingItem = true;
-                                break;
+                            //case ("Plate"):
+                            //    Plate plate = other.gameObject.GetComponent<Plate>();
+                            //    plate.isTarget = false;
+                            //    plate.status = Item.Status.dirty;
+                            //    plate.DespawnItem(other.gameObject);
+                            //    item = other.gameObject.name;
+                            //    hbarScript.SetItemText(item);
+                            //    SelectDestination();
+                            //    isCarryingItem = true;
+                            //    break;
 
                             case ("Pan"):
                                 Pan pan = other.gameObject.GetComponent<Pan>();
@@ -310,9 +347,16 @@ public class RatScript : MonoBehaviour
                                 pan.status = Item.Status.dirty;
                                 pan.DespawnItem(other.gameObject);
                                 item = other.gameObject.name;
-                                ratHealthBar.SetItemText(item);
+                                hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
+                                ol.enabled = true;
+                                pan.CheckCounter();
+                                if (counter != null)
+                                {
+                                    CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+                                    counterScript.inUse = false;
+                                }
                                 break;
 
                             case ("Sink"):
@@ -331,23 +375,52 @@ public class RatScript : MonoBehaviour
                                 egg.isTarget = false;
                                 egg.DespawnItem(other.gameObject);
                                 item = other.gameObject.name;
-                                ratHealthBar.SetItemText(item);
+                                hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
-                                break;
+                                ol.enabled = true;
+                                egg.CheckCounter();
+                                egg.status = Item.Status.spoiled;
+                                if (counter != null)
+                                {
+                                    CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+                                    counterScript.inUse = false;
+                                }
+                            break;
 
                             case ("Bacon(Clone)"):
                                 Bacon bacon = other.gameObject.GetComponent<Bacon>();
                                 bacon.isTarget = false;
                                 bacon.DespawnItem(other.gameObject);
                                 item = other.gameObject.name;
-                                ratHealthBar.SetItemText(item);
+                                hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
-                                break;
+                                ol.enabled = true;
+                                bacon.CheckCounter();
+                                bacon.status = Item.Status.spoiled;
+                                if (counter != null)
+                                {
+                                    CounterTop counterScript = counter.GetComponentInChildren<CounterTop>();
+                                    counterScript.inUse = false;
+                                }
+                            break;
                         }
                         break;
             }
+        }
+
+        if (other.gameObject.tag == "CounterTop")
+        {
+            counter = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "CounterTop")
+        {
+            counter = null;
         }
     }
 
@@ -396,12 +469,8 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case ("Plate"):
-                    //Don't target if plate is dirty, despawned, or being targeted by another rat
-                    Plate plate = item.GetComponent<Plate>();
-                    if (plate.status == Item.Status.dirty || !plate.isActive || plate.isTarget)
-                    {
-                        removeList.Add(item);
-                    }
+                case ("Plate(Clone)"):
+                    removeList.Add(item);
                     break;
 
                 case ("Pan"):
@@ -466,6 +535,11 @@ public class RatScript : MonoBehaviour
                 case ("Computer"):
                     removeList.Add(item);
                     break;
+
+                case ("Pages"):
+                case ("Pages2"):
+                    removeList.Add(item);
+                    break;
             }
 
             if (item == target)
@@ -496,12 +570,12 @@ public class RatScript : MonoBehaviour
     {
         target = targetList[Random.Range(0, targetList.Count)];
 
-        Debug.Log(gameObject.name + " is targeting: " + target.name);
+        //Debug.Log(gameObject.name + " is targeting: " + target.name);
         if(target.GetComponent<Item>() != null)
         {
             target.GetComponent<Item>().isTarget = true;
         }
-        Debug.Log(target.transform.position);
+        //Debug.Log(target.transform.position);
     }
 
     public void CrossEntryway()
