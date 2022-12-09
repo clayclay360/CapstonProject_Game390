@@ -28,11 +28,7 @@ public class Egg : Item
     {
         base.Start();
         passItems = GameObject.Find("PassItems");
-<<<<<<< HEAD
         GameManager.egg = GameObject.Find("Egg(Clone)").GetComponentInChildren<Egg>(); //This line returns an error every time the game is started.
-=======
-        GameManager.egg = GameObject.Find("Egg(Clone)").GetComponent<Egg>();
->>>>>>> parent of a65244f5 (Small fix for nullreference exception)
         origPos = transform.position;
     }
 
