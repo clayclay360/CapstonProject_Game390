@@ -14,6 +14,7 @@ public class Plate : Item
     Bacon baconRespawn;
     Egg eggRespawn;
     Menu menuOrder;
+    RecipeBook cookBook;
 
     public Plate()
     {
@@ -30,9 +31,9 @@ public class Plate : Item
 
     public void Start()
     {
-        menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>(); //This line returns an error every time the game is started
+        menuOrder = GameObject.Find("MenuOrderBackground").GetComponentInChildren<Menu>();
         menuOrder.PlaceOrder(orderName);
-        Debug.LogError(orderName);
+        cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
     }
 
     public void Update()
@@ -50,7 +51,7 @@ public class Plate : Item
 
                 Interaction = orderName;
                 sliderTimer.gameObject.SetActive(true);
-                Menu menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>();
+                Menu menuOrder = GameObject.Find("MenuOrderBackground").GetComponentInChildren<Menu>();
                 Debug.LogError(menuOrder.menuText1);
 
                 if (chef.hand[0].GetComponent<Pan>() != null && chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
@@ -67,6 +68,11 @@ public class Plate : Item
                             OrderManager.currentOrders--;
                             OrderManager.Order.Remove(orderNumber);
                             Destroy(gameObject);
+                            if (!GameManager.isStepCompleted.Contains(2))
+                            {
+                                GameManager.isStepCompleted.Add(5);
+                                cookBook.printRecipeBookText("Drop pan and egg off at proper plate order", "", 5, 6);
+                            }
                         }
                         else
                         {
@@ -79,12 +85,10 @@ public class Plate : Item
                         if (orderName.Contains("Omelet"))
                         {
                             eggRespawn.Respawn();
-                            Debug.LogError("Egg");
                         }
                         else if (orderName.Contains("Bacon"))
                         {
                             baconRespawn.Respawn();
-                            Debug.LogError("Bacon");
                         }
 
                         menuOrder.RemoveOrder(orderName);

@@ -107,10 +107,10 @@ public class Pan : Item
 
                         if (chef.isInteracting)
                         {
-                            if (!GameManager.isStepCompleted.Contains(5))
+                            if (!GameManager.isStepCompleted.Contains(3))
                             {
-                                GameManager.isStepCompleted.Add(5);
-                                cookBook.printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
+                                GameManager.isStepCompleted.Add(3);
+                                cookBook.printRecipeBookText("Crack egg in the pan", "Use spatula to mix eggs at proper time.", 3, 4);
                             }
                             chef.hand[0].GetComponent<Collider>().enabled = false;
                             chef.hand[0].GetComponent<Egg>().state = Egg.State.yoke;
@@ -162,10 +162,10 @@ public class Pan : Item
                     Interaction = "Use Spatula";
                     if (chef.isInteracting)
                     {
-                        if (!GameManager.isStepCompleted.Contains(6))
+                        if (!GameManager.isStepCompleted.Contains(4))
                         {
-                            GameManager.isStepCompleted.Add(6);
-                            cookBook.printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
+                            GameManager.isStepCompleted.Add(4);
+                            cookBook.printRecipeBookText("Crack egg in the pan", "Use spatula to mix eggs at proper time.", 3, 4);
                         }
                         chef.isInteracting = false;
                         interactionIndex = 0;

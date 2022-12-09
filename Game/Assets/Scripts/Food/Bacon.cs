@@ -22,8 +22,8 @@ public class Bacon : Item
     {
         gm = GameManager.Instance;
         passItems = GameObject.Find("PassItems");
-        GameManager.bacon = GameObject.Find("Bacon(Clone)").GetComponentInChildren<Bacon>(); //This line returns an error every time the game is started
         origPos = transform.position;
+        StartCoroutine(WaitOneSecond());
     }
 
     public void Update()
@@ -160,5 +160,12 @@ public class Bacon : Item
     {
         transform.position = origPos;
         gameObject.SetActive(true);
+    }
+
+    private IEnumerator WaitOneSecond()
+    {
+        yield return new WaitForSeconds(1);
+        GameManager.bacon = GameObject.Find("Bacon(Clone)").GetComponentInChildren<Bacon>();
+        //Debug.Log(GameManager.bacon);
     }
 }
