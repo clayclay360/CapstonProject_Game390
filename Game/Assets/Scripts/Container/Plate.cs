@@ -68,8 +68,11 @@ public class Plate : Item
                             OrderManager.currentOrders--;
                             OrderManager.Order.Remove(orderNumber);
                             Destroy(gameObject);
-                            GameManager.isStepCompleted.Add(5);
-                            cookBook.printRecipeBookText("Drop pan and egg off at proper plate order", "", 5, 6);
+                            if (!GameManager.isStepCompleted.Contains(2))
+                            {
+                                GameManager.isStepCompleted.Add(5);
+                                cookBook.printRecipeBookText("Drop pan and egg off at proper plate order", "", 5, 6);
+                            }
                         }
                         else
                         {

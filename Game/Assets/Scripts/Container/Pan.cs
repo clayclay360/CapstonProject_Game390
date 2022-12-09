@@ -107,7 +107,7 @@ public class Pan : Item
 
                         if (chef.isInteracting)
                         {
-                            if (!GameManager.isStepCompleted.Contains(5))
+                            if (!GameManager.isStepCompleted.Contains(3))
                             {
                                 GameManager.isStepCompleted.Add(3);
                                 cookBook.printRecipeBookText("Crack egg in the pan", "Use spatula to mix eggs at proper time.", 3, 4);
@@ -162,9 +162,9 @@ public class Pan : Item
                     Interaction = "Use Spatula";
                     if (chef.isInteracting)
                     {
-                        if (!GameManager.isStepCompleted.Contains(6))
+                        if (!GameManager.isStepCompleted.Contains(4))
                         {
-                            GameManager.isStepCompleted.Add(6);
+                            GameManager.isStepCompleted.Add(4);
                             cookBook.printRecipeBookText("Crack egg in the pan", "Use spatula to mix eggs at proper time.", 3, 4);
                         }
                         chef.isInteracting = false;
