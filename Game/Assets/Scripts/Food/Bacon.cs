@@ -22,7 +22,11 @@ public class Bacon : Item
     {
         gm = GameManager.Instance;
         passItems = GameObject.Find("PassItems");
+<<<<<<< HEAD
         GameManager.bacon = GameObject.Find("Bacon(Clone)").GetComponentInChildren<Bacon>(); //This line returns an error every time the game is started
+=======
+        GameManager.bacon = GameObject.Find("Bacon(Clone)").GetComponentInChildren<Bacon>();
+>>>>>>> parent of a65244f5 (Small fix for nullreference exception)
         origPos = transform.position;
     }
 
