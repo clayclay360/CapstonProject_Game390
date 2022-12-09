@@ -45,7 +45,7 @@ public class Stove :Utility
                         if (!GameManager.isStepCompleted.Contains(1))
                         {
                             GameManager.isStepCompleted.Add(1);
-                            cookBook.printRecipeBookText("Turn on Stove.", "Place Pan on Stove.", 1, 2);
+                            cookBook.printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
                         }
                         On = true;
                         State(On);
@@ -104,7 +104,7 @@ public class Stove :Utility
                             if (!GameManager.isStepCompleted.Contains(2))
                             {
                                 GameManager.isStepCompleted.Add(2);
-                                cookBook.printRecipeBookText("Turn on Stove.", "Place Pan on Stove.", 1, 2);
+                                cookBook.printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
                             }
                             chef.hand[0].gameObject.SetActive(true);
                             chef.hand[0].gameObject.transform.position = placement.position;

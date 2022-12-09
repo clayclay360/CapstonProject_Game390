@@ -19,8 +19,8 @@ public class RecipeBook : MonoBehaviour
 
     void Start()
     {
-        pages = new int[] { 1, 2, 3 };
-        steps = new int[] { 1, 2, 3, 4, 5, 6 };
+        pages = new int[] { 1, 2, 3, 4 };
+        steps = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
         currentPage = 1;
         currentStep = 2;
         GameManager.isStepCompleted.Add(0);
@@ -148,22 +148,26 @@ public class RecipeBook : MonoBehaviour
                 {
                     if (currentPage == 0)
                     {
-                        printRecipeBookText("Turn on Stove.", "Place Pan on Stove.", 1, 2);
+                        printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
 
 
                     }
                     else if (currentPage == 1)
                     {
-                        printRecipeBookText("Crack egg in the pan", "Use spatula to mix eggs at proper time.", 3, 4);
+                        printRecipeBookText("Beat the eggs (Bowl on countertop).", "Melt Butter in the pan.", 3, 4);
+                    }
+                    else if (currentPage == 2)
+                    {
+                        printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
                     }
 
                     currentPage++;
                 }
                 else
                 {
-                    if (currentPage == 2)
+                    if (currentPage == 3)
                     {
-                        printRecipeBookText("Drop pan and egg off at proper plate order", "", 5, 6);
+                        printRecipeBookText("Add cheese to pan.", "Fold eggs with spatula", 7, 8);
                     }
                     currentPage = 0;
                 }
