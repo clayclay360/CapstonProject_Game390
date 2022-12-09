@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static string test;
     public static bool gameStarted;
     public static bool assigningOrders;
     public static int currentLevel;
@@ -12,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     public static bool isTouchingTrashCan;
     public static bool passItemsReady;
-    public static string[] counterItems = { "", "", ""};
+    public string[] counterItems = { "", "", ""};
     public static bool putOnCounter;
     public static Bacon bacon;
     public static Egg egg;
@@ -65,7 +64,6 @@ public class GameManager : MonoBehaviour
         reqsClear = false;
         playerScore = 0;
         scoreMultiplier = 1;
-        test = "";
 
         recipeReq.Add("omelet");
         //Debug.LogWarning("GameManager Ready!");

@@ -47,21 +47,18 @@ public class CookBook : Utility
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
     {
-        if (lives > 0 && !GameManager.recipeIsOpenP1)
-        {
-            Interaction = "Open Book";
-            //Move normal interaction here
-            return;
-        } else if (lives > 0 && GameManager.recipeIsOpenP1)
+        if (lives > 0)
         {
             Interaction = "Flip page";
+            //Move normal interaction here
+            return;
         }
 
-        if (lives <= 0 && item == PlayerController.ItemInMainHand.pages)
+        if (item == PlayerController.ItemInMainHand.pages)
         {
             Interaction = "Repair Book";
         }
-        else if (lives <= 0 && item != PlayerController.ItemInMainHand.pages)
+        else
         {
             Interaction = "Cookbook is Destroyed.";
         }
@@ -77,7 +74,6 @@ public class CookBook : Utility
                 //Restore book model
             }
         }
-
     }
 
     //TEST FUNCTION FOR DESTROYING COOKBOOK

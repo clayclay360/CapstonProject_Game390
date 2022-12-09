@@ -118,22 +118,18 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
 
     public void CheckCounter()
     {
-        for (int i = 0; i <= GameManager.counterItems.Length; i++)
+        for (int i = 0; i <= gm.counterItems.Length; i++)
         {
-
-            if (i >= GameManager.counterItems.Length)
+            if (i >= gm.counterItems.Length)
             {
                 return;
             }
 
-            if (GameManager.counterItems[i].Contains(gameObject.name))
+            if (gameObject.name == gm.counterItems[i])
             {
-                GameManager.test = gameObject.name;
-                GameManager.counterItems[i] = "";
+                gm.counterItems[i] = "";
                 return;
             }
-
-
         }
     }
 
