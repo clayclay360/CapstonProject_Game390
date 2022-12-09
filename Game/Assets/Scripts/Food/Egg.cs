@@ -28,8 +28,8 @@ public class Egg : Item
     {
         base.Start();
         passItems = GameObject.Find("PassItems");
-        GameManager.egg = GameObject.Find("Egg(Clone)").GetComponent<Egg>();
         origPos = transform.position;
+        StartCoroutine(WaitOneSecond());
     }
 
     public void Update()
@@ -166,5 +166,12 @@ public class Egg : Item
     {
         transform.position = origPos;
         gameObject.SetActive(true);
+    }
+
+    private IEnumerator WaitOneSecond()
+    {
+        yield return new WaitForSeconds(1);
+        GameManager.egg = GameObject.Find("Egg(Clone)").GetComponent<Egg>();
+        //Debug.Log(GameManager.egg);
     }
 }
