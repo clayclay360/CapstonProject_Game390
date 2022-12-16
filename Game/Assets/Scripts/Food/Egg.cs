@@ -28,7 +28,7 @@ public class Egg : Item
     {
         base.Start();
         passItems = GameObject.Find("PassItems");
-        GameManager.egg = GameObject.Find("Egg(Clone)").GetComponentInChildren<Egg>(); //This line returns an error every time the game is started.
+        StartCoroutine("SetObject");
         origPos = transform.position;
     }
 
@@ -166,5 +166,11 @@ public class Egg : Item
     {
         transform.position = origPos;
         gameObject.SetActive(true);
+    }
+
+    private IEnumerator SetObject()
+    {
+        yield return new WaitForSeconds(1);
+        GameManager.egg = GameObject.Find("Egg(Clone)").GetComponentInChildren<Egg>();
     }
 }

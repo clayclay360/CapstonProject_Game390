@@ -47,9 +47,14 @@ public class CookBook : Utility
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
     {
-        if (lives > 0)
+        if (lives > 0 && GameManager.recipeIsOpenP1)
         {
             Interaction = "Flip page";
+            //Move normal interaction here
+            return;
+        } else if (lives > 0 && !GameManager.recipeIsOpenP1)
+        {
+            Interaction = "Open Cookbook";
             //Move normal interaction here
             return;
         }

@@ -34,9 +34,10 @@ public class Spatula : Item
 
         switch (item)
         {
+
             case PlayerController.ItemInMainHand.empty:
                 Interaction = "Grab Spatula";
-                if (chef.isInteracting)
+                if (chef.isInteracting && counterInUse != null)
                 {
                     gameObject.SetActive(false);
                     Interaction = "";
@@ -86,6 +87,8 @@ public class Spatula : Item
                     }
                 }
                 break;
+
+                Debug.Log("Im here");
         }
     }
 
