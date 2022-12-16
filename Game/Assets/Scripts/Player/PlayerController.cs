@@ -331,7 +331,7 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-        if (hand[0] != null && GameManager.passItemsReady && !GameManager.putOnCounter && !readyToInteract)
+        if (hand[0] != null && GameManager.passItemsReady && !readyToInteract)
         {
             passItems = GameObject.Find("PassItems");
 
@@ -397,7 +397,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (hand[0] != null && GameManager.putOnCounter)
+        if (hand[0] != null && GameManager.putOnCounter && !counterTopScript.inUse && readyToInteract)
         {
             counterTopScript.AddToCounterTop(hand[0].ToString());
             hand[0] = null;
@@ -468,6 +468,13 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.passItemsReady = true;
         }
+
+        if (other.gameObject.tag == "CounterTop")
+        {
+            GameManager.putOnCounter = true;
+            counterTopScript = other.gameObject.GetComponent<CounterTop>();
+            counterTopScript.CheckIfInUse();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -520,13 +527,6 @@ public class PlayerController : MonoBehaviour
                 outline.OutlineColor = outlineColor;
                 outline.OutlineWidth = 3f;
             }
-        }
-
-        if (other.gameObject.tag == "CounterTop")
-        {
-            GameManager.putOnCounter = true;
-            counterTopScript = other.gameObject.GetComponent<CounterTop>();
-            counterTopScript.CheckIfInUse();
         }
     }
 

@@ -43,6 +43,9 @@ public class CounterTop : Utility
         {
             counterBacon.PlaceOnCounter(gameObject);
         }
+
+
+        Debug.LogError(inUse);
     }
 
     public void CheckIfInUse()
