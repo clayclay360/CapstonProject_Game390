@@ -32,7 +32,6 @@ public class Plate : Item
     {
         menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>(); //This line returns an error every time the game is started
         menuOrder.PlaceOrder(orderName);
-        Debug.LogError(orderName);
     }
 
     public void Update()
@@ -51,12 +50,10 @@ public class Plate : Item
                 Interaction = orderName;
                 sliderTimer.gameObject.SetActive(true);
                 Menu menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>();
-                Debug.LogError(menuOrder.menuText1);
 
                 if (chef.hand[0].GetComponent<Pan>() != null && chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
                 {
                     Interaction = "Place food on plate";
-                    Debug.LogError(orderName);
                     if (chef.isInteracting)
                     {
                         //if whether the order is coorect or not
@@ -79,12 +76,10 @@ public class Plate : Item
                         if (orderName.Contains("Omelet"))
                         {
                             eggRespawn.Respawn();
-                            Debug.LogError("Egg");
                         }
                         else if (orderName.Contains("Bacon"))
                         {
                             baconRespawn.Respawn();
-                            Debug.LogError("Bacon");
                         }
 
                         menuOrder.RemoveOrder(orderName);
