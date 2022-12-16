@@ -14,9 +14,9 @@ public class RatScript : MonoBehaviour
     public int health;
     public GameObject healthBar;
     private RatHealthBar hbarScript;
-    private float hbarTimer = 0f;
-    private const float HBARTIME = 3f;
-    private bool hbarVisible = false;
+    //private float hbarTimer = 0f;
+    //private const float HBARTIME = 3f;
+    //private bool hbarVisible = false;
 
     [Header("Stats")]
     public string item;
@@ -112,16 +112,16 @@ public class RatScript : MonoBehaviour
         eggRespawn = GameManager.egg;
 
         //Healthbar timer—disappears if it has been visible for more than 3 seconds
-        if (hbarVisible)
-        {
-            hbarTimer += Time.deltaTime;
-            if (hbarTimer >= HBARTIME)
-            {
-                hbarScript.gameObject.SetActive(false);
-                hbarTimer = 0f;
-                hbarVisible = false;
-            }
-        }
+        //if (hbarVisible)
+        //{
+        //    hbarTimer += Time.deltaTime;
+        //    if (hbarTimer >= HBARTIME)
+        //    {
+        //        hbarScript.gameObject.SetActive(false);
+        //        hbarTimer = 0f;
+        //        hbarVisible = false;
+        //    }
+        //}
     }
 
     public void TakeDamage(int damage)
@@ -129,7 +129,7 @@ public class RatScript : MonoBehaviour
         health -= damage;
         hbarScript.SetHealth(health);
         hbarScript.gameObject.SetActive(true);
-        hbarVisible = true;
+        hbarScript.hbarVisible = true;
 
         if (health <= 0)
         {
