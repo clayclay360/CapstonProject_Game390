@@ -184,6 +184,7 @@ MonoBehaviour:
   slider: {fileID: 1097322966504615444}
   itemText: {fileID: 8499496310780598184}
   rat: {fileID: 0}
+  hbarVisible: 0
 --- !u!1 &2054915768880127571
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,7 +653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7890341272668584071
 Transform:
   m_ObjectHideFlags: 0
@@ -807,9 +808,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
-  m_Height: 0.97702396
+  m_Height: 1
   m_Direction: 0
-  m_Center: {x: 0.18851203, y: -8.737958e-16, z: 0}
+  m_Center: {x: 0.35, y: 0, z: 0}
 --- !u!23 &5782238860536919980
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -953,8 +954,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.3
-  m_BaseOffset: 0.1
+  m_Height: 1
+  m_BaseOffset: 0.15
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!54 &6280761598103775855
@@ -988,6 +989,7 @@ MonoBehaviour:
   slider: {fileID: 0}
   itemText: {fileID: 0}
   rat: {fileID: 0}
+  hbarVisible: 0
 --- !u!135 &3728317455368140249
 SphereCollider:
   m_ObjectHideFlags: 0
