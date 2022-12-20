@@ -6,6 +6,8 @@ using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System;
+using UnityEngine.AI;
+
 public class PlayerController : MonoBehaviour
 {
     private GameManager gm;
@@ -209,7 +211,14 @@ public class PlayerController : MonoBehaviour
         hand[2] = null;
         itemInMainHand = ItemInMainHand.empty;
 
+        Invoke("NavEnable", 0.25f);
         interactionText.GetComponent<Text>();
+    }
+
+    public void NavEnable()
+    {
+        //enable nav mesh
+        GetComponent<NavMeshAgent>().enabled = true;
     }
 
     private void ColorAssignment()
