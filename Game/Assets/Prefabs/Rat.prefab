@@ -184,6 +184,7 @@ MonoBehaviour:
   slider: {fileID: 1097322966504615444}
   itemText: {fileID: 8499496310780598184}
   rat: {fileID: 0}
+  hbarVisible: 0
 --- !u!1 &2054915768880127571
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,7 +944,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5782238861253727561}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.3
   m_Speed: 2
   m_Acceleration: 8
@@ -988,6 +989,7 @@ MonoBehaviour:
   slider: {fileID: 0}
   itemText: {fileID: 0}
   rat: {fileID: 0}
+  hbarVisible: 0
 --- !u!135 &3728317455368140249
 SphereCollider:
   m_ObjectHideFlags: 0
