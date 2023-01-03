@@ -77,7 +77,7 @@ public class RatScript : MonoBehaviour
         attackReady = true;
         hiding = false;
         climbing = false;
-        //Create healthbar and istance it
+        //Create healthbar and instance it
         GameObject hbar = Instantiate(healthBar);
         hbarScript = hbar.GetComponent<RatHealthBar>();
         hbarScript.rat = gameObject;
@@ -90,10 +90,15 @@ public class RatScript : MonoBehaviour
         offMeshLink.GetComponent<OffMeshLink>();
         startLink.GetComponent<Transform>();
         endLink.GetComponent<Transform>();
-        AdjustTargetList(TargetsList);
+        //AdjustTargetList(TargetsList);
         hidingPointsList = GameObject.FindGameObjectsWithTag("HidingPoint");
 
         hbarScript.SetMaxHealth(health);
+    }
+
+    private void Start()
+    {
+        AdjustTargetList(TargetsList);
     }
 
     // Update is called once per frame
@@ -161,7 +166,7 @@ public class RatScript : MonoBehaviour
             if (distanceBetweenTarget > attackRadius)
             {
                 //Debug.Log("Distance to "+target.name+": " + distanceBetweenTarget.ToString());
-                MoveToTarget();
+                //SetAgentDestination();
             }
             else
             {
@@ -175,9 +180,23 @@ public class RatScript : MonoBehaviour
         }
     }
 
-    private void MoveToTarget()
+    private void SetAgentDestination()
     {
-        agent.destination = target.transform.position;
+        if(agent.pathStatus != NavMeshPathStatus.PathComplete)
+        {
+            NavMeshPath path = new NavMeshPath();
+            if (!agent.isOnNavMesh)
+            {
+                NavMeshHit hit;
+                NavMesh.SamplePosition(transform.position, out hit, 1f, NavMesh.AllAreas);
+                agent.Warp(hit.position);
+                agent.enabled = false;
+                agent.enabled = true;
+            }
+            agent.SetDestination(target.transform.position);
+            agent.CalculatePath(agent.destination, path);
+            Debug.Log(path.status);
+        }
     }
 
     private void LookForClosestClimbableObject()
@@ -571,11 +590,32 @@ public class RatScript : MonoBehaviour
         target = targetList[Random.Range(0, targetList.Count)];
 
         //Debug.Log(gameObject.name + " is targeting: " + target.name);
-        if(target.GetComponent<Item>() != null)
+        NavMeshPath path = new NavMeshPath();
+        if(target != null)
         {
-            target.GetComponent<Item>().isTarget = true;
+            if (target.GetComponent<Item>() != null)
+            {
+                target.GetComponent<Item>().isTarget = true;
+            }
+            if (!agent.isOnNavMesh)
+            {
+                NavMeshHit hit;
+                NavMesh.SamplePosition(transform.position, out hit, 1f, 1);
+                agent.Warp(hit.position);
+                agent.enabled = false;
+                agent.enabled = true;
+            }
+            agent.SetDestination(target.transform.position);
         }
-        //Debug.Log(target.transform.position);
+        //else
+        //{
+        //    float distance = Random.Range(1, 20);
+        //    Vector3 direction = Random.insideUnitSphere * distance;
+        //    direction += transform.position;
+
+        //}
+        agent.CalculatePath(agent.destination, path);
+        //Debug.Log(path.status);
     }
 
     public void CrossEntryway()
@@ -610,7 +650,7 @@ public class RatScript : MonoBehaviour
             Debug.Log(gameObject.name + " kept going");
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
     }
 
     public void Hide()
