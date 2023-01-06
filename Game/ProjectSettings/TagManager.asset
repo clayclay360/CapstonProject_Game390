@@ -13,6 +13,7 @@ TagManager:
   - PassItems
   - Destination
   - CounterTop
+  - JumpPoints
   layers:
   - Default
   - TransparentFX

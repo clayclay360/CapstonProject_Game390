@@ -209,8 +209,10 @@ public class RatScript : MonoBehaviour
         {
             if(Vector3.Distance(transform.position, collider.ClosestPoint(transform.position)) < radius)
             {
+                Debug.Log(collider.gameObject.name + "Is Cloest Enough To Climb");
                 if (collider.gameObject.CompareTag("Climbable"))
                 {
+                    Debug.Log(collider.gameObject.name + "Is Climbable");
                     radius = Vector3.Distance(transform.position, collider.ClosestPoint(transform.position));
                     closestCollider = collider;
                 }
@@ -219,7 +221,14 @@ public class RatScript : MonoBehaviour
 
         if (!climbing)
         {
-            climbableTargetMesh = closestCollider.gameObject.GetComponent<MeshRenderer>();
+            if(closestCollider.gameObject.GetComponent<MeshRenderer>() != null)
+            {
+                climbableTargetMesh = closestCollider.gameObject.GetComponent<MeshRenderer>();
+            }
+            else
+            {
+                climbableTargetMesh = closestCollider.gameObject.GetComponentInChildren<MeshRenderer>();
+            }
         }
     }
 
@@ -233,7 +242,7 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    //Debug.Log(gameObject.name + " climb");
+                    Debug.Log(gameObject.name + " climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
                 }
@@ -247,18 +256,27 @@ public class RatScript : MonoBehaviour
         dir.Normalize();
         startLink.position = transform.position;
         LookForClosestClimbableObject();
+        Transform[] jumpPoints;
         if (climbableTargetMesh != null)
         {
-            Transform[] jumpPoints = climbableTargetMesh.GetComponentsInChildren<Transform>();
+            if(climbableTargetMesh.transform.childCount > 0)
+            {
+                jumpPoints = climbableTargetMesh.GetComponentsInChildren<Transform>();
+            }
+            else
+            {
+                jumpPoints = climbableTargetMesh.transform.parent.gameObject.GetComponentsInChildren<Transform>();
+            }
             float radius = climbRaduis * 3;
             Transform closestJumpPoint = null;
             foreach (Transform jumpPoint in jumpPoints)
             {
-                if (Vector3.Distance(transform.position, jumpPoint.position) < radius && jumpPoint.transform.position.y > 0.5)
+                if (Vector3.Distance(transform.position, jumpPoint.position) < radius && jumpPoint.transform.position.y > 0.5 && jumpPoint.gameObject.CompareTag("JumpPoints"))
                 {
                     radius = Vector3.Distance(transform.position, jumpPoint.position);
                     closestJumpPoint = jumpPoint;
                 }
+
             }
 
             endLink.position = closestJumpPoint.position;
@@ -583,6 +601,7 @@ public class RatScript : MonoBehaviour
         int destinationIndex = Random.Range(0, destinationsList.Length);
 
         target = destinationsList[destinationIndex];
+        agent.SetDestination(target.transform.position);
     }
 
     public void SetTarget(List<GameObject> targetList)

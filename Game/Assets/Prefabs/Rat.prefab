@@ -653,7 +653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7890341272668584071
 Transform:
   m_ObjectHideFlags: 0
@@ -808,9 +808,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
-  m_Height: 1
+  m_Height: 0.70155406
   m_Direction: 0
-  m_Center: {x: 0.45, y: 0, z: 0}
+  m_Center: {x: 0.300777, y: 7.2158525e-16, z: 0}
 --- !u!23 &5782238860536919980
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -924,7 +924,7 @@ MonoBehaviour:
   endLink: {fileID: 2054915769639909919}
   startLinkOffset: 0.3
   endLinkOffset: 2.3
-  climbRaduis: 1.2
+  climbRaduis: 1.8
   platformYOffset: 0.5
   climbCoolDown: 1.5
   attackRate: 0.2
