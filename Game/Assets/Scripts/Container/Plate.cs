@@ -64,7 +64,7 @@ public class Plate : Item
                             GameManager.rating += .2f;
                             OrderManager.currentOrders--;
                             OrderManager.Order.Remove(orderNumber);
-                            RespawnItem(chef.hand[0]);
+                            RespawnItem(chef.hand[0].GetComponent<Pan>().foodInPan);
                             Destroy(gameObject);
                         }
                         else
