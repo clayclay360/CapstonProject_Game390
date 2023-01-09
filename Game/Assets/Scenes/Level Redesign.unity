@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13640,6 +13640,84 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7b988a0a9344a88479badc43bc43f777, type: 3}
   m_PrefabInstance: {fileID: 1363550220}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1374190581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1374190583}
+  - component: {fileID: 1374190582}
+  m_Layer: 0
+  m_Name: Main
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1374190582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374190581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4733bba4ab732de42a926be7db26bcf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipeManager:
+  - mainRecipes:
+    - Name: Pancake
+      Steps: []
+      stars: 0
+    - Name: French Toast
+      Steps: []
+      stars: 0
+    - Name: Sausage
+      Steps: []
+      stars: 0
+    - Name: Scrambled Eggs
+      Steps: []
+      stars: 0
+    sideRecipes:
+    - Name: Omelet
+      Steps: []
+      stars: 0
+    - Name: Bacon
+      Steps: []
+      stars: 0
+    - Name: Hash Browns
+      Steps: []
+      stars: 0
+    - Name: Toast
+      Steps: []
+      stars: 0
+  currentMainRecipe: 0
+  orderNames: []
+  startingOrders: 0
+  maxTimeInBetweenOrders: 0
+  minTimeInBetweenOrders: 0
+  platePrefab: {fileID: 0}
+  spawnPosition: []
+  orderNumber: 0
+--- !u!4 &1374190583
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374190581}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1374622325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17033,7 +17111,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1668792484}
-  - component: {fileID: 1668792483}
   - component: {fileID: 1668792485}
   m_Layer: 0
   m_Name: OrderManager
@@ -17042,41 +17119,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1668792483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1668792482}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ee5ea45fe517a040b7e0cb040e30445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recipe:
-  - Name: Omelet
-    Steps:
-    - Turn On Stove
-    - Grab Pan
-    - 'Place Pan On Stove '
-    - Grab Egg
-    - Crack Egg On Pan
-    - Grab Spatula
-    - Flip Egg When Ready
-    - Grab Pan
-    - Place Omelet On Plate
-  - Name: Bacon
-    Steps:
-    - Turn On Stove
-    - Grab Pan
-    - Place Pan On Stove
-    - Grab Bacon
-    - Place Bacon On Pan
-    - Grab Spatula
-    - Flip Bacon When Ready
-    - Grab Pan
-    - Place Bacon On Plate
 --- !u!4 &1668792484
 Transform:
   m_ObjectHideFlags: 0
