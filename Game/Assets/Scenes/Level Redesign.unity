@@ -848,7 +848,7 @@ Transform:
   - {fileID: 1860873218}
   - {fileID: 651643508}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &76938763
 GameObject:
@@ -4338,7 +4338,7 @@ Transform:
   - {fileID: 2064374829}
   - {fileID: 999574756}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &464498116
 PrefabInstance:
@@ -5317,6 +5317,11 @@ Transform:
   m_Father: {fileID: 974988506}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &582480169 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 841177211169960695, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
+  m_PrefabInstance: {fileID: 2037240191}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &583667447 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bf680b9eb5ac1f14a848bd81ce80c888, type: 3}
@@ -5731,7 +5736,7 @@ Transform:
   - {fileID: 678285057}
   - {fileID: 7108395}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &605470292
 PrefabInstance:
@@ -9035,6 +9040,7 @@ Transform:
   - {fileID: 1886556366}
   - {fileID: 794735373}
   - {fileID: 1193255284}
+  - {fileID: 582480169}
   m_Father: {fileID: 76086769}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10064,7 +10070,7 @@ Transform:
   - {fileID: 1854599340}
   - {fileID: 925612679}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &941588776 stripped
 GameObject:
@@ -12132,7 +12138,7 @@ Transform:
   - {fileID: 1891187511}
   - {fileID: 1778454148}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1173953596
 GameObject:
@@ -13286,7 +13292,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1304852927
 GameObject:
@@ -18431,7 +18437,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1668792484}
-  - component: {fileID: 1668792483}
   - component: {fileID: 1668792485}
   m_Layer: 0
   m_Name: OrderManager
@@ -18440,41 +18445,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1668792483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1668792482}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ee5ea45fe517a040b7e0cb040e30445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recipe:
-  - Name: Omelet
-    Steps:
-    - Turn On Stove
-    - Grab Pan
-    - 'Place Pan On Stove '
-    - Grab Egg
-    - Crack Egg On Pan
-    - Grab Spatula
-    - Flip Egg When Ready
-    - Grab Pan
-    - Place Omelet On Plate
-  - Name: Bacon
-    Steps:
-    - Turn On Stove
-    - Grab Pan
-    - Place Pan On Stove
-    - Grab Bacon
-    - Place Bacon On Pan
-    - Grab Spatula
-    - Flip Bacon When Ready
-    - Grab Pan
-    - Place Bacon On Plate
 --- !u!4 &1668792484
 Transform:
   m_ObjectHideFlags: 0
@@ -18487,7 +18457,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1668792485
 MonoBehaviour:
@@ -18866,7 +18836,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1709128255
 MonoBehaviour:
@@ -23068,7 +23038,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 849393840}
     m_Modifications:
     - target: {fileID: 741834894374719149, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
       propertyPath: eggPrefab
@@ -23084,7 +23054,7 @@ PrefabInstance:
       objectReference: {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
     - target: {fileID: 841177211169960695, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 841177211169960695, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23104,15 +23074,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 841177211169960695, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 841177211169960695, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 841177211169960695, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 841177211169960695, guid: a1a2977cdc941334e8143d5ea44de933, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23774,6 +23744,60 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 51b5adf6bb4950042944fe3fac38cbba, type: 3}
   m_PrefabInstance: {fileID: 2090309602}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2090983052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2090983054}
+  - component: {fileID: 2090983053}
+  m_Layer: 0
+  m_Name: Main
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2090983053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090983052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4733bba4ab732de42a926be7db26bcf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipeManager:
+  - mainRecipes: []
+    sideRecipes: []
+  currentMainRecipe: 0
+  orderNames: []
+  startingOrders: 0
+  maxTimeInBetweenOrders: 0
+  minTimeInBetweenOrders: 0
+  platePrefab: {fileID: 0}
+  spawnPosition: []
+  orderNumber: 0
+--- !u!4 &2090983054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090983052}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2098761302
 PrefabInstance:
   m_ObjectHideFlags: 0

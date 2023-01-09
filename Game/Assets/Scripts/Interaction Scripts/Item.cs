@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand, PlayerController>
 {
-    protected GameManager gm;
     public string Name;
     public string Type;
     public float despawnTime;
@@ -42,7 +41,6 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     //IN IT BECAUSE THIS ISSUE CAUSED SO MANY ERRORS. FML.
     public void Awake()
     {
-        gm = GameManager.Instance;
         startPosition = transform.position;
         startRotation = transform.rotation;
         isActive = true;
@@ -118,16 +116,16 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
 
     public void CheckCounter()
     {
-        for (int i = 0; i <= gm.counterItems.Length; i++)
+        for (int i = 0; i <= GameManager.counterItems.Length; i++)
         {
-            if (i >= gm.counterItems.Length)
+            if (i >= GameManager.counterItems.Length)
             {
                 return;
             }
 
-            if (gameObject.name == gm.counterItems[i])
+            if (gameObject.name == GameManager.counterItems[i])
             {
-                gm.counterItems[i] = "";
+                GameManager.counterItems[i] = "";
                 return;
             }
         }

@@ -20,7 +20,6 @@ public class Bacon : Item
 
     private new void Start()
     {
-        gm = GameManager.Instance;
         passItems = GameObject.Find("PassItems");
         GameManager.bacon = GameObject.Find("Bacon(Clone)").GetComponentInChildren<Bacon>(); //This line returns an error every time the game is started
         origPos = transform.position;
