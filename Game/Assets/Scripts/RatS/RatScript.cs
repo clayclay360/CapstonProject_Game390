@@ -209,10 +209,10 @@ public class RatScript : MonoBehaviour
         {
             if(Vector3.Distance(transform.position, collider.ClosestPoint(transform.position)) < radius)
             {
-                Debug.Log(collider.gameObject.name + "Is Cloest Enough To Climb");
+                //Debug.Log(collider.gameObject.name + "Is Cloest Enough To Climb");
                 if (collider.gameObject.CompareTag("Climbable"))
                 {
-                    Debug.Log(collider.gameObject.name + "Is Climbable");
+                    //Debug.Log(collider.gameObject.name + "Is Climbable");
                     radius = Vector3.Distance(transform.position, collider.ClosestPoint(transform.position));
                     closestCollider = collider;
                 }

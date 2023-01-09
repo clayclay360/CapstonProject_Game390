@@ -11,8 +11,9 @@ public class Plate : Item
     public float timer;
     public int orderNumber;
     public Slider sliderTimer;
-    Bacon baconRespawn;
-    Egg eggRespawn;
+    public PrefabReferences pr;
+    //Bacon baconRespawn;
+    //Egg eggRespawn;
     Menu menuOrder;
 
     public Plate()
@@ -36,8 +37,8 @@ public class Plate : Item
 
     public void Update()
     {
-        baconRespawn = GameManager.bacon;
-        eggRespawn = GameManager.egg;
+        //baconRespawn = GameManager.bacon;
+        //eggRespawn = GameManager.egg;
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -63,6 +64,7 @@ public class Plate : Item
                             GameManager.rating += .2f;
                             OrderManager.currentOrders--;
                             OrderManager.Order.Remove(orderNumber);
+                            RespawnItem(chef.hand[0]);
                             Destroy(gameObject);
                         }
                         else
@@ -73,14 +75,16 @@ public class Plate : Item
                             OrderManager.Order.Remove(orderNumber);
                             Destroy(gameObject);
                         }
-                        if (orderName.Contains("Omelet"))
-                        {
-                            eggRespawn.Respawn();
-                        }
-                        else if (orderName.Contains("Bacon"))
-                        {
-                            baconRespawn.Respawn();
-                        }
+                        //if (orderName.Contains("Omelet"))
+                        //{
+                        //    Debug.Log("RespawnItem");
+                        //    eggRespawn.Respawn();
+                        //}
+                        //else if (orderName.Contains("Bacon"))
+                        //{
+                        //    Debug.Log("RespawnItem");
+                        //    baconRespawn.Respawn();
+                        //}
 
                         menuOrder.RemoveOrder(orderName);
 
@@ -107,6 +111,16 @@ public class Plate : Item
                 Interaction = orderName;
                 sliderTimer.gameObject.SetActive(true);
                 break;
+        }
+    }
+
+    private void RespawnItem(Item item)
+    {
+        //Find and instance the object
+        GameObject prefab = pr.FindPrefab(item);
+        if (prefab)
+        {
+            Instantiate(prefab, item.startPosition, item.startRotation, transform.parent);
         }
     }
 

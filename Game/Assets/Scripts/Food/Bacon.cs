@@ -157,6 +157,7 @@ public class Bacon : Item
 
     public void Respawn()
     {
+        Debug.Log("Respawning Bacon");
         transform.position = origPos;
         gameObject.SetActive(true);
     }
