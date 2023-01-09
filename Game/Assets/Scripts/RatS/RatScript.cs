@@ -8,14 +8,15 @@ public class RatScript : MonoBehaviour
     [Header("Variables")]
     public GameObject body;
     public GameObject counter;
+    public Outline ol;
 
     [Header("Healthbar")]
     public int health;
     public GameObject healthBar;
     private RatHealthBar hbarScript;
-    private float hbarTimer = 0f;
-    private const float HBARTIME = 3f;
-    private bool hbarVisible = false;
+    //private float hbarTimer = 0f;
+    //private const float HBARTIME = 3f;
+    //private bool hbarVisible = false;
 
     [Header("Stats")]
     public string item;
@@ -71,11 +72,12 @@ public class RatScript : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        ol.enabled = false;
         startHeight = transform.position.y;
         attackReady = true;
         hiding = false;
         climbing = false;
-        //Create healthbar and istance it
+        //Create healthbar and instance it
         GameObject hbar = Instantiate(healthBar);
         hbarScript = hbar.GetComponent<RatHealthBar>();
         hbarScript.rat = gameObject;
@@ -88,10 +90,15 @@ public class RatScript : MonoBehaviour
         offMeshLink.GetComponent<OffMeshLink>();
         startLink.GetComponent<Transform>();
         endLink.GetComponent<Transform>();
-        AdjustTargetList(TargetsList);
+        //AdjustTargetList(TargetsList);
         hidingPointsList = GameObject.FindGameObjectsWithTag("HidingPoint");
 
         hbarScript.SetMaxHealth(health);
+    }
+
+    private void Start()
+    {
+        AdjustTargetList(TargetsList);
     }
 
     // Update is called once per frame
@@ -110,16 +117,16 @@ public class RatScript : MonoBehaviour
         eggRespawn = GameManager.egg;
 
         //Healthbar timer—disappears if it has been visible for more than 3 seconds
-        if (hbarVisible)
-        {
-            hbarTimer += Time.deltaTime;
-            if (hbarTimer >= HBARTIME)
-            {
-                hbarScript.gameObject.SetActive(false);
-                hbarTimer = 0f;
-                hbarVisible = false;
-            }
-        }
+        //if (hbarVisible)
+        //{
+        //    hbarTimer += Time.deltaTime;
+        //    if (hbarTimer >= HBARTIME)
+        //    {
+        //        hbarScript.gameObject.SetActive(false);
+        //        hbarTimer = 0f;
+        //        hbarVisible = false;
+        //    }
+        //}
     }
 
     public void TakeDamage(int damage)
@@ -127,7 +134,7 @@ public class RatScript : MonoBehaviour
         health -= damage;
         hbarScript.SetHealth(health);
         hbarScript.gameObject.SetActive(true);
-        hbarVisible = true;
+        hbarScript.hbarVisible = true;
 
         if (health <= 0)
         {
@@ -138,6 +145,7 @@ public class RatScript : MonoBehaviour
                 itemObject.transform.position = transform.position;
                 itemScript.RespawnItem(itemObject);
                 isCarryingItem = false;
+                ol.enabled = false;
                 item = "";
                 hbarScript.SetItemText(item);
             }
@@ -158,7 +166,7 @@ public class RatScript : MonoBehaviour
             if (distanceBetweenTarget > attackRadius)
             {
                 //Debug.Log("Distance to "+target.name+": " + distanceBetweenTarget.ToString());
-                MoveToTarget();
+                //SetAgentDestination();
             }
             else
             {
@@ -172,9 +180,23 @@ public class RatScript : MonoBehaviour
         }
     }
 
-    private void MoveToTarget()
+    private void SetAgentDestination()
     {
-        agent.destination = target.transform.position;
+        if(agent.pathStatus != NavMeshPathStatus.PathComplete)
+        {
+            NavMeshPath path = new NavMeshPath();
+            if (!agent.isOnNavMesh)
+            {
+                NavMeshHit hit;
+                NavMesh.SamplePosition(transform.position, out hit, 1f, NavMesh.AllAreas);
+                agent.Warp(hit.position);
+                agent.enabled = false;
+                agent.enabled = true;
+            }
+            agent.SetDestination(target.transform.position);
+            agent.CalculatePath(agent.destination, path);
+            Debug.Log(path.status);
+        }
     }
 
     private void LookForClosestClimbableObject()
@@ -291,6 +313,7 @@ public class RatScript : MonoBehaviour
                         itemObject.transform.position = other.gameObject.transform.position;
                         itemScript.RespawnItem(itemObject);
                         isCarryingItem = false;
+                        ol.enabled = false;
                         if (item == "Egg(Clone)")
                         {
                             eggRespawn.Respawn();
@@ -317,6 +340,7 @@ public class RatScript : MonoBehaviour
                                 hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
+                                ol.enabled = true;
                                 spatula.CheckCounter();
                                 if (counter != null)
                                 {
@@ -345,6 +369,7 @@ public class RatScript : MonoBehaviour
                                 hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
+                                ol.enabled = true;
                                 pan.CheckCounter();
                                 if (counter != null)
                                 {
@@ -372,6 +397,7 @@ public class RatScript : MonoBehaviour
                                 hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
+                                ol.enabled = true;
                                 egg.CheckCounter();
                                 egg.status = Item.Status.spoiled;
                                 if (counter != null)
@@ -389,6 +415,7 @@ public class RatScript : MonoBehaviour
                                 hbarScript.SetItemText(item);
                                 SelectDestination();
                                 isCarryingItem = true;
+                                ol.enabled = true;
                                 bacon.CheckCounter();
                                 bacon.status = Item.Status.spoiled;
                                 if (counter != null)
@@ -563,11 +590,32 @@ public class RatScript : MonoBehaviour
         target = targetList[Random.Range(0, targetList.Count)];
 
         //Debug.Log(gameObject.name + " is targeting: " + target.name);
-        if(target.GetComponent<Item>() != null)
+        NavMeshPath path = new NavMeshPath();
+        if(target != null)
         {
-            target.GetComponent<Item>().isTarget = true;
+            if (target.GetComponent<Item>() != null)
+            {
+                target.GetComponent<Item>().isTarget = true;
+            }
+            if (!agent.isOnNavMesh)
+            {
+                NavMeshHit hit;
+                NavMesh.SamplePosition(transform.position, out hit, 1f, 1);
+                agent.Warp(hit.position);
+                agent.enabled = false;
+                agent.enabled = true;
+            }
+            agent.SetDestination(target.transform.position);
         }
-        //Debug.Log(target.transform.position);
+        //else
+        //{
+        //    float distance = Random.Range(1, 20);
+        //    Vector3 direction = Random.insideUnitSphere * distance;
+        //    direction += transform.position;
+
+        //}
+        agent.CalculatePath(agent.destination, path);
+        //Debug.Log(path.status);
     }
 
     public void CrossEntryway()
@@ -602,7 +650,7 @@ public class RatScript : MonoBehaviour
             Debug.Log(gameObject.name + " kept going");
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
     }
 
     public void Hide()

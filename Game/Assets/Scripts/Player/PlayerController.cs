@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+
+using System;
+using UnityEngine.AI;
+
+
 public class PlayerController : MonoBehaviour
 {
     private GameManager gm;
@@ -160,8 +165,29 @@ public class PlayerController : MonoBehaviour
         hand[2] = null;
         itemInMainHand = ItemInMainHand.empty;
 
+        Invoke("NavEnable", 0.25f);
         interactionText.GetComponent<Text>();
     }
+
+    public void NavEnable()
+    {
+        //enable nav mesh
+        GetComponent<NavMeshAgent>().enabled = true;
+    }
+
+    private void ColorAssignment()
+    {
+        switch (player)
+        {
+            case Player.PlayerOne:
+                outlineColor = Color.blue;
+                break;
+            case Player.PlayerTwo:
+                outlineColor = Color.green;
+                break;
+        }
+    }
+
 
     private void GetNameInMain()
     {
@@ -264,7 +290,11 @@ public class PlayerController : MonoBehaviour
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
+
                         Debug.Log(hand[0].Name);
+
+                        gm.DestroyOutline(other.gameObject);
+
                     }
                     else if (hand[1] == null)
                     {
@@ -272,7 +302,11 @@ public class PlayerController : MonoBehaviour
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
                         Inv2.text = hand[1].Name;
+
                         Debug.Log(hand[0].Name);
+
+                        gm.DestroyOutline(other.gameObject);
+
                     }
                 }
                 else
@@ -307,6 +341,22 @@ public class PlayerController : MonoBehaviour
             cookBook = null;
 
         }
+
+
+        if (other.gameObject.tag == "PassItems")
+        {
+            GameManager.passItemsReady = false;
+        }
+
+        if (other.gameObject.tag == "CounterTop")
+        {
+            GameManager.putOnCounter = false;
+            counterTopScript.DeleteGameObject();
+        }
+
+        gm.DestroyOutline(other.gameObject);
+
+
     }
 
     private void OnTriggerEnter(Collider other)

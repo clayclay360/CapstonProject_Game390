@@ -184,6 +184,7 @@ MonoBehaviour:
   slider: {fileID: 1097322966504615444}
   itemText: {fileID: 8499496310780598184}
   rat: {fileID: 0}
+  hbarVisible: 0
 --- !u!1 &2054915768880127571
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,7 +653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7890341272668584071
 Transform:
   m_ObjectHideFlags: 0
@@ -807,9 +808,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
-  m_Height: 0.97702396
+  m_Height: 1
   m_Direction: 0
-  m_Center: {x: 0.18851203, y: -8.737958e-16, z: 0}
+  m_Center: {x: 0.45, y: 0, z: 0}
 --- !u!23 &5782238860536919980
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -864,6 +865,7 @@ GameObject:
   - component: {fileID: 4064905241100655121}
   - component: {fileID: 6280761598103775855}
   - component: {fileID: 9086033079376823336}
+  - component: {fileID: 4323451485771693659}
   m_Layer: 6
   m_Name: Rat
   m_TagString: Untagged
@@ -905,6 +907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 5782238860536919977}
   counter: {fileID: 0}
+  ol: {fileID: 4323451485771693659}
   health: 3
   healthBar: {fileID: 4577641971484226122, guid: 2d37ff2569b57b24a9951911e9f196fe, type: 3}
   item: 
@@ -912,6 +915,7 @@ MonoBehaviour:
   hbCanv: {fileID: 8903764017962889403}
   attackRadius: 0.55
   TargetsList: []
+  target: {fileID: 0}
   objectiveComplete: 0
   ventsTransform:
   - {fileID: 0}
@@ -920,7 +924,7 @@ MonoBehaviour:
   endLink: {fileID: 2054915769639909919}
   startLinkOffset: 0.3
   endLinkOffset: 2.3
-  climbRaduis: 1.8
+  climbRaduis: 1.2
   platformYOffset: 0.5
   climbCoolDown: 1.5
   attackRate: 0.2
@@ -944,14 +948,14 @@ NavMeshAgent:
   m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 240
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.3
-  m_BaseOffset: 0.1
-  m_WalkableMask: 4294967295
+  m_Height: 1
+  m_BaseOffset: 0.05
+  m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!54 &6280761598103775855
 Rigidbody:
@@ -984,6 +988,25 @@ MonoBehaviour:
   slider: {fileID: 0}
   itemText: {fileID: 0}
   rat: {fileID: 0}
+  hbarVisible: 0
+--- !u!114 &4323451485771693659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5782238861253727561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6212266101822204090
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,7 +1190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 41d2a6d7518ddc245b828275f0b8e38c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.115
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 41d2a6d7518ddc245b828275f0b8e38c, type: 3}
       propertyPath: m_LocalPosition.z
