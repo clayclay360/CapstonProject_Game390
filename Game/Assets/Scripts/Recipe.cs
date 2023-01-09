@@ -7,4 +7,5 @@ public class Recipe
 {
     public string Name;
     public string[] Steps;
+    public int stars;
 }
