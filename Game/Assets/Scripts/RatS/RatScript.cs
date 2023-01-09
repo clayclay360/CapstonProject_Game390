@@ -77,7 +77,7 @@ public class RatScript : MonoBehaviour
         attackReady = true;
         hiding = false;
         climbing = false;
-        //Create healthbar and istance it
+        //Create healthbar and instance it
         GameObject hbar = Instantiate(healthBar);
         hbarScript = hbar.GetComponent<RatHealthBar>();
         hbarScript.rat = gameObject;
@@ -90,10 +90,15 @@ public class RatScript : MonoBehaviour
         offMeshLink.GetComponent<OffMeshLink>();
         startLink.GetComponent<Transform>();
         endLink.GetComponent<Transform>();
-        AdjustTargetList(TargetsList);
+        //AdjustTargetList(TargetsList);
         hidingPointsList = GameObject.FindGameObjectsWithTag("HidingPoint");
 
         hbarScript.SetMaxHealth(health);
+    }
+
+    private void Start()
+    {
+        AdjustTargetList(TargetsList);
     }
 
     // Update is called once per frame
@@ -161,7 +166,7 @@ public class RatScript : MonoBehaviour
             if (distanceBetweenTarget > attackRadius)
             {
                 //Debug.Log("Distance to "+target.name+": " + distanceBetweenTarget.ToString());
-                MoveToTarget();
+                //SetAgentDestination();
             }
             else
             {
@@ -175,9 +180,23 @@ public class RatScript : MonoBehaviour
         }
     }
 
-    private void MoveToTarget()
+    private void SetAgentDestination()
     {
-        agent.destination = target.transform.position;
+        if(agent.pathStatus != NavMeshPathStatus.PathComplete)
+        {
+            NavMeshPath path = new NavMeshPath();
+            if (!agent.isOnNavMesh)
+            {
+                NavMeshHit hit;
+                NavMesh.SamplePosition(transform.position, out hit, 1f, NavMesh.AllAreas);
+                agent.Warp(hit.position);
+                agent.enabled = false;
+                agent.enabled = true;
+            }
+            agent.SetDestination(target.transform.position);
+            agent.CalculatePath(agent.destination, path);
+            Debug.Log(path.status);
+        }
     }
 
     private void LookForClosestClimbableObject()
@@ -190,8 +209,10 @@ public class RatScript : MonoBehaviour
         {
             if(Vector3.Distance(transform.position, collider.ClosestPoint(transform.position)) < radius)
             {
+                Debug.Log(collider.gameObject.name + "Is Cloest Enough To Climb");
                 if (collider.gameObject.CompareTag("Climbable"))
                 {
+                    Debug.Log(collider.gameObject.name + "Is Climbable");
                     radius = Vector3.Distance(transform.position, collider.ClosestPoint(transform.position));
                     closestCollider = collider;
                 }
@@ -200,7 +221,14 @@ public class RatScript : MonoBehaviour
 
         if (!climbing)
         {
-            climbableTargetMesh = closestCollider.gameObject.GetComponent<MeshRenderer>();
+            if(closestCollider.gameObject.GetComponent<MeshRenderer>() != null)
+            {
+                climbableTargetMesh = closestCollider.gameObject.GetComponent<MeshRenderer>();
+            }
+            else
+            {
+                climbableTargetMesh = closestCollider.gameObject.GetComponentInChildren<MeshRenderer>();
+            }
         }
     }
 
@@ -214,7 +242,7 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    //Debug.Log(gameObject.name + " climb");
+                    Debug.Log(gameObject.name + " climb");
                     Climb();
                     StartCoroutine(ClimbCoolDOwn());
                 }
@@ -228,18 +256,27 @@ public class RatScript : MonoBehaviour
         dir.Normalize();
         startLink.position = transform.position;
         LookForClosestClimbableObject();
+        Transform[] jumpPoints;
         if (climbableTargetMesh != null)
         {
-            Transform[] jumpPoints = climbableTargetMesh.GetComponentsInChildren<Transform>();
+            if(climbableTargetMesh.transform.childCount > 0)
+            {
+                jumpPoints = climbableTargetMesh.GetComponentsInChildren<Transform>();
+            }
+            else
+            {
+                jumpPoints = climbableTargetMesh.transform.parent.gameObject.GetComponentsInChildren<Transform>();
+            }
             float radius = climbRaduis * 3;
             Transform closestJumpPoint = null;
             foreach (Transform jumpPoint in jumpPoints)
             {
-                if (Vector3.Distance(transform.position, jumpPoint.position) < radius && jumpPoint.transform.position.y > 0.5)
+                if (Vector3.Distance(transform.position, jumpPoint.position) < radius && jumpPoint.transform.position.y > 0.5 && jumpPoint.gameObject.CompareTag("JumpPoints"))
                 {
                     radius = Vector3.Distance(transform.position, jumpPoint.position);
                     closestJumpPoint = jumpPoint;
                 }
+
             }
 
             endLink.position = closestJumpPoint.position;
@@ -564,6 +601,7 @@ public class RatScript : MonoBehaviour
         int destinationIndex = Random.Range(0, destinationsList.Length);
 
         target = destinationsList[destinationIndex];
+        agent.SetDestination(target.transform.position);
     }
 
     public void SetTarget(List<GameObject> targetList)
@@ -571,11 +609,32 @@ public class RatScript : MonoBehaviour
         target = targetList[Random.Range(0, targetList.Count)];
 
         //Debug.Log(gameObject.name + " is targeting: " + target.name);
-        if(target.GetComponent<Item>() != null)
+        NavMeshPath path = new NavMeshPath();
+        if(target != null)
         {
-            target.GetComponent<Item>().isTarget = true;
+            if (target.GetComponent<Item>() != null)
+            {
+                target.GetComponent<Item>().isTarget = true;
+            }
+            if (!agent.isOnNavMesh)
+            {
+                NavMeshHit hit;
+                NavMesh.SamplePosition(transform.position, out hit, 1f, 1);
+                agent.Warp(hit.position);
+                agent.enabled = false;
+                agent.enabled = true;
+            }
+            agent.SetDestination(target.transform.position);
         }
-        //Debug.Log(target.transform.position);
+        //else
+        //{
+        //    float distance = Random.Range(1, 20);
+        //    Vector3 direction = Random.insideUnitSphere * distance;
+        //    direction += transform.position;
+
+        //}
+        agent.CalculatePath(agent.destination, path);
+        //Debug.Log(path.status);
     }
 
     public void CrossEntryway()
@@ -610,7 +669,7 @@ public class RatScript : MonoBehaviour
             Debug.Log(gameObject.name + " kept going");
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
     }
 
     public void Hide()
