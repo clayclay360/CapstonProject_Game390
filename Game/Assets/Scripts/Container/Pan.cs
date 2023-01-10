@@ -94,7 +94,7 @@ public class Pan : Item
                 break;
             case PlayerController.ItemInMainHand.egg:
 
-                if (status == Status.dirty)
+                if (GameManager.Instance.CheckIfDirty(this))
                 {
                     Interaction = "Pan is dirty!";
                     break;
@@ -129,7 +129,7 @@ public class Pan : Item
                 }
                 break;
             case PlayerController.ItemInMainHand.bacon:
-                if (status == Status.dirty)
+                if (GameManager.Instance.CheckIfDirty(this))
                 {
                     Interaction = "Pan is dirty!";
                     break;

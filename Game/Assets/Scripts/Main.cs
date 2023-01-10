@@ -4,55 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
-    [Header("Variables")]
-    public RecipeManager[] recipeManager;
-    public int currentMainRecipe;
-    
-    public string[] orderNames;
-    public bool startingOrders;
-    public float maxTimeInBetweenOrders, minTimeInBetweenOrders;
-    public static int currentNumberOfSides;
+    public Text ratingText;
 
-    [Header("Orders")]
-    public GameObject platePrefab;
-    public Transform[] spawnPosition;
-    public static Dictionary<int, Plate> Order = new Dictionary<int, Plate>();
-    public int orderNumber;
-
-    private float timeInBetweenOrders;
-    private int maxOrdersOfSides;
-
-    public void StartGame()
+    public void Update()
     {
-        GameManager.gameStarted = true;
+        DisplayRating();
     }
 
-    //public IEnumerator GameLoop()
-    //{
-    //    while (GameManager.gameStarted)
-    //    {
-    //        if (GameManager.currentLevel == 0)
-    //        {
-    //            //recipeManager[GameManager.currentLevel].mainRecipes[currentMainRecipe];
-    //        }
-    //    }
-    //}
-
-    IEnumerator SideOrders()
+    public void DisplayRating()
     {
-        while (GameManager.gameStarted)
-        {
-            yield return new WaitForSeconds(2);
-
-            if (GameManager.currentLevel == 0 && maxOrdersOfSides > currentNumberOfSides)
-            {
-                timeInBetweenOrders = Random.Range(minTimeInBetweenOrders, maxTimeInBetweenOrders);
-
-                int orderIndex = Random.Range(0, 2);
-
-                currentNumberOfSides++;
-                yield return new WaitForSeconds(timeInBetweenOrders);
-            }
-        }
+        ratingText.text = "Rating: " + GameManager.rating.ToString("F1");
     }
+
 }

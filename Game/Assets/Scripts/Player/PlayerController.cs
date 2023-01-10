@@ -114,6 +114,7 @@ public class PlayerController : MonoBehaviour
         animator.GetComponent<Animator>();
         PlayerAssignment();
         ColorAssignment();
+        gm = GameManager.Instance;
         throwCooldown = 0.4f;
 
         GameManager.isTouchingTrashCan = false;
@@ -346,7 +347,7 @@ public class PlayerController : MonoBehaviour
             switch (hand[0].Name)
             {
                 case "Egg":
-                    if (GameManager.counterItems.Contains(egg.name))
+                    if (gm.counterItems.Contains(egg.name))
                     {
                         Debug.Log("Contains Egg");
                     }
@@ -357,7 +358,7 @@ public class PlayerController : MonoBehaviour
                     hand[0] = null;
                     break;
                 case "Spatula":
-                    if (GameManager.counterItems.Contains(spatula.name))
+                    if (gm.counterItems.Contains(spatula.name))
                     {
                         Debug.Log("Contains Spatula");
                     } else
@@ -367,7 +368,7 @@ public class PlayerController : MonoBehaviour
                     hand[0] = null;
                     break;
                 case "Pan":
-                    if (GameManager.counterItems.Contains(pan.name))
+                    if (gm.counterItems.Contains(pan.name))
                     {
                         Debug.Log("Contains Pan");
                     }
@@ -378,7 +379,7 @@ public class PlayerController : MonoBehaviour
                     hand[0] = null;
                     break;
                 case "Bacon":
-                    if (GameManager.counterItems.Contains(bacon.name))
+                    if (gm.counterItems.Contains(bacon.name))
                     {
                         Debug.Log("Contains Bacon");
                     }
@@ -389,7 +390,7 @@ public class PlayerController : MonoBehaviour
                     hand[0] = null;
                     break;
                 case "Cookbook Pages":
-                    if (GameManager.counterItems.Contains(pages.name))
+                    if (gm.counterItems.Contains(pages.name))
                     {
                         Debug.Log("Contains Pages");
                     }
@@ -441,7 +442,7 @@ public class PlayerController : MonoBehaviour
                     {
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
-                        DestroyOutline(other.gameObject);
+                        gm.DestroyOutline(other.gameObject);
                     }
                     else if (hand[1] == null)
                     {
@@ -449,7 +450,7 @@ public class PlayerController : MonoBehaviour
                         hand[0] = other.gameObject.GetComponent<Item>();
                         Inv1.text = hand[0].Name;
                         Inv2.text = hand[1].Name;
-                        DestroyOutline(other.gameObject);
+                        gm.DestroyOutline(other.gameObject);
                     }
                 }
                 else
@@ -485,18 +486,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Destroy's the object's item outline if it has one
-    /// </summary>
-    /*// <param name="go"></param>*/
-    public void DestroyOutline(GameObject go)
-    {
-        if (go.TryGetComponent(out Outline ol))
-        {
-            Destroy(ol);
-        }
-    }
-
     private void OnTriggerExit(Collider other)
     {
         interactionText.text = "";
@@ -526,7 +515,7 @@ public class PlayerController : MonoBehaviour
             counterTopScript.DeleteGameObject();
         }
 
-        DestroyOutline(other.gameObject);
+        gm.DestroyOutline(other.gameObject);
 
     }
 
@@ -699,17 +688,17 @@ public class PlayerController : MonoBehaviour
     {
         int itemLocation = -1;
 
-        for (int i = 0; i <= GameManager.counterItems.Length; i++)
+        for (int i = 0; i <= gm.counterItems.Length; i++)
         {
-            if (i >= GameManager.counterItems.Length)
+            if (i >= gm.counterItems.Length)
             {
                 return (itemLocation);
             }
 
-            if (GameManager.counterItems[i] == "")
+            if (gm.counterItems[i] == "")
             {
                 itemLocation = i;
-                GameManager.counterItems[i] = checkItem;
+                gm.counterItems[i] = checkItem;
                 return (itemLocation);
             }
         }
