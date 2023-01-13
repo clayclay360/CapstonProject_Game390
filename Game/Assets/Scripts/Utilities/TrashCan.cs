@@ -68,7 +68,8 @@ public class TrashCan : Utility
         GameObject prefab = pr.FindPrefab(item);
         if (prefab)
         {
-            Instantiate(prefab, item.startPosition, item.startRotation, transform.parent);
+            GameObject newFood = (GameObject)Instantiate(prefab, item.startPosition, item.startRotation, transform.parent);
+            newFood.name = item.name;
         }
     }
 }

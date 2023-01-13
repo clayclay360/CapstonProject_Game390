@@ -57,14 +57,15 @@ public class Plate : Item
                     Interaction = "Place food on plate";
                     if (chef.isInteracting)
                     {
-                        //if whether the order is coorect or not
-                        if(orderName == chef.hand[0].GetComponent<Pan>().foodInPan.Name)
+                        Pan pan = chef.hand[0].GetComponent<Pan>();
+                        //if whether the order is correct or not
+                        if(orderName == pan.foodInPan.Name)
                         {
                             Debug.Log("Order Complete");
                             GameManager.rating += .2f;
                             OrderManager.currentOrders--;
                             OrderManager.Order.Remove(orderNumber);
-                            RespawnItem(chef.hand[0].GetComponent<Pan>().foodInPan);
+                            RespawnItem(pan.foodInPan);
                             Destroy(gameObject);
                         }
                         else
@@ -73,6 +74,7 @@ public class Plate : Item
                             GameManager.rating -= .2f;
                             OrderManager.currentOrders--;
                             OrderManager.Order.Remove(orderNumber);
+                            RespawnItem(pan.foodInPan);
                             Destroy(gameObject);
                         }
                         //if (orderName.Contains("Omelet"))
@@ -120,7 +122,8 @@ public class Plate : Item
         GameObject prefab = pr.FindPrefab(item);
         if (prefab)
         {
-            Instantiate(prefab, item.startPosition, item.startRotation, transform.parent);
+            GameObject newFood = (GameObject)Instantiate(prefab, item.startPosition, item.startRotation, transform.parent);
+            newFood.name = item.name;
         }
     }
 
