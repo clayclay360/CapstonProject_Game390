@@ -180,7 +180,7 @@ public class RatScript : MonoBehaviour
         }
     }
 
-    private void SetAgentDestination()
+    private void SetAgentDestination(GameObject target)
     {
         if(agent.pathStatus != NavMeshPathStatus.PathComplete)
         {
@@ -195,7 +195,8 @@ public class RatScript : MonoBehaviour
             }
             agent.SetDestination(target.transform.position);
             agent.CalculatePath(agent.destination, path);
-            Debug.Log(path.status);
+            //Debug.Log(path.status);
+            StartCoroutine(ClimbCoolDown());
         }
     }
 
@@ -207,15 +208,11 @@ public class RatScript : MonoBehaviour
 
         foreach(Collider collider in colliders)
         {
-            if(Vector3.Distance(transform.position, collider.ClosestPoint(transform.position)) < radius)
+            if(Vector3.Distance(transform.position, collider.ClosestPoint(transform.position)) < radius && collider.gameObject.CompareTag("Climbable"))
             {
-                //Debug.Log(collider.gameObject.name + "Is Cloest Enough To Climb");
-                if (collider.gameObject.CompareTag("Climbable"))
-                {
-                    //Debug.Log(collider.gameObject.name + "Is Climbable");
-                    radius = Vector3.Distance(transform.position, collider.ClosestPoint(transform.position));
-                    closestCollider = collider;
-                }
+                Debug.Log(collider.gameObject.name + " Is Climbable");
+                radius = Vector3.Distance(transform.position, collider.ClosestPoint(transform.position));
+                closestCollider = collider;
             }
         }
 
@@ -242,9 +239,8 @@ public class RatScript : MonoBehaviour
             {
                 if (transform.position.y + platformYOffset < target.transform.position.y)
                 {
-                    Debug.Log(gameObject.name + " climb");
+                    //Debug.Log(gameObject.name + " climb");
                     Climb();
-                    StartCoroutine(ClimbCoolDOwn());
                 }
             }
         }
@@ -267,6 +263,7 @@ public class RatScript : MonoBehaviour
             {
                 jumpPoints = climbableTargetMesh.transform.parent.gameObject.GetComponentsInChildren<Transform>();
             }
+            //Debug.Log("Found Jump Points on Object");
             float radius = climbRaduis * 3;
             Transform closestJumpPoint = null;
             foreach (Transform jumpPoint in jumpPoints)
@@ -287,11 +284,14 @@ public class RatScript : MonoBehaviour
         }
         offMeshLink.activated = true;
         climbing = true;
+        NavMeshPath path = new NavMeshPath();
+        agent.CalculatePath(agent.destination, path);
+        Debug.Log(gameObject.name + path.status.ToString());
     }
 
-    private IEnumerator ClimbCoolDOwn()
+    private IEnumerator ClimbCoolDown()
     {
-        yield return new WaitForSeconds(climbCoolDown);
+        yield return new WaitForSeconds(climbCoolDown * Time.deltaTime);
         climbing = false;
         offMeshLink.activated = false;
     }
@@ -317,10 +317,7 @@ public class RatScript : MonoBehaviour
                 case "CookBook":
                     CookBook cookbook = other.GetComponentInParent<CookBook>();
                     cookbook.lives--;
-                    if (cookbook.lives == 0)
-                    {
-                        objectiveComplete = true;
-                    }
+                    objectiveComplete = true;
                     break;
 
                 case "Destination":
@@ -332,10 +329,10 @@ public class RatScript : MonoBehaviour
                         itemScript.RespawnItem(itemObject);
                         isCarryingItem = false;
                         ol.enabled = false;
-                        if (item == "Egg(Clone)")
+                        if (item == "Egg")
                         {
                             eggRespawn.Respawn();
-                        } else if (item == "Bacon(Clone)")
+                        } else if (item == "Bacon")
                         {
                             baconRespawn.Respawn();
                         }
@@ -407,7 +404,7 @@ public class RatScript : MonoBehaviour
                                 objectiveComplete = true;
                                 break;
 
-                            case ("Egg(Clone)"):
+                            case ("Egg"):
                                 Egg egg = other.gameObject.GetComponent<Egg>();
                                 egg.isTarget = false;
                                 egg.DespawnItem(other.gameObject);
@@ -425,7 +422,7 @@ public class RatScript : MonoBehaviour
                                 }
                             break;
 
-                            case ("Bacon(Clone)"):
+                            case ("Bacon"):
                                 Bacon bacon = other.gameObject.GetComponent<Bacon>();
                                 bacon.isTarget = false;
                                 bacon.DespawnItem(other.gameObject);
@@ -534,12 +531,8 @@ public class RatScript : MonoBehaviour
                         removeList.Add(item);
                     }
                     break;
-
-                case ("Egg"):
-                    removeList.Add(item);
-                    break;
                 
-                case ("Egg(Clone)"):
+                case ("Egg"):
                     //Don't target egg if it's despawned or being targeted by another rat
                     Egg egg = item.GetComponent<Egg>();
                     if (!egg.isActive || egg.isTarget)
@@ -553,10 +546,6 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case ("Bacon"):
-                    removeList.Add(item);
-                    break;
-
-                case ("Bacon(Clone)"):
                     //Don't target bacon if it's despawned or being targeted by another rat
                     Bacon bacon = item.GetComponent<Bacon>();
                     if (!bacon.isActive || bacon.isTarget)
