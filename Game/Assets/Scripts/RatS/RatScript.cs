@@ -149,6 +149,7 @@ public class RatScript : MonoBehaviour
                 item = "";
                 hbarScript.SetItemText(item);
             }
+            Debug.Log(ratSpawnSystem.numberOfRats + "rat number");
             ratSpawnSystem.numberOfRats--;
             Destroy(hbarScript.gameObject);
             Destroy(gameObject);
@@ -710,6 +711,7 @@ public class RatScript : MonoBehaviour
 
             if (Vector3.Distance(transform.position, escapeVent.transform.position) < attackRadius)
             {
+                Debug.Log(ratSpawnSystem.numberOfRats + "rat number");
                 ratSpawnSystem.numberOfRats--;
                 Destroy(gameObject);
             }

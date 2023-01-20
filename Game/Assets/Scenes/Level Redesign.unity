@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028346, g: 0.22571373, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5356,10 +5356,10 @@ MonoBehaviour:
   - {fileID: 678285057}
   - {fileID: 7108395}
   foodPrefab:
-  - {fileID: 6695557742826816012}
+  - {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
   - {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
   foodClone:
-  - {fileID: 6695557742826816012}
+  - {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
   - {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
 --- !u!4 &603892303
 Transform:
@@ -14209,7 +14209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409309530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.12, y: 3.497, z: -0.0000000089642}
+  m_LocalPosition: {x: 3.12, y: 0.6, z: -0.0000000089642}
   m_LocalScale: {x: 1, y: 1, z: 0.67368}
   m_Children:
   - {fileID: 1780231911}
@@ -23450,11 +23450,6 @@ Transform:
 --- !u!4 &6695557742826816010 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9193496973303149583, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
-  m_PrefabInstance: {fileID: 2557686711724537349}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6695557742826816012 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
   m_PrefabInstance: {fileID: 2557686711724537349}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8915835901838997095
