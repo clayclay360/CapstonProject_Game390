@@ -5,7 +5,6 @@ using UnityEngine;
 public class RatSpawnSystem : MonoBehaviour
 {
     [Header("Variables")]
-    public int numberOfRats;
     public int maxNumberOfRats;
     public int minPeeks;
     public int maxPeeks;
@@ -18,11 +17,13 @@ public class RatSpawnSystem : MonoBehaviour
     public float maxSpawnTime;
     public float minSpawnTime;
     public GameObject ratPrefab;
+    [HideInInspector] public List<GameObject> ratsList;
     public Transform[] ratSpawnTransform;
 
 
     private int spawnIndex;
     private float spawnTime;
+    private bool isSpawningRat;
     private GameObject ratHole;
     private GameObject ratPeek;
     private Transform peekPosition;
@@ -31,6 +32,7 @@ public class RatSpawnSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isSpawningRat = false;
         StartCoroutine(SpawnRat());
     }
 
@@ -40,15 +42,17 @@ public class RatSpawnSystem : MonoBehaviour
         {
             spawnTime = Random.Range(minSpawnTime, maxSpawnTime);
             yield return new WaitForSeconds(spawnTime);
-            if (numberOfRats < maxNumberOfRats)
+            if (ratsList.Count < maxNumberOfRats && !isSpawningRat)
             {
-                numberOfRats++;
+                isSpawningRat = true;
                 spawnIndex = Random.Range(0, ratSpawnTransform.Length);
 
                 yield return StartCoroutine(RatPeek());
 
                 GameObject rat = Instantiate(ratPrefab, ratSpawnTransform[spawnIndex].position, Quaternion.identity);
-                rat.name = "Rat " + numberOfRats.ToString();
+                ratsList.Add(rat);
+                rat.name = "Rat " + ratsList.Count.ToString();
+                isSpawningRat = false;
             }
         }
     }

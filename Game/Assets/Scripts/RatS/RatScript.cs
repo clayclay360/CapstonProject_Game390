@@ -113,8 +113,7 @@ public class RatScript : MonoBehaviour
                 item = "";
                 hbarScript.SetItemText(item);
             }
-            Debug.Log(ratSpawnSystem.numberOfRats + "rat number");
-            ratSpawnSystem.numberOfRats--;
+            ratSpawnSystem.ratsList.Remove(gameObject);
             Destroy(hbarScript.gameObject);
             Destroy(gameObject);
         }
@@ -132,6 +131,10 @@ public class RatScript : MonoBehaviour
             {
                 LookAt();
                 Attack();
+            }
+            else
+            {
+                CheckTarget(target);
             }
         }
         else
@@ -471,6 +474,77 @@ public class RatScript : MonoBehaviour
         //Debug.Log(path.status);
     }
 
+    public void CheckTarget(GameObject target)
+    {
+        bool switchTarget = false;
+        switch (target.name)
+        {
+            case ("CookBook"):
+                //Switch target from cookbook if it's destroyed
+                if (!GameManager.cookBookActive)
+                {
+                    switchTarget = true;
+                }
+                break;
+
+            case ("Spatula"):
+                //Switch target if spatula is dirty, despawned, or being targeted by another rat
+                Spatula spatula = target.GetComponent<Spatula>();
+                if (spatula.status == Item.Status.dirty || !spatula.isActive || spatula.isTarget)
+                {
+                    switchTarget = true;
+                }
+                break;
+
+            case ("Pan"):
+                //Switch target if pan is dirty, despawned, or being targeted by another rat
+                Pan pan = target.GetComponent<Pan>();
+                if (pan.status == Item.Status.dirty || !pan.isActive || pan.isTarget)
+                {
+                    switchTarget = true;
+                }
+                break;
+
+            case ("Sink"):
+                //Switch target from sink if it's off
+                if (!target.GetComponent<Sink>().On)
+                {
+                    switchTarget = true;
+                }
+                break;
+
+            case ("Stove"):
+                //Switch target from stove if it's off
+                if (!target.GetComponent<Stove>().On)
+                {
+                    switchTarget = true;
+                }
+                break;
+
+            case ("Egg"):
+                //Don't target egg if it's despawned or being targeted by another rat
+                Egg egg = target.GetComponent<Egg>();
+                if (!egg.isActive || egg.isTarget)
+                {
+                    switchTarget = true;
+                }
+                break;
+
+            case ("Bacon"):
+                //Don't target bacon if it's despawned or being targeted by another rat
+                Bacon bacon = target.GetComponent<Bacon>();
+                if (!bacon.isActive || bacon.isTarget)
+                {
+                    switchTarget = true;
+                }
+                break;
+        }
+        if (switchTarget)
+        {
+            AdjustTargetList(TargetsList);
+        }
+    }
+
     public void CrossEntryway()
     {
         if (!hiding)
@@ -555,8 +629,8 @@ public class RatScript : MonoBehaviour
 
             if (Vector3.Distance(transform.position, escapeVent.transform.position) < attackRadius)
             {
-                Debug.Log(ratSpawnSystem.numberOfRats + "rat number");
-                ratSpawnSystem.numberOfRats--;
+                ratSpawnSystem.ratsList.Remove(gameObject);
+                Destroy(hbarScript.gameObject);
                 Destroy(gameObject);
             }
         }
