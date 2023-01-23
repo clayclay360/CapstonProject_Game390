@@ -351,7 +351,7 @@ public class RatScript : MonoBehaviour
                 case ("Spatula"):
                     //Don't target if spatula is dirty, despawned, or being targeted by another rat
                     Spatula spatula = item.GetComponent<Spatula>();
-                    if (spatula.status == Item.Status.dirty || !spatula.isActive || spatula.isTarget)
+                    if (spatula.status == Item.Status.dirty || !spatula.isActiveAndEnabled || spatula.isTarget)
                     {
                         removeList.Add(item);
                     }
@@ -365,7 +365,7 @@ public class RatScript : MonoBehaviour
                 case ("Pan"):
                     //Don't target if pan is dirty, despawned, or being targeted by another rat
                     Pan pan = item.GetComponent<Pan>();
-                    if (pan.status == Item.Status.dirty || !pan.isActive || pan.isTarget)
+                    if (pan.status == Item.Status.dirty || !pan.isActiveAndEnabled || pan.isTarget)
                     {
                         removeList.Add(item);
                     }
@@ -390,7 +390,7 @@ public class RatScript : MonoBehaviour
                 case ("Egg"):
                     //Don't target egg if it's despawned or being targeted by another rat
                     Egg egg = item.GetComponent<Egg>();
-                    if (!egg.isActive || egg.isTarget)
+                    if (!egg.isActiveAndEnabled || egg.isTarget)
                     {
                         removeList.Add(item);
                     }
@@ -403,7 +403,7 @@ public class RatScript : MonoBehaviour
                 case ("Bacon"):
                     //Don't target bacon if it's despawned or being targeted by another rat
                     Bacon bacon = item.GetComponent<Bacon>();
-                    if (!bacon.isActive || bacon.isTarget)
+                    if (!bacon.isActiveAndEnabled || bacon.isTarget)
                     {
                         removeList.Add(item);
                     }
@@ -488,18 +488,18 @@ public class RatScript : MonoBehaviour
                 break;
 
             case ("Spatula"):
-                //Switch target if spatula is dirty, despawned, or being targeted by another rat
+                //Switch target if spatula is dirty or despawned
                 Spatula spatula = target.GetComponent<Spatula>();
-                if (spatula.status == Item.Status.dirty || !spatula.isActive || spatula.isTarget)
+                if (spatula.status == Item.Status.dirty || !spatula.isActiveAndEnabled)
                 {
                     switchTarget = true;
                 }
                 break;
 
             case ("Pan"):
-                //Switch target if pan is dirty, despawned, or being targeted by another rat
+                //Switch target if pan is dirty or despawned
                 Pan pan = target.GetComponent<Pan>();
-                if (pan.status == Item.Status.dirty || !pan.isActive || pan.isTarget)
+                if (pan.status == Item.Status.dirty || !pan.isActiveAndEnabled)
                 {
                     switchTarget = true;
                 }
@@ -522,18 +522,18 @@ public class RatScript : MonoBehaviour
                 break;
 
             case ("Egg"):
-                //Don't target egg if it's despawned or being targeted by another rat
+                //Don't target egg if it's despawned
                 Egg egg = target.GetComponent<Egg>();
-                if (!egg.isActive || egg.isTarget)
+                if (!egg.isActiveAndEnabled)
                 {
                     switchTarget = true;
                 }
                 break;
 
             case ("Bacon"):
-                //Don't target bacon if it's despawned or being targeted by another rat
+                //Don't target bacon if it's despawned
                 Bacon bacon = target.GetComponent<Bacon>();
-                if (!bacon.isActive || bacon.isTarget)
+                if (!bacon.isActiveAndEnabled)
                 {
                     switchTarget = true;
                 }
