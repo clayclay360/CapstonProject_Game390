@@ -14,9 +14,6 @@ public class RatScript : MonoBehaviour
     public int health;
     public GameObject healthBar;
     private RatHealthBar hbarScript;
-    //private float hbarTimer = 0f;
-    //private const float HBARTIME = 3f;
-    //private bool hbarVisible = false;
 
     [Header("Stats")]
     public string item;
@@ -29,18 +26,6 @@ public class RatScript : MonoBehaviour
     public GameObject target;
     public bool objectiveComplete;
     public GameObject[] ventsTransform;
-
-    [Header("Off Mesh Link")]
-    public OffMeshLink offMeshLink;
-    public Transform startLink;
-    public Transform endLink;
-    public float startLinkOffset;
-    public float endLinkOffset;
-
-    [Header("Climb")]
-    public float climbRaduis;
-    public float platformYOffset;
-    public float climbCoolDown;
 
     [Header("Attack")]
     public float attackRate;
@@ -57,7 +42,6 @@ public class RatScript : MonoBehaviour
     private float startHeight;
     private float hideTime;
     private bool linkActivated;
-    private bool climbing;
     private bool attackReady;
     Bacon baconRespawn;
     Egg eggRespawn;
@@ -76,7 +60,6 @@ public class RatScript : MonoBehaviour
         startHeight = transform.position.y;
         attackReady = true;
         hiding = false;
-        climbing = false;
         //Create healthbar and instance it
         GameObject hbar = Instantiate(healthBar);
         hbarScript = hbar.GetComponent<RatHealthBar>();
@@ -87,10 +70,6 @@ public class RatScript : MonoBehaviour
         ventsTransform = GameObject.FindGameObjectsWithTag("RatVent");
         ratSpawnSystem = FindObjectOfType<RatSpawnSystem>();
         agent = GetComponent<NavMeshAgent>();
-        offMeshLink.GetComponent<OffMeshLink>();
-        startLink.GetComponent<Transform>();
-        endLink.GetComponent<Transform>();
-        //AdjustTargetList(TargetsList);
         hidingPointsList = GameObject.FindGameObjectsWithTag("HidingPoint");
 
         hbarScript.SetMaxHealth(health);
@@ -105,9 +84,6 @@ public class RatScript : MonoBehaviour
     void Update()
     {
         GetAction();
-        //RayCast();
-        //Climbing
-        DistanceBetweenTarget();
         ReturnToVent();
 
         var CanvRot = hbCanv.transform.rotation.eulerAngles;
@@ -115,18 +91,6 @@ public class RatScript : MonoBehaviour
         hbCanv.transform.rotation = Quaternion.Euler(CanvRot);
         baconRespawn = GameManager.bacon;
         eggRespawn = GameManager.egg;
-
-        //Healthbar timer—disappears if it has been visible for more than 3 seconds
-        //if (hbarVisible)
-        //{
-        //    hbarTimer += Time.deltaTime;
-        //    if (hbarTimer >= HBARTIME)
-        //    {
-        //        hbarScript.gameObject.SetActive(false);
-        //        hbarTimer = 0f;
-        //        hbarVisible = false;
-        //    }
-        //}
     }
 
     public void TakeDamage(int damage)
@@ -164,12 +128,7 @@ public class RatScript : MonoBehaviour
             distanceBetweenTarget = Vector3.Distance(transform.position, target.transform.position);
             agent.stoppingDistance = attackRadius;
 
-            if (distanceBetweenTarget > attackRadius)
-            {
-                //Debug.Log("Distance to "+target.name+": " + distanceBetweenTarget.ToString());
-                //SetAgentDestination();
-            }
-            else
+            if (distanceBetweenTarget <= attackRadius)
             {
                 LookAt();
                 Attack();
@@ -197,104 +156,7 @@ public class RatScript : MonoBehaviour
             agent.SetDestination(target.transform.position);
             agent.CalculatePath(agent.destination, path);
             //Debug.Log(path.status);
-            StartCoroutine(ClimbCoolDown());
         }
-    }
-
-    private void LookForClosestClimbableObject()
-    {
-        Collider closestCollider = null;
-        float radius = climbRaduis;
-        Collider[] colliders = Physics.OverlapSphere(transform.position, climbRaduis);
-
-        foreach(Collider collider in colliders)
-        {
-            if(Vector3.Distance(transform.position, collider.ClosestPoint(transform.position)) < radius && collider.gameObject.CompareTag("Climbable"))
-            {
-                Debug.Log(collider.gameObject.name + " Is Climbable");
-                radius = Vector3.Distance(transform.position, collider.ClosestPoint(transform.position));
-                closestCollider = collider;
-            }
-        }
-
-        if (!climbing)
-        {
-            if(closestCollider.gameObject.GetComponent<MeshRenderer>() != null)
-            {
-                climbableTargetMesh = closestCollider.gameObject.GetComponent<MeshRenderer>();
-            }
-            else
-            {
-                climbableTargetMesh = closestCollider.gameObject.GetComponentInChildren<MeshRenderer>();
-            }
-        }
-    }
-
-    private void DistanceBetweenTarget()
-    {
-        if (target != null)
-        {
-            float distanceBetweenTarget = Vector3.Distance(transform.position, target.transform.position);
-            //Debug.Log(distanceBetweenTarget.ToString());
-            if (distanceBetweenTarget < climbRaduis && !climbing)
-            {
-                if (transform.position.y + platformYOffset < target.transform.position.y)
-                {
-                    //Debug.Log(gameObject.name + " climb");
-                    Climb();
-                }
-            }
-        }
-    }
-
-    private void Climb()
-    {
-        Vector3 dir = target.transform.position - transform.position;
-        dir.Normalize();
-        startLink.position = transform.position;
-        LookForClosestClimbableObject();
-        Transform[] jumpPoints;
-        if (climbableTargetMesh != null)
-        {
-            if(climbableTargetMesh.transform.childCount > 0)
-            {
-                jumpPoints = climbableTargetMesh.GetComponentsInChildren<Transform>();
-            }
-            else
-            {
-                jumpPoints = climbableTargetMesh.transform.parent.gameObject.GetComponentsInChildren<Transform>();
-            }
-            //Debug.Log("Found Jump Points on Object");
-            float radius = climbRaduis * 3;
-            Transform closestJumpPoint = null;
-            foreach (Transform jumpPoint in jumpPoints)
-            {
-                if (Vector3.Distance(transform.position, jumpPoint.position) < radius && jumpPoint.transform.position.y > 0.5 && jumpPoint.gameObject.CompareTag("JumpPoints"))
-                {
-                    radius = Vector3.Distance(transform.position, jumpPoint.position);
-                    closestJumpPoint = jumpPoint;
-                }
-
-            }
-
-            endLink.position = closestJumpPoint.position;
-        }
-        else
-        {
-            endLink.position = new Vector3((dir.x + body.transform.position.x), target.transform.position.y + transform.position.y, (dir.z + body.transform.position.z));
-        }
-        offMeshLink.activated = true;
-        climbing = true;
-        NavMeshPath path = new NavMeshPath();
-        agent.CalculatePath(agent.destination, path);
-        Debug.Log(gameObject.name + path.status.ToString());
-    }
-
-    private IEnumerator ClimbCoolDown()
-    {
-        yield return new WaitForSeconds(climbCoolDown * Time.deltaTime);
-        climbing = false;
-        offMeshLink.activated = false;
     }
 
     private void Attack()
@@ -364,17 +226,6 @@ public class RatScript : MonoBehaviour
                                     counterScript.inUse = false;
                                 }
                             break;
-
-                            //case ("Plate"):
-                            //    Plate plate = other.gameObject.GetComponent<Plate>();
-                            //    plate.isTarget = false;
-                            //    plate.status = Item.Status.dirty;
-                            //    plate.DespawnItem(other.gameObject);
-                            //    item = other.gameObject.name;
-                            //    hbarScript.SetItemText(item);
-                            //    SelectDestination();
-                            //    isCarryingItem = true;
-                            //    break;
 
                             case ("Pan"):
                                 Pan pan = other.gameObject.GetComponent<Pan>();
@@ -616,13 +467,6 @@ public class RatScript : MonoBehaviour
             }
             agent.SetDestination(target.transform.position);
         }
-        //else
-        //{
-        //    float distance = Random.Range(1, 20);
-        //    Vector3 direction = Random.insideUnitSphere * distance;
-        //    direction += transform.position;
-
-        //}
         agent.CalculatePath(agent.destination, path);
         //Debug.Log(path.status);
     }
