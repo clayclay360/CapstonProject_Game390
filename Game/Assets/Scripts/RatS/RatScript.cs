@@ -124,7 +124,15 @@ public class RatScript : MonoBehaviour
 
         if (target != null && !hiding)
         {
-            distanceBetweenTarget = Vector3.Distance(transform.position, target.transform.position);
+            if(target.GetComponent<Collider>() != null)
+            {
+                Vector3 closestTargetPoint = target.GetComponent<Collider>().ClosestPoint(transform.position);
+                distanceBetweenTarget = Vector3.Distance(transform.position, closestTargetPoint);
+            }
+            else
+            {
+                distanceBetweenTarget = Vector3.Distance(transform.position, target.transform.position);
+            }
             agent.stoppingDistance = attackRadius;
 
             if (distanceBetweenTarget <= attackRadius)
@@ -176,7 +184,7 @@ public class RatScript : MonoBehaviour
     {
         if (other.gameObject == target)
         {
-            //Debug.Log(gameObject.name + " hit" + other.gameObject.name);
+            Debug.Log(gameObject.name + " hit" + other.gameObject.name);
             collider.enabled = false;
             switch (target.tag)
             {
@@ -209,7 +217,7 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case "Interactable":
-                    //Debug.Log("Hit Interactable Object");
+                    Debug.Log("Hit " + other.gameObject.name);
                         switch (other.gameObject.name)
                         {
                             case ("Spatula"):
@@ -372,16 +380,18 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case ("Sink"):
-                    //Don't target sink if it's off
-                    if (!item.GetComponent<Sink>().On)
+                    //Don't target sink if it's off or being targeted by another rat
+                    Sink sink = item.GetComponent<Sink>();
+                    if (!sink.On || sink.isTarget)
                     {
                         removeList.Add(item);
                     }
                     break;
 
                 case ("Stove"):
-                    //Don't target stove if it's off
-                    if (!item.GetComponent<Stove>().On)
+                    //Don't target stove if it's off or being targeted by another rat
+                    Stove stove = item.GetComponent<Stove>();
+                    if (!stove.On || stove.isTarget)
                     {
                         removeList.Add(item);
                     }
@@ -436,7 +446,15 @@ public class RatScript : MonoBehaviour
             }
         }
 
-        SetTarget(targetList);
+        if(targetList.Count < 0)
+        {
+            SetTarget(targetList);
+        }
+        else
+        {
+            target = null;
+            ReturnToVent();
+        }
     }
 
     public void SelectDestination()
@@ -459,6 +477,10 @@ public class RatScript : MonoBehaviour
             if (target.GetComponent<Item>() != null)
             {
                 target.GetComponent<Item>().isTarget = true;
+            }
+            if (target.GetComponent<Utility>() != null)
+            {
+                target.GetComponent<Utility>().isTarget = true;
             }
             if (!agent.isOnNavMesh)
             {

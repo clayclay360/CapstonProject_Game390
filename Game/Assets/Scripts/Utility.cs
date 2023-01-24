@@ -23,6 +23,9 @@ public class Utility : MonoBehaviour, IInteractable<PlayerController.ItemInMainH
     public bool Occupied;
     [HideInInspector] public string Interaction;
 
+    //checks if utility is being targeted by a rat
+    [HideInInspector] public bool isTarget = false;
+
     public virtual void Properties() { }
 
     public bool Interact(PlayerController chef)
