@@ -164,6 +164,7 @@ public class Egg : Item
 
     public void Respawn()
     {
+        Debug.Log("Respawning Egg");
         transform.position = origPos;
         gameObject.SetActive(true);
     }

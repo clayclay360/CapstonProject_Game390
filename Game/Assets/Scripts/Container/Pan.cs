@@ -32,7 +32,7 @@ public class Pan : Item
     private float progressMeter;
     private int interactionIndex = 0;
     private bool[] interactionAttemptReady;
-    [HideInInspector]
+    //[HideInInspector]
     public Item foodInPan;
     private enum Attempt { None, Failed, Completed };
     private Attempt[] attempt;
