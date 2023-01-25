@@ -465,7 +465,7 @@ public class RatScript : MonoBehaviour
     public void SelectDestination()
     {
         GameObject[] destinationsArray = GameObject.FindGameObjectsWithTag("Destination");
-        destinationsList.AddRange(destinationsArray);
+        //destinationsList.AddRange(destinationsArray);
         //GameObject[] items = GameObject.FindGameObjectsWithTag("Interactable");
         //foreach(GameObject gameObject in items)
         //{
@@ -486,8 +486,8 @@ public class RatScript : MonoBehaviour
         //        }
         //    }
         //}
-        int destinationIndex = Random.Range(0, destinationsList.Count);
-        target = destinationsList[destinationIndex];
+        int destinationIndex = Random.Range(0, destinationsArray.Length);
+        target = destinationsArray[destinationIndex];
         agent.SetDestination(target.transform.position);
     }
 
