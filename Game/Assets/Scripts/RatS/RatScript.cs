@@ -51,6 +51,8 @@ public class RatScript : MonoBehaviour
     private Transform escapeVent;
     private RatSpawnSystem ratSpawnSystem;
     private GameObject itemObject;
+    private List<GameObject> destinationsList;
+    private List<GameObject> itemsList;
     private Item itemScript;
 
     // Start is called before the first frame update
@@ -84,7 +86,6 @@ public class RatScript : MonoBehaviour
     void Update()
     {
         GetAction();
-        ReturnToVent();
 
         var CanvRot = hbCanv.transform.rotation.eulerAngles;
         CanvRot.z = -transform.rotation.eulerAngles.y;
@@ -135,6 +136,7 @@ public class RatScript : MonoBehaviour
             }
             agent.stoppingDistance = attackRadius;
 
+            //Debug.Log(gameObject.name + " " + distanceBetweenTarget.ToString());
             if (distanceBetweenTarget <= attackRadius)
             {
                 LookAt();
@@ -191,6 +193,7 @@ public class RatScript : MonoBehaviour
                 case "CookBook":
                     CookBook cookbook = other.GetComponentInParent<CookBook>();
                     cookbook.lives--;
+                    target = null;
                     objectiveComplete = true;
                     break;
 
@@ -213,6 +216,7 @@ public class RatScript : MonoBehaviour
                         item = "";
                         hbarScript.SetItemText(item);
                     }
+                    target = null;
                     objectiveComplete = true;
                     break;
 
@@ -331,6 +335,7 @@ public class RatScript : MonoBehaviour
 
     private void LookAt()
     {
+        Debug.Log(gameObject.name + " looking at target");
         Vector2 dir = target.transform.position - transform.position;
         transform.forward = dir;
     }
@@ -446,7 +451,7 @@ public class RatScript : MonoBehaviour
             }
         }
 
-        if(targetList.Count < 0)
+        if(targetList.Count > 0)
         {
             SetTarget(targetList);
         }
@@ -459,9 +464,29 @@ public class RatScript : MonoBehaviour
 
     public void SelectDestination()
     {
-        GameObject[] destinationsList = GameObject.FindGameObjectsWithTag("Destination");
-        int destinationIndex = Random.Range(0, destinationsList.Length);
-
+        GameObject[] destinationsArray = GameObject.FindGameObjectsWithTag("Destination");
+        destinationsList.AddRange(destinationsArray);
+        //GameObject[] items = GameObject.FindGameObjectsWithTag("Interactable");
+        //foreach(GameObject gameObject in items)
+        //{
+        //    if(gameObject.GetComponent<Item>() != null)
+        //    {
+        //        itemsList.Add(gameObject);
+        //    }
+        //}
+        ////Remove potential destinations that already have items in them
+        //foreach(GameObject destination in destinationsList)
+        //{
+        //    foreach(GameObject itemObj in itemsList)
+        //    {
+        //        if(itemObj.transform.position == destination.transform.position)
+        //        {
+        //            destinationsList.Remove(destination);
+        //            break;
+        //        }
+        //    }
+        //}
+        int destinationIndex = Random.Range(0, destinationsList.Count);
         target = destinationsList[destinationIndex];
         agent.SetDestination(target.transform.position);
     }
