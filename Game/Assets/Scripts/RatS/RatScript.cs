@@ -52,6 +52,8 @@ public class RatScript : MonoBehaviour
     private Transform escapeVent;
     private RatSpawnSystem ratSpawnSystem;
     private GameObject itemObject;
+    private List<GameObject> destinationsList;
+    private List<GameObject> itemsList;
     private Item itemScript;
     private DestinationPoint destinationScript;
     private Rigidbody ratBody;
@@ -88,7 +90,6 @@ public class RatScript : MonoBehaviour
     void Update()
     {
         GetAction();
-        ReturnToVent();
 
         var CanvRot = hbCanv.transform.rotation.eulerAngles;
         CanvRot.z = -transform.rotation.eulerAngles.y;
@@ -149,6 +150,7 @@ public class RatScript : MonoBehaviour
             }
             agent.stoppingDistance = attackRadius;
 
+            //Debug.Log(gameObject.name + " " + distanceBetweenTarget.ToString());
             if (distanceBetweenTarget <= attackRadius)
             {
                 LookAt();
@@ -205,6 +207,7 @@ public class RatScript : MonoBehaviour
                 case "CookBook":
                     CookBook cookbook = other.GetComponentInParent<CookBook>();
                     cookbook.lives--;
+                    target = null;
                     objectiveComplete = true;
                     break;
 
@@ -230,6 +233,7 @@ public class RatScript : MonoBehaviour
                         item = "";
                         hbarScript.SetItemText(item);
                     }
+                    target = null;
                     objectiveComplete = true;
                     break;
 
@@ -352,6 +356,7 @@ public class RatScript : MonoBehaviour
 
     private void LookAt()
     {
+        Debug.Log(gameObject.name + " looking at target");
         Vector2 dir = target.transform.position - transform.position;
         transform.forward = dir;
     }
@@ -467,7 +472,7 @@ public class RatScript : MonoBehaviour
             }
         }
 
-        if(targetList.Count < 0)
+        if(targetList.Count > 0)
         {
             SetTarget(targetList);
         }

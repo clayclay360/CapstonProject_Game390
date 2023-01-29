@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     public static bool isTouchingTrashCan;
     public static bool passItemsReady;
-    public string[] counterItems = { "", "", ""};
+    public string[] counterItems = { "", "", "" };
     public static bool putOnCounter;
     public static Bacon bacon;
     public static Egg egg;
@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
         recipeReq.Add("omelet");
         //Debug.LogWarning("GameManager Ready!");
     }
+
 
     private void Update() 
     {

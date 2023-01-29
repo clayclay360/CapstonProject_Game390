@@ -67,7 +67,9 @@ public class RatSpawnSystem : MonoBehaviour
                 isSpawningRat = false;
             }
         }
+
     }
+
 
     IEnumerator RatPeek()
     {

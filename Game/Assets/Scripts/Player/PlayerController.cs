@@ -654,6 +654,7 @@ public class PlayerController : MonoBehaviour
         if (GameManager.isTouchingBook && GameManager.recipeIsOpenP1)
         {
             cookBook.ClickOnBook();
+           
         }
     }
 
