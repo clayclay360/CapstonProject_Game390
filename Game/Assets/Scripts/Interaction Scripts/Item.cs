@@ -27,6 +27,7 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     [HideInInspector] public bool prone;
     [HideInInspector] public bool isActive;
     [HideInInspector] public bool isTarget;
+    [HideInInspector] public bool isBeingCarried;
     [HideInInspector] public string Interaction;
     [HideInInspector] public Utility utilityItemIsOccupying;
     [HideInInspector] public Item toolItemIsOccupying;
