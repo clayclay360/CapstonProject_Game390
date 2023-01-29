@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028346, g: 0.22571373, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 991250}
   - component: {fileID: 991251}
   - component: {fileID: 991252}
+  - component: {fileID: 991253}
   m_Layer: 0
   m_Name: Point3
   m_TagString: Destination
@@ -166,7 +167,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.27
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &991252
 NavMeshObstacle:
@@ -178,12 +179,25 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.25, y: 0.125, z: 0.25}
+  m_Extents: {x: 0.27, y: 0.135, z: 0.27}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &991253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f1cfd82a890946a762219c9b81868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasItem: 0
 --- !u!1 &7108394
 GameObject:
   m_ObjectHideFlags: 0
@@ -3393,6 +3407,7 @@ GameObject:
   - component: {fileID: 351284204}
   - component: {fileID: 351284205}
   - component: {fileID: 351284206}
+  - component: {fileID: 351284207}
   m_Layer: 0
   m_Name: Point1
   m_TagString: Destination
@@ -3425,7 +3440,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.27
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &351284206
 NavMeshObstacle:
@@ -3437,12 +3452,25 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.25, y: 0.125, z: 0.25}
+  m_Extents: {x: 0.27, y: 0.135, z: 0.27}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &351284207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351284203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f1cfd82a890946a762219c9b81868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasItem: 0
 --- !u!1001 &359338041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6902,6 +6930,7 @@ GameObject:
   - component: {fileID: 684340287}
   - component: {fileID: 684340288}
   - component: {fileID: 684340289}
+  - component: {fileID: 684340290}
   m_Layer: 0
   m_Name: Point5
   m_TagString: Destination
@@ -6934,7 +6963,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.27
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &684340289
 NavMeshObstacle:
@@ -6946,12 +6975,25 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.25, y: 0.125, z: 0.25}
+  m_Extents: {x: 0.27, y: 0.135, z: 0.27}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &684340290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684340286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f1cfd82a890946a762219c9b81868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasItem: 0
 --- !u!1 &685492138 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 18215d1aae3923f43911ac5d174a70af, type: 3}
@@ -6984,6 +7026,7 @@ GameObject:
   - component: {fileID: 694108993}
   - component: {fileID: 694108994}
   - component: {fileID: 694108995}
+  - component: {fileID: 694108996}
   m_Layer: 0
   m_Name: Point4
   m_TagString: Destination
@@ -6999,7 +7042,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694108992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.74, y: 0, z: -5.39}
+  m_LocalPosition: {x: 4.55, y: 0, z: -4.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1998503607}
@@ -7016,7 +7059,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.27
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &694108995
 NavMeshObstacle:
@@ -7028,12 +7071,25 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.25, y: 0.125, z: 0.25}
+  m_Extents: {x: 0.27, y: 0.135, z: 0.27}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &694108996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694108992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f1cfd82a890946a762219c9b81868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasItem: 0
 --- !u!1001 &699609980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11465,6 +11521,7 @@ GameObject:
   - component: {fileID: 1094713644}
   - component: {fileID: 1094713645}
   - component: {fileID: 1094713646}
+  - component: {fileID: 1094713647}
   m_Layer: 0
   m_Name: Point8
   m_TagString: Destination
@@ -11497,7 +11554,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.27
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &1094713646
 NavMeshObstacle:
@@ -11509,12 +11566,25 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.25, y: 0.125, z: 0.25}
+  m_Extents: {x: 0.27, y: 0.135, z: 0.27}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1094713647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094713643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f1cfd82a890946a762219c9b81868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasItem: 0
 --- !u!1001 &1115972223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14020,6 +14090,7 @@ GameObject:
   - component: {fileID: 1362119565}
   - component: {fileID: 1362119566}
   - component: {fileID: 1362119567}
+  - component: {fileID: 1362119568}
   m_Layer: 0
   m_Name: Point7
   m_TagString: Destination
@@ -14052,7 +14123,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.27
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &1362119567
 NavMeshObstacle:
@@ -14064,12 +14135,25 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.25, y: 0.125, z: 0.25}
+  m_Extents: {x: 0.27, y: 0.135, z: 0.27}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1362119568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362119564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f1cfd82a890946a762219c9b81868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasItem: 0
 --- !u!1001 &1362927689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16915,6 +16999,7 @@ GameObject:
   - component: {fileID: 1583611049}
   - component: {fileID: 1583611050}
   - component: {fileID: 1583611051}
+  - component: {fileID: 1583611052}
   m_Layer: 0
   m_Name: Point6
   m_TagString: Destination
@@ -16947,7 +17032,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.27
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &1583611051
 NavMeshObstacle:
@@ -16959,12 +17044,25 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.25, y: 0.125, z: 0.25}
+  m_Extents: {x: 0.27, y: 0.135, z: 0.27}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1583611052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583611048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f1cfd82a890946a762219c9b81868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasItem: 0
 --- !u!1001 &1588030902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18564,6 +18662,7 @@ GameObject:
   - component: {fileID: 1723905070}
   - component: {fileID: 1723905071}
   - component: {fileID: 1723905072}
+  - component: {fileID: 1723905073}
   m_Layer: 0
   m_Name: Point9
   m_TagString: Destination
@@ -18596,7 +18695,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.27
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &1723905072
 NavMeshObstacle:
@@ -18608,12 +18707,25 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.25, y: 0.125, z: 0.25}
+  m_Extents: {x: 0.27, y: 0.135, z: 0.27}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1723905073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723905069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f1cfd82a890946a762219c9b81868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasItem: 0
 --- !u!4 &1738663681 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8258865398075025661, guid: 1758e46d28269b54891bddb919bb5815, type: 3}
@@ -19502,6 +19614,7 @@ MonoBehaviour:
   prone: 0
   isActive: 0
   isTarget: 0
+  isBeingCarried: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
@@ -21673,6 +21786,7 @@ GameObject:
   - component: {fileID: 1988602013}
   - component: {fileID: 1988602014}
   - component: {fileID: 1988602015}
+  - component: {fileID: 1988602016}
   m_Layer: 0
   m_Name: Point10
   m_TagString: Destination
@@ -21705,7 +21819,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.27
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &1988602015
 NavMeshObstacle:
@@ -21717,12 +21831,25 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.25, y: 0.125, z: 0.25}
+  m_Extents: {x: 0.27, y: 0.135, z: 0.27}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1988602016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988602012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f1cfd82a890946a762219c9b81868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasItem: 0
 --- !u!1 &1993845835 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bf680b9eb5ac1f14a848bd81ce80c888, type: 3}
@@ -22376,6 +22503,7 @@ GameObject:
   - component: {fileID: 2022229372}
   - component: {fileID: 2022229373}
   - component: {fileID: 2022229374}
+  - component: {fileID: 2022229375}
   m_Layer: 0
   m_Name: Point2
   m_TagString: Destination
@@ -22408,7 +22536,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.27
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &2022229374
 NavMeshObstacle:
@@ -22420,12 +22548,25 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.25, y: 0.125, z: 0.25}
+  m_Extents: {x: 0.27, y: 0.135, z: 0.27}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &2022229375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022229371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f1cfd82a890946a762219c9b81868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasItem: 0
 --- !u!1 &2024218467
 GameObject:
   m_ObjectHideFlags: 0
