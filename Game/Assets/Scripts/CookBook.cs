@@ -55,9 +55,13 @@ public class CookBook : Utility
         } else if (lives > 0 && !GameManager.recipeIsOpenP1)
         {
             Interaction = "Open Book";
+             
+          
             //Move normal interaction here
             return;
         }
+
+        
 
         if (item == PlayerController.ItemInMainHand.pages)
         {

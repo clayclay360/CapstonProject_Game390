@@ -32,8 +32,12 @@ public class RatSpawnSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isSpawningRat = false;
-        StartCoroutine(SpawnRat());
+        if (GameManager.recipeIsOpenP1)
+        {
+            isSpawningRat = false;
+            StartCoroutine(SpawnRat());
+        }
+        
     }
 
     IEnumerator SpawnRat()
@@ -55,7 +59,9 @@ public class RatSpawnSystem : MonoBehaviour
                 isSpawningRat = false;
             }
         }
+
     }
+
 
     IEnumerator RatPeek()
     {
