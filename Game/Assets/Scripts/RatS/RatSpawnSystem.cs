@@ -34,9 +34,6 @@ public class RatSpawnSystem : MonoBehaviour
     void Start()
     {
         isSpawningRat = false;
-<<<<<<< Updated upstream
-        StartCoroutine(SpawnRat());
-=======
     }
 
     private void Update()
@@ -49,7 +46,6 @@ public class RatSpawnSystem : MonoBehaviour
         {
             StartCoroutine(SpawnRat());
         }
->>>>>>> Stashed changes
     }
 
     IEnumerator SpawnRat()

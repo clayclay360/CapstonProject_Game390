@@ -101,11 +101,11 @@
     <Compile Include="Assets\Scripts\Interaction Scripts\Interact_Item.cs" />
     <Compile Include="Assets\Scripts\CookBook.cs" />
     <Compile Include="Assets\Scripts\Food\Bacon.cs" />
+    <Compile Include="Assets\Scripts\DestinationPoint.cs" />
     <Compile Include="Assets\Scripts\Food\Egg.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\Interaction Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\Billboard.cs" />
-    <Compile Include="Assets\Scripts\DestinationPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\QuickOutline\Resources\Shaders\OutlineMask.shader" />

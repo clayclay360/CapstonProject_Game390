@@ -480,12 +480,6 @@ public class RatScript : MonoBehaviour
 
     public void SelectDestination(List<GameObject> destinationList)
     {
-<<<<<<< Updated upstream
-        GameObject[] destinationsList = GameObject.FindGameObjectsWithTag("Destination");
-        int destinationIndex = Random.Range(0, destinationsList.Length);
-
-        target = destinationsList[destinationIndex];
-=======
         GameObject[] destinationsArray = GameObject.FindGameObjectsWithTag("Destination");
         destinationList.AddRange(destinationsArray);
         List<GameObject> removeList = new List<GameObject> { };
@@ -505,7 +499,6 @@ public class RatScript : MonoBehaviour
             }
         }
         target = destinationList[Random.Range(0, destinationList.Count)];
->>>>>>> Stashed changes
         agent.SetDestination(target.transform.position);
     }
 
