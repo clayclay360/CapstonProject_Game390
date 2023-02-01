@@ -139,7 +139,11 @@ public class RatScript : MonoBehaviour
 
         if (target != null && !hiding)
         {
-            if(target.GetComponent<Collider>() != null)
+            if (!objectiveComplete)
+            {
+                CheckTarget(target);
+            }
+            if (target.GetComponent<Collider>() != null)
             {
                 Vector3 closestTargetPoint = target.GetComponent<Collider>().ClosestPoint(transform.position);
                 distanceBetweenTarget = Vector3.Distance(transform.position, closestTargetPoint);
@@ -155,10 +159,6 @@ public class RatScript : MonoBehaviour
             {
                 LookAt();
                 Attack();
-            }
-            else
-            {
-                CheckTarget(target);
             }
         }
         else
@@ -357,8 +357,9 @@ public class RatScript : MonoBehaviour
     private void LookAt()
     {
         Debug.Log(gameObject.name + " looking at target");
-        Vector2 dir = target.transform.position - transform.position;
-        transform.forward = dir;
+        Vector3 dir = target.transform.position - transform.position;
+        Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
+        transform.rotation = rot;
     }
 
     public void AdjustTargetList(List<GameObject> targetList)
