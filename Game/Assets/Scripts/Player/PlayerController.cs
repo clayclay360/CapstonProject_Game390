@@ -539,13 +539,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnChangePage()
+    public void OnChangePage(InputValue inputValue)
     {
-        cookBook = gameObject.GetComponent<RecipeBook>();
-        cookBook.ClickOnBook();
-
+        float value = inputValue.Get<float>();
+        cookBook.ClickOnBook(value);
     }
 
+    public void OnSwitchRecipe(InputValue inputValue)
+    {
+        Debug.Log("Switching Recipes");
+        float value = inputValue.Get<float>();
+        cookBook.SwitchRecipe(value);
+    }
     //public void OnInteract()
     //{
     //    GameObject[] interactableObjs = GameObject.FindGameObjectsWithTag("Interactable");
@@ -656,12 +661,6 @@ public class PlayerController : MonoBehaviour
 
             // implement throwCooldown
             Invoke(nameof(ResetThrow), throwCooldown);
-        }
-
-        if (GameManager.isTouchingBook && GameManager.recipeIsOpenP1)
-        {
-            cookBook.ClickOnBook();
-           
         }
     }
 

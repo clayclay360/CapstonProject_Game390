@@ -51,8 +51,10 @@ MonoBehaviour:
   Name: Cookbook
   Height: 0
   On: 0
+  Off: 0
   Occupied: 0
   Interaction: 
+  isTarget: 0
   lives: 3
 --- !u!65 &135341480
 BoxCollider:
