@@ -50,7 +50,7 @@ public class CookBook : Utility
         if (lives > 0 && GameManager.recipeIsOpenP1)
         {
             Interaction = "Flip page";
-            //Move normal interaction here
+            //Move normal intera
             return;
         } else if (lives > 0 && !GameManager.recipeIsOpenP1)
         {

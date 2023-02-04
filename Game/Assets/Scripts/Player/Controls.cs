@@ -80,6 +80,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Change Page"",
+                    ""type"": ""Button"",
+                    ""id"": ""aeae66e9-bf80-442e-a02c-2aadd60da4d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -335,6 +344,19 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7cc1169d-0b16-4ee5-8afd-4d9efe641e8b"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Change Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
                 }
             ]
         }
@@ -377,6 +399,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_PlayerControls_ToggleAimLine = m_PlayerControls.FindAction("Toggle Aim Line", throwIfNotFound: true);
         m_PlayerControls_SwapInventorySlots = m_PlayerControls.FindAction("Swap Inventory Slots", throwIfNotFound: true);
         m_PlayerControls_Look = m_PlayerControls.FindAction("Look", throwIfNotFound: true);
+        m_PlayerControls_ChangePage = m_PlayerControls.FindAction("Change Page", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -442,6 +465,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_ToggleAimLine;
     private readonly InputAction m_PlayerControls_SwapInventorySlots;
     private readonly InputAction m_PlayerControls_Look;
+    private readonly InputAction m_PlayerControls_ChangePage;
     public struct PlayerControlsActions
     {
         private @Controls m_Wrapper;
@@ -452,6 +476,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @ToggleAimLine => m_Wrapper.m_PlayerControls_ToggleAimLine;
         public InputAction @SwapInventorySlots => m_Wrapper.m_PlayerControls_SwapInventorySlots;
         public InputAction @Look => m_Wrapper.m_PlayerControls_Look;
+        public InputAction @ChangePage => m_Wrapper.m_PlayerControls_ChangePage;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -479,6 +504,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLook;
+                @ChangePage.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnChangePage;
+                @ChangePage.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnChangePage;
+                @ChangePage.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnChangePage;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -501,6 +529,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @ChangePage.started += instance.OnChangePage;
+                @ChangePage.performed += instance.OnChangePage;
+                @ChangePage.canceled += instance.OnChangePage;
             }
         }
     }
@@ -531,5 +562,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnToggleAimLine(InputAction.CallbackContext context);
         void OnSwapInventorySlots(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnChangePage(InputAction.CallbackContext context);
     }
 }

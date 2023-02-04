@@ -110,7 +110,7 @@ public class Pan : Item
                             if (!GameManager.isStepCompleted.Contains(5))
                             {
                                 GameManager.isStepCompleted.Add(5);
-                                cookBook.printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
+                                cookBook.printRecipeBookText("Lift and tilt eggs with spatula.", "Add Cheese to pan.", 5, 6);
                             }
                             chef.hand[0].GetComponent<Collider>().enabled = false;
                             chef.hand[0].GetComponent<Egg>().state = Egg.State.yoke;
@@ -165,7 +165,7 @@ public class Pan : Item
                         if (!GameManager.isStepCompleted.Contains(6))
                         {
                             GameManager.isStepCompleted.Add(6);
-                            cookBook.printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
+                            cookBook.printRecipeBookText("Lift and tilt eggs with spatula.", "Add Cheese to pan.", 5, 6);
                         }
                         chef.isInteracting = false;
                         interactionIndex = 0;

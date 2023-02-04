@@ -539,6 +539,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnChangePage()
+    {
+        cookBook = gameObject.GetComponent<RecipeBook>();
+        cookBook.ClickOnBook();
+
+    }
+
     //public void OnInteract()
     //{
     //    GameObject[] interactableObjs = GameObject.FindGameObjectsWithTag("Interactable");

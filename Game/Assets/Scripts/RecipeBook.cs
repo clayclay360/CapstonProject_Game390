@@ -25,6 +25,7 @@ public class RecipeBook : MonoBehaviour
         currentStep = 2;
         GameManager.isStepCompleted.Add(0);
         GameManager.recipeIsOpenP1 = false;
+        GameManager.recipeIsOpenP2 = false;
         GameManager.isTouchingBook = false;
         recipeTextbox1.SetActive(false);
         recipeTextbox2.SetActive(false);
@@ -148,17 +149,17 @@ public class RecipeBook : MonoBehaviour
                 {
                     if (currentPage == 0)
                     {
-                        printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
+                        printRecipeBookText("Turn on Stove.", "Place Pan on Stove.", 1, 2);
 
 
                     }
                     else if (currentPage == 1)
                     {
-                        printRecipeBookText("Beat the eggs (Bowl on countertop).", "Melt Butter in the pan.", 3, 4);
+                        printRecipeBookText("Melt Butter in the pan.", "Crack egg in pan.", 3, 4);
                     }
                     else if (currentPage == 2)
                     {
-                        printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
+                        printRecipeBookText("Lift and tilt eggs with spatula.", "Add Cheese to pan.", 5, 6);
                     }
 
                     currentPage++;
@@ -167,11 +168,38 @@ public class RecipeBook : MonoBehaviour
                 {
                     if (currentPage == 3)
                     {
-                        printRecipeBookText("Add cheese to pan.", "Fold eggs with spatula", 7, 8);
+                        printRecipeBookText("Fold eggs with spatula", "Serve on plate", 7, 8);
                     }
                     currentPage = 0;
                 }
+
             }
+
+            else if (GameManager.recipeIsOpenP2)
+            {
+                
+
+                if (currentPage != pages.Length - 1) //This is looking through the array that holds how many pages there are
+                {
+                    if (currentPage == 0)
+                    {
+                        printRecipeBookText("Add Bacon to baking sheet", "Season bacon with ground pepper", 1, 2);
+
+
+                    }
+                    else if (currentPage == 1)
+                    {
+                        printRecipeBookText("Season bacon with brown sugar", "Bake in Oven (until crisp)", 3, 4);
+                    }
+                    else if (currentPage == 2)
+                    {
+                        printRecipeBookText("Serve on plate", "", 5, 6);
+                    }
+
+                    currentPage++;
+                }
+            }
+
         }
     }
 

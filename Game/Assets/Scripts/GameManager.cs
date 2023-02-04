@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public static Egg egg;
 
     public static bool recipeIsOpenP1;
+    public static bool recipeIsOpenP2;
     public static bool isTouchingBook;
     public static List<int> isStepCompleted = new List<int>();
     private static GameManager _instance;
