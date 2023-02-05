@@ -547,7 +547,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnSwitchRecipe(InputValue inputValue)
     {
-        Debug.Log("Switching Recipes");
         float value = inputValue.Get<float>();
         cookBook.SwitchRecipe(value);
     }
