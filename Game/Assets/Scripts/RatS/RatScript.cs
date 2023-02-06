@@ -223,6 +223,8 @@ public class RatScript : MonoBehaviour
                         itemScript.isBeingCarried = false;
                         destinationScript.hasItem = true;
                         ol.enabled = false;
+                        target = null;
+                        objectiveComplete = true;
                         if (item == "Egg")
                         {
                             eggRespawn.Respawn();
@@ -233,8 +235,6 @@ public class RatScript : MonoBehaviour
                         item = "";
                         hbarScript.SetItemText(item);
                     }
-                    target = null;
-                    objectiveComplete = true;
                     break;
 
                 case "Interactable":
