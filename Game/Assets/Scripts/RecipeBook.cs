@@ -114,15 +114,15 @@ public class RecipeBook : MonoBehaviour
             switch (currentStep)
             {
                 case 0:
-                    printRecipeBookText("Turn on Stove.", "Place Pan on Stove.", 1, 2);
+                    printRecipeBookText("Step 1: Turn on Stove.", "Step 2: Place Pan on Stove.", 1, 2);
                     break;
 
                 case 1:
-                    printRecipeBookText("Crack Egg in pan.", "Fold egg with spatula.", 3, 4);
+                    printRecipeBookText("Step 3: Crack Egg in pan.", "Step 4: Fold egg with spatula.", 3, 4);
                     break;
 
                 case 2:
-                    printRecipeBookText("Serve on plate.", "", 5, 6);
+                    printRecipeBookText("Step 5: Serve Omelet on plate.", "", 5, 6);
                     break;
 
             }
@@ -133,15 +133,15 @@ public class RecipeBook : MonoBehaviour
             switch (currentStep)
             {
                 case 0:
-                    printRecipeBookText("Turn on Stove.", "Place Pan on Stove.", 1, 2);
+                    printRecipeBookText("Step 1: Turn on Stove.", "Step 2: Place Pan on Stove.", 1, 2);
                     break;
 
                 case 1:
-                    printRecipeBookText("Put bacon in pan.", "Use spatula to make sure bacon doesn't burn.", 3, 4);
+                    printRecipeBookText("Step 3: Put bacon in pan.", "Step 4: Use spatula to make sure bacon doesn't burn.", 3, 4);
                     break;
 
                 case 2:
-                    printRecipeBookText("Serve on plate.", "", 5, 6);
+                    printRecipeBookText("Step 5: Serve bacon on plate.", "", 5, 6);
                     break;
             }
         }
