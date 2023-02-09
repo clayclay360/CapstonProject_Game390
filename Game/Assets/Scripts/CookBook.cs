@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class CookBook : Utility
 {
+    public enum Status { Undamaged, Destroyed}
+
     [Header("Variables")]
     public int lives;
+    public Status status;
 
     private bool destroying = false; //Variable used for testing
 
@@ -15,6 +19,7 @@ public class CookBook : Utility
     {
         Name = "Cookbook";
         Interaction = "";
+        status = Status.Undamaged;
     }
 
     // Start is called before the first frame update
@@ -31,6 +36,7 @@ public class CookBook : Utility
         {
             GameManager.cookBookActive = false;
             setCookBookActive.setActiveFalseFunc();
+            status = Status.Destroyed;
             //Set to desroyed book
         }
         else if (!GameManager.cookBookActive)
@@ -50,7 +56,7 @@ public class CookBook : Utility
         if (lives > 0 && GameManager.recipeIsOpenP1)
         {
             Interaction = "Flip page";
-            //Move normal intera
+            //Move normal interaction
             return;
         } else if (lives > 0 && !GameManager.recipeIsOpenP1)
         {
@@ -80,6 +86,7 @@ public class CookBook : Utility
                 Debug.LogWarning("Cookbook repaired!");
                 chef.hand[0] = null;
                 chef.Inv1.text = "";
+                status = Status.Undamaged;
                 //Restore book model
             }
         }

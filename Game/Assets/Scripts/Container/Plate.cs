@@ -31,8 +31,12 @@ public class Plate : Item
 
     public void Start()
     {
-        menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>(); //This line returns an error every time the game is started
-        menuOrder.PlaceOrder(orderName);
+        if (GameManager.isNearOrderWindow)
+        {
+            menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>(); //This line returns an error every time the game is started
+            menuOrder.PlaceOrder(orderName);
+        }
+       
     }
 
     public void Update()
@@ -114,6 +118,8 @@ public class Plate : Item
                 sliderTimer.gameObject.SetActive(true);
                 break;
         }
+
+       
     }
 
     private void RespawnItem(Item item)

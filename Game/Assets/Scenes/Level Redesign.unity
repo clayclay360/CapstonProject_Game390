@@ -794,7 +794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1154, y: 739}
+  m_AnchoredPosition: {x: -1198, y: 208}
   m_SizeDelta: {x: 325, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &60821882
@@ -7987,7 +7987,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -903, y: 729}
+  m_AnchoredPosition: {x: -947, y: 198}
   m_SizeDelta: {x: 751.3, y: 401.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &774015142
@@ -9791,6 +9791,10 @@ PrefabInstance:
       propertyPath: backgroundImage
       value: 
       objectReference: {fileID: 774015140}
+    - target: {fileID: 169181783901973587, guid: 7728c74f842b41a4481021fd3f7ec695, type: 3}
+      propertyPath: status
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1484350882870019920, guid: 7728c74f842b41a4481021fd3f7ec695, type: 3}
       propertyPath: m_Name
       value: CookBook
@@ -13166,6 +13170,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 849393840}
     m_Modifications:
     - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+      propertyPath: status
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
       propertyPath: despawnTime
       value: 2
       objectReference: {fileID: 0}
@@ -13243,7 +13251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
@@ -16678,6 +16686,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 51b5adf6bb4950042944fe3fac38cbba, type: 3}
   m_PrefabInstance: {fileID: 1536103940}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1553564349
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 936879189}
+    m_Modifications:
+    - target: {fileID: 7521365251995986642, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_Name
+      value: CookBook_Destroyed
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521365251995986645, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cf945dec40e5f1f4ab301aec281ac90d, type: 3}
 --- !u!4 &1557970643 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5920238756178332373, guid: 06b5f38c6084d4d44a905e3582a452f5, type: 3}
@@ -21247,7 +21312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -622.99994, y: 739}
+  m_AnchoredPosition: {x: -666.99994, y: 208}
   m_SizeDelta: {x: 350, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1938419541
