@@ -202,6 +202,8 @@ public class PlayerController : MonoBehaviour
                     itemInMainHand = ItemInMainHand.spatula;
                     break;
                 case "Pan":
+                case "Pan(Egg)":
+                case "Pan(Bacon)":
                     itemInMainHand = ItemInMainHand.pan;
                     break;
                 default:

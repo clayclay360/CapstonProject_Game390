@@ -39,7 +39,7 @@ public class Pan : Item
 
     public Pan()
     {
-        Name = "Pan(Empty)";
+        Name = "Pan";
         Type = "Tool";
         Interaction = "";
         state = State.cold;
@@ -291,9 +291,9 @@ public class Pan : Item
         {
             prone = false;
         }
-        if (!Occupied && Name!="Pan(Empty)")
+        if (!Occupied && Name!="Pan")
         {
-            Name = "Pan(Empty)";
+            Name = "Pan";
         }
 
     }
