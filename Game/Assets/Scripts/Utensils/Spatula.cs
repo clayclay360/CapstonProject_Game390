@@ -38,6 +38,7 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -51,6 +52,7 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -64,6 +66,7 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -77,6 +80,7 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();

@@ -61,6 +61,7 @@ public class Bacon : Item
                 Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -74,6 +75,7 @@ public class Bacon : Item
                 Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -87,6 +89,7 @@ public class Bacon : Item
                 Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -100,6 +103,7 @@ public class Bacon : Item
                 Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();

@@ -49,6 +49,11 @@ public class Egg : Item
         {
             //player.Interact();
         }
+
+        if(state == State.omelet)
+        {
+            Debug.LogError("Egg is Omelet");
+        }
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -67,6 +72,7 @@ public class Egg : Item
                 Interaction = "Grab Egg";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -80,6 +86,7 @@ public class Egg : Item
                 Interaction = "Grab Egg";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -93,6 +100,7 @@ public class Egg : Item
                 Interaction = "Grab Egg";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -106,6 +114,7 @@ public class Egg : Item
                 Interaction = "Grab Egg";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
