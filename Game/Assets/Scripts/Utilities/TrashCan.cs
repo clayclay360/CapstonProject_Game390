@@ -54,6 +54,11 @@ public class TrashCan : Utility
                 //Clear the player character
                 Destroy(chef.hand[0].gameObject);
                 chef.hand[0] = null;
+                if (chef.hand[1] != null)
+                {
+                    chef.hand[0] = chef.hand[1];
+                    chef.hand[1] = null;
+                }
                 chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                 Interaction = "";
                 chef.isInteracting = false;

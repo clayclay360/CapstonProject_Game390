@@ -474,14 +474,13 @@ MonoBehaviour:
   status: 3
   cleanSelf: {fileID: 8513058480441860697}
   dirtySelf: {fileID: 2878929718374001812}
-  selfReference: {fileID: 4647432269454624998}
-  canRespawn: 1
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
   Occupied: 0
   prone: 0
   isActive: 0
   isTarget: 0
+  isBeingCarried: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}

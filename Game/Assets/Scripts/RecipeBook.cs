@@ -21,10 +21,11 @@ public class RecipeBook : MonoBehaviour
     {
         pages = new int[] { 1, 2, 3, 4 };
         steps = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-        currentPage = 1;
+        currentPage = 0;
         currentStep = 2;
         GameManager.isStepCompleted.Add(0);
         GameManager.recipeIsOpenP1 = false;
+        GameManager.recipeIsOpenP2 = false;
         GameManager.isTouchingBook = false;
         recipeTextbox1.SetActive(false);
         recipeTextbox2.SetActive(false);
@@ -37,59 +38,7 @@ public class RecipeBook : MonoBehaviour
     void Update()
     {
 
-        /*if (GameManager.isTouchingBook)
-        {
-            //variable telling the game that the recipe for player one is open
-            recipeIsOpenP1 = true;
-            Debug.LogError(recipeIsOpenP1);
-
-            //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
-            //sets the background image to show
-            backgroundImage.SetActive(true);
-
-            currentPage = 1;
-
-            printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", "Beat the eggs (Bowl on countertop).", 1, 2, 3);
-        }
-        else if (!GameManager.isTouchingBook)
-        {
-            //variable telling the game that the recipe for player one is closed
-            recipeIsOpenP1 = false;
-            //empties out any information in the textboxes
-            recipeTextbox1.GetComponent<Text>().text = " ";
-            recipeTextbox2.GetComponent<Text>().text = " ";
-            recipeTextbox3.GetComponent<Text>().text = " ";
-            //hides the background image
-            backgroundImage.SetActive(false);
-        }
-
-        if (recipeIsOpenP1)
-        {
-            //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
-
-            if (currentPage != pages.Length - 1)
-            {
-                if (currentPage == 0)
-                {
-                    printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", "Beat the eggs (Bowl on countertop).", 1, 2, 3);
-
-
-                }
-                else if (currentPage == 1)
-                {
-                    printRecipeBookText("Melt Butter in the pan.", "Add eggs to pan.", "Lift and tilt eggs with spatula.", 4, 5, 6);
-                }
-
-                currentPage++;
-            } else
-            {
-                if (currentPage == 2)
-                {
-                    printRecipeBookText("Add cheese to pan.", "Fold eggs with spatula", " ", 7, 8, 9);
-                }
-                currentPage = 0;
-            }
-        }*/
+        
     }
 
 
@@ -121,56 +70,79 @@ public class RecipeBook : MonoBehaviour
         else { recipeTextbox2.GetComponent<Text>().color = Color.black; }
     }
 
-    public void ClickOnBook()
+    public void ClickOnBook(float value)
     {
         //if (!GameManager.cookBookActive) { return; };
         if (GameManager.isTouchingBook && GameManager.cookBookActive) //This is to detect if the player is touching the book
         {
-            /*//variable telling the game that the recipe for player one is open
-            GameManager.recipeIsOpenP1 = true;
-            Debug.LogError(GameManager.recipeIsOpenP1);
-
-            //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
-            //sets the background image to show
-            backgroundImage.SetActive(true);
-
-            currentPage = 1;
-
-            printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", "Beat the eggs (Bowl on countertop).", 1, 2, 3);*/
-
-            //if (!GameManager.cookBookActive) { return; }
-
-            if (GameManager.recipeIsOpenP1)
+            int val = (int)value;
+            currentPage += val;
+            if(currentPage > 2)
             {
-                //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
+                currentPage = 0;
+            }
+            else if(currentPage < 0)
+            {
+                currentPage = 2;
+            }
+            UpdateRecipeBookText(currentPage);
 
-                if (currentPage != pages.Length - 1) //This is looking through the array that holds how many pages there are
-                {
-                    if (currentPage == 0)
-                    {
-                        printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
+        }
+    }
 
+    public void SwitchRecipe(float currentRecipe)
+    {
+        if(GameManager.recipeIsOpenP1 && (currentRecipe == 1 || currentRecipe == -1))
+        {
+            GameManager.recipeIsOpenP1 = false;
+            GameManager.recipeIsOpenP2 = true;
+        }
+        else if(GameManager.recipeIsOpenP2 && (currentRecipe == 1 || currentRecipe == -1))
+        {
+            GameManager.recipeIsOpenP2 = false;
+            GameManager.recipeIsOpenP1 = true;
+        }
 
-                    }
-                    else if (currentPage == 1)
-                    {
-                        printRecipeBookText("Beat the eggs (Bowl on countertop).", "Melt Butter in the pan.", 3, 4);
-                    }
-                    else if (currentPage == 2)
-                    {
-                        printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
-                    }
+        currentPage = 0;
+        UpdateRecipeBookText(currentPage);
+    }
 
-                    currentPage++;
-                }
-                else
-                {
-                    if (currentPage == 3)
-                    {
-                        printRecipeBookText("Add cheese to pan.", "Fold eggs with spatula", 7, 8);
-                    }
-                    currentPage = 0;
-                }
+    public void UpdateRecipeBookText(int currentStep)
+    {
+        if(GameManager.recipeIsOpenP1)
+        {
+            switch (currentStep)
+            {
+                case 0:
+                    printRecipeBookText("Step 1: Turn on Stove.", "Step 2: Place Pan on Stove.", 1, 2);
+                    break;
+
+                case 1:
+                    printRecipeBookText("Step 3: Crack Egg in pan.", "Step 4: Fold egg with spatula.", 3, 4);
+                    break;
+
+                case 2:
+                    printRecipeBookText("Step 5: Serve Omelet on plate.", "", 5, 6);
+                    break;
+
+            }
+                
+        }
+        else if (GameManager.recipeIsOpenP2)
+        {
+            switch (currentStep)
+            {
+                case 0:
+                    printRecipeBookText("Step 1: Turn on Stove.", "Step 2: Place Pan on Stove.", 1, 2);
+                    break;
+
+                case 1:
+                    printRecipeBookText("Step 3: Put bacon in pan.", "Step 4: Use spatula to make sure bacon doesn't burn.", 3, 4);
+                    break;
+
+                case 2:
+                    printRecipeBookText("Step 5: Serve bacon on plate.", "", 5, 6);
+                    break;
             }
         }
     }

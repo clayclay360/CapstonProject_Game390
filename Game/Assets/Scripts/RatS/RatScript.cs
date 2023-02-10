@@ -24,6 +24,7 @@ public class RatScript : MonoBehaviour
     public float attackRadius;
     public List<GameObject> TargetsList;
     public GameObject target;
+    public List<GameObject> DestinationsList;
     public bool objectiveComplete;
     public GameObject[] ventsTransform;
 
@@ -51,11 +52,16 @@ public class RatScript : MonoBehaviour
     private Transform escapeVent;
     private RatSpawnSystem ratSpawnSystem;
     private GameObject itemObject;
+    private List<GameObject> destinationsList;
+    private List<GameObject> itemsList;
     private Item itemScript;
+    private DestinationPoint destinationScript;
+    private Rigidbody ratBody;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        ratBody = gameObject.GetComponent<Rigidbody>();
         ol.enabled = false;
         startHeight = transform.position.y;
         attackReady = true;
@@ -84,13 +90,21 @@ public class RatScript : MonoBehaviour
     void Update()
     {
         GetAction();
-        ReturnToVent();
 
         var CanvRot = hbCanv.transform.rotation.eulerAngles;
         CanvRot.z = -transform.rotation.eulerAngles.y;
         hbCanv.transform.rotation = Quaternion.Euler(CanvRot);
         baconRespawn = GameManager.bacon;
         eggRespawn = GameManager.egg;
+
+        if(ratBody.velocity != agent.desiredVelocity)
+        {
+            ratBody.drag = 100;
+        }
+        else
+        {
+            ratBody.drag = 10;
+        }
     }
 
     public void TakeDamage(int damage)
@@ -109,6 +123,7 @@ public class RatScript : MonoBehaviour
                 itemObject.transform.position = transform.position;
                 itemScript.RespawnItem(itemObject);
                 isCarryingItem = false;
+                itemScript.isBeingCarried = false;
                 ol.enabled = false;
                 item = "";
                 hbarScript.SetItemText(item);
@@ -124,7 +139,11 @@ public class RatScript : MonoBehaviour
 
         if (target != null && !hiding)
         {
-            if(target.GetComponent<Collider>() != null)
+            if (!objectiveComplete)
+            {
+                CheckTarget(target);
+            }
+            if (target.GetComponent<Collider>() != null)
             {
                 Vector3 closestTargetPoint = target.GetComponent<Collider>().ClosestPoint(transform.position);
                 distanceBetweenTarget = Vector3.Distance(transform.position, closestTargetPoint);
@@ -135,14 +154,11 @@ public class RatScript : MonoBehaviour
             }
             agent.stoppingDistance = attackRadius;
 
+            //Debug.Log(gameObject.name + " " + distanceBetweenTarget.ToString());
             if (distanceBetweenTarget <= attackRadius)
             {
                 LookAt();
                 Attack();
-            }
-            else
-            {
-                CheckTarget(target);
             }
         }
         else
@@ -191,6 +207,7 @@ public class RatScript : MonoBehaviour
                 case "CookBook":
                     CookBook cookbook = other.GetComponentInParent<CookBook>();
                     cookbook.lives--;
+                    target = null;
                     objectiveComplete = true;
                     break;
 
@@ -199,10 +216,15 @@ public class RatScript : MonoBehaviour
                     {
                         itemObject = GameObject.Find(item);
                         itemScript = itemObject.GetComponent<Item>();
+                        destinationScript = target.GetComponent<DestinationPoint>();
                         itemObject.transform.position = other.gameObject.transform.position;
                         itemScript.RespawnItem(itemObject);
                         isCarryingItem = false;
+                        itemScript.isBeingCarried = false;
+                        destinationScript.hasItem = true;
                         ol.enabled = false;
+                        target = null;
+                        objectiveComplete = true;
                         if (item == "Egg")
                         {
                             eggRespawn.Respawn();
@@ -213,7 +235,6 @@ public class RatScript : MonoBehaviour
                         item = "";
                         hbarScript.SetItemText(item);
                     }
-                    objectiveComplete = true;
                     break;
 
                 case "Interactable":
@@ -227,8 +248,9 @@ public class RatScript : MonoBehaviour
                                 spatula.DespawnItem(other.gameObject);
                                 item = other.gameObject.name;
                                 hbarScript.SetItemText(item);
-                                SelectDestination();
+                                SelectDestination(DestinationsList);
                                 isCarryingItem = true;
+                                spatula.isBeingCarried = true;
                                 ol.enabled = true;
                                 spatula.CheckCounter();
                                 if (counter != null)
@@ -245,8 +267,9 @@ public class RatScript : MonoBehaviour
                                 pan.DespawnItem(other.gameObject);
                                 item = other.gameObject.name;
                                 hbarScript.SetItemText(item);
-                                SelectDestination();
+                                SelectDestination(DestinationsList);
                                 isCarryingItem = true;
+                                pan.isBeingCarried = true;
                                 ol.enabled = true;
                                 pan.CheckCounter();
                                 if (counter != null)
@@ -273,8 +296,9 @@ public class RatScript : MonoBehaviour
                                 egg.DespawnItem(other.gameObject);
                                 item = other.gameObject.name;
                                 hbarScript.SetItemText(item);
-                                SelectDestination();
+                                SelectDestination(DestinationsList);
                                 isCarryingItem = true;
+                                egg.isBeingCarried = true;
                                 ol.enabled = true;
                                 egg.CheckCounter();
                                 egg.status = Item.Status.spoiled;
@@ -291,8 +315,9 @@ public class RatScript : MonoBehaviour
                                 bacon.DespawnItem(other.gameObject);
                                 item = other.gameObject.name;
                                 hbarScript.SetItemText(item);
-                                SelectDestination();
+                                SelectDestination(DestinationsList);
                                 isCarryingItem = true;
+                                bacon.isBeingCarried = true;
                                 ol.enabled = true;
                                 bacon.CheckCounter();
                                 bacon.status = Item.Status.spoiled;
@@ -331,8 +356,10 @@ public class RatScript : MonoBehaviour
 
     private void LookAt()
     {
-        Vector2 dir = target.transform.position - transform.position;
-        transform.forward = dir;
+        Debug.Log(gameObject.name + " looking at target");
+        Vector3 dir = target.transform.position - transform.position;
+        Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
+        transform.rotation = rot;
     }
 
     public void AdjustTargetList(List<GameObject> targetList)
@@ -357,9 +384,9 @@ public class RatScript : MonoBehaviour
                     break;
                 
                 case ("Spatula"):
-                    //Don't target if spatula is dirty, despawned, or being targeted by another rat
+                    //Don't target if spatula is dirty, despawned, or being targeted or carried by another rat
                     Spatula spatula = item.GetComponent<Spatula>();
-                    if (spatula.status == Item.Status.dirty || !spatula.isActiveAndEnabled || spatula.isTarget)
+                    if (spatula.status == Item.Status.dirty || !spatula.isActiveAndEnabled || spatula.isTarget || spatula.isBeingCarried)
                     {
                         removeList.Add(item);
                     }
@@ -371,9 +398,9 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case ("Pan"):
-                    //Don't target if pan is dirty, despawned, or being targeted by another rat
+                    //Don't target if pan is dirty, despawned, or being targeted or carried by another rat
                     Pan pan = item.GetComponent<Pan>();
-                    if (pan.status == Item.Status.dirty || !pan.isActiveAndEnabled || pan.isTarget)
+                    if (pan.status == Item.Status.dirty || !pan.isActiveAndEnabled || pan.isTarget || pan.isBeingCarried)
                     {
                         removeList.Add(item);
                     }
@@ -398,9 +425,9 @@ public class RatScript : MonoBehaviour
                     break;
                 
                 case ("Egg"):
-                    //Don't target egg if it's despawned or being targeted by another rat
+                    //Don't target egg if it's despawned or being targeted or carried by another rat
                     Egg egg = item.GetComponent<Egg>();
-                    if (!egg.isActiveAndEnabled || egg.isTarget)
+                    if (!egg.isActiveAndEnabled || egg.isTarget || egg.isBeingCarried)
                     {
                         removeList.Add(item);
                     }
@@ -411,9 +438,9 @@ public class RatScript : MonoBehaviour
                     break;
 
                 case ("Bacon"):
-                    //Don't target bacon if it's despawned or being targeted by another rat
+                    //Don't target bacon if it's despawned or being targeted or carried by another rat
                     Bacon bacon = item.GetComponent<Bacon>();
-                    if (!bacon.isActiveAndEnabled || bacon.isTarget)
+                    if (!bacon.isActiveAndEnabled || bacon.isTarget || bacon.isBeingCarried)
                     {
                         removeList.Add(item);
                     }
@@ -446,7 +473,7 @@ public class RatScript : MonoBehaviour
             }
         }
 
-        if(targetList.Count < 0)
+        if(targetList.Count > 0)
         {
             SetTarget(targetList);
         }
@@ -457,12 +484,27 @@ public class RatScript : MonoBehaviour
         }
     }
 
-    public void SelectDestination()
+    public void SelectDestination(List<GameObject> destinationList)
     {
-        GameObject[] destinationsList = GameObject.FindGameObjectsWithTag("Destination");
-        int destinationIndex = Random.Range(0, destinationsList.Length);
-
-        target = destinationsList[destinationIndex];
+        GameObject[] destinationsArray = GameObject.FindGameObjectsWithTag("Destination");
+        destinationList.AddRange(destinationsArray);
+        List<GameObject> removeList = new List<GameObject> { };
+        //Remove potential destinations that already have items in them
+        foreach (GameObject destination in destinationList)
+        {
+            if (destination.GetComponent<DestinationPoint>().hasItem)
+            {
+                removeList.Add(destination);
+            }
+        }
+        foreach(GameObject destination in removeList)
+        {
+            if (destinationList.Contains(destination))
+            {
+                destinationList.Remove(destination);
+            }
+        }
+        target = destinationList[Random.Range(0, destinationList.Count)];
         agent.SetDestination(target.transform.position);
     }
 
@@ -499,6 +541,15 @@ public class RatScript : MonoBehaviour
     public void CheckTarget(GameObject target)
     {
         bool switchTarget = false;
+        bool switchDestination = false;
+        if(target.tag == "Destination")
+        {
+            DestinationPoint destination = target.GetComponent<DestinationPoint>();
+            if (destination.hasItem)
+            {
+                switchDestination = true;
+            }
+        }
         switch (target.name)
         {
             case ("CookBook"):
@@ -510,18 +561,18 @@ public class RatScript : MonoBehaviour
                 break;
 
             case ("Spatula"):
-                //Switch target if spatula is dirty or despawned
+                //Switch target if spatula is dirty, despawned, or being carried by another rat
                 Spatula spatula = target.GetComponent<Spatula>();
-                if (spatula.status == Item.Status.dirty || !spatula.isActiveAndEnabled)
+                if (spatula.status == Item.Status.dirty || !spatula.isActiveAndEnabled || spatula.isBeingCarried)
                 {
                     switchTarget = true;
                 }
                 break;
 
             case ("Pan"):
-                //Switch target if pan is dirty or despawned
+                //Switch target if pan is dirty, despawned, or being carried by another rat
                 Pan pan = target.GetComponent<Pan>();
-                if (pan.status == Item.Status.dirty || !pan.isActiveAndEnabled)
+                if (pan.status == Item.Status.dirty || !pan.isActiveAndEnabled || pan.isBeingCarried)
                 {
                     switchTarget = true;
                 }
@@ -544,18 +595,18 @@ public class RatScript : MonoBehaviour
                 break;
 
             case ("Egg"):
-                //Don't target egg if it's despawned
+                //Don't target egg if it's despawned or being carried by another rat
                 Egg egg = target.GetComponent<Egg>();
-                if (!egg.isActiveAndEnabled)
+                if (!egg.isActiveAndEnabled || egg.isBeingCarried)
                 {
                     switchTarget = true;
                 }
                 break;
 
             case ("Bacon"):
-                //Don't target bacon if it's despawned
+                //Don't target bacon if it's despawned or being carried by another rat
                 Bacon bacon = target.GetComponent<Bacon>();
-                if (!bacon.isActiveAndEnabled)
+                if (!bacon.isActiveAndEnabled || bacon.isBeingCarried)
                 {
                     switchTarget = true;
                 }
@@ -564,6 +615,14 @@ public class RatScript : MonoBehaviour
         if (switchTarget)
         {
             AdjustTargetList(TargetsList);
+        }
+        else if (switchDestination)
+        {
+            SelectDestination(DestinationsList);
+        }
+        else
+        {
+            agent.destination = target.transform.position;
         }
     }
 

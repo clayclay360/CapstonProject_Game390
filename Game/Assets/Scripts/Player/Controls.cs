@@ -80,6 +80,24 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Change Page"",
+                    ""type"": ""Button"",
+                    ""id"": ""aeae66e9-bf80-442e-a02c-2aadd60da4d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch Recipe"",
+                    ""type"": ""Button"",
+                    ""id"": ""690274e3-2967-42cc-a349-681e0952450a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -335,6 +353,72 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""c70226ec-a0d1-487d-8f1f-9e39e8f857f0"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change Page"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""1ef5f0ed-e5f5-4949-9b48-51597cfbf856"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Change Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""94c5e77c-a33f-43d2-bbed-444d454cfcfc"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Change Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""1fca8835-dec0-423d-aadf-bc9d9cbeabf9"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch Recipe"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""c71f03d3-9583-4a61-b9c0-9d0c2498adbc"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Switch Recipe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""7888a4d7-4a07-4a0e-ad37-e12e863e729d"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Switch Recipe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -377,6 +461,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_PlayerControls_ToggleAimLine = m_PlayerControls.FindAction("Toggle Aim Line", throwIfNotFound: true);
         m_PlayerControls_SwapInventorySlots = m_PlayerControls.FindAction("Swap Inventory Slots", throwIfNotFound: true);
         m_PlayerControls_Look = m_PlayerControls.FindAction("Look", throwIfNotFound: true);
+        m_PlayerControls_ChangePage = m_PlayerControls.FindAction("Change Page", throwIfNotFound: true);
+        m_PlayerControls_SwitchRecipe = m_PlayerControls.FindAction("Switch Recipe", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -442,6 +528,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_ToggleAimLine;
     private readonly InputAction m_PlayerControls_SwapInventorySlots;
     private readonly InputAction m_PlayerControls_Look;
+    private readonly InputAction m_PlayerControls_ChangePage;
+    private readonly InputAction m_PlayerControls_SwitchRecipe;
     public struct PlayerControlsActions
     {
         private @Controls m_Wrapper;
@@ -452,6 +540,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @ToggleAimLine => m_Wrapper.m_PlayerControls_ToggleAimLine;
         public InputAction @SwapInventorySlots => m_Wrapper.m_PlayerControls_SwapInventorySlots;
         public InputAction @Look => m_Wrapper.m_PlayerControls_Look;
+        public InputAction @ChangePage => m_Wrapper.m_PlayerControls_ChangePage;
+        public InputAction @SwitchRecipe => m_Wrapper.m_PlayerControls_SwitchRecipe;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -479,6 +569,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLook;
+                @ChangePage.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnChangePage;
+                @ChangePage.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnChangePage;
+                @ChangePage.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnChangePage;
+                @SwitchRecipe.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSwitchRecipe;
+                @SwitchRecipe.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSwitchRecipe;
+                @SwitchRecipe.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSwitchRecipe;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -501,6 +597,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @ChangePage.started += instance.OnChangePage;
+                @ChangePage.performed += instance.OnChangePage;
+                @ChangePage.canceled += instance.OnChangePage;
+                @SwitchRecipe.started += instance.OnSwitchRecipe;
+                @SwitchRecipe.performed += instance.OnSwitchRecipe;
+                @SwitchRecipe.canceled += instance.OnSwitchRecipe;
             }
         }
     }
@@ -531,5 +633,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnToggleAimLine(InputAction.CallbackContext context);
         void OnSwapInventorySlots(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnChangePage(InputAction.CallbackContext context);
+        void OnSwitchRecipe(InputAction.CallbackContext context);
     }
 }

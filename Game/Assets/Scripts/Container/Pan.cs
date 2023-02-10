@@ -110,7 +110,7 @@ public class Pan : Item
                             if (!GameManager.isStepCompleted.Contains(5))
                             {
                                 GameManager.isStepCompleted.Add(5);
-                                cookBook.printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
+                                cookBook.printRecipeBookText("Lift and tilt eggs with spatula.", "Add Cheese to pan.", 5, 6);
                             }
                             chef.hand[0].GetComponent<Collider>().enabled = false;
                             chef.hand[0].GetComponent<Egg>().state = Egg.State.yoke;
@@ -120,6 +120,11 @@ public class Pan : Item
                             chef.hand[0].GetComponent<Egg>().gameObject.SetActive(true);
                             foodInPan = chef.hand[0];
                             chef.hand[0] = null;
+                            if (chef.hand[1] != null)
+                            {
+                                chef.hand[0] = chef.hand[1];
+                                chef.hand[1] = null;
+                            }
                             chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                             Occupied = true;
                             prone = true;
@@ -145,6 +150,11 @@ public class Pan : Item
                     chef.hand[0].GetComponent<Bacon>().gameObject.SetActive(true);
                     foodInPan = chef.hand[0];
                     chef.hand[0] = null;
+                    if (chef.hand[1] != null)
+                    {
+                        chef.hand[0] = chef.hand[1];
+                        chef.hand[1] = null;
+                    }
                     chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                     Occupied = true;
                     prone = true;
@@ -165,7 +175,7 @@ public class Pan : Item
                         if (!GameManager.isStepCompleted.Contains(6))
                         {
                             GameManager.isStepCompleted.Add(6);
-                            cookBook.printRecipeBookText("Add eggs to pan.", "Lift and tilt eggs with spatula.", 5, 6);
+                            cookBook.printRecipeBookText("Lift and tilt eggs with spatula.", "Add Cheese to pan.", 5, 6);
                         }
                         chef.isInteracting = false;
                         interactionIndex = 0;

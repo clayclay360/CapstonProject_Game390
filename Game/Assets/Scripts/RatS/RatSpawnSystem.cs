@@ -16,14 +16,15 @@ public class RatSpawnSystem : MonoBehaviour
     [Header("Spawn")]
     public float maxSpawnTime;
     public float minSpawnTime;
+    public bool isSpawningRat;
     public GameObject ratPrefab;
-    [HideInInspector] public List<GameObject> ratsList;
+    public List<GameObject> ratsList;
     public Transform[] ratSpawnTransform;
 
 
     private int spawnIndex;
     private float spawnTime;
-    private bool isSpawningRat;
+    private bool canSpawnRat = false;
     private GameObject ratHole;
     private GameObject ratPeek;
     private Transform peekPosition;
@@ -33,18 +34,29 @@ public class RatSpawnSystem : MonoBehaviour
     void Start()
     {
         isSpawningRat = false;
-        StartCoroutine(SpawnRat());
+    }
+
+    private void Update()
+    {
+        if (GameManager.recipeIsOpenP1)
+        {
+            canSpawnRat = true;
+        }
+        if (canSpawnRat && !isSpawningRat)
+        {
+            StartCoroutine(SpawnRat());
+        }
     }
 
     IEnumerator SpawnRat()
     {
         while (true)
         {
+            isSpawningRat = true;
             spawnTime = Random.Range(minSpawnTime, maxSpawnTime);
             yield return new WaitForSeconds(spawnTime);
-            if (ratsList.Count < maxNumberOfRats && !isSpawningRat)
+            if (ratsList.Count < maxNumberOfRats)
             {
-                isSpawningRat = true;
                 spawnIndex = Random.Range(0, ratSpawnTransform.Length);
 
                 yield return StartCoroutine(RatPeek());
@@ -55,7 +67,9 @@ public class RatSpawnSystem : MonoBehaviour
                 isSpawningRat = false;
             }
         }
+
     }
+
 
     IEnumerator RatPeek()
     {

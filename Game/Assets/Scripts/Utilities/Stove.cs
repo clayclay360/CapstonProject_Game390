@@ -111,6 +111,11 @@ public class Stove :Utility
                             chef.hand[0].utilityItemIsOccupying = this;
                             chef.hand[0].GetComponent<Pan>().state = Pan.State.hot;
                             chef.hand[0] = null;
+                            if (chef.hand[1] != null)
+                            {
+                                chef.hand[0] = chef.hand[1];
+                                chef.hand[1] = null;
+                            }
                             chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                             chef.isInteracting = false;
                             Occupied = true;

@@ -11,13 +11,15 @@ public class GameManager : MonoBehaviour
 
     public static bool isTouchingTrashCan;
     public static bool passItemsReady;
-    public string[] counterItems = { "", "", ""};
+    public string[] counterItems = { "", "", "" };
     public static bool putOnCounter;
     public static Bacon bacon;
     public static Egg egg;
 
     public static bool recipeIsOpenP1;
+    public static bool recipeIsOpenP2;
     public static bool isTouchingBook;
+    public static bool isNearOrderWindow; //Testing
     public static List<int> isStepCompleted = new List<int>();
     private static GameManager _instance;
     public static GameManager Instance
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     public static int numberOfPlayers = 0;
     public static bool cookBookActive = true;
+    public static bool destroyedBookActive = true; //Testing
 
     public int playerScore;
     public int scoreMultiplier;
@@ -68,6 +71,7 @@ public class GameManager : MonoBehaviour
         recipeReq.Add("omelet");
         //Debug.LogWarning("GameManager Ready!");
     }
+
 
     private void Update() 
     {
