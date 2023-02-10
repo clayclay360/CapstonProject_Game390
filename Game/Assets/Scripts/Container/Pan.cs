@@ -120,6 +120,11 @@ public class Pan : Item
                             chef.hand[0].GetComponent<Egg>().gameObject.SetActive(true);
                             foodInPan = chef.hand[0];
                             chef.hand[0] = null;
+                            if (chef.hand[1] != null)
+                            {
+                                chef.hand[0] = chef.hand[1];
+                                chef.hand[1] = null;
+                            }
                             chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                             Occupied = true;
                             prone = true;
@@ -145,6 +150,11 @@ public class Pan : Item
                     chef.hand[0].GetComponent<Bacon>().gameObject.SetActive(true);
                     foodInPan = chef.hand[0];
                     chef.hand[0] = null;
+                    if (chef.hand[1] != null)
+                    {
+                        chef.hand[0] = chef.hand[1];
+                        chef.hand[1] = null;
+                    }
                     chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                     Occupied = true;
                     prone = true;

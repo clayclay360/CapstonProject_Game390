@@ -125,6 +125,11 @@ public class Sink : Utility
                         AddSinkInv(dish);
                         chef.itemInMainHand = PlayerController.ItemInMainHand.empty;
                         chef.hand[0] = null;
+                        if (chef.hand[1] != null)
+                        {
+                            chef.hand[0] = chef.hand[1];
+                            chef.hand[1] = null;
+                        }
                         Interaction = "";
                     }
                     else { Debug.LogError("Could not get Item component!"); }

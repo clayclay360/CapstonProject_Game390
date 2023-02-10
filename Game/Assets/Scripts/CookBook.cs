@@ -85,6 +85,11 @@ public class CookBook : Utility
                 setCookBookActive.setActiveTrueFunc();
                 Debug.LogWarning("Cookbook repaired!");
                 chef.hand[0] = null;
+                if (chef.hand[1] != null)
+                {
+                    chef.hand[0] = chef.hand[1];
+                    chef.hand[1] = null;
+                }
                 chef.Inv1.text = "";
                 status = Status.Undamaged;
                 //Restore book model

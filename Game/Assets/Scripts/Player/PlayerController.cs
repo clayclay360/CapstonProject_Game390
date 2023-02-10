@@ -318,22 +318,47 @@ public class PlayerController : MonoBehaviour
                 case "Egg":
                     passEgg.DropEggOnGround(gameObject);
                     hand[0] = null;
+                    if(hand[1] != null)
+                    {
+                        hand[0] = hand[1];
+                        hand[1] = null;
+                    }
                     break;
                 case "Spatula":
                     passSpatula.DropSpatulaOnGround(gameObject);
                     hand[0] = null;
+                    if (hand[1] != null)
+                    {
+                        hand[0] = hand[1];
+                        hand[1] = null;
+                    }
                     break;
                 case "Pan":
                     passPan.DropPanOnGround(gameObject);
                     hand[0] = null;
+                    if (hand[1] != null)
+                    {
+                        hand[0] = hand[1];
+                        hand[1] = null;
+                    }
                     break;
                 case "Bacon":
                     passBacon.DropBaconOnGround(gameObject);
                     hand[0] = null;
+                    if (hand[1] != null)
+                    {
+                        hand[0] = hand[1];
+                        hand[1] = null;
+                    }
                     break;
                 case "Cookbook Pages":
                     passPages.DropPagesOnGround(gameObject);
                     hand[0] = null;
+                    if (hand[1] != null)
+                    {
+                        hand[0] = hand[1];
+                        hand[1] = null;
+                    }
                     break;
                 default:
                     itemInMainHand = ItemInMainHand.empty;
@@ -356,6 +381,11 @@ public class PlayerController : MonoBehaviour
                         passEgg.PassEgg(AddItemsToCounter(egg.name));
                     }
                     hand[0] = null;
+                    if (hand[1] != null)
+                    {
+                        hand[0] = hand[1];
+                        hand[1] = null;
+                    }
                     break;
                 case "Spatula":
                     if (gm.counterItems.Contains(spatula.name))
@@ -366,6 +396,11 @@ public class PlayerController : MonoBehaviour
                         passSpatula.PassSpatula(AddItemsToCounter(spatula.name));
                     }
                     hand[0] = null;
+                    if (hand[1] != null)
+                    {
+                        hand[0] = hand[1];
+                        hand[1] = null;
+                    }
                     break;
                 case "Pan":
                     if (gm.counterItems.Contains(pan.name))
@@ -377,6 +412,11 @@ public class PlayerController : MonoBehaviour
                         passPan.PassPan(AddItemsToCounter(pan.name));
                     }
                     hand[0] = null;
+                    if (hand[1] != null)
+                    {
+                        hand[0] = hand[1];
+                        hand[1] = null;
+                    }
                     break;
                 case "Bacon":
                     if (gm.counterItems.Contains(bacon.name))
@@ -388,6 +428,11 @@ public class PlayerController : MonoBehaviour
                         passBacon.PassBacon(AddItemsToCounter(bacon.name));
                     }
                     hand[0] = null;
+                    if (hand[1] != null)
+                    {
+                        hand[0] = hand[1];
+                        hand[1] = null;
+                    }
                     break;
                 case "Cookbook Pages":
                     if (gm.counterItems.Contains(pages.name))
@@ -399,6 +444,11 @@ public class PlayerController : MonoBehaviour
                         passPages.PassPages(AddItemsToCounter(pages.name));
                     }
                     hand[0] = null;
+                    if (hand[1] != null)
+                    {
+                        hand[0] = hand[1];
+                        hand[1] = null;
+                    }
                     break;
                 default:
                     itemInMainHand = ItemInMainHand.empty;
@@ -410,6 +460,11 @@ public class PlayerController : MonoBehaviour
         {
             counterTopScript.AddToCounterTop(hand[0].ToString());
             hand[0] = null;
+            if (hand[1] != null)
+            {
+                hand[0] = hand[1];
+                hand[1] = null;
+            }
         }
 
         if (GameManager.isTouchingBook && GameManager.recipeIsOpenP1)
