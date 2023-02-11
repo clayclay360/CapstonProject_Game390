@@ -6,10 +6,12 @@ using UnityEngine;
 public class CookBook : Utility
 {
     public enum Status { Undamaged, Destroyed}
+    
 
     [Header("Variables")]
     public int lives;
     public Status status;
+    public GameObject[] Form;
 
     private bool destroying = false; //Variable used for testing
 
@@ -29,6 +31,22 @@ public class CookBook : Utility
         setCookBookActive = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
     }
 
+    public void GetState(Status status)
+    {
+        switch (status)
+        {
+            case Status.Undamaged:
+                Form[0].SetActive(true);
+                Form[1].SetActive(false);
+                break;
+
+            case Status.Destroyed:
+                Form[0].SetActive(false);
+                Form[1].SetActive(true);
+                break;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -37,18 +55,15 @@ public class CookBook : Utility
             GameManager.cookBookActive = false;
             setCookBookActive.setActiveFalseFunc();
             status = Status.Destroyed;
+
             //Set to desroyed book
         }
         else if (!GameManager.cookBookActive)
         {
             lives = 0;
         }
-        //TESTING
-        //else if (!destroying)
-        //{
-        //    StartCoroutine(DestroyCookbook());
-        //    destroying = true;
-        //}
+
+        GetState(status);
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
