@@ -474,6 +474,7 @@ public class PlayerController : MonoBehaviour
         } else if (GameManager.isTouchingBook && !GameManager.recipeIsOpenP1)
         {
             GameManager.recipeIsOpenP1 = true;
+            cookBook.UpdateRecipeBookText(cookBook.currentStep);
             cookBook.setActiveTrueFunc();
         }
 
