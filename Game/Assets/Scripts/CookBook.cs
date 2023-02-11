@@ -50,6 +50,10 @@ public class CookBook : Utility
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.isTouchingBook)
+        {
+            setCookBookActive.setActiveFalseFunc();
+        }
         if (lives == 0)
         {
             GameManager.cookBookActive = false;
@@ -62,6 +66,7 @@ public class CookBook : Utility
         {
             lives = 0;
         }
+
 
         GetState(status);
     }
