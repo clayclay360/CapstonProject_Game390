@@ -12,6 +12,7 @@ public class Pan : Item
     public Image[] completeMark;
     public Sprite checkMark;
     public Sprite xMark;
+    public Sprite spatula;
 
     public enum State { cold, hot }
 
@@ -306,7 +307,8 @@ public class Pan : Item
         {
             foreach(Image img in completeMark)
             {
-                img.gameObject.SetActive(false);
+                //img.gameObject.SetActive(false);
+                img.sprite = spatula;
             }
             progressSlider.gameObject.SetActive(true);
             progressMeter = progressMeterMin;
