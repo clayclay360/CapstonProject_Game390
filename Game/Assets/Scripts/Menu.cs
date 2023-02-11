@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+    public GameObject CanvasObject;
     public GameObject menuText1;
     public GameObject menuText2;
     public GameObject menuText3;
+    public Animation dropInAnim;
 
     void Start()
     {
