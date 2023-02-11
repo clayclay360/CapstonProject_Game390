@@ -62,12 +62,6 @@ public class CookBook : Utility
         {
             lives = 0;
         }
-        if (!GameManager.isTouchingBook) //Disable the pages when the player leaves range
-        {
-            setCookBookActive.setActiveFalseFunc();
-            GameManager.recipeIsOpenP1 = false;
-        }
-
 
         GetState(status);
     }
