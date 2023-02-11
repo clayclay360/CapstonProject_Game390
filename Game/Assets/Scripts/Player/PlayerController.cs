@@ -64,14 +64,14 @@ public class PlayerController : MonoBehaviour
     public GameObject bacon;
     public GameObject egg;
     public GameObject pages;
-    private GameObject passItems;
+    public GameObject passItems;
 
     [Header("Pass Items Scripts")]
-    Pan passPan;
-    Bacon passBacon;
-    Egg passEgg;
-    Spatula passSpatula;
-    CookBookPages passPages;
+    public Pan passPan;
+    public Bacon passBacon;
+    public Egg passEgg;
+    public Spatula passSpatula;
+    public CookBookPages passPages;
 
     [Header("Counter Top")]
     public GameObject counterTop;
