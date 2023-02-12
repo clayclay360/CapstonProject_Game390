@@ -5,12 +5,14 @@ using UnityEngine.UI;
 public class Pan : Item
 {
     public bool canCheck = true;
+    public GameObject passItems;
 
     [Header("UI")]
     public Slider progressSlider;
     public Image[] completeMark;
     public Sprite checkMark;
     public Sprite xMark;
+    public Sprite spatula;
 
     public enum State { cold, hot }
 
@@ -23,7 +25,7 @@ public class Pan : Item
     public float progressMeterMin, progressMeterMax;
     public float[] interactionMeterStart, interactionMeterEnd;
     RecipeBook cookBook; //Added by Owen for changing the steps
-    private GameObject passItems;
+
 
 
     [Header("Item Placement")]
@@ -307,7 +309,8 @@ public class Pan : Item
         {
             foreach(Image img in completeMark)
             {
-                img.gameObject.SetActive(false);
+                //img.gameObject.SetActive(false);
+                img.sprite = spatula;
             }
             progressSlider.gameObject.SetActive(true);
             progressMeter = progressMeterMin;
@@ -366,6 +369,7 @@ public class Pan : Item
             if (attempt[i] == Attempt.Completed)
             {
                 foodInPan.status = Status.cooked;
+                state = State.cold;
                 break;
             }
 

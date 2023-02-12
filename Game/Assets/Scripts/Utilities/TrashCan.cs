@@ -33,7 +33,7 @@ public class TrashCan : Utility
                     if (chef.isInteracting)
                     {
                         //Respawn the food and empty the pan
-                        RespawnItem(pan.foodInPan);
+                        RespawnItem(pan.foodInPan, chef);
                         Destroy(pan.foodInPan.gameObject);
                         pan.foodInPan = null;
                         Interaction = "";
@@ -50,7 +50,7 @@ public class TrashCan : Utility
             if (chef.isInteracting)
             {
                 //Instance the prefab if it is on our list of respawnable prefabs
-                RespawnItem(chef.hand[0]);
+                RespawnItem(chef.hand[0], chef);
                 //Clear the player character
                 Destroy(chef.hand[0].gameObject);
                 chef.hand[0] = null;
@@ -67,7 +67,7 @@ public class TrashCan : Utility
     }
 
     //Helper function to respawn items
-    private void RespawnItem(Item item)
+    private void RespawnItem(Item item, PlayerController chef)
     {
         //Find and instance the object
         GameObject prefab = pr.FindPrefab(item);
@@ -75,6 +75,31 @@ public class TrashCan : Utility
         {
             GameObject newFood = (GameObject)Instantiate(prefab, item.startPosition, item.startRotation, transform.parent);
             newFood.name = item.name;
+            //newFood.GetComponent<Item>().passItems = GameObject.Find("PassItems");
+
+            switch (newFood.name)
+            {
+                case "Pan":
+                    chef.passPan = GameObject.Find("Pan").GetComponentInChildren<Pan>();
+                    newFood.GetComponent<Pan>().passItems = GameObject.Find("PassItems");
+                    break;
+
+                case "Spatula":
+                    chef.passSpatula = GameObject.Find("Spatula").GetComponentInChildren<Spatula>();
+                    newFood.GetComponent<Spatula>().passItems = GameObject.Find("PassItems");
+                    break;
+
+                case "Egg":
+                    chef.passEgg = GameObject.Find("Egg").GetComponentInChildren<Egg>();
+                    newFood.GetComponent<Egg>().passItems = GameObject.Find("PassItems");
+                    break;
+
+                case "Bacon":
+                    chef.passBacon = GameObject.Find("Bacon").GetComponentInChildren<Bacon>();
+                    newFood.GetComponent<Bacon>().passItems = GameObject.Find("PassItems");
+                    break;
+            }
+                
         }
     }
 }

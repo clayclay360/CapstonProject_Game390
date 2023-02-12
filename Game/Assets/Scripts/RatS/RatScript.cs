@@ -44,6 +44,7 @@ public class RatScript : MonoBehaviour
     private float hideTime;
     private bool linkActivated;
     private bool attackReady;
+    private bool isRunning;
     Bacon baconRespawn;
     Egg eggRespawn;
 
@@ -57,11 +58,13 @@ public class RatScript : MonoBehaviour
     private Item itemScript;
     private DestinationPoint destinationScript;
     private Rigidbody ratBody;
+    private Animator animator;
 
     // Start is called before the first frame update
     private void Awake()
     {
         ratBody = gameObject.GetComponent<Rigidbody>();
+        animator = gameObject.GetComponentInChildren<Animator>();
         ol.enabled = false;
         startHeight = transform.position.y;
         attackReady = true;
@@ -79,6 +82,7 @@ public class RatScript : MonoBehaviour
         hidingPointsList = GameObject.FindGameObjectsWithTag("HidingPoint");
 
         hbarScript.SetMaxHealth(health);
+        animator.SetBool("IsRunning", true);
     }
 
     private void Start()
@@ -104,6 +108,17 @@ public class RatScript : MonoBehaviour
         else
         {
             ratBody.drag = 10;
+        }
+
+        isRunning = animator.GetBool("IsRunning");
+        Debug.Log(agent.velocity.ToString());
+        if(agent.velocity != Vector3.zero && !isRunning)
+        {
+            animator.SetBool("IsRunning", true);
+        }
+        else if(agent.velocity == Vector3.zero && isRunning)
+        {
+            animator.SetBool("IsRunning", false);
         }
     }
 

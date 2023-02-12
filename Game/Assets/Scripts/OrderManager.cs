@@ -20,6 +20,9 @@ public class OrderManager : MonoBehaviour
     private float timeInBetweenOrders;
     private int maxOrders;
 
+    [Header("Menu")]
+    public Menu menuObject;
+    
     // Update is called once per frame
     void Update()
     {
@@ -27,7 +30,31 @@ public class OrderManager : MonoBehaviour
         {
             startingOrders = true;
             StartCoroutine(Orders());
+            menuObject.gameObject.SetActive(false);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.GetComponent<PlayerController>() != null)
+        {
+            Debug.Log(other.gameObject.name);
+            menuObject.gameObject.SetActive(true);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<PlayerController>() != null)
+        {
+            menuObject.gameObject.SetActive(false);
+        }
+    }
+
+    public void RemoveOrder(int orderNum)
+    {
+        currentOrders--;
+        menuObject.RemoveOrder(Order[orderNum].name);
+        Order.Remove(orderNum);
     }
 
     IEnumerator Orders()
@@ -57,14 +84,19 @@ public class OrderManager : MonoBehaviour
 
                 //temporary 
                 GameObject plate = Instantiate(platePrefab);
-                Order.Add(orderNumber, plate.GetComponent<Plate>());
+                Plate plateScript = plate.GetComponent<Plate>();
+                Order.Add(orderNumber, plateScript);
                 plate.transform.position = spawnPosition[orderNumber].position;
+                plateScript.menuOrder = menuObject;
                 plate.GetComponent<Plate>().orderName = orderNames[orderIndex];
                 plate.GetComponent<Plate>().timer = 120;
                 plate.GetComponent<Plate>().orderNumber = orderNumber;
                 plate.GetComponent<Plate>().StartTimer();
                 currentOrders++;
                 orderNumber++;
+
+                //Add the order to the menu
+                menuObject.PlaceOrder(orderNames[orderIndex]);
 
                 yield return new WaitForSeconds(timeInBetweenOrders);
             }

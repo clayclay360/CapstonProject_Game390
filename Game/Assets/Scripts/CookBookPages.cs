@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CookBookPages : Item
 {
-    private GameObject passItems;
+    public GameObject passItems;
 
     public CookBookPages()
     {
