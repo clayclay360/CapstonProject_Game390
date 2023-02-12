@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Spatula : Item
 {
     public GameObject passItems;
+    public Sprite image;
 
     public Spatula()
     {
@@ -46,13 +48,18 @@ public class Spatula : Item
                     {
                         CheckIndividualCounters(counterInUse);
                     }
+                    
                 }
                 break;
             case PlayerController.ItemInMainHand.egg:
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+
+                    
+
                     chef.readyToInteract = false;
+
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -66,7 +73,11 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+
+                   
+
                     chef.readyToInteract = false;
+
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -80,7 +91,10 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+
+
                     chef.readyToInteract = false;
+
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
