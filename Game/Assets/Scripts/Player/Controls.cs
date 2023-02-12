@@ -98,6 +98,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""79413567-571c-4532-9cd9-05af36221a19"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -419,6 +428,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Switch Recipe"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b3c2eec-ac16-4b80-82ec-0b1d9a98a2fd"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -463,6 +483,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_PlayerControls_Look = m_PlayerControls.FindAction("Look", throwIfNotFound: true);
         m_PlayerControls_ChangePage = m_PlayerControls.FindAction("Change Page", throwIfNotFound: true);
         m_PlayerControls_SwitchRecipe = m_PlayerControls.FindAction("Switch Recipe", throwIfNotFound: true);
+        m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -530,6 +551,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_Look;
     private readonly InputAction m_PlayerControls_ChangePage;
     private readonly InputAction m_PlayerControls_SwitchRecipe;
+    private readonly InputAction m_PlayerControls_Pause;
     public struct PlayerControlsActions
     {
         private @Controls m_Wrapper;
@@ -542,6 +564,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_PlayerControls_Look;
         public InputAction @ChangePage => m_Wrapper.m_PlayerControls_ChangePage;
         public InputAction @SwitchRecipe => m_Wrapper.m_PlayerControls_SwitchRecipe;
+        public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -575,6 +598,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @SwitchRecipe.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSwitchRecipe;
                 @SwitchRecipe.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSwitchRecipe;
                 @SwitchRecipe.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSwitchRecipe;
+                @Pause.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -603,6 +629,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @SwitchRecipe.started += instance.OnSwitchRecipe;
                 @SwitchRecipe.performed += instance.OnSwitchRecipe;
                 @SwitchRecipe.canceled += instance.OnSwitchRecipe;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -635,5 +664,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnChangePage(InputAction.CallbackContext context);
         void OnSwitchRecipe(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
