@@ -57,8 +57,6 @@ public class PlayerController : MonoBehaviour
     [Header("Inventory")]
     public Text Inv1;
     public Text Inv2;
-    public Image Icon1;
-    public Image Icon2;
 
     [Header("Prefabs")]
     public GameObject pan;
@@ -251,8 +249,6 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Spatula":
                     itemInMainHand = ItemInMainHand.spatula;
-                    transform.Find("itemIcon").GetComponent<Image>();
-                    //itemIcon.sprite = it
                     break;
                 case "Pan":
                     itemInMainHand = ItemInMainHand.pan;
