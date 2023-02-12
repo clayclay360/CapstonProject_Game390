@@ -63,11 +63,11 @@ public class RecipeBook : MonoBehaviour
         recipeTextbox1.GetComponent<Text>().text = recipeText1;
         recipeTextbox2.GetComponent<Text>().text = recipeText2;
         //is checking the current step to determine if it should gray out the first 3 steps on open or not
-        if (checkIfStepCompleted(checkNum1)) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
-        else { recipeTextbox1.GetComponent<Text>().color = Color.black; }
+        //if (checkIfStepCompleted(checkNum1)) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
+        //else { recipeTextbox1.GetComponent<Text>().color = Color.black; }
 
-        if (checkIfStepCompleted(checkNum2)) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
-        else { recipeTextbox2.GetComponent<Text>().color = Color.black; }
+        //if (checkIfStepCompleted(checkNum2)) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
+        //else { recipeTextbox2.GetComponent<Text>().color = Color.black; }
     }
 
     public void ClickOnBook(float value)
@@ -111,39 +111,13 @@ public class RecipeBook : MonoBehaviour
     {
         if(GameManager.recipeIsOpenP1)
         {
-            switch (currentStep)
-            {
-                case 0:
-                    printRecipeBookText("Step 1: Turn on Stove.", "Step 2: Place Pan on Stove.", 1, 2);
-                    break;
-
-                case 1:
-                    printRecipeBookText("Step 3: Crack Egg in pan.", "Step 4: Fold egg with spatula.", 3, 4);
-                    break;
-
-                case 2:
-                    printRecipeBookText("Step 5: Serve Omelet on plate.", "", 5, 6);
-                    break;
-
-            }
+            printRecipeBookText("Omelet Recipe\nStep 1: Turn on Stove.\nStep 2: Place Pan on Stove.\nStep 3: Crack Egg in pan.", "\nStep 4: Fold egg with spatula.\nStep 5: Serve Omelet on plate.", 1, 2);
                 
         }
         else if (GameManager.recipeIsOpenP2)
         {
-            switch (currentStep)
-            {
-                case 0:
-                    printRecipeBookText("Step 1: Turn on Stove.", "Step 2: Place Pan on Stove.", 1, 2);
-                    break;
+            printRecipeBookText("Bacon Recipe\nStep 1: Turn on Stove.\nStep 2: Place Pan on Stove.\nStep 3: Put bacon in pan.", "\nStep 4: Use spatula to make sure bacon doesn't burn.\nStep 5: Serve bacon on plate.", 1, 2);
 
-                case 1:
-                    printRecipeBookText("Step 3: Put bacon in pan.", "Step 4: Use spatula to make sure bacon doesn't burn.", 3, 4);
-                    break;
-
-                case 2:
-                    printRecipeBookText("Step 5: Serve bacon on plate.", "", 5, 6);
-                    break;
-            }
         }
     }
 
