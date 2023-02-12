@@ -18,6 +18,16 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     public GameObject cleanSelf;
     public GameObject dirtySelf;
 
+    [Header("Icons")]
+    public Sprite main;
+    public Sprite clean;
+    public Sprite dirty;
+    public Sprite uncooked;
+    public Sprite cooked;
+    public Sprite burnt;
+    public Sprite spoiled;
+
+
     [HideInInspector]
     public Vector3 startPosition;
     [HideInInspector]
