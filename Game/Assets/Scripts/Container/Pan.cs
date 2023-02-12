@@ -367,6 +367,7 @@ public class Pan : Item
             if (attempt[i] == Attempt.Completed)
             {
                 foodInPan.status = Status.cooked;
+                state = State.cold;
                 break;
             }
 
