@@ -30,7 +30,6 @@ public class OrderManager : MonoBehaviour
         {
             startingOrders = true;
             StartCoroutine(Orders());
-            menuObject.gameObject.SetActive(false);
         }
     }
 
@@ -38,15 +37,14 @@ public class OrderManager : MonoBehaviour
     {
         if(other.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log(other.gameObject.name);
-            menuObject.gameObject.SetActive(true);
+            menuObject.dropInAnim.Play("DropInAnim");
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerController>() != null)
         {
-            menuObject.gameObject.SetActive(false);
+            menuObject.dropInAnim.Play("DropOutAnim");
         }
     }
 
