@@ -10,9 +10,8 @@ public class Egg : Item
     public GameObject[] Form;
     public enum State { shell, yoke, omelet };
     public State state;
-    private GameObject passItems;
     public Vector3 origPos;
-
+    public GameObject passItems;
     PlayerController player;
     public Egg()
     {
@@ -27,7 +26,6 @@ public class Egg : Item
     new void Start()
     {
         base.Start();
-        passItems = GameObject.Find("PassItems");
         GameManager.egg = GameObject.Find("Egg(Clone)").GetComponentInChildren<Egg>(); //This line returns an error every time the game is started.
         origPos = transform.position;
     }

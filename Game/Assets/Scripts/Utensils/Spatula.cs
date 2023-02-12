@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Spatula : Item
 {
-    private GameObject passItems;
+    public GameObject passItems;
 
     public Spatula()
     {

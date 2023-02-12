@@ -55,6 +55,7 @@ MonoBehaviour:
   Off: 0
   Occupied: 0
   Interaction: 
+  isTarget: 0
   eggPrefab: {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
   spatulaPrefab: {fileID: 9031513021252998085, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
   panPrefab: {fileID: 4647432269454624998, guid: bf5ead34707a2c34d95a652753c5d893, type: 3}
@@ -120,7 +121,6 @@ MonoBehaviour:
   - {fileID: 9193496973303149577, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
   - {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
   - {fileID: 9031513021252998085, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
-  - {fileID: 4110198402601966224, guid: bb1a6c702029d294597173b9f87700b0, type: 3}
 --- !u!1001 &5945746569363051711
 PrefabInstance:
   m_ObjectHideFlags: 0

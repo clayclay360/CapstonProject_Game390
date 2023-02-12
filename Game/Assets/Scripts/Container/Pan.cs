@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Pan : Item
 {
     public bool canCheck = true;
+    public GameObject passItems;
 
     [Header("UI")]
     public Slider progressSlider;
@@ -23,7 +24,7 @@ public class Pan : Item
     public float progressMeterMin, progressMeterMax;
     public float[] interactionMeterStart, interactionMeterEnd;
     RecipeBook cookBook; //Added by Owen for changing the steps
-    private GameObject passItems;
+
 
 
     [Header("Item Placement")]
