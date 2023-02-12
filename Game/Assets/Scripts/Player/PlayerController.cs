@@ -552,9 +552,14 @@ public class PlayerController : MonoBehaviour
             GameManager.isTouchingBook = false;
             cookBook = null;
         }
+        if (other.gameObject.tag == "OrderWindow")
+        {
+            other.gameObject.GetComponent<Menu>().dropInAnim.Play("MenuDropOut");
+            //other.gameObject.GetComponent<Menu>().CanvasObject.SetActive(false);
+        }
 
         //if not looking at the plate, deactivate slider
-        if(other.GetComponent<Plate>() != null)
+        if (other.GetComponent<Plate>() != null)
         {
             other.GetComponent<Plate>().sliderTimer.gameObject.SetActive(false);
         }
@@ -580,6 +585,12 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.isTouchingBook = true;
             cookBook = GameObject.Find("CookBook_Closed").GetComponent<RecipeBook>();
+        }
+        if (other.gameObject.tag == "OrderWindow")
+        {
+            //other.gameObject.GetComponent<Menu>().CanvasObject.SetActive(true);
+            other.gameObject.GetComponent<Menu>().dropInAnim.Play("MenuDropIn");
+            
         }
         if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "CookBook")
         {

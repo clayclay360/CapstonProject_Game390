@@ -14,7 +14,7 @@ public class Plate : Item
     public PrefabReferences pr;
     //Bacon baconRespawn;
     //Egg eggRespawn;
-    Menu menuOrder;
+    public Menu menuOrder;
 
     public Plate()
     {
@@ -31,11 +31,11 @@ public class Plate : Item
 
     public void Start()
     {
-        if (GameManager.isNearOrderWindow)
-        {
-            menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>(); //This line returns an error every time the game is started
-            menuOrder.PlaceOrder(orderName);
-        }
+        //if (GameManager.isNearOrderWindow)
+        //{
+        //    menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>(); //This line returns an error every time the game is started
+        //    menuOrder.PlaceOrder(orderName);
+        //}
        
     }
 
@@ -54,7 +54,6 @@ public class Plate : Item
 
                 Interaction = orderName;
                 sliderTimer.gameObject.SetActive(true);
-                Menu menuOrder = GameObject.Find("MenuWindow").GetComponentInChildren<Menu>();
 
                 if (chef.hand[0].GetComponent<Pan>() != null && chef.hand[0].GetComponent<Pan>().Occupied && chef.hand[0].GetComponent<Pan>().foodInPan.status == Status.cooked)
                 {
@@ -66,10 +65,15 @@ public class Plate : Item
                         if(orderName == pan.foodInPan.Name)
                         {
                             Debug.Log("Order Complete");
+                            
+                            menuOrder.RemoveOrder(orderName);
                             GameManager.rating += .2f;
                             OrderManager.currentOrders--;
                             OrderManager.Order.Remove(orderNumber);
                             RespawnItem(pan.foodInPan);
+                            pan.Occupied = false;
+                            pan.foodInPan.gameObject.SetActive(false);
+                            pan.foodInPan = null;
                             Destroy(gameObject);
                         }
                         else
