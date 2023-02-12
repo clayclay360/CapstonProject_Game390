@@ -294,6 +294,16 @@ public class Pan : Item
             prone = false;
         }
 
+        switch (status)
+        {
+            case Status.clean:
+                main = clean;
+                break;
+
+            case Status.dirty:
+                main = dirty;
+                break;
+        }
     }
 
     public void ResetAttempts()
