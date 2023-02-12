@@ -74,6 +74,7 @@ public class Pan : Item
                     Interaction = "Grab Pan";
                     if (chef.isInteracting)
                     {
+                        chef.readyToInteract = false;
                         if (utilityItemIsOccupying != null)
                         {
                             utilityItemIsOccupying.Occupied = false;
@@ -254,6 +255,7 @@ public class Pan : Item
 
                     if (chef.isInteracting)
                     {
+                        chef.readyToInteract = false;
                         if (utilityItemIsOccupying != null)
                         {
                             utilityItemIsOccupying.Occupied = false;
@@ -367,6 +369,7 @@ public class Pan : Item
             if (attempt[i] == Attempt.Completed)
             {
                 foodInPan.status = Status.cooked;
+                state = State.cold;
                 break;
             }
 

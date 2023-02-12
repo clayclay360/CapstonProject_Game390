@@ -8,16 +8,17 @@ using UnityEngine.InputSystem;
 public class StartMenu : MonoBehaviour
 {
     [Header("Controls")]
-    public const int MENBUTTNUM = 3; //Total number of menu buttons
-    public Button playButt, howToPlayButt, quitButt, howToPlayQuitButt;
+    public const int MENBUTTNUM = 4; //Total number of menu buttons
+    public Button playBtn, controlsBtn, quitBtn, howToPlayBtn, controlBackBtn, howToBackBtn;
     private int selectedButt;
     private Gamepad gamepad;
-    private bool axisLocked, controlMenuIsUp;
+    private bool axisLocked, controlMenuIsUp, howToMenuIsUp;
 
     [Header("Overlay")]
     public float overlayDuration;
     public Image overlayImage;
 
+    private HowTo howTo;
     private enum Condition { add, subtract };
     private Condition condition;
 
@@ -36,6 +37,9 @@ public class StartMenu : MonoBehaviour
         //Overlay
         overlayImage.color = new Color(0,0,0,1);
         StartCoroutine(ScreenOverlay(Condition.subtract,0,overlayDuration));
+
+        //HowTo
+        howTo = FindObjectOfType<HowTo>();
     }
 
     // Update is called once per frame
@@ -55,12 +59,33 @@ public class StartMenu : MonoBehaviour
         //Close the controls menu
         if (controlMenuIsUp)
         {
-            if (gamepad.buttonWest.wasPressedThisFrame)
+            if (gamepad.buttonEast.wasPressedThisFrame)
             {
-                howToPlayQuitButt.onClick.Invoke();
+                controlBackBtn.onClick.Invoke();
                 controlMenuIsUp = false;
             }
             return;
+        }
+
+        if (howToMenuIsUp)
+        {
+            howTo = FindObjectOfType<HowTo>();
+
+            if (gamepad.buttonEast.wasPressedThisFrame)
+            {
+                howToMenuIsUp = false;
+                howToBackBtn.onClick.Invoke();
+            }
+
+            //change the pages
+            if (gamepad.rightTrigger.wasPressedThisFrame)
+            {
+                ++howTo.pageNumber;
+            }
+            if (gamepad.leftTrigger.wasPressedThisFrame)
+            {
+                --howTo.pageNumber;
+            }
         }
 
         //Navigate up or down depending on controller input
@@ -87,11 +112,16 @@ public class StartMenu : MonoBehaviour
         //Evoke the selected button if the controller button was pressed
         if (gamepad.buttonWest.wasPressedThisFrame)
         {
-            Button[] buttons = { playButt, howToPlayButt, quitButt };
+            Button[] buttons = { playBtn, controlsBtn, howToPlayBtn, quitBtn };
             buttons[selectedButt].onClick.Invoke();
-            if (buttons[selectedButt] == howToPlayButt) //Sets state for controls menu
+            if (buttons[selectedButt] == controlsBtn) //Sets state for controls menu
             {
                 controlMenuIsUp = true;
+            }
+
+            if (buttons[selectedButt] == howToPlayBtn) //Sets state for controls menu
+            {
+                howToMenuIsUp = true;
             }
         }
 
@@ -100,7 +130,7 @@ public class StartMenu : MonoBehaviour
     //Sets the color for the buttons
     private void ShadeButtons()
     {
-        Button[] buttons = { playButt, howToPlayButt, quitButt};
+        Button[] buttons = { playBtn, controlsBtn, howToPlayBtn, quitBtn};
         for (int i = 0; i < buttons.Length; i++)
         {
             //The selected button will be shaded, the others will not

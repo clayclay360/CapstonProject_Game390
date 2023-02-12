@@ -96,8 +96,9 @@ public class PlayerController : MonoBehaviour
     public bool inventoryFull = false;
 
     [HideInInspector]
+    public bool passItemsReady;
     public bool isInteracting;
-    private bool readyToInteract;
+    public bool readyToInteract;
 
     //comment
 
@@ -108,6 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         playerCamera.transform.position = gameObject.transform.position + camOffset;
         playerCamera.transform.eulerAngles = camRotation;
+        readyToInteract = false;
     }
 
     private void Start()
@@ -120,7 +122,7 @@ public class PlayerController : MonoBehaviour
         throwCooldown = 0.4f;
 
         GameManager.isTouchingTrashCan = false;
-        GameManager.passItemsReady = false;
+        passItemsReady = false;
         GameManager.putOnCounter = false;
 
         passPan = GameObject.Find("Pan").GetComponentInChildren<Pan>();
@@ -134,6 +136,8 @@ public class PlayerController : MonoBehaviour
     {
         //Interact();
         cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
+        passEgg = GameObject.Find("Egg").GetComponentInChildren<Egg>();
+        passBacon = GameObject.Find("Bacon").GetComponentInChildren<Bacon>();
     }
 
     // Update is called once per frame
@@ -315,8 +319,9 @@ public class PlayerController : MonoBehaviour
             isInteracting= true;
         }
 
-        if (hand[0] != null && !GameManager.passItemsReady && !GameManager.putOnCounter && !readyToInteract)
+        if (hand[0] != null && !passItemsReady && !GameManager.putOnCounter && !readyToInteract)
         {
+
             switch (hand[0].Name)
             {
                 case "Egg":
@@ -369,7 +374,7 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-        if (hand[0] != null && GameManager.passItemsReady && !readyToInteract)
+        if (hand[0] != null && passItemsReady && !readyToInteract)
         {
             passItems = GameObject.Find("PassItems");
 
@@ -471,14 +476,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (GameManager.isTouchingBook && GameManager.recipeIsOpenP1)
+        if (GameManager.isTouchingBook && !cookBook.isBookOpen)
         {
-            GameManager.recipeIsOpenP1 = false;
-            cookBook.setActiveFalseFunc();
-        } else if (GameManager.isTouchingBook && !GameManager.recipeIsOpenP1)
-        {
-            GameManager.recipeIsOpenP1 = true;
             cookBook.setActiveTrueFunc();
+        } else if (cookBook.isBookOpen)
+        {
+            cookBook.setActiveFalseFunc();
         }
 
     }
@@ -534,7 +537,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "PassItems")
         {
-            GameManager.passItemsReady = true;
+            passItemsReady = true;
         }
 
         if (other.gameObject.tag == "CounterTop")
@@ -570,7 +573,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag == "PassItems")
         {
-            GameManager.passItemsReady = false;
+            passItemsReady = false;
         }
 
         if (other.gameObject.tag == "CounterTop")
@@ -606,6 +609,8 @@ public class PlayerController : MonoBehaviour
                 outline.OutlineColor = outlineColor;
                 outline.OutlineWidth = 3f;
             }
+
+
         }
     }
 

@@ -22,7 +22,7 @@ public class OrderManager : MonoBehaviour
 
     [Header("Menu")]
     public Menu menuObject;
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -30,6 +30,21 @@ public class OrderManager : MonoBehaviour
         {
             startingOrders = true;
             StartCoroutine(Orders());
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.GetComponent<PlayerController>() != null)
+        {
+            menuObject.dropInAnim.Play("DropInAnim");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<PlayerController>() != null)
+        {
+            menuObject.dropInAnim.Play("DropOutAnim");
         }
     }
 

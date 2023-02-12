@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static float rating;
 
     public static bool isTouchingTrashCan;
-    public static bool passItemsReady;
+    //public static bool passItemsReady;
     public string[] counterItems = { "", "", "" };
     public static bool putOnCounter;
     public static Bacon bacon;
