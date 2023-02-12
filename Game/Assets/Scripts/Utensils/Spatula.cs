@@ -52,14 +52,13 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
-<<<<<<< HEAD
+
 
                     
 
                     chef.readyToInteract = false;
 
-=======
->>>>>>> parent of 2a24fc15 (For testing)
+
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -73,14 +72,12 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
-<<<<<<< HEAD
+
 
                    
 
                     chef.readyToInteract = false;
 
-=======
->>>>>>> parent of 2a24fc15 (For testing)
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -94,13 +91,12 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
-<<<<<<< HEAD
+
 
 
                     chef.readyToInteract = false;
 
-=======
->>>>>>> parent of 2a24fc15 (For testing)
+
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
