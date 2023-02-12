@@ -472,14 +472,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (GameManager.isTouchingBook && GameManager.recipeIsOpenP1)
+        if (GameManager.isTouchingBook && !cookBook.isBookOpen)
         {
-            GameManager.recipeIsOpenP1 = false;
-            cookBook.setActiveFalseFunc();
-        } else if (GameManager.isTouchingBook && !GameManager.recipeIsOpenP1)
-        {
-            GameManager.recipeIsOpenP1 = true;
             cookBook.setActiveTrueFunc();
+        } else if (cookBook.isBookOpen)
+        {
+            cookBook.setActiveFalseFunc();
         }
 
     }

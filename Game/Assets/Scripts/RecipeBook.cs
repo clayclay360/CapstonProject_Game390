@@ -15,7 +15,7 @@ public class RecipeBook : MonoBehaviour
     public int[] steps;
     public int currentStep;
     public int currentPage;
-    private bool isTrue;
+    public bool isBookOpen = false;
 
     void Start()
     {
@@ -24,21 +24,23 @@ public class RecipeBook : MonoBehaviour
         currentPage = 0;
         currentStep = 2;
         GameManager.isStepCompleted.Add(0);
-        GameManager.recipeIsOpenP1 = false;
+        GameManager.recipeIsOpenP1 = true;
         GameManager.recipeIsOpenP2 = false;
         GameManager.isTouchingBook = false;
         recipeTextbox1.SetActive(false);
         recipeTextbox2.SetActive(false);
         backgroundImage.SetActive(false);
+        UpdateRecipeBookText(4);
 
-        printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
+        //printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
         //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
     }
+
+
 
     void Update()
     {
 
-        
     }
 
 
@@ -50,11 +52,12 @@ public class RecipeBook : MonoBehaviour
         {
             return (true);
         }
-        else
-        {
-            isTrue = false;
-        }
-        return (isTrue);
+        return false;
+        //else
+        //{
+        //    isTrue = false;
+        //}
+        //return (isTrue);
     }
 
     public void printRecipeBookText(string recipeText1, string recipeText2, int checkNum1, int checkNum2) //This function is taking in the text and printing it out to the game
@@ -73,35 +76,28 @@ public class RecipeBook : MonoBehaviour
     public void ClickOnBook(float value)
     {
         //if (!GameManager.cookBookActive) { return; };
-        if (GameManager.isTouchingBook && GameManager.cookBookActive) //This is to detect if the player is touching the book
-        {
-            int val = (int)value;
-            currentPage += val;
-            if(currentPage > 2)
-            {
-                currentPage = 0;
-            }
-            else if(currentPage < 0)
-            {
-                currentPage = 2;
-            }
-            UpdateRecipeBookText(currentPage);
+        //if (GameManager.isTouchingBook && GameManager.cookBookActive) //This is to detect if the player is touching the book
+        //{
+        //    int val = (int)value;
+        //    currentPage += val;
+        //    if(currentPage > 2)
+        //    {
+        //        currentPage = 0;
+        //    }
+        //    else if(currentPage < 0)
+        //    {
+        //        currentPage = 2;
+        //    }
+        //    UpdateRecipeBookText(currentPage);
 
-        }
+        //}
+        SwitchRecipe(0);
     }
 
     public void SwitchRecipe(float currentRecipe)
     {
-        if(GameManager.recipeIsOpenP1 && (currentRecipe == 1 || currentRecipe == -1))
-        {
-            GameManager.recipeIsOpenP1 = false;
-            GameManager.recipeIsOpenP2 = true;
-        }
-        else if(GameManager.recipeIsOpenP2 && (currentRecipe == 1 || currentRecipe == -1))
-        {
-            GameManager.recipeIsOpenP2 = false;
-            GameManager.recipeIsOpenP1 = true;
-        }
+        GameManager.recipeIsOpenP1 = !GameManager.recipeIsOpenP1;
+        GameManager.recipeIsOpenP2 = !GameManager.recipeIsOpenP2;
 
         currentPage = 0;
         UpdateRecipeBookText(currentPage);
@@ -123,6 +119,7 @@ public class RecipeBook : MonoBehaviour
 
     public void setActiveFalseFunc()
     {
+        isBookOpen = false;
         recipeTextbox1.SetActive(false);
         recipeTextbox2.SetActive(false);
         backgroundImage.SetActive(false);
@@ -130,6 +127,7 @@ public class RecipeBook : MonoBehaviour
 
     public void setActiveTrueFunc()
     {
+        isBookOpen = true;
         recipeTextbox1.SetActive(true);
         recipeTextbox2.SetActive(true);
         backgroundImage.SetActive(true);
