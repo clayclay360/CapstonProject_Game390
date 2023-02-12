@@ -111,7 +111,7 @@ public class RatScript : MonoBehaviour
         }
 
         isRunning = animator.GetBool("IsRunning");
-        Debug.Log(agent.velocity.ToString());
+        //Debug.Log(agent.velocity.ToString());
         if(agent.velocity != Vector3.zero && !isRunning)
         {
             animator.SetBool("IsRunning", true);
@@ -215,7 +215,7 @@ public class RatScript : MonoBehaviour
     {
         if (other.gameObject == target)
         {
-            Debug.Log(gameObject.name + " hit" + other.gameObject.name);
+            //Debug.Log(gameObject.name + " hit" + other.gameObject.name);
             collider.enabled = false;
             switch (target.tag)
             {
@@ -371,7 +371,7 @@ public class RatScript : MonoBehaviour
 
     private void LookAt()
     {
-        Debug.Log(gameObject.name + " looking at target");
+        //Debug.Log(gameObject.name + " looking at target");
         Vector3 dir = target.transform.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
         transform.rotation = rot;
