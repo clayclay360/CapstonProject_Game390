@@ -1088,6 +1088,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 363499578}
   m_CullTransparentMesh: 1
+--- !u!1 &462713274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 462713275}
+  - component: {fileID: 462713277}
+  - component: {fileID: 462713276}
+  m_Layer: 5
+  m_Name: CBP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &462713275
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462713274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 680918223}
+  m_Father: {fileID: 593465955}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -54, y: -152}
+  m_SizeDelta: {x: 5, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &462713276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462713274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9056604, g: 0, b: 0.62699544, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &462713277
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462713274}
+  m_CullTransparentMesh: 1
 --- !u!1 &531380676
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,6 +1415,7 @@ RectTransform:
   m_Children:
   - {fileID: 1857073032}
   - {fileID: 164069374}
+  - {fileID: 462713275}
   m_Father: {fileID: 1408089659}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1463,6 +1540,85 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619668436}
+  m_CullTransparentMesh: 1
+--- !u!1 &680918222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 680918223}
+  - component: {fileID: 680918225}
+  - component: {fileID: 680918224}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &680918223
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680918222}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 462713275}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -163.6}
+  m_SizeDelta: {x: 193, y: 199}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &680918224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680918222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 36
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 91
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Flip CookBook Pages
+--- !u!222 &680918225
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680918222}
   m_CullTransparentMesh: 1
 --- !u!1 &698419049
 GameObject:
@@ -2728,18 +2884,95 @@ MonoBehaviour:
 
 
       The cook book can be used to understand
-      recipes.'
+      how to complete recipes.'
     image: {fileID: 21300000, guid: 4b91fc1d8865c3946be55de03fc7101d, type: 3}
   - descrtiption: 'The Stove
 
 
-      You use the stove  to cook food.'
+      You use the stove to cook food.'
     image: {fileID: 21300000, guid: e4f170816ede8c34d81f1e9f5758a900, type: 3}
   - descrtiption: 'The Pass Window
 
 
-      Use it to pass food from side to side.'
+      Use the pass window to pass food from
+      side to side.'
     image: {fileID: 21300000, guid: 5e5584c57e28d744a8b65cdb136c17eb, type: 3}
+  - descrtiption: 'The Trash Can
+
+
+      Use the trash can to throw away food and
+      items.'
+    image: {fileID: 21300000, guid: 38c0c1bfb17f3e64cb37512a30748501, type: 3}
+  - descrtiption: 'The Sink
+
+
+      After using the pan or spatula, use the sink
+      to clean it.'
+    image: {fileID: 21300000, guid: 96e18688abb396a4ea49ebe6a85cc915, type: 3}
+  - descrtiption: 'The Computer
+
+
+      If the rats destroy the cookbook, you can
+      use the computer to print new copies to repair it.'
+    image: {fileID: 21300000, guid: 7c55756dcf6457c419e2cc7dac7e306d, type: 3}
+  - descrtiption: 'The Rats
+
+
+      Rats will steal food and items. Use your knife
+      to dispose of them.'
+    image: {fileID: 21300000, guid: bb1ba265739596744967db36dfcaf079, type: 3}
+  - descrtiption: 'The Rats (Highlighted)
+
+
+      If rats are highlighted, that means
+      that they stole something.'
+    image: {fileID: 21300000, guid: 0d4eb9f9a59197e47bb17fe8a946867d, type: 3}
+  - descrtiption: 'Completing Orders (Order Window)
+
+
+      Go to the order window
+      to check what orders are needed.'
+    image: {fileID: 21300000, guid: d6ae230dc252bd9439ddcd5320b8b5e9, type: 3}
+  - descrtiption: 'Completing Orders (Food)
+
+
+      Grab food to complete recipes.'
+    image: {fileID: 21300000, guid: d60359c7740f5544a80e98ffa6fa0a1b, type: 3}
+  - descrtiption: 'Completing Orders (Pan)
+
+
+      Food can placed in pans.'
+    image: {fileID: 21300000, guid: dfd95226984bfe943b68492d19ae9f7b, type: 3}
+  - descrtiption: 'Completing Orders (Spatula)
+
+
+      Use the spatula when cooking
+      food.'
+    image: {fileID: 21300000, guid: 5580be9dc116c9d4eafd5952012b1ec8, type: 3}
+  - descrtiption: 'Completing Orders (Cooking)
+
+
+      When the oven is on and the
+      pan with food is on the oven, the food will start cooking.'
+    image: {fileID: 21300000, guid: ae9f7159db8b786409152ef5297b2c4d, type: 3}
+  - descrtiption: 'Completing Orders (Cooking Checks)
+
+
+      When the food is cooking,
+      interact with the food with your spatula in between the cooking meter.'
+    image: {fileID: 21300000, guid: 5eaaedc63432f6e4bba374a660f6a18b, type: 3}
+  - descrtiption: 'Completing Orders (Passing Order)
+
+
+      Pass the cooked food
+      in the passing window'
+    image: {fileID: 21300000, guid: 7576853331aab5041a4ec426c64fe153, type: 3}
+  - descrtiption: 'Completing Orders (Submiting Order)
+
+
+      Take the order and
+      place it on the corresponding plate. Each order has a time of 2 mins to complete.'
+    image: {fileID: 21300000, guid: a9835e9fea384d54a9f408147128804e, type: 3}
   img: {fileID: 1163756326}
   txt: {fileID: 1510351019}
   pageNumber: 0
