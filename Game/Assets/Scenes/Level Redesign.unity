@@ -6077,6 +6077,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1352716762, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 8e7acbf7847768844aca6fdaf56edc30, type: 3}
+    - target: {fileID: 1352716762, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 21300000, guid: 8e7acbf7847768844aca6fdaf56edc30, type: 3}
+    - target: {fileID: 1352716762, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
       propertyPath: selfReference
       value: 
       objectReference: {fileID: 9031513021252998085, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
@@ -9784,7 +9792,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20110
+  m_Name: pb_Mesh20176
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
