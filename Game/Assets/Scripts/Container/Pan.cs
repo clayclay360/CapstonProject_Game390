@@ -116,7 +116,6 @@ public class Pan : Item
 
                         if (chef.isInteracting)
                         {
-                            Name = "Pan(Egg)";
                             if (!GameManager.isStepCompleted.Contains(5))
                             {
                                 GameManager.isStepCompleted.Add(5);
@@ -159,7 +158,6 @@ public class Pan : Item
                 Interaction = "Place Bacon";
                 if (chef.isInteracting)
                 {
-                    Name = "Pan(Bacon)";
                     chef.hand[0].GetComponent<Collider>().enabled = false;
                     chef.hand[0].GetComponent<Bacon>().toolItemIsOccupying = this;
                     chef.hand[0].GetComponent<Bacon>().gameObject.transform.parent = transform;
@@ -306,10 +304,6 @@ public class Pan : Item
         else
         {
             prone = false;
-        }
-        if (!Occupied && Name!="Pan")
-        {
-            Name = "Pan";
         }
 
         switch (status)
