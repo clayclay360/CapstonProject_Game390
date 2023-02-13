@@ -41,6 +41,25 @@ public class Bacon : Item
         {
             //player.Interact();
         }
+
+        switch (status)
+        {
+            case Status.uncooked:
+                main = uncooked;
+                break;
+
+            case Status.cooked:
+                main = cooked;
+                break;
+
+            case Status.burnt:
+                main = burnt;
+                break;
+
+            case Status.spoiled:
+                main = spoiled;
+                break;
+        }
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
@@ -59,6 +78,7 @@ public class Bacon : Item
                 Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -72,6 +92,7 @@ public class Bacon : Item
                 Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -85,6 +106,7 @@ public class Bacon : Item
                 Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -98,6 +120,7 @@ public class Bacon : Item
                 Interaction = "Grab Bacon";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();

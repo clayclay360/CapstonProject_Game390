@@ -50,6 +50,10 @@ public class CookBook : Utility
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.isTouchingBook)
+        {
+            setCookBookActive.setActiveFalseFunc();
+        }
         if (lives == 0)
         {
             GameManager.cookBookActive = false;
@@ -63,24 +67,23 @@ public class CookBook : Utility
             lives = 0;
         }
 
+
         GetState(status);
     }
 
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
     {
-        if (lives > 0 && GameManager.recipeIsOpenP1)
+        if (setCookBookActive.isBookOpen)
         {
-            Interaction = "Flip page";
-            //Move normal interaction
-            return;
-        } else if (lives > 0 && !GameManager.recipeIsOpenP1)
-        {
-            Interaction = "Open Book";
-             
-          
-            //Move normal interaction here
+            Interaction = "Close Book";
             return;
         }
+        else if (lives > 0 && GameManager.isTouchingBook)
+        {
+            Interaction = "Open Book";
+            return;
+        } 
+
 
         
 

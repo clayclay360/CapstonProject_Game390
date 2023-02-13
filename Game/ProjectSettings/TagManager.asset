@@ -15,6 +15,7 @@ TagManager:
   - CounterTop
   - JumpPoints
   - DestroyedBook
+  - OrderWindow
   layers:
   - Default
   - TransparentFX

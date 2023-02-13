@@ -66,20 +66,27 @@ MonoBehaviour:
   status: 3
   cleanSelf: {fileID: 5626260943346204731}
   dirtySelf: {fileID: 4284445408655221864}
-  selfReference: {fileID: 9031513021252998085}
-  canRespawn: 1
+  main: {fileID: 21300000, guid: 8e7acbf7847768844aca6fdaf56edc30, type: 3}
+  clean: {fileID: 21300000, guid: ebaa627bae982d1419c8f708ce7148e8, type: 3}
+  dirty: {fileID: 21300000, guid: 06fe5a569206c9140bb27563078ba58b, type: 3}
+  uncooked: {fileID: 0}
+  cooked: {fileID: 0}
+  burnt: {fileID: 0}
+  spoiled: {fileID: 0}
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
   Occupied: 0
   prone: 0
   isActive: 0
   isTarget: 0
+  isBeingCarried: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
   usesUntilDirty: 0
   currUses: 0
   counterInUse: {fileID: 0}
+  passItems: {fileID: 0}
 --- !u!135 &2242809337484976740
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class RecipeBook : MonoBehaviour
     public int[] steps;
     public int currentStep;
     public int currentPage;
-    private bool isTrue;
+    public bool isBookOpen = false;
 
     void Start()
     {
@@ -24,21 +24,23 @@ public class RecipeBook : MonoBehaviour
         currentPage = 0;
         currentStep = 2;
         GameManager.isStepCompleted.Add(0);
-        GameManager.recipeIsOpenP1 = false;
+        GameManager.recipeIsOpenP1 = true;
         GameManager.recipeIsOpenP2 = false;
         GameManager.isTouchingBook = false;
         recipeTextbox1.SetActive(false);
         recipeTextbox2.SetActive(false);
         backgroundImage.SetActive(false);
+        UpdateRecipeBookText(4);
 
-        printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
+        //printRecipeBookText("Turn on Stove to medium.", "Place Pan on Stove.", 1, 2);
         //currentStepTaskMang = taskManager.GetComponent<TaskManager>();
     }
+
+
 
     void Update()
     {
 
-        
     }
 
 
@@ -50,11 +52,12 @@ public class RecipeBook : MonoBehaviour
         {
             return (true);
         }
-        else
-        {
-            isTrue = false;
-        }
-        return (isTrue);
+        return false;
+        //else
+        //{
+        //    isTrue = false;
+        //}
+        //return (isTrue);
     }
 
     public void printRecipeBookText(string recipeText1, string recipeText2, int checkNum1, int checkNum2) //This function is taking in the text and printing it out to the game
@@ -63,45 +66,38 @@ public class RecipeBook : MonoBehaviour
         recipeTextbox1.GetComponent<Text>().text = recipeText1;
         recipeTextbox2.GetComponent<Text>().text = recipeText2;
         //is checking the current step to determine if it should gray out the first 3 steps on open or not
-        if (checkIfStepCompleted(checkNum1)) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
-        else { recipeTextbox1.GetComponent<Text>().color = Color.black; }
+        //if (checkIfStepCompleted(checkNum1)) { recipeTextbox1.GetComponent<Text>().color = Color.gray; }
+        //else { recipeTextbox1.GetComponent<Text>().color = Color.black; }
 
-        if (checkIfStepCompleted(checkNum2)) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
-        else { recipeTextbox2.GetComponent<Text>().color = Color.black; }
+        //if (checkIfStepCompleted(checkNum2)) { recipeTextbox2.GetComponent<Text>().color = Color.gray; }
+        //else { recipeTextbox2.GetComponent<Text>().color = Color.black; }
     }
 
     public void ClickOnBook(float value)
     {
         //if (!GameManager.cookBookActive) { return; };
-        if (GameManager.isTouchingBook && GameManager.cookBookActive) //This is to detect if the player is touching the book
-        {
-            int val = (int)value;
-            currentPage += val;
-            if(currentPage > 2)
-            {
-                currentPage = 0;
-            }
-            else if(currentPage < 0)
-            {
-                currentPage = 2;
-            }
-            UpdateRecipeBookText(currentPage);
+        //if (GameManager.isTouchingBook && GameManager.cookBookActive) //This is to detect if the player is touching the book
+        //{
+        //    int val = (int)value;
+        //    currentPage += val;
+        //    if(currentPage > 2)
+        //    {
+        //        currentPage = 0;
+        //    }
+        //    else if(currentPage < 0)
+        //    {
+        //        currentPage = 2;
+        //    }
+        //    UpdateRecipeBookText(currentPage);
 
-        }
+        //}
+        SwitchRecipe(0);
     }
 
     public void SwitchRecipe(float currentRecipe)
     {
-        if(GameManager.recipeIsOpenP1 && (currentRecipe == 1 || currentRecipe == -1))
-        {
-            GameManager.recipeIsOpenP1 = false;
-            GameManager.recipeIsOpenP2 = true;
-        }
-        else if(GameManager.recipeIsOpenP2 && (currentRecipe == 1 || currentRecipe == -1))
-        {
-            GameManager.recipeIsOpenP2 = false;
-            GameManager.recipeIsOpenP1 = true;
-        }
+        GameManager.recipeIsOpenP1 = !GameManager.recipeIsOpenP1;
+        GameManager.recipeIsOpenP2 = !GameManager.recipeIsOpenP2;
 
         currentPage = 0;
         UpdateRecipeBookText(currentPage);
@@ -111,44 +107,19 @@ public class RecipeBook : MonoBehaviour
     {
         if(GameManager.recipeIsOpenP1)
         {
-            switch (currentStep)
-            {
-                case 0:
-                    printRecipeBookText("Step 1: Turn on Stove.", "Step 2: Place Pan on Stove.", 1, 2);
-                    break;
-
-                case 1:
-                    printRecipeBookText("Step 3: Crack Egg in pan.", "Step 4: Fold egg with spatula.", 3, 4);
-                    break;
-
-                case 2:
-                    printRecipeBookText("Step 5: Serve Omelet on plate.", "", 5, 6);
-                    break;
-
-            }
+            printRecipeBookText("Omelet Recipe\nStep 1: Turn on Stove.\nStep 2: Place Pan on Stove.\nStep 3: Crack Egg in pan.", "\nStep 4: Fold egg with spatula.\nStep 5: Serve Omelet on plate.", 1, 2);
                 
         }
         else if (GameManager.recipeIsOpenP2)
         {
-            switch (currentStep)
-            {
-                case 0:
-                    printRecipeBookText("Step 1: Turn on Stove.", "Step 2: Place Pan on Stove.", 1, 2);
-                    break;
+            printRecipeBookText("Bacon Recipe\nStep 1: Turn on Stove.\nStep 2: Place Pan on Stove.\nStep 3: Put bacon in pan.", "\nStep 4: Use spatula to make sure bacon doesn't burn.\nStep 5: Serve bacon on plate.", 1, 2);
 
-                case 1:
-                    printRecipeBookText("Step 3: Put bacon in pan.", "Step 4: Use spatula to make sure bacon doesn't burn.", 3, 4);
-                    break;
-
-                case 2:
-                    printRecipeBookText("Step 5: Serve bacon on plate.", "", 5, 6);
-                    break;
-            }
         }
     }
 
     public void setActiveFalseFunc()
     {
+        isBookOpen = false;
         recipeTextbox1.SetActive(false);
         recipeTextbox2.SetActive(false);
         backgroundImage.SetActive(false);
@@ -156,6 +127,7 @@ public class RecipeBook : MonoBehaviour
 
     public void setActiveTrueFunc()
     {
+        isBookOpen = true;
         recipeTextbox1.SetActive(true);
         recipeTextbox2.SetActive(true);
         backgroundImage.SetActive(true);

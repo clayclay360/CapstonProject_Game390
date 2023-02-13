@@ -12,6 +12,7 @@ public class Pan : Item
     public Image[] completeMark;
     public Sprite checkMark;
     public Sprite xMark;
+    public Sprite spatula;
 
     public enum State { cold, hot }
 
@@ -73,6 +74,7 @@ public class Pan : Item
                     Interaction = "Grab Pan";
                     if (chef.isInteracting)
                     {
+                        chef.readyToInteract = false;
                         if (utilityItemIsOccupying != null)
                         {
                             utilityItemIsOccupying.Occupied = false;
@@ -255,6 +257,7 @@ public class Pan : Item
 
                     if (chef.isInteracting)
                     {
+                        chef.readyToInteract = false;
                         if (utilityItemIsOccupying != null)
                         {
                             utilityItemIsOccupying.Occupied = false;
@@ -297,6 +300,16 @@ public class Pan : Item
             Name = "Pan";
         }
 
+        switch (status)
+        {
+            case Status.clean:
+                main = clean;
+                break;
+
+            case Status.dirty:
+                main = dirty;
+                break;
+        }
     }
 
     public void ResetAttempts()
@@ -312,7 +325,8 @@ public class Pan : Item
         {
             foreach(Image img in completeMark)
             {
-                img.gameObject.SetActive(false);
+                //img.gameObject.SetActive(false);
+                img.sprite = spatula;
             }
             progressSlider.gameObject.SetActive(true);
             progressMeter = progressMeterMin;
@@ -371,6 +385,7 @@ public class Pan : Item
             if (attempt[i] == Attempt.Completed)
             {
                 foodInPan.status = Status.cooked;
+                state = State.cold;
                 break;
             }
 

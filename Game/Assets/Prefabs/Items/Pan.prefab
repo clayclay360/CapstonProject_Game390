@@ -474,6 +474,13 @@ MonoBehaviour:
   status: 3
   cleanSelf: {fileID: 8513058480441860697}
   dirtySelf: {fileID: 2878929718374001812}
+  main: {fileID: 21300000, guid: 9bf558f223922744cb91ad735afe863f, type: 3}
+  clean: {fileID: 21300000, guid: 9625cfe0f3cfda34fab4de3437f20bbe, type: 3}
+  dirty: {fileID: 21300000, guid: 6fd8c9d356595b94e9b514ee0704efb6, type: 3}
+  uncooked: {fileID: 0}
+  cooked: {fileID: 0}
+  burnt: {fileID: 0}
+  spoiled: {fileID: 0}
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
   Occupied: 0
@@ -488,12 +495,14 @@ MonoBehaviour:
   currUses: 0
   counterInUse: {fileID: 0}
   canCheck: 1
+  passItems: {fileID: 0}
   progressSlider: {fileID: 4647432270931860574}
   completeMark:
   - {fileID: 4647432269923717153}
   - {fileID: 4647432269052304603}
   checkMark: {fileID: 21300000, guid: 1fe9d26d37e055b4db435b75952c8938, type: 3}
   xMark: {fileID: 21300000, guid: 93ae138b5a3468f4b85090993673e481, type: 3}
+  spatula: {fileID: 0}
   cooking: 0
   state: 0
   cookTime: 0.0007

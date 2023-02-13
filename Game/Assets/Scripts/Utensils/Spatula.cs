@@ -24,6 +24,20 @@ public class Spatula : Item
         passItems = GameObject.Find("PassItems");
     }
 
+    public void Update()
+    {
+        switch (status)
+        {
+            case Status.clean:
+                main = clean;
+                break;
+
+            case Status.dirty:
+                main = dirty;
+                break;
+        }
+    }
+
     public override void CheckHand(PlayerController.ItemInMainHand item, PlayerController chef)
     {
         if (chef.inventoryFull)
@@ -38,6 +52,7 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+                    chef.readyToInteract = false;
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -51,6 +66,13 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+
+
+                    
+
+                    chef.readyToInteract = false;
+
+
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -64,6 +86,12 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+
+
+                   
+
+                    chef.readyToInteract = false;
+
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
@@ -77,6 +105,12 @@ public class Spatula : Item
                 Interaction = "Grab Spatula";
                 if (chef.isInteracting)
                 {
+
+
+
+                    chef.readyToInteract = false;
+
+
                     gameObject.SetActive(false);
                     Interaction = "";
                     CheckCounter();
