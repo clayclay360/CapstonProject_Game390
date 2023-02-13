@@ -103,6 +103,12 @@ public class Pan : Item
                     break;
                 }
 
+                if (foodInPan != null)
+                {
+                    Interaction = "Pan is full!";
+                    break;
+                }
+
                 switch (chef.hand[0].GetComponent<Egg>().state)
                 {
                     case Egg.State.shell:
@@ -140,6 +146,12 @@ public class Pan : Item
                 if (GameManager.Instance.CheckIfDirty(this))
                 {
                     Interaction = "Pan is dirty!";
+                    break;
+                }
+                
+                if(foodInPan != null)
+                {
+                    Interaction = "Pan is full!";
                     break;
                 }
 
@@ -394,9 +406,8 @@ public class Pan : Item
             progressSlider.gameObject.SetActive(false);
             cooking = false;
             foodInPan.status = Status.burnt;
-            CheckIfDirty();
         }
-
+        CheckIfDirty();
     }
 
     public IEnumerator OverCooked(float timer)

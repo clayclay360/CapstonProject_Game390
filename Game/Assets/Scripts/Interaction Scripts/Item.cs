@@ -42,8 +42,9 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
     [HideInInspector] public Utility utilityItemIsOccupying;
     [HideInInspector] public Item toolItemIsOccupying;
     //Sink
-    [HideInInspector] public int usesUntilDirty;
-    [HideInInspector] public int currUses;
+    [Header("Sink")]
+    public int usesUntilDirty;
+    public int currUses;
     [HideInInspector] public GameObject counterInUse;
 
 

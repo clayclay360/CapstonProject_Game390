@@ -16,6 +16,7 @@ public class RatSpawnSystem : MonoBehaviour
     [Header("Spawn")]
     public float maxSpawnTime;
     public float minSpawnTime;
+    public float spawnDelay;
     public bool isSpawningRat;
     public GameObject ratPrefab;
     public List<GameObject> ratsList;
@@ -24,6 +25,7 @@ public class RatSpawnSystem : MonoBehaviour
 
     private int spawnIndex;
     private float spawnTime;
+    private float delayTimer = 0f;
     private bool canSpawnRat = false;
     private GameObject ratHole;
     private GameObject ratPeek;
@@ -38,7 +40,12 @@ public class RatSpawnSystem : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.recipeIsOpenP1)
+        if(GameManager.numberOfPlayers >= 2)
+        {
+            delayTimer += Time.deltaTime;
+        }
+
+        if (delayTimer >= spawnDelay)
         {
             canSpawnRat = true;
         }
