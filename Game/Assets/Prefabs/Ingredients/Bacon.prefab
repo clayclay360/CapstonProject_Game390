@@ -66,14 +66,20 @@ MonoBehaviour:
   status: 0
   cleanSelf: {fileID: 0}
   dirtySelf: {fileID: 0}
-  selfReference: {fileID: 2051176884005050769}
-  canRespawn: 1
+  main: {fileID: 21300000, guid: 3e5365cf41ac3ac4d8a7b03218818430, type: 3}
+  clean: {fileID: 0}
+  dirty: {fileID: 0}
+  uncooked: {fileID: 21300000, guid: 3e5365cf41ac3ac4d8a7b03218818430, type: 3}
+  cooked: {fileID: 21300000, guid: fcdcd046615dc2f47b3bfdd302615e4d, type: 3}
+  burnt: {fileID: 21300000, guid: 696851f5d0e555347bda4e14a9c9061e, type: 3}
+  spoiled: {fileID: 21300000, guid: ae0636c17f2acae4a9da6dbc794d288d, type: 3}
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
   Occupied: 0
   prone: 0
   isActive: 0
   isTarget: 0
+  isBeingCarried: 0
   Interaction: 
   utilityItemIsOccupying: {fileID: 0}
   toolItemIsOccupying: {fileID: 0}
@@ -85,6 +91,7 @@ MonoBehaviour:
   - {fileID: 1204245967260006975}
   - {fileID: 5015188893686880993}
   origPos: {x: 0, y: 0, z: 0}
+  passItems: {fileID: 0}
 --- !u!1001 &955723084
 PrefabInstance:
   m_ObjectHideFlags: 0
