@@ -264,6 +264,8 @@ public class PlayerController : MonoBehaviour
                     itemInMainHand = ItemInMainHand.spatula;
                     break;
                 case "Pan":
+                case "Pan(Egg)":
+                case "Pan(Bacon)":
                     itemInMainHand = ItemInMainHand.pan;
                     break;
                 case "Bacon":
@@ -321,7 +323,6 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log(i);
                 icon[i].sprite = null;
             }
         }
@@ -396,6 +397,8 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
                 case "Pan":
+                case "Pan(Egg)":
+                case "Pan(Bacon)":
                     passPan.DropPanOnGround(gameObject);
                     hand[0] = null;
                     if (hand[1] != null)
@@ -465,6 +468,8 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
                 case "Pan":
+                case "Pan(Egg)":
+                case "Pan(Bacon)":
                     if (gm.counterItems.Contains(pan.name))
                     {
                         Debug.Log("Contains Pan");

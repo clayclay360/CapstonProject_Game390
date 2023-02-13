@@ -36,6 +36,8 @@ public class TrashCan : Utility
                         RespawnItem(pan.foodInPan, chef);
                         Destroy(pan.foodInPan.gameObject);
                         pan.foodInPan = null;
+                        pan.Occupied = false;
+                        pan.Name = "Pan";
                         Interaction = "";
                         chef.isInteracting = false;
                     }

@@ -50,7 +50,7 @@ public class Sink : Utility
         //Stop now if the player's item isn't dirty
         if (chef.hand[0] != null && chef.hand[0].status != Item.Status.dirty)
         {
-            Interaction = "";
+            Interaction = "Main Hand is Full!";
             return;
         }
 

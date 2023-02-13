@@ -71,6 +71,7 @@ public class Plate : Item
                             OrderManager.currentOrders--;
                             OrderManager.Order.Remove(orderNumber);
                             RespawnItem(pan.foodInPan);
+                            pan.Name = "Pan";
                             pan.Occupied = false;
                             pan.foodInPan.gameObject.SetActive(false);
                             pan.foodInPan = null;
