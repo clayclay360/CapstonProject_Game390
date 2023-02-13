@@ -298,6 +298,22 @@ public class PlayerController : MonoBehaviour
                     case Item.Status.dirty:
                         icon[i].sprite = hand[i].dirty;
                         break;
+
+                    case Item.Status.uncooked:
+                        icon[i].sprite = hand[i].uncooked;
+                        break;
+
+                    case Item.Status.cooked:
+                        icon[i].sprite = hand[i].cooked;
+                        break;
+
+                    case Item.Status.burnt:
+                        icon[i].sprite = hand[i].burnt;
+                        break;
+
+                    case Item.Status.spoiled:
+                        icon[i].sprite = hand[i].spoiled;
+                        break;
                     default:
                         icon[i].sprite = null;
                         break;
