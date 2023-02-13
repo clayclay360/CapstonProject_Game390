@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7438ae21734ee204d84ced60f2fb0829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRats: 0
   maxNumberOfRats: 1
   minPeeks: 0
   maxPeeks: 0
@@ -55,7 +54,10 @@ MonoBehaviour:
   - {fileID: 0}
   maxSpawnTime: 3
   minSpawnTime: 1
+  spawnDelay: 8
+  isSpawningRat: 0
   ratPrefab: {fileID: 5782238861253727561, guid: c09f61a16260d2e44b7edc9407a3355d, type: 3}
+  ratsList: []
   ratSpawnTransform:
   - {fileID: 4422763601950712423}
   - {fileID: 4422763601999074325}

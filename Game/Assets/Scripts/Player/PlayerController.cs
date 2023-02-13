@@ -58,6 +58,13 @@ public class PlayerController : MonoBehaviour
     public Text Inv1;
     public Text Inv2;
 
+    [Header("Icons")]
+    public Image[] icon;
+    public Sprite EggIcon;
+    public Sprite BaconIcon;
+    public Sprite SpatulaIcon;
+    public Sprite PanIcon;
+
     [Header("Prefabs")]
     public GameObject pan;
     public GameObject spatula;
@@ -136,6 +143,11 @@ public class PlayerController : MonoBehaviour
         cookBook = GameObject.Find("CookBook").GetComponentInChildren<RecipeBook>();
         passEgg = GameObject.Find("Egg").GetComponentInChildren<Egg>();
         passBacon = GameObject.Find("Bacon").GetComponentInChildren<Bacon>();
+
+        foreach(Image img in icon)
+        {
+            img.GetComponent<Image>();
+        }
     }
 
     // Update is called once per frame
@@ -144,6 +156,7 @@ public class PlayerController : MonoBehaviour
         PlayerMovement();
         CheckInventory();
         GetNameInMain();
+        Icons();
     }
 
     public void OnMove(InputValue value)
@@ -267,6 +280,50 @@ public class PlayerController : MonoBehaviour
         else
         {
             itemInMainHand = ItemInMainHand.empty;
+        }
+    }
+
+    public void Icons()
+    {
+        for(int i = 0; icon.Length > i; i++)
+        {
+            if (hand[i] != null)
+            {
+                switch (hand[i].status)
+                {
+                    case Item.Status.clean:
+                        icon[i].sprite = hand[i].clean;
+                        break;
+
+                    case Item.Status.dirty:
+                        icon[i].sprite = hand[i].dirty;
+                        break;
+
+                    case Item.Status.uncooked:
+                        icon[i].sprite = hand[i].uncooked;
+                        break;
+
+                    case Item.Status.cooked:
+                        icon[i].sprite = hand[i].cooked;
+                        break;
+
+                    case Item.Status.burnt:
+                        icon[i].sprite = hand[i].burnt;
+                        break;
+
+                    case Item.Status.spoiled:
+                        icon[i].sprite = hand[i].spoiled;
+                        break;
+                    default:
+                        icon[i].sprite = null;
+                        break;
+                }
+            }
+            else
+            {
+                Debug.Log(i);
+                icon[i].sprite = null;
+            }
         }
     }
 
