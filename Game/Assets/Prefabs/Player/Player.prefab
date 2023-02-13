@@ -803,7 +803,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ca25132f65c6a094fac52be24451919c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2412,7 +2412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ca25132f65c6a094fac52be24451919c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3344,10 +3344,10 @@ MonoBehaviour:
   icon:
   - {fileID: 8377685992311888963}
   - {fileID: 7966762157738439015}
-  EggIcon: {fileID: 0}
-  BaconIcon: {fileID: 0}
-  SpatulaIcon: {fileID: 0}
-  PanIcon: {fileID: 0}
+  EggIcon: {fileID: 21300000, guid: 2c35fb6b682f95c4485efc3497c3e50f, type: 3}
+  BaconIcon: {fileID: 21300000, guid: 3e5365cf41ac3ac4d8a7b03218818430, type: 3}
+  SpatulaIcon: {fileID: 21300000, guid: 8e7acbf7847768844aca6fdaf56edc30, type: 3}
+  PanIcon: {fileID: 21300000, guid: 9bf558f223922744cb91ad735afe863f, type: 3}
   pan: {fileID: 4647432269454624998, guid: bf5ead34707a2c34d95a652753c5d893, type: 3}
   spatula: {fileID: 9031513021252998085, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
   bacon: {fileID: 2051176884005050769, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}

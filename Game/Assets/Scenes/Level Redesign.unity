@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6081,6 +6081,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1352716762, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
+      propertyPath: main
+      value: 
+      objectReference: {fileID: 21300000, guid: 8e7acbf7847768844aca6fdaf56edc30, type: 3}
+    - target: {fileID: 1352716762, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
+      propertyPath: clean
+      value: 
+      objectReference: {fileID: 21300000, guid: ebaa627bae982d1419c8f708ce7148e8, type: 3}
+    - target: {fileID: 1352716762, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
+      propertyPath: dirty
+      value: 
+      objectReference: {fileID: 21300000, guid: 06fe5a569206c9140bb27563078ba58b, type: 3}
+    - target: {fileID: 1352716762, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
       propertyPath: selfReference
       value: 
       objectReference: {fileID: 9031513021252998085, guid: e319af1b9f8c6784ab1fb317f94b8a1a, type: 3}
@@ -11886,6 +11898,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4647432269454624993, guid: bf5ead34707a2c34d95a652753c5d893, type: 3}
+      propertyPath: main
+      value: 
+      objectReference: {fileID: 21300000, guid: 9bf558f223922744cb91ad735afe863f, type: 3}
+    - target: {fileID: 4647432269454624993, guid: bf5ead34707a2c34d95a652753c5d893, type: 3}
+      propertyPath: clean
+      value: 
+      objectReference: {fileID: 21300000, guid: 9625cfe0f3cfda34fab4de3437f20bbe, type: 3}
+    - target: {fileID: 4647432269454624993, guid: bf5ead34707a2c34d95a652753c5d893, type: 3}
+      propertyPath: dirty
+      value: 
+      objectReference: {fileID: 21300000, guid: 6fd8c9d356595b94e9b514ee0704efb6, type: 3}
+    - target: {fileID: 4647432269454624993, guid: bf5ead34707a2c34d95a652753c5d893, type: 3}
       propertyPath: spatula
       value: 
       objectReference: {fileID: 21300000, guid: 8e7acbf7847768844aca6fdaf56edc30, type: 3}
@@ -14303,9 +14327,29 @@ PrefabInstance:
     m_TransformParent: {fileID: 849393840}
     m_Modifications:
     - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+      propertyPath: main
+      value: 
+      objectReference: {fileID: 21300000, guid: 3e5365cf41ac3ac4d8a7b03218818430, type: 3}
+    - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+      propertyPath: burnt
+      value: 
+      objectReference: {fileID: 21300000, guid: 696851f5d0e555347bda4e14a9c9061e, type: 3}
+    - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+      propertyPath: cooked
+      value: 
+      objectReference: {fileID: 21300000, guid: fcdcd046615dc2f47b3bfdd302615e4d, type: 3}
+    - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
       propertyPath: status
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+      propertyPath: spoiled
+      value: 
+      objectReference: {fileID: 21300000, guid: ae0636c17f2acae4a9da6dbc794d288d, type: 3}
+    - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
+      propertyPath: uncooked
+      value: 
+      objectReference: {fileID: 21300000, guid: 3e5365cf41ac3ac4d8a7b03218818430, type: 3}
     - target: {fileID: 1307880535, guid: b1be64a2035c71a4e94c4d78d70aa61b, type: 3}
       propertyPath: despawnTime
       value: 2
@@ -26795,6 +26839,26 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4627609362790912808, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
+      propertyPath: main
+      value: 
+      objectReference: {fileID: 21300000, guid: 2c35fb6b682f95c4485efc3497c3e50f, type: 3}
+    - target: {fileID: 4627609362790912808, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
+      propertyPath: burnt
+      value: 
+      objectReference: {fileID: 21300000, guid: 202ce7cbf772a2246bfe0a9ad5aa60d8, type: 3}
+    - target: {fileID: 4627609362790912808, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
+      propertyPath: cooked
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e7aae5ae419ad4438e296a5f3ccc75e, type: 3}
+    - target: {fileID: 4627609362790912808, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
+      propertyPath: spoiled
+      value: 
+      objectReference: {fileID: 21300000, guid: 3159f57ebff8f794d90ec8132b81f1db, type: 3}
+    - target: {fileID: 4627609362790912808, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
+      propertyPath: uncooked
+      value: 
+      objectReference: {fileID: 21300000, guid: 2c35fb6b682f95c4485efc3497c3e50f, type: 3}
     - target: {fileID: 4627609362790912808, guid: 4b6cea0282efc264eb14a07d727cd304, type: 3}
       propertyPath: despawnTime
       value: 2
