@@ -126,6 +126,8 @@ public class Item : MonoBehaviour, IInteractable<PlayerController.ItemInMainHand
         {
             meshRenderer.enabled = true;
         }
+        transform.position.Set(startPosition.x, startPosition.y, startPosition.z);
+        transform.rotation.Set(startRotation.x, startRotation.y, startRotation.z, startRotation.w);
     }
 
     public void CheckCounter()
