@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 2001099632382016110}
   - component: {fileID: 1110876202211786372}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ItemIcon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -406,7 +406,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1206529780800022879}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00011149734}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00047038}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8021006560461641617}
@@ -415,8 +415,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -319.9998, y: -355}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -428.54993, y: 489.99988}
+  m_SizeDelta: {x: 98.9, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3038009413946110076
 CanvasRenderer:
@@ -871,7 +871,7 @@ GameObject:
   - component: {fileID: 7787549457176454994}
   - component: {fileID: 8377685992311888963}
   m_Layer: 0
-  m_Name: ItemIcon
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -917,14 +917,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8584906, g: 0.8544411, b: 0.8544411, a: 1}
+  m_Color: {r: 0.16078432, g: 0.15294118, b: 0.15294118, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ca25132f65c6a094fac52be24451919c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2579,7 +2579,7 @@ GameObject:
   - component: {fileID: 2794000046712890907}
   - component: {fileID: 7966762157738439015}
   m_Layer: 0
-  m_Name: ItemIcon2
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2625,14 +2625,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7735849, g: 0.71885014, b: 0.71885014, a: 1}
+  m_Color: {r: 0.16037738, g: 0.15205592, b: 0.15205592, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ca25132f65c6a094fac52be24451919c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3087,7 +3087,7 @@ GameObject:
   - component: {fileID: 3816409443035175757}
   - component: {fileID: 6006531663830371070}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: ItemIcon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3101,7 +3101,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7056824802304758768}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00010365}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00015636}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7806856826731964941}
@@ -3110,8 +3110,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 258, y: -355}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.54996, y: 490}
+  m_SizeDelta: {x: 98.9, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7080796022126547164
 CanvasRenderer:
@@ -3684,8 +3684,8 @@ MonoBehaviour:
   Inv1: {fileID: 3511479360006217213}
   Inv2: {fileID: 5647515790076485959}
   icon:
-  - {fileID: 8377685992311888963}
-  - {fileID: 7966762157738439015}
+  - {fileID: 2001099632382016110}
+  - {fileID: 3816409443035175757}
   EggIcon: {fileID: 21300000, guid: 2c35fb6b682f95c4485efc3497c3e50f, type: 3}
   BaconIcon: {fileID: 21300000, guid: 3e5365cf41ac3ac4d8a7b03218818430, type: 3}
   SpatulaIcon: {fileID: 21300000, guid: 8e7acbf7847768844aca6fdaf56edc30, type: 3}
